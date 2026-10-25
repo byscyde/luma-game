@@ -54,6 +54,17 @@ jobs:
       - name: Install pinned Godot + templates
         run: tools/ci/install_godot.sh macos --templates
 
+      - name: Select Xcode 26+ (Godot 4.7 iOS templates need the iOS 26 SDK)
+        run: |
+          set -euo pipefail
+          ls -d /Applications/Xcode*.app
+          XC=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -n 1 || true)
+          if [ -z "$XC" ]; then
+            echo "::error::No Xcode 26 on this runner image; Godot 4.7.2 device builds require the iOS 26 SDK."
+            exit 1
+          fi
+          sudo xcode-select -s "$XC/Contents/Developer"
+
       - name: Toolchain versions
         run: |
           xcodebuild -version
