@@ -34,6 +34,8 @@ var _errors := ErrorCounter.new()
 
 
 func _ready() -> void:
+	# Let the root finish adding autoloads/scenes before tests add nodes to it.
+	await get_tree().process_frame
 	OS.add_logger(_errors)
 	var args := _parse_args()
 	var files := _collect("res://tests")

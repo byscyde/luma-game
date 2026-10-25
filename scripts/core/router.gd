@@ -12,6 +12,9 @@ const SCENES := {
 
 var params: Dictionary = {}
 var current := ""
+## Tests set this so navigation is recorded instead of replacing the scene.
+var dry_run := false
+var last_request: Dictionary = {}
 var _fade: ColorRect
 var _busy := false
 
@@ -27,7 +30,14 @@ func _ready() -> void:
 
 
 func go(scene_key: String, p_params: Dictionary = {}) -> void:
-	if _busy or not SCENES.has(scene_key):
+	if not SCENES.has(scene_key):
+		push_error("Router: unknown scene " + scene_key)
+		return
+	if dry_run:
+		last_request = {"scene": scene_key, "params": p_params}
+		params = p_params
+		return
+	if _busy:
 		return
 	_busy = true
 	params = p_params
@@ -49,6 +59,10 @@ func go(scene_key: String, p_params: Dictionary = {}) -> void:
 
 ## Immediate change without fade (tests, boot).
 func go_now(scene_key: String, p_params: Dictionary = {}) -> void:
+	if dry_run:
+		last_request = {"scene": scene_key, "params": p_params}
+		params = p_params
+		return
 	params = p_params
 	current = scene_key
 	get_tree().change_scene_to_file(SCENES[scene_key])
