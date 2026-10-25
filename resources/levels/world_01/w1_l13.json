@@ -1,0 +1,50 @@
+{
+  "format_version": 1,
+  "id": "w1_l13",
+  "name": "Mossy Stair",
+  "world": "world_01",
+  "area": "stone_terraces",
+  "mechanic": "pinned",
+  "difficulty": 4,
+  "grid": [
+    "T1 L1 # . L2 .",
+    "# I0! . I0 . #",
+    "L1 L3 I0 L0 # L1",
+    ". # . I0! L1 .",
+    "I0 . L1 L3 I0 L0",
+    ". . # L3 . S0"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 12
+      }
+    ]
+  },
+  "par_moves": 9,
+  "restores": [
+    {
+      "object": "terrace_fields",
+      "stage": 2
+    },
+    {
+      "object": "terrace_birds",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

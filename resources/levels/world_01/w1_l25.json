@@ -1,0 +1,52 @@
+{
+  "format_version": 1,
+  "id": "w1_l25",
+  "name": "Wheel Turns",
+  "world": "world_01",
+  "area": "old_mill",
+  "mechanic": "gates_branch",
+  "difficulty": 6,
+  "grid": [
+    "S1 I0 G1a L0 # L1",
+    "L2 # . I1 L0 .",
+    "# L2 I0 Y1 I0 L0",
+    "I0 I1 L2 . g0a G0b",
+    "L1 I1 L3 Kb # I1",
+    "Ka L3 T1 # T2 L2"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "T2": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 24
+      },
+      {
+        "type": "no_leaks"
+      }
+    ]
+  },
+  "par_moves": 20,
+  "restores": [
+    {
+      "object": "mill_house",
+      "stage": 2
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

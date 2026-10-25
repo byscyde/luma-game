@@ -1,0 +1,77 @@
+keys,en
+LEVEL,Level
+LEVEL_N,Level %d
+BACK,Back
+MENU,Menu
+UNDO,Undo
+RESET,Reset
+HINT,Hint
+MOVES_OF,Moves %d / %d
+MOVES_N,Moves %d
+OBJ_MOVES,Finish in %d moves or fewer
+OBJ_NO_LEAKS,No spills
+OBJ_BONUS,Bloom the flowers
+OBJ_RESTORE,Water reached every sapling
+HINT_RESET,Try resetting the puzzle.
+RESULT_TITLE_1,Restored!
+RESULT_TITLE_2,The water flows!
+RESULT_TITLE_3,Life returns!
+ESSENCE,Essence
+BEST_MOVES,Best: %d moves
+NEW_DISCOVERY,New discovery: %s
+ACHIEVEMENT_UNLOCKED,Achievement: %s
+CONTINUE,Continue
+REPLAY,Replay
+TUT_TAP_TO_ROTATE,Tap the stone to turn it.
+TUT_RESTORE_TREE,Guide the water to the dry sapling.
+TUT_MULTI_TURNS,Some routes need several turns. Experiment!
+TUT_BLOCKER,Rocks block water. Find a way around.
+TUT_MILESTONE,The glade lives again! Spend essence to awaken new areas.
+TUT_INTRO_TEE,Splitters send water two ways at once.
+TUT_INTRO_BONUS,Flower beds are optional. Water them for extra essence.
+TUT_INTRO_NO_LEAKS,Bonus: finish without any water spilling.
+TUT_INTRO_GATE,Pull a lever to open its matching gate.
+TUT_INTRO_INVERTED_GATE,Some gates close when their lever opens others.
+TUT_INTRO_CROSS,Crossings connect all four sides.
+TUT_INTRO_PINNED,Square stones are fixed in place. Only round stones turn.
+PERCENT_RESTORED,%d%% restored
+AWAKEN_AREA,Awaken · %d essence
+AWAKEN_HINT,Spend essence to lift the mist.
+AREA_AWAKENED,%s awakens!
+LOCK_PREVIOUS,Restore the previous area first.
+LOCK_ESSENCE,You need %d more essence.
+PLAY_LEVEL,Play level %d
+ALL_RESTORED,Island restored
+ALL_RESTORED_HINT,Every corner of the island lives again. Replay any puzzle to perfect it.
+GO_TO_AREA,Go to %s
+AREA_RESTORED,This area is fully restored.
+AREA_FULLY_RESTORED,%s is fully restored!
+RESTORING,Restoring %s…
+STATE_DONE,completed
+STATE_OPEN,available
+STATE_LOCKED,locked
+SUBTITLE,Restore the Wild
+PLAY,Play
+CONTINUE_LEVEL,Continue · Level %d
+ISLANDS,Island
+COLLECTION,Collection
+SETTINGS,Settings
+TAB_DECOR,Discoveries
+TAB_ACHIEVEMENTS,Achievements
+UNDISCOVERED,Undiscovered
+SHOW_ON_ISLAND,Show on island
+UNLOCK_BY_LEVEL,Found by completing level %d.
+MUSIC,Music
+SOUNDS,Sounds
+HAPTICS,Vibration
+REDUCED_MOTION,Reduced motion
+ANALYTICS,Anonymous usage statistics
+ANALYTICS_NOTE,Statistics stay on this device in this version. No personal data is collected.
+RESET_PROGRESS,Reset progress
+RESET_CONFIRM_TITLE,Start over?
+RESET_CONFIRM_BODY,"Your island, essence and discoveries will be cleared. Settings are kept."
+RESET_CONFIRM_YES,Reset everything
+CANCEL,Cancel
+CREDITS,Made by SCYDE · Font: Nunito (SIL OFL) · All art and sound generated in-house
+CHIP_BONUS,Flowers
+CHIP_NO_LEAKS,No spills

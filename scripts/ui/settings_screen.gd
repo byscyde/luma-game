@@ -1,0 +1,111 @@
+extends Control
+## Settings: audio, haptics, reduced motion, analytics opt-out, reset progress.
+
+var _confirm: Control
+
+
+func _ready() -> void:
+	set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(Backdrop.new())
+	var margin := UI.safe_margin(self, 22)
+	var col := VBoxContainer.new()
+	col.add_theme_constant_override("separation", 16)
+	margin.add_child(col)
+	var top := HBoxContainer.new()
+	top.add_theme_constant_override("separation", 16)
+	col.add_child(top)
+	var back := UI.button("", "back", "GhostButton", Vector2(84, 84))
+	back.name = "BackButton"
+	if "accessibility_name" in back:
+		back.set("accessibility_name", UI.t("BACK"))
+	back.pressed.connect(func(): Router.go("menu"))
+	top.add_child(back)
+	var title := UI.label(UI.t("SETTINGS"), "LightLabel", 40)
+	title.add_theme_font_override("font", ThemeBuilder.font_black())
+	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	top.add_child(title)
+
+	var card := PanelContainer.new()
+	card.theme_type_variation = "Card"
+	col.add_child(card)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 22)
+	card.add_child(v)
+	v.add_child(_slider(UI.t("MUSIC"), "music_volume"))
+	v.add_child(_slider(UI.t("SOUNDS"), "sfx_volume"))
+	v.add_child(_toggle(UI.t("HAPTICS"), "haptics"))
+	v.add_child(_toggle(UI.t("REDUCED_MOTION"), "reduced_motion"))
+	v.add_child(_toggle(UI.t("ANALYTICS"), "analytics"))
+	v.add_child(UI.label(UI.t("ANALYTICS_NOTE"), "CaptionLabel", 22))
+
+	col.add_child(UI.spacer(0, true))
+	var reset := UI.button(UI.t("RESET_PROGRESS"), "reset", "GhostButton", Vector2(0, 88))
+	reset.name = "ResetProgressButton"
+	reset.pressed.connect(_ask_reset)
+	col.add_child(reset)
+	col.add_child(UI.label(UI.t("CREDITS"), "LightCaption", 20, HORIZONTAL_ALIGNMENT_CENTER))
+
+
+func _slider(text: String, key: String) -> VBoxContainer:
+	var box := VBoxContainer.new()
+	box.add_child(UI.label(text, "", 30))
+	var s := HSlider.new()
+	s.min_value = 0.0
+	s.max_value = 1.0
+	s.step = 0.05
+	s.value = float(Game.setting(key))
+	s.custom_minimum_size = Vector2(0, 52)
+	s.name = "Slider_" + key
+	if "accessibility_name" in s:
+		s.set("accessibility_name", text)
+	s.value_changed.connect(func(val): Game.set_setting(key, val))
+	s.drag_ended.connect(func(_c): Audio.play("tap"))
+	box.add_child(s)
+	return box
+
+
+func _toggle(text: String, key: String) -> CheckButton:
+	var t := CheckButton.new()
+	t.text = text
+	t.button_pressed = bool(Game.setting(key))
+	t.custom_minimum_size = Vector2(0, 64)
+	t.name = "Toggle_" + key
+	t.toggled.connect(func(on):
+		Game.set_setting(key, on)
+		Audio.play("ui_click"))
+	return t
+
+
+func _ask_reset() -> void:
+	_confirm = Control.new()
+	_confirm.name = "ConfirmReset"
+	_confirm.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(_confirm)
+	var dim := ColorRect.new()
+	dim.color = Color(0, 0, 0, 0.5)
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_confirm.add_child(dim)
+	var cc := CenterContainer.new()
+	cc.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_confirm.add_child(cc)
+	var card := PanelContainer.new()
+	card.theme_type_variation = "Card"
+	card.custom_minimum_size = Vector2(600, 0)
+	cc.add_child(card)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 16)
+	card.add_child(v)
+	v.add_child(UI.label(UI.t("RESET_CONFIRM_TITLE"), "HeadingLabel", 38, HORIZONTAL_ALIGNMENT_CENTER))
+	v.add_child(UI.label(UI.t("RESET_CONFIRM_BODY"), "CaptionLabel", 26, HORIZONTAL_ALIGNMENT_CENTER))
+	var yes := UI.button(UI.t("RESET_CONFIRM_YES"), "reset", "PrimaryButton", Vector2(0, 96))
+	yes.name = "ConfirmYes"
+	yes.pressed.connect(func():
+		Game.reset_progress()
+		_confirm.queue_free()
+		Router.go("menu"))
+	v.add_child(yes)
+	var no := UI.button(UI.t("CANCEL"), "", "SecondaryButton", Vector2(0, 88))
+	no.name = "ConfirmNo"
+	no.pressed.connect(func(): _confirm.queue_free())
+	v.add_child(no)

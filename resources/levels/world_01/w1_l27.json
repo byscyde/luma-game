@@ -1,0 +1,64 @@
+{
+  "format_version": 1,
+  "id": "w1_l27",
+  "name": "Blossom Bridge",
+  "world": "world_01",
+  "area": "heart_falls",
+  "mechanic": "cross_gate_bonus",
+  "difficulty": 6,
+  "grid": [
+    "# . L3 # T1 Ka",
+    "B1 L2 L2 I0 L0 #",
+    "I1 # I1 L2 . I1",
+    "L2 I0 + I0 G1a L0",
+    "L1 # I1 L0 . T2",
+    "I0 . S0 L3 # ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "B1": {
+      "kind": "flowers"
+    },
+    "T2": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 17
+      },
+      {
+        "type": "reach_bonus",
+        "target": "B1"
+      },
+      {
+        "type": "no_leaks"
+      }
+    ]
+  },
+  "par_moves": 13,
+  "restores": [
+    {
+      "object": "falls_heart_tree",
+      "stage": 1
+    },
+    {
+      "object": "falls_grove",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5,
+    "discovery": "deco_arch"
+  }
+}

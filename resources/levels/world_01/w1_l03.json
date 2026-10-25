@@ -1,0 +1,46 @@
+{
+  "format_version": 1,
+  "id": "w1_l03",
+  "name": "Winding Way",
+  "world": "world_01",
+  "area": "spring_glade",
+  "mechanic": "multi_rotation",
+  "difficulty": 1,
+  "grid": [
+    "S1 L0 I1 #",
+    ". I1 . .",
+    "# L3 I0 T1",
+    ". . . ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 7
+      }
+    ]
+  },
+  "par_moves": 5,
+  "restores": [
+    {
+      "object": "glade_meadow",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5,
+    "discovery": "deco_lantern"
+  },
+  "tutorial": "multi_turns"
+}

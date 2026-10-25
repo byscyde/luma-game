@@ -1,0 +1,63 @@
+{
+  "format_version": 1,
+  "id": "w1_l29",
+  "name": "Sky Basin",
+  "world": "world_01",
+  "area": "heart_falls",
+  "mechanic": "multi_mechanic",
+  "difficulty": 7,
+  "grid": [
+    "Ka # L3 I1! T1 L0",
+    "L2 . I1 # L0 T2",
+    "# I1 I1 L3 . I1",
+    "S1 I0 + I0 G1b L1",
+    "B1 I0 Y1 # L0 Kb",
+    "L3 # G0a I1 . T3",
+    "I1 L1 L2 I0 I0 L1"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "T2": {
+      "kind": "tree"
+    },
+    "T3": {
+      "kind": "tree"
+    },
+    "B1": {
+      "kind": "flowers"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 22
+      },
+      {
+        "type": "reach_bonus",
+        "target": "B1"
+      },
+      {
+        "type": "no_leaks"
+      }
+    ]
+  },
+  "par_moves": 18,
+  "restores": [
+    {
+      "object": "falls_flowers",
+      "stage": 2
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

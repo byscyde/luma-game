@@ -1,0 +1,13 @@
+{
+  "format_version": 1,
+  "achievements": [
+    {"id": "first_flow", "name": "First Flow", "description": "Complete your first puzzle.", "condition": {"type": "levels_completed", "value": 1}},
+    {"id": "green_again", "name": "Green Again", "description": "Restore your first tree.", "condition": {"type": "object_stage", "object": "glade_tree_1", "value": 1}},
+    {"id": "first_haven", "name": "First Haven", "description": "Fully restore the Spring Glade.", "condition": {"type": "area_restored", "area": "spring_glade"}},
+    {"id": "perfect_route", "name": "Perfect Route", "description": "Finish a puzzle within its move target.", "condition": {"type": "objective_met", "objective": "moves_at_most", "value": 1}},
+    {"id": "clear_waters", "name": "Clear Waters", "description": "Finish 10 puzzles without a single leak.", "condition": {"type": "objective_met", "objective": "no_leaks", "value": 10}},
+    {"id": "explorer", "name": "Explorer", "description": "Awaken every area of Verdant Isle.", "condition": {"type": "areas_unlocked", "value": 6}},
+    {"id": "collector", "name": "Collector", "description": "Discover every decoration on Verdant Isle.", "condition": {"type": "discoveries", "value": 8}},
+    {"id": "island_restored", "name": "Verdant Again", "description": "Restore every part of Verdant Isle.", "condition": {"type": "levels_completed", "value": 30}}
+  ]
+}

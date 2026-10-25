@@ -1,0 +1,54 @@
+{
+  "format_version": 1,
+  "id": "w1_l23",
+  "name": "Two Levers",
+  "world": "world_01",
+  "area": "old_mill",
+  "mechanic": "inverted_gate",
+  "difficulty": 5,
+  "grid": [
+    "Ka . L2 . # .",
+    "# L0 I0 G1a I0 T1",
+    "L3 I1 # . L2 #",
+    "S1 Y0 I1 g1a I1 T2",
+    "# I1 L2 # . I1",
+    "L0 L1 I0 I0 I0 L0"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "T2": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 21
+      },
+      {
+        "type": "no_leaks"
+      }
+    ]
+  },
+  "par_moves": 18,
+  "restores": [
+    {
+      "object": "mill_house",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5,
+    "discovery": "deco_beehive"
+  },
+  "tutorial": "intro_inverted_gate"
+}

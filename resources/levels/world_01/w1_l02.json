@@ -1,0 +1,39 @@
+{
+  "format_version": 1,
+  "id": "w1_l02",
+  "name": "Green Again",
+  "world": "world_01",
+  "area": "spring_glade",
+  "mechanic": "rotate_elbow",
+  "difficulty": 1,
+  "grid": [
+    "S2 . #",
+    "L3 I1 T1",
+    ". # ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": []
+  },
+  "par_moves": 1,
+  "restores": [
+    {
+      "object": "glade_tree_1",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  },
+  "tutorial": "restore_tree"
+}

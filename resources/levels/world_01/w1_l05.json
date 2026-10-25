@@ -1,0 +1,59 @@
+{
+  "format_version": 1,
+  "id": "w1_l05",
+  "name": "Glade Reborn",
+  "world": "world_01",
+  "area": "spring_glade",
+  "mechanic": "long_route",
+  "difficulty": 2,
+  "grid": [
+    ". # L3 I0 T1",
+    ". # I1 . .",
+    "L0 I0 L2 # .",
+    "I1 I1 . . #",
+    "S0 . # L2 ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 10
+      }
+    ]
+  },
+  "par_moves": 8,
+  "restores": [
+    {
+      "object": "glade_tree_1",
+      "stage": 2
+    },
+    {
+      "object": "glade_tree_2",
+      "stage": 2
+    },
+    {
+      "object": "glade_meadow",
+      "stage": 2
+    },
+    {
+      "object": "glade_rabbits",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5,
+    "discovery": "deco_bench"
+  },
+  "tutorial": "milestone"
+}

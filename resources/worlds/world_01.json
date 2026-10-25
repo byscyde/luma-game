@@ -1,0 +1,106 @@
+{
+  "format_version": 1,
+  "id": "world_01",
+  "name": "Verdant Isle",
+  "description": "A quiet island whose springs fell silent long ago.",
+  "island": {
+    "cols": 8,
+    "rows": 10,
+    "sea_color": "2b8c9e"
+  },
+  "areas": [
+    {
+      "id": "spring_glade",
+      "name": "Spring Glade",
+      "cost": 0,
+      "rect": [0, 6, 3, 9],
+      "height": 0,
+      "levels": ["w1_l01", "w1_l02", "w1_l03", "w1_l04", "w1_l05"]
+    },
+    {
+      "id": "willow_brook",
+      "name": "Willow Brook",
+      "cost": 40,
+      "rect": [4, 6, 7, 9],
+      "height": 0,
+      "levels": ["w1_l06", "w1_l07", "w1_l08", "w1_l09", "w1_l10"]
+    },
+    {
+      "id": "stone_terraces",
+      "name": "Stone Terraces",
+      "cost": 40,
+      "rect": [0, 3, 3, 5],
+      "height": 1,
+      "levels": ["w1_l11", "w1_l12", "w1_l13", "w1_l14", "w1_l15"]
+    },
+    {
+      "id": "lily_ponds",
+      "name": "Lily Ponds",
+      "cost": 45,
+      "rect": [4, 3, 7, 5],
+      "height": 1,
+      "levels": ["w1_l16", "w1_l17", "w1_l18", "w1_l19", "w1_l20"]
+    },
+    {
+      "id": "old_mill",
+      "name": "Old Mill",
+      "cost": 45,
+      "rect": [0, 0, 3, 2],
+      "height": 2,
+      "levels": ["w1_l21", "w1_l22", "w1_l23", "w1_l24", "w1_l25"]
+    },
+    {
+      "id": "heart_falls",
+      "name": "Heart Falls",
+      "cost": 50,
+      "rect": [4, 0, 7, 2],
+      "height": 2,
+      "levels": ["w1_l26", "w1_l27", "w1_l28", "w1_l29", "w1_l30"]
+    }
+  ],
+  "objects": [
+    {"id": "glade_spring", "kind": "spring", "area": "spring_glade", "pos": [1.5, 7.5], "stages": 1, "name": "Glade Spring"},
+    {"id": "glade_tree_1", "kind": "tree", "area": "spring_glade", "pos": [0.6, 8.4], "stages": 2, "name": "Old Oak"},
+    {"id": "glade_tree_2", "kind": "tree", "area": "spring_glade", "pos": [2.6, 6.4], "stages": 2, "name": "Young Oak"},
+    {"id": "glade_meadow", "kind": "meadow", "area": "spring_glade", "pos": [2.4, 8.6], "stages": 2, "name": "Glade Meadow"},
+    {"id": "glade_rabbits", "kind": "rabbits", "area": "spring_glade", "pos": [1.0, 6.6], "stages": 1, "name": "Rabbits"},
+
+    {"id": "brook_stream", "kind": "stream", "area": "willow_brook", "pos": [4.2, 7.2], "to": [7.6, 8.6], "stages": 1, "name": "Willow Brook"},
+    {"id": "brook_willow_1", "kind": "willow", "area": "willow_brook", "pos": [4.8, 8.8], "stages": 2, "name": "Weeping Willow"},
+    {"id": "brook_willow_2", "kind": "willow", "area": "willow_brook", "pos": [6.6, 6.5], "stages": 2, "name": "Silver Willow"},
+    {"id": "brook_reeds", "kind": "reeds", "area": "willow_brook", "pos": [6.2, 8.0], "stages": 2, "name": "Reed Bank"},
+    {"id": "brook_deer", "kind": "deer", "area": "willow_brook", "pos": [5.4, 6.6], "stages": 1, "name": "Deer"},
+
+    {"id": "terrace_falls", "kind": "waterfall", "area": "stone_terraces", "pos": [1.5, 5.6], "stages": 1, "name": "Terrace Cascade"},
+    {"id": "terrace_fields", "kind": "terrace", "area": "stone_terraces", "pos": [0.8, 3.8], "stages": 2, "name": "Tea Terraces"},
+    {"id": "terrace_pine_1", "kind": "pine", "area": "stone_terraces", "pos": [2.7, 3.4], "stages": 2, "name": "Cliff Pine"},
+    {"id": "terrace_pine_2", "kind": "pine", "area": "stone_terraces", "pos": [2.6, 4.9], "stages": 2, "name": "Twin Pine"},
+    {"id": "terrace_birds", "kind": "birds", "area": "stone_terraces", "pos": [1.6, 3.2], "stages": 1, "name": "Swallows"},
+
+    {"id": "pond_main", "kind": "pond", "area": "lily_ponds", "pos": [5.2, 4.2], "stages": 2, "name": "Moon Pond"},
+    {"id": "pond_small", "kind": "pond", "area": "lily_ponds", "pos": [6.9, 3.4], "stages": 2, "name": "Star Pond"},
+    {"id": "pond_lilies", "kind": "meadow", "area": "lily_ponds", "pos": [6.6, 5.2], "stages": 2, "name": "Lily Shore"},
+    {"id": "pond_ducks", "kind": "ducks", "area": "lily_ponds", "pos": [4.6, 3.4], "stages": 1, "name": "Ducks"},
+
+    {"id": "mill_house", "kind": "mill", "area": "old_mill", "pos": [1.6, 1.2], "stages": 2, "name": "Old Mill"},
+    {"id": "mill_orchard_1", "kind": "fruit_tree", "area": "old_mill", "pos": [0.5, 2.4], "stages": 2, "name": "Apple Tree"},
+    {"id": "mill_orchard_2", "kind": "fruit_tree", "area": "old_mill", "pos": [2.8, 2.5], "stages": 2, "name": "Pear Tree"},
+    {"id": "mill_channel", "kind": "stream", "area": "old_mill", "pos": [3.4, 0.4], "to": [2.4, 1.6], "stages": 1, "name": "Mill Race"},
+
+    {"id": "falls_great", "kind": "waterfall", "area": "heart_falls", "pos": [5.6, 2.8], "stages": 1, "name": "Heart Falls"},
+    {"id": "falls_heart_tree", "kind": "heart_tree", "area": "heart_falls", "pos": [5.8, 1.2], "stages": 2, "name": "Heart Tree"},
+    {"id": "falls_grove", "kind": "tree", "area": "heart_falls", "pos": [7.2, 1.8], "stages": 2, "name": "Mist Grove"},
+    {"id": "falls_flowers", "kind": "meadow", "area": "heart_falls", "pos": [4.4, 0.6], "stages": 2, "name": "Sky Blossoms"},
+    {"id": "falls_birds", "kind": "birds", "area": "heart_falls", "pos": [6.4, 0.4], "stages": 1, "name": "Songbirds"}
+  ],
+  "decorations": [
+    {"id": "deco_lantern", "name": "Stone Lantern", "kind": "lantern", "pos": [3.2, 7.6], "description": "A mossy lantern that glows at dusk."},
+    {"id": "deco_bench", "name": "Driftwood Bench", "kind": "bench", "pos": [1.9, 9.2], "description": "A place to watch the spring."},
+    {"id": "deco_bridge", "name": "Willow Bridge", "kind": "bridge", "pos": [5.9, 7.9], "description": "An arched bridge over the brook."},
+    {"id": "deco_birdhouse", "name": "Birdhouse", "kind": "birdhouse", "pos": [0.4, 5.0], "description": "Swallows nest here each spring."},
+    {"id": "deco_koi", "name": "Golden Koi", "kind": "koi", "pos": [5.2, 4.2], "description": "A golden fish that circles the Moon Pond."},
+    {"id": "deco_beehive", "name": "Beehive", "kind": "beehive", "pos": [3.3, 2.0], "description": "Bees return to the orchard."},
+    {"id": "deco_arch", "name": "Flower Arch", "kind": "arch", "pos": [4.6, 1.9], "description": "Blossoms woven over the path."},
+    {"id": "deco_spire", "name": "Wind Spire", "kind": "spire", "pos": [7.4, 0.5], "description": "Ancient stones hum in the wind."}
+  ]
+}

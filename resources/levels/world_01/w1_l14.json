@@ -1,0 +1,47 @@
+{
+  "format_version": 1,
+  "id": "w1_l14",
+  "name": "Cascade",
+  "world": "world_01",
+  "area": "stone_terraces",
+  "mechanic": "long_route",
+  "difficulty": 4,
+  "grid": [
+    "S2 # L0 I0 L1 #",
+    "I1 # I1 # I1 L3",
+    "L2 I0 L2 # I0! I1",
+    "L3 I0 . # I1 L1",
+    "# . L2 I0 L1 I1",
+    "L1 # I0! # L1 L2",
+    "I0 . L1 I0 I0 T1"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 25
+      }
+    ]
+  },
+  "par_moves": 22,
+  "restores": [
+    {
+      "object": "terrace_pine_1",
+      "stage": 2
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

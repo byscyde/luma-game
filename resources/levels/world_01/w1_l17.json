@@ -1,0 +1,55 @@
+{
+  "format_version": 1,
+  "id": "w1_l17",
+  "name": "Lily Shore",
+  "world": "world_01",
+  "area": "lily_ponds",
+  "mechanic": "bonus_target",
+  "difficulty": 3,
+  "grid": [
+    "S1 I0 L1 L2 #",
+    "# . I1 I0 .",
+    "B1 I0 Y0 L0 .",
+    "L1 # I1 # I1",
+    "I1 . L3 I0 L3",
+    ". . L3 # T1"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "B1": {
+      "kind": "flowers"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 12
+      },
+      {
+        "type": "reach_bonus",
+        "target": "B1"
+      }
+    ]
+  },
+  "par_moves": 9,
+  "restores": [
+    {
+      "object": "pond_lilies",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5,
+    "discovery": "deco_koi"
+  },
+  "tutorial": "intro_bonus"
+}

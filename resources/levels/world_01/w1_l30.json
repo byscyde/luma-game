@@ -1,0 +1,64 @@
+{
+  "format_version": 1,
+  "id": "w1_l30",
+  "name": "Heart of the Isle",
+  "world": "world_01",
+  "area": "heart_falls",
+  "mechanic": "finale",
+  "difficulty": 8,
+  "grid": [
+    "T1 L3 # T3 L2 T2",
+    "# I1 L1 I1 kb I1",
+    "L3 Y2 g1b L2 Y1 G0a",
+    "I0 I1 # L3 . I1",
+    "# L3 I0 Y0 I0 Y0",
+    "L3 . I1 I0! L0 I1",
+    "Ka # . S0 I0 B1"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "T2": {
+      "kind": "tree"
+    },
+    "T3": {
+      "kind": "tree"
+    },
+    "B1": {
+      "kind": "flowers"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 24
+      },
+      {
+        "type": "reach_bonus",
+        "target": "B1"
+      },
+      {
+        "type": "no_leaks"
+      }
+    ]
+  },
+  "par_moves": 19,
+  "restores": [
+    {
+      "object": "falls_heart_tree",
+      "stage": 2
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5,
+    "discovery": "deco_spire"
+  }
+}

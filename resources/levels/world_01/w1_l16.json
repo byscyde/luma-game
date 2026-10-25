@@ -1,0 +1,53 @@
+{
+  "format_version": 1,
+  "id": "w1_l16",
+  "name": "Two Ponds",
+  "world": "world_01",
+  "area": "lily_ponds",
+  "mechanic": "tee_split",
+  "difficulty": 3,
+  "grid": [
+    "# . L2 . #",
+    "T1 # . # T2",
+    "L2 I0 Y2 I0 L0",
+    "L3 . I1 . I1",
+    "# . S0 . #"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "T2": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 13
+      }
+    ]
+  },
+  "par_moves": 11,
+  "restores": [
+    {
+      "object": "pond_main",
+      "stage": 1
+    },
+    {
+      "object": "pond_small",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  },
+  "tutorial": "intro_tee"
+}

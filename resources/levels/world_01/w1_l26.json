@@ -1,0 +1,56 @@
+{
+  "format_version": 1,
+  "id": "w1_l26",
+  "name": "Mist Steps",
+  "world": "world_01",
+  "area": "heart_falls",
+  "mechanic": "multi_mechanic",
+  "difficulty": 5,
+  "grid": [
+    "# . L1 L3 I0 T1",
+    "L3 . # I1 # .",
+    "L0 I1! I0 Y0 I0 L3",
+    "G0a L3 Y0 # L1 I1",
+    "I1 # L0 . I0 T2",
+    "S0 L1 Ka L1 # ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "T2": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 19
+      },
+      {
+        "type": "no_leaks"
+      }
+    ]
+  },
+  "par_moves": 16,
+  "restores": [
+    {
+      "object": "falls_great",
+      "stage": 1
+    },
+    {
+      "object": "falls_flowers",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

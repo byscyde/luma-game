@@ -1,0 +1,28 @@
+# Godot engine caches / generated
+.godot/
+*.translation
+*.tmp
+# Build outputs (artifacts are uploaded by CI, never committed)
+build/*
+!build/.gitkeep
+export/
+*.apk
+*.aab
+*.ipa
+*.xcarchive
+# Signing material must never be committed
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+*.cer
+*.p8
+export_credentials.cfg
+.env
+# Python
+__pycache__/
+*.pyc
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

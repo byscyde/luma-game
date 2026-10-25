@@ -1,0 +1,46 @@
+{
+  "format_version": 1,
+  "id": "w1_l21",
+  "name": "Sluice Gate",
+  "world": "world_01",
+  "area": "old_mill",
+  "mechanic": "gate",
+  "difficulty": 3,
+  "grid": [
+    "# L1 L2 I0 T1",
+    "L2 # I1 # I0",
+    "S1 G1a L1 L1 .",
+    "# . I0 . #",
+    ". Ka . L0 ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 10
+      }
+    ]
+  },
+  "par_moves": 8,
+  "restores": [
+    {
+      "object": "mill_channel",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  },
+  "tutorial": "intro_gate"
+}

@@ -1,0 +1,57 @@
+{
+  "format_version": 1,
+  "id": "w1_l28",
+  "name": "Grove Whisper",
+  "world": "world_01",
+  "area": "heart_falls",
+  "mechanic": "inverted_gate",
+  "difficulty": 6,
+  "grid": [
+    "# L0 T1 L1 . #",
+    "L1 I1 . # . T2",
+    "I0 g0b L3 L2 I0 L0",
+    "L1 I1 # I1 I0 #",
+    "# L3 I0 Y0 G0b kb",
+    "L0 I1 # I1 L0 .",
+    "Ka . L0 L2 G1a S3"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "T2": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 24
+      },
+      {
+        "type": "no_leaks"
+      }
+    ]
+  },
+  "par_moves": 20,
+  "restores": [
+    {
+      "object": "falls_grove",
+      "stage": 2
+    },
+    {
+      "object": "falls_birds",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "format_version": 1,
+  "id": "w1_l20",
+  "name": "Moon Pond",
+  "world": "world_01",
+  "area": "lily_ponds",
+  "mechanic": "multi_branch",
+  "difficulty": 5,
+  "grid": [
+    "# . L1 . L2 #",
+    "L0 T1 L1 # . I0",
+    "B1 I0 Y1 # L3 .",
+    "I0 # L1 Y0 I0 L1",
+    "L3 . # I1 . I1",
+    "T2 I0 I0 L2 L2 S0"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "T2": {
+      "kind": "tree"
+    },
+    "B1": {
+      "kind": "flowers"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 17
+      },
+      {
+        "type": "reach_bonus",
+        "target": "B1"
+      },
+      {
+        "type": "no_leaks"
+      }
+    ]
+  },
+  "par_moves": 13,
+  "restores": [
+    {
+      "object": "pond_ducks",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}
