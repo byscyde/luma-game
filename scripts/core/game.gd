@@ -32,6 +32,23 @@ func _ready() -> void:
 	if load_status == SaveStore.STATUS_RECOVERED or load_status == SaveStore.STATUS_RESET:
 		Analytics.log_event("save_recovered", {"status": load_status})
 	save()
+	if "--smoke-test" in OS.get_cmdline_user_args():
+		_smoke_test.call_deferred()
+
+
+## Packaging check used by CI on exported builds: content must load from the
+## exported pack, every level must parse and the main scene must exist.
+func _smoke_test() -> void:
+	var ok := content.errors.is_empty() and content.level_order.size() >= 30 \
+		and ResourceLoader.exists("res://scenes/gameplay/gameplay.tscn") \
+		and TranslationServer.translate("PLAY") == "Play"
+	for lid in content.level_order:
+		if not content.get_level(lid).errors.is_empty():
+			ok = false
+	print("SMOKE_TEST levels=%d errors=%d translated=%s result=%s" % [
+		content.level_order.size(), content.errors.size(), TranslationServer.translate("PLAY"), "PASS" if ok else "FAIL"])
+	await get_tree().create_timer(1.0).timeout  # let the boot scene run a little
+	get_tree().quit(0 if ok else 1)
 
 
 func _save_path() -> String:

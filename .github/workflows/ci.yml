@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop, "feature/**", "fix/**", "release/**", "claude/**"]
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-checks:
+    name: Static checks (no engine)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Repository hygiene (no build outputs, credentials or secrets tracked)
+        run: python3 tools/check_repo_hygiene.py
+      - name: Level schema validation
+        run: python3 tools/validate_levels.py
+      - name: Asset references, provenance and formats
+        run: python3 tools/validate_assets.py
+      - name: Project structure
+        run: |
+          set -euo pipefail
+          for f in project.godot export_presets.cfg README.md CLAUDE.md CHANGELOG.md LICENSE \
+                   docs/CURRENT_STATUS.md docs/TECHNICAL_ARCHITECTURE.md scenes/boot/boot.tscn \
+                   resources/worlds/world_01.json resources/localization/strings.csv; do
+            test -f "$f" || { echo "missing required file: $f"; exit 1; }
+          done
+          grep -q 'run/main_scene="res://scenes/boot/boot.tscn"' project.godot
+
+  godot-tests:
+    name: Godot tests + solver validation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache Godot download
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/luma-godot
+          key: godot-4.7.2-linux-editor
+      - name: Install pinned Godot (checksum verified)
+        run: tools/ci/install_godot.sh linux
+      - name: Import, unit/integration/content tests, level solver
+        run: tools/run_tests.sh
+      - name: Level report
+        if: always()
+        run: |
+          if [ -f build/reports/levels.json ]; then python3 tools/generate_level_report.py; else echo "no level report produced"; exit 1; fi
+      - name: Test summary
+        if: always()
+        run: |
+          if [ -f build/reports/tests.log ]; then
+            { echo "## Test results"; echo '```'; tail -n 3 build/reports/tests.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: test-reports-${{ github.sha }}
+          path: build/reports/
+          retention-days: 14
+          if-no-files-found: error
+
+  export-smoke:
+    name: Exported build smoke test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: godot-tests
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache Godot + export templates
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/luma-godot
+          key: godot-4.7.2-linux-templates
+      - name: Install pinned Godot + templates
+        run: tools/ci/install_godot.sh linux --templates
+      - name: Export release build
+        run: |
+          set -euo pipefail
+          "$GODOT" --headless --path . --import >/dev/null 2>&1 || true
+          "$GODOT" --headless --path . --import
+          mkdir -p build/linux
+          "$GODOT" --headless --path . --export-release "Linux Smoke Test" build/linux/luma.x86_64
+          test -s build/linux/luma.pck
+      - name: Run exported game (content must load from the pack)
+        run: |
+          set -euo pipefail
+          out=$(timeout 120 build/linux/luma.x86_64 --headless -- --smoke-test --save-path=user://smoke.json 2>&1 | tee /dev/stderr)
+          echo "$out" | grep -q "SMOKE_TEST .* result=PASS"

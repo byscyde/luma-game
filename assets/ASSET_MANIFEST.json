@@ -1,0 +1,110 @@
+{
+  "description": "Provenance and licensing for every file in assets/. All gameplay art is drawn procedurally in code (scripts/ui/painter.gd) and needs no image files.",
+  "assets": [
+    {
+      "path": "assets/audio/music/verdant_ambience.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/bloom.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/complete.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/connect.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/drip.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/flow.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/hint.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/rotate.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/tap.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/toggle.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/ui_back.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/ui_click.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/audio/sfx/unlock.wav",
+      "source": "Procedurally synthesised by tools/generate_audio.py (original work, no samples)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/fonts/OFL-Nunito.txt",
+      "source": "Licence text shipped with @fontsource/nunito 5.1.0",
+      "license": "SIL Open Font License 1.1"
+    },
+    {
+      "path": "assets/fonts/nunito-latin-700-normal.woff2",
+      "source": "Nunito by The Nunito Project Authors via @fontsource/nunito 5.1.0 (npm)",
+      "license": "SIL Open Font License 1.1 (assets/fonts/OFL-Nunito.txt)"
+    },
+    {
+      "path": "assets/fonts/nunito-latin-800-normal.woff2",
+      "source": "Nunito by The Nunito Project Authors via @fontsource/nunito 5.1.0 (npm)",
+      "license": "SIL Open Font License 1.1 (assets/fonts/OFL-Nunito.txt)"
+    },
+    {
+      "path": "assets/icons/adaptive_background.png",
+      "source": "Procedurally drawn by tools/generate_icons.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/adaptive_foreground.png",
+      "source": "Procedurally drawn by tools/generate_icons.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/icon.png",
+      "source": "Procedurally drawn by tools/generate_icons.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/icon_192.png",
+      "source": "Procedurally drawn by tools/generate_icons.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/splash.png",
+      "source": "Procedurally drawn by tools/generate_icons.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    }
+  ]
+}

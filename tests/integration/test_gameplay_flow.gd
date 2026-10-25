@@ -256,3 +256,17 @@ func test_analytics_whitelists_params_and_respects_opt_out() -> void:
 	Analytics.log_event("level_started", {"level_id": "w1_l02"})
 	assert_eq(Analytics.recent.size(), 1, "nothing recorded when opted out")
 	Game.set_setting("analytics", true)
+
+
+func test_licences_screen_shows_engine_licence() -> void:
+	await _open("res://scenes/menus/settings.tscn")
+	(screen.find_child("LicencesButton", true, false) as Button).pressed.emit()
+	await frames(1)
+	var overlay := screen.find_child("LicencesOverlay", true, false)
+	assert_not_null(overlay)
+	var found := false
+	for l in overlay.find_children("*", "Label", true, false):
+		if (l as Label).text.contains("Godot Engine") and (l as Label).text.contains("Permission is hereby granted"):
+			found = true
+	assert_true(found, "Godot MIT notice displayed")
+	(screen.find_child("CloseLicences", true, false) as Button).pressed.emit()

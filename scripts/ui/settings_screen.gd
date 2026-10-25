@@ -44,6 +44,10 @@ func _ready() -> void:
 	reset.name = "ResetProgressButton"
 	reset.pressed.connect(_ask_reset)
 	col.add_child(reset)
+	var lic := UI.button(UI.t("LICENCES"), "", "GhostButton", Vector2(0, 76))
+	lic.name = "LicencesButton"
+	lic.pressed.connect(_show_licences)
+	col.add_child(lic)
 	col.add_child(UI.label(UI.t("CREDITS"), "LightCaption", 20, HORIZONTAL_ALIGNMENT_CENTER))
 
 
@@ -109,3 +113,36 @@ func _ask_reset() -> void:
 	no.name = "ConfirmNo"
 	no.pressed.connect(func(): _confirm.queue_free())
 	v.add_child(no)
+
+
+func _show_licences() -> void:
+	var overlay := Control.new()
+	overlay.name = "LicencesOverlay"
+	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(overlay)
+	var dim := ColorRect.new()
+	dim.color = Color(0, 0, 0, 0.55)
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay.add_child(dim)
+	var margin := UI.safe_margin(overlay, 32)
+	var card := PanelContainer.new()
+	card.theme_type_variation = "Card"
+	margin.add_child(card)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 14)
+	card.add_child(v)
+	v.add_child(UI.label(UI.t("LICENCES"), "HeadingLabel", 36))
+	var scroll := ScrollContainer.new()
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	v.add_child(scroll)
+	var text := "Nunito font\nCopyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito)\n" \
+		+ "Licensed under the SIL Open Font License, Version 1.1.\n\n" \
+		+ "Godot Engine\n" + Engine.get_license_text()
+	var body := UI.label(text, "CaptionLabel", 20)
+	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(body)
+	var close := UI.button(UI.t("CLOSE"), "", "PrimaryButton", Vector2(0, 92))
+	close.name = "CloseLicences"
+	close.pressed.connect(overlay.queue_free)
+	v.add_child(close)

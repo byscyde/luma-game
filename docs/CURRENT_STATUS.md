@@ -1,0 +1,67 @@
+# Current status
+
+_Last updated: 2026-10-25 (session 1)._
+
+## Summary
+Repository started empty (README only). Session 1 built the complete MVP: puzzle engine,
+30 validated levels, island restoration, progression, save, tutorial, settings, audio,
+tests, validators, CI/CD workflows and documentation. **Version 0.1.0 (internal).**
+
+## Verified in this session (actually executed)
+| Check | Result |
+|---|---|
+| `tools/run_tests.sh` (Godot 4.7.2 headless) | **75/75 tests pass**; 30/30 levels solvable, 0 errors, 0 warnings |
+| Python validators (`check_repo_hygiene`, `validate_levels`, `validate_assets`) | pass |
+| Visual QA tour under Xvfb + Mesa (720×1280) | 10 screenshots of every screen; defects found were fixed and re-verified |
+| Android debug APK export (local, no Gradle) | built + signed (debug key); `aapt`: `com.scyde.luma`, minSdk 24, targetSdk 36, only `VIBRATE`; levels present |
+| Android release AAB export (local, Gradle, throwaway local test key) | built; `jarsigner -verify`: verified (first attempt hit Maven HTTP 429 through the sandbox proxy, retry succeeded) |
+| Exported Linux pack smoke test | `SMOKE_TEST levels=30 errors=0 result=PASS` |
+| GitHub Actions runs | see "CI runs" below |
+
+## CI runs
+_To be filled with real run results after push._
+
+## Not verified / blocked (needs owner action or hardware)
+- **Real devices**: no physical phone/tablet or simulator was available here. Performance,
+  touch feel, haptics, audio interruption and notch layouts are untested on hardware.
+  No frame rate is claimed.
+- **iOS signed IPA / TestFlight**: requires Apple Developer account secrets
+  (`APPLE_TEAM_ID`, `IOS_CERTIFICATE_P12_BASE64`, `IOS_CERTIFICATE_PASSWORD`,
+  `IOS_PROVISIONING_PROFILE_BASE64`; App Store Connect API key for TestFlight).
+- **Android release signing in CI**: requires `ANDROID_KEYSTORE_BASE64`,
+  `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`.
+- **Store listings**: privacy policy URL, support contact and legal entity details must be
+  supplied by the owner (templates in PRIVACY_AND_COMPLIANCE.md).
+- **Playtesting / retention**: needs human testers (PLAYTEST_KIT.md). No metrics exist.
+
+## Known limitations
+- Several 6×6/6×7 levels need ~20 taps minimum; difficulty curve should be tuned with
+  playtest data.
+- Decorations can be shown/hidden but not yet placed by the player.
+- English only (localization pipeline ready).
+- Analytics are local-only by design (no provider).
+
+## Final acceptance checklist
+**Game** — [x] launches · [x] tutorial · [x] first 5 levels · [x] 30 levels validated ·
+[x] deterministic water · [x] restoration effects · [x] progression & rewards · [x] save/reload ·
+[x] settings · [x] no dead controls · [~] mobile layouts (emulated resolutions only)
+
+**Code & tests** — [x] critical logic unit-tested · [x] save + migration tests ·
+[x] content validation automated · [x] CI fails on real failures · [x] no known critical defects (tested configuration)
+
+**Build automation** — see CI runs · [x] credentials never committed/logged ·
+[x] artefacts carry metadata · [x] release requires tag + produces draft only
+
+**Documentation** — [x] README · [x] CLAUDE.md · [x] architecture · [x] build commands ·
+[x] signing prerequisites · [x] test results recorded · [x] blockers explicit · [x] roadmap
+
+**Release** — [x] store metadata draft · [~] icons done / screenshots from tour (store sizes
+pending) · [x] privacy review for 0.1.0 · [x] versioning · [ ] signed distribution artefacts
+(blocked on credentials) · [x] no public release performed
+
+## Next actionable tasks
+1. Owner: add Android keystore secrets → release APK/AAB in CI; install debug APK on a phone.
+2. Owner: add Apple signing secrets → signed IPA; then TestFlight via `Release` (manual).
+3. Run 5–8 moderated playtests with PLAYTEST_KIT.md; tune levels 9, 10, 14, 22–30.
+4. Decoration placement on the island (FRANCHISE_ROADMAP near-term #2).
+5. Store-size screenshots from release builds.

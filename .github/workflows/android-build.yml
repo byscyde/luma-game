@@ -1,0 +1,159 @@
+name: Android build
+
+# Debug APK on every run (ephemeral debug key generated in the job).
+# Release APK + AAB only when the release keystore secrets are configured;
+# otherwise the job says so clearly in the summary and still succeeds for the
+# debug artefact. See docs/RELEASE_RUNBOOK.md for the secret names/formats.
+
+on:
+  push:
+    branches: [main, develop, "release/**"]
+    tags: ["v*"]
+  pull_request:
+    paths: ["export_presets.cfg", "project.godot", ".github/workflows/android-build.yml", "tools/ci/**"]
+  workflow_dispatch:
+  workflow_call:
+    secrets:
+      ANDROID_KEYSTORE_BASE64:
+        required: false
+      ANDROID_KEYSTORE_PASSWORD:
+        required: false
+      ANDROID_KEY_ALIAS:
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      HAS_RELEASE_KEY: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' && secrets.ANDROID_KEYSTORE_PASSWORD != '' && secrets.ANDROID_KEY_ALIAS != '' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Cache Godot + export templates
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/luma-godot
+          key: godot-4.7.2-linux-templates
+
+      - name: Install pinned Godot + templates
+        run: tools/ci/install_godot.sh linux --templates
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Android SDK packages
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
+          "$SDK/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "build-tools;36.0.0" "platforms;android-36" >/dev/null
+          ls "$SDK/build-tools"
+
+      - name: Point Godot at the SDK and JDK
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.config/godot
+          for v in 4 4.7; do
+            printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' \
+              "$ANDROID_HOME" "$JAVA_HOME" > ~/.config/godot/editor_settings-$v.tres
+          done
+
+      - name: Validate project before export
+        run: |
+          python3 tools/validate_levels.py
+          python3 tools/validate_assets.py
+          "$GODOT" --headless --path . --import >/dev/null 2>&1 || true
+          "$GODOT" --headless --path . --import
+          "$GODOT" --headless --path . --script res://tools/validate_levels.gd
+
+      - name: Stamp version + build metadata
+        run: python3 tools/build_metadata.py --platform android --build-number "${{ github.run_number }}" --apply
+
+      - name: Export debug APK
+        run: |
+          set -euo pipefail
+          mkdir -p build/android
+          KS="$RUNNER_TEMP/debug.keystore"
+          keytool -genkeypair -keystore "$KS" -storepass android -alias androiddebugkey -keypass android \
+            -keyalg RSA -keysize 2048 -validity 3650 -dname "CN=Android Debug,O=Android,C=US" >/dev/null 2>&1
+          GODOT_ANDROID_KEYSTORE_DEBUG_PATH="$KS" GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey \
+          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android \
+            "$GODOT" --headless --path . --export-debug "Android" build/android/luma-debug.apk
+          rm -f "$KS"
+          test -s build/android/luma-debug.apk
+
+      - name: Export release APK + AAB
+        if: env.HAS_RELEASE_KEY == 'true'
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          GODOT_ANDROID_KEYSTORE_RELEASE_USER: ${{ secrets.ANDROID_KEY_ALIAS }}
+          GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          export GODOT_ANDROID_KEYSTORE_RELEASE_PATH="$RUNNER_TEMP/release.keystore"
+          echo "$KEYSTORE_B64" | base64 --decode > "$GODOT_ANDROID_KEYSTORE_RELEASE_PATH"
+          "$GODOT" --headless --path . --export-release "Android" build/android/luma-release.apk
+          # The template install flag only works together with an export flag.
+          "$GODOT" --headless --path . --install-android-build-template --export-release "Android AAB" build/android/luma-release.aab
+          rm -f "$GODOT_ANDROID_KEYSTORE_RELEASE_PATH"
+          test -s build/android/luma-release.apk
+          test -s build/android/luma-release.aab
+
+      - name: Validate artefacts
+        run: |
+          set -euo pipefail
+          BT="$ANDROID_HOME/build-tools/36.0.0"
+          for apk in build/android/*.apk; do
+            echo "== $apk"
+            "$BT/apksigner" verify "$apk"
+            "$BT/aapt" dump badging "$apk" | grep -E "^package:|sdkVersion|targetSdkVersion|uses-permission|native-code"
+            "$BT/aapt" dump badging "$apk" | grep -q "name='com.scyde.luma'"
+            "$BT/aapt" dump badging "$apk" | grep -q "versionCode='${{ github.run_number }}'"
+            unzip -l "$apk" | grep -q "assets/resources/levels/world_01/w1_l30.json"
+            if unzip -l "$apk" | grep -E "assets/(tests|tools)/"; then echo "test/tool files leaked into $apk"; exit 1; fi
+            if "$BT/aapt" dump permissions "$apk" | grep -q "android.permission.INTERNET"; then echo "unexpected INTERNET permission"; exit 1; fi
+          done
+          if [ -f build/android/luma-release.aab ]; then
+            unzip -l build/android/luma-release.aab | grep -q "base/manifest/AndroidManifest.xml"
+          fi
+          ls -la build/android
+          (cd build/android && sha256sum * > SHA256SUMS.txt)
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Android build ${{ github.run_number }}"
+            echo ""
+            echo "| Artefact | Size |"; echo "|---|---|"
+            for f in build/android/*.apk build/android/*.aab; do [ -f "$f" ] && echo "| $(basename "$f") | $(du -h "$f" | cut -f1) |"; done
+            echo ""
+            if [ "$HAS_RELEASE_KEY" != "true" ]; then
+              echo "> Release signing is **not configured** (ANDROID_KEYSTORE_BASE64 / ANDROID_KEYSTORE_PASSWORD / ANDROID_KEY_ALIAS)."
+              echo "> Only the debug APK was produced. It installs for testing but cannot be uploaded to Google Play."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload artefacts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: luma-android-${{ github.run_number }}-${{ github.sha }}
+          path: |
+            build/android/*.apk
+            build/android/*.aab
+            build/android/SHA256SUMS.txt
+            build/metadata.json
+          retention-days: 30
+          if-no-files-found: error

@@ -1,0 +1,55 @@
+name: Nightly
+
+# Full test suite plus a visual QA tour: the real game is rendered (Mesa
+# software GL under Xvfb) and screenshots of every screen are attached.
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    uses: ./.github/workflows/ci.yml
+
+  visual-qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache Godot download
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/luma-godot
+          key: godot-4.7.2-linux-editor
+      - name: Install pinned Godot
+        run: tools/ci/install_godot.sh linux
+      - name: Display + software OpenGL
+        run: sudo apt-get update -q && sudo apt-get install -y -q xvfb mesa-utils libgl1-mesa-dri >/dev/null
+      - name: Screenshot tour (portrait phone 720x1280)
+        run: |
+          set -euo pipefail
+          "$GODOT" --headless --path . --import >/dev/null 2>&1 || true
+          "$GODOT" --headless --path . --import
+          timeout 600 xvfb-run -a -s "-screen 0 1280x1400x24" "$GODOT" --path . --resolution 720x1280 \
+            --rendering-driver opengl3 --audio-driver Dummy res://tools/screenshot_tour.tscn -- --save-path=user://tour.json \
+            2>&1 | tee build-tour.log
+          if grep -E "SCRIPT ERROR" build-tour.log; then echo "script errors during the tour"; exit 1; fi
+          test "$(ls build/screenshots/*.png | wc -l)" -ge 10
+      - name: Screenshot tour (small phone 640x1136 / tablet 1536x2048)
+        run: |
+          set -euo pipefail
+          timeout 600 xvfb-run -a -s "-screen 0 2000x2200x24" "$GODOT" --path . --resolution 640x1136 \
+            --rendering-driver opengl3 --audio-driver Dummy res://tools/screenshot_tour.tscn -- --save-path=user://tour2.json --out=res://build/screenshots/small
+          timeout 600 xvfb-run -a -s "-screen 0 2000x2200x24" "$GODOT" --path . --resolution 1536x2048 \
+            --rendering-driver opengl3 --audio-driver Dummy res://tools/screenshot_tour.tscn -- --save-path=user://tour3.json --out=res://build/screenshots/tablet
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: screenshots-${{ github.run_number }}
+          path: build/screenshots/
+          retention-days: 14
