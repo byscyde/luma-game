@@ -84,7 +84,7 @@ xvfb-run -a -s "-screen 0 1280x1400x24" $GODOT --path . --resolution 720x1280 \
 
 | Output | How | Credentials |
 |---|---|---|
-| Android debug APK | `Android build` workflow (every push to main/develop/release) | none (ephemeral debug key) |
+| Android debug APK | `Android build` workflow (pushes to main, develop, release/*, ci/*) | none (ephemeral debug key) |
 | Android release APK + AAB | same workflow | `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` |
 | iOS Xcode project, simulator build, unsigned archive | `iOS build` workflow | none |
 | iOS signed IPA | same workflow | `IOS_CERTIFICATE_P12_BASE64`, `IOS_CERTIFICATE_PASSWORD`, `IOS_PROVISIONING_PROFILE_BASE64`, `APPLE_TEAM_ID` |

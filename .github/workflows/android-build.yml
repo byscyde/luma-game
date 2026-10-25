@@ -7,7 +7,7 @@ name: Android build
 
 on:
   push:
-    branches: [main, develop, "release/**"]
+    branches: [main, develop, "release/**", "ci/**"]
     tags: ["v*"]
   pull_request:
     paths: ["export_presets.cfg", "project.godot", ".github/workflows/android-build.yml", "tools/ci/**"]

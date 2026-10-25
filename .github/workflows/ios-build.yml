@@ -9,7 +9,7 @@ name: iOS build
 
 on:
   push:
-    branches: [main, "release/**"]
+    branches: [main, "release/**", "ci/**"]
     tags: ["v*"]
   workflow_dispatch:
   workflow_call:
