@@ -18,8 +18,16 @@ tests, validators, CI/CD workflows and documentation. **Version 0.1.0 (internal)
 | Exported Linux pack smoke test | `SMOKE_TEST levels=30 errors=0 result=PASS` |
 | GitHub Actions runs | see "CI runs" below |
 
-## CI runs
-_To be filled with real run results after push._
+## CI runs (GitHub Actions, commit `cc7e007`)
+| Workflow | Run | Result |
+|---|---|---|
+| CI (static checks, 75 tests + solver, exported-build smoke test) | [40202228260](https://github.com/mmzlopasa/luma-game/actions/runs/40202228260) | ✅ success |
+| Android build (debug APK, apksigner/aapt/content/permission checks) | [40202230026](https://github.com/mmzlopasa/luma-game/actions/runs/40202230026) | ✅ success — artefact `luma-android-3-…` (debug APK). Release APK/AAB step skipped: no keystore secrets |
+| iOS build (Xcode 26 export, simulator build, unsigned device archive) | [40202230045](https://github.com/mmzlopasa/luma-game/actions/runs/40202230045) | ✅ success — artefact `luma-ios-3-…` (unsigned .xcarchive, **not installable**). Signed IPA skipped: no Apple secrets |
+
+Failures found and fixed on the way (each re-run to green): asset validator flagged
+`res://build/...` output paths on a clean checkout; Godot's iOS simulator library is x86_64-only
+(build for x86_64); Godot 4.7 device libraries require the iOS 26 SDK (select Xcode 26).
 
 ## Not verified / blocked (needs owner action or hardware)
 - **Real devices**: no physical phone/tablet or simulator was available here. Performance,

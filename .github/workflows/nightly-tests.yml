@@ -4,6 +4,8 @@ name: Nightly
 # software GL under Xvfb) and screenshots of every screen are attached.
 
 on:
+  push:
+    branches: ["ci/**"]
   schedule:
     - cron: "17 3 * * *"
   workflow_dispatch:
