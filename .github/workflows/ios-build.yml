@@ -93,13 +93,16 @@ jobs:
           xcodebuild -list -project build/ios/LUMA.xcodeproj
 
       - name: Build for iOS Simulator (no signing)
+        # Godot's simulator library ships x86_64 objects only, so the simulator
+        # app is built for x86_64 (runs under Rosetta on Apple-silicon Macs).
         run: |
           set -euo pipefail
           SCHEME=$(xcodebuild -list -json -project build/ios/LUMA.xcodeproj | python3 -c "import json,sys; print(json.load(sys.stdin)['project']['schemes'][0])")
           echo "SCHEME=$SCHEME" >> "$GITHUB_ENV"
           xcodebuild -project build/ios/LUMA.xcodeproj -scheme "$SCHEME" -configuration Debug \
             -sdk iphonesimulator -destination "generic/platform=iOS Simulator" \
-            -derivedDataPath build/ios/derived CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build/ios/simulator-build.log | tail -n 30
+            -derivedDataPath build/ios/derived ARCHS=x86_64 ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build/ios/simulator-build.log | tail -n 30
           APP=$(find build/ios/derived/Build/Products -name "*.app" -maxdepth 3 | head -n 1)
           test -n "$APP" && echo "simulator app: $APP"
           /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APP/Info.plist"

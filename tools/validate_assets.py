@@ -51,8 +51,9 @@ def main():
                 text = f.read()
             for m in RES_REF.finditer(text):
                 target = m.group(1).rstrip(".")
-                if target.endswith("/") or "%" in target or target.endswith(".translation"):
-                    continue  # directories, format strings, generated translations
+                if target.endswith("/") or "%" in target or target.endswith(".translation") \
+                        or target.split("/")[0] == "build":
+                    continue  # directories, format strings, generated translations, output paths
                 refs += 1
                 if not os.path.exists(os.path.join(ROOT, target)):
                     errors.append("%s references missing res://%s" % (rel, target))
