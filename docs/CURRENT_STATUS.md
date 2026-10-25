@@ -25,6 +25,11 @@ tests, validators, CI/CD workflows and documentation. **Version 0.1.0 (internal)
 | Android build (debug APK, apksigner/aapt/content/permission checks) | [40202230026](https://github.com/mmzlopasa/luma-game/actions/runs/40202230026) | ✅ success — artefact `luma-android-3-…` (debug APK). Release APK/AAB step skipped: no keystore secrets |
 | iOS build (Xcode 26 export, simulator build, unsigned device archive) | [40202230045](https://github.com/mmzlopasa/luma-game/actions/runs/40202230045) | ✅ success — artefact `luma-ios-3-…` (unsigned .xcarchive, **not installable**). Signed IPA skipped: no Apple secrets |
 
+| Nightly (tests via workflow_call + visual QA tour at 720×1280, 640×1136, 1536×2048) | [40202706450](https://github.com/mmzlopasa/luma-game/actions/runs/40202706450) | ✅ success — artefact `screenshots-*` |
+
+Not yet executed: `release.yml` (needs a `v0.1.0` tag; creates a draft release only) and its
+TestFlight step (needs App Store Connect credentials).
+
 Failures found and fixed on the way (each re-run to green): asset validator flagged
 `res://build/...` output paths on a clean checkout; Godot's iOS simulator library is x86_64-only
 (build for x86_64); Godot 4.7 device libraries require the iOS 26 SDK (select Xcode 26).
@@ -57,7 +62,8 @@ Failures found and fixed on the way (each re-run to green): asset validator flag
 **Code & tests** — [x] critical logic unit-tested · [x] save + migration tests ·
 [x] content validation automated · [x] CI fails on real failures · [x] no known critical defects (tested configuration)
 
-**Build automation** — see CI runs · [x] credentials never committed/logged ·
+**Build automation** — [x] CI runs · [x] Android workflow runs · [x] Android artefacts validated ·
+[x] iOS workflow runs · [ ] IPA export (blocked: signing secrets) · [x] signing absence reported clearly · [x] credentials never committed/logged ·
 [x] artefacts carry metadata · [x] release requires tag + produces draft only
 
 **Documentation** — [x] README · [x] CLAUDE.md · [x] architecture · [x] build commands ·
