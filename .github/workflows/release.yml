@@ -56,7 +56,7 @@ jobs:
   testflight:
     needs: ios
     if: github.event_name == 'workflow_dispatch' && inputs.testflight && needs.ios.outputs.signed == 'true'
-    runs-on: macos-15
+    runs-on: macos-26
     environment: release
     env:
       HAS_ASC: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID != '' && secrets.APP_STORE_CONNECT_ISSUER_ID != '' && secrets.APP_STORE_CONNECT_API_KEY_BASE64 != '' }}

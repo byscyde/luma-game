@@ -14,7 +14,7 @@ restores part of an isometric island. Offline, no accounts, no monetization yet.
 | Godot (standard, GDScript) | 4.7.2-stable | `tools/ci/install_godot.sh` (SHA-512 verified), `project.godot` features |
 | Renderer | GL Compatibility | `project.godot` |
 | Android | JDK 17, build-tools 35.0.0, minSdk 24 / targetSdk 36 (Godot defaults) | `android-build.yml` |
-| iOS | Xcode on `macos-15` runner, min iOS 15.0 | `export_presets.cfg`, `ios-build.yml` |
+| iOS | Xcode 26 on `macos-26` runner, min iOS 15.0 | `export_presets.cfg`, `ios-build.yml` |
 | Python | 3.10+ (stdlib only for CI tools; numpy + Pillow only for asset generators) | `tools/` |
 
 ## Commands
