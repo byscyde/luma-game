@@ -101,10 +101,11 @@ func _build_plinth() -> void:
 	_root.add_child(_plinth)
 	var w := float(board.width)
 	var h := float(board.height)
-	# earthy block with a grass rim the tiles sit on
-	LowPoly.instance(LowPoly.slab(Vector3(w + 0.5, 0.9, h + 0.5), 0.18), LowPoly.mat(Color(0.62, 0.48, 0.36)), Vector3(0, -0.9, 0), _plinth)
-	LowPoly.instance(LowPoly.slab(Vector3(w + 0.42, 0.06, h + 0.42), 0.12), LowPoly.mat(Color(0.38, 0.58, 0.3)), Vector3(0, -0.04, 0), _plinth)
-	# a few rocks and tufts around the rim for a hand-made diorama feel
+	# garden bed: earth block, grass skirt, cream stone frame flush with the lawn
+	LowPoly.instance(LowPoly.slab(Vector3(w + 0.8, 0.85, h + 0.8), 0.22), LowPoly.mat(Color(0.6, 0.45, 0.32)), Vector3(0, -0.93, 0), _plinth)
+	LowPoly.instance(LowPoly.slab(Vector3(w + 0.78, 0.1, h + 0.78), 0.16), LowPoly.mat(Color(0.45, 0.68, 0.33)), Vector3(0, -0.1, 0), _plinth)
+	LowPoly.instance(LowPoly.slab(Vector3(w + 0.3, 0.1, h + 0.3), 0.08), LowPoly.mat(Color(0.93, 0.87, 0.74)), Vector3(0, -0.02, 0), _plinth)
+	# a few pebbles and tufts on the skirt for a hand-made diorama feel
 	var rng := RandomNumberGenerator.new()
 	rng.seed = int(w * 13 + h * 7)
 	for i in 10:
@@ -112,14 +113,14 @@ func _build_plinth() -> void:
 		var t := rng.randf_range(-0.45, 0.45)
 		var p := Vector3()
 		match side:
-			0: p = Vector3(t * w, 0, -h * 0.5 - 0.2)
-			1: p = Vector3(w * 0.5 + 0.2, 0, t * h)
-			2: p = Vector3(t * w, 0, h * 0.5 + 0.2)
-			_: p = Vector3(-w * 0.5 - 0.2, 0, t * h)
+			0: p = Vector3(t * w, 0, -h * 0.5 - 0.29)
+			1: p = Vector3(w * 0.5 + 0.29, 0, t * h)
+			2: p = Vector3(t * w, 0, h * 0.5 + 0.29)
+			_: p = Vector3(-w * 0.5 - 0.29, 0, t * h)
 		if i % 3 == 0:
-			LowPoly.instance(LowPoly.blob(0.12, 0, 0.25, i, Vector3(1.2, 0.7, 1)), LowPoly.mat(Color(0.66, 0.66, 0.68)), p, _plinth)
+			LowPoly.instance(LowPoly.blob(0.08, 0, 0.25, i, Vector3(1.2, 0.7, 1)), LowPoly.mat(Color(0.72, 0.72, 0.74)), p, _plinth)
 		else:
-			LowPoly.instance(LowPoly.cyl(0.05, 0.0, 0.16, 4), LowPoly.mat(Color(0.38, 0.6, 0.3)), p, _plinth, false)
+			LowPoly.instance(LowPoly.cyl(0.04, 0.0, 0.12, 4), LowPoly.mat(Color(0.36, 0.58, 0.28)), p, _plinth, false)
 
 
 func cell_world(p: Vector2i) -> Vector3:
@@ -129,8 +130,8 @@ func cell_world(p: Vector2i) -> Vector3:
 func _layout() -> void:
 	if board == null or size.x < 2 or size.y < 2:
 		return
-	var w := float(board.width) + 0.9
-	var h := float(board.height) + 0.9
+	var w := float(board.width) + 0.95
+	var h := float(board.height) + 0.95
 	var pitch := deg_to_rad(PITCH)
 	# vertical screen extent of the board in world units (ortho, tilted)
 	var vert := h * sin(pitch) + 1.0 * cos(pitch)
