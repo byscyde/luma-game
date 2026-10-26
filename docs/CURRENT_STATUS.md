@@ -15,6 +15,11 @@ Old run links redirect. iOS builds now also emit `LUMA-unsigned.ipa` (owner re-s
 Each successful iOS build run is now also published as a pre-release `ios-build-<run>` under
 GitHub Releases with the unsigned IPA (D-016).
 
+## Session 3 (handoff)
+Fixed double rotation per tap on touch devices (level 3 unsolvable). iOS IPA now published to
+Releases per build. Board redesign started on `wip/board-redesign` (unverified). Full handoff
+and next tasks: `docs/HANDOFF.md`.
+
 ## Summary
 Repository started empty (README only). Session 1 built the complete MVP: puzzle engine,
 30 validated levels, island restoration, progression, save, tutorial, settings, audio,

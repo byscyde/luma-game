@@ -1,6 +1,6 @@
 # CLAUDE.md — working on LUMA: Restore the Wild
 
-Read this first, then `docs/CURRENT_STATUS.md`, then `git log --oneline | head`.
+Read this first, then `docs/HANDOFF.md`, then `docs/CURRENT_STATUS.md`, then `git log --oneline | head`.
 The full specification is `docs/MASTER_PLAN.md`; decisions are in `docs/DECISION_LOG.md`.
 
 ## What this is
