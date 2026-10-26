@@ -135,6 +135,8 @@ func _show_licences() -> void:
 	v.add_child(scroll)
 	var text := "Nunito font\nCopyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito)\n" \
 		+ "Licensed under the SIL Open Font License, Version 1.1.\n\n" \
+		+ "Fredoka font\nCopyright 2016 The Fredoka Project Authors (https://github.com/hafontia/Fredoka-One)\n" \
+		+ "Licensed under the SIL Open Font License, Version 1.1.\n\n" \
 		+ "Godot Engine\n" + Engine.get_license_text()
 	var body := UI.label(text, "CaptionLabel", 20)
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL

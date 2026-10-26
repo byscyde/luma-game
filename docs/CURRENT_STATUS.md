@@ -10,6 +10,8 @@ cove island following the owner's reference image (see D-015). Verified locally:
 "1:1 identical" copy of a reference / Midjourney images: this is approximated in style and
 composition, not reproduced pixel-for-pixel (procedural real-time art; no copying of
 third-party images). A Medium article with prompts could not be fetched (HTTP 403).
+Repository transferred to `byscyde/luma-game` (owner's new account); contact `dev@scyde.dev`.
+Old run links redirect. iOS builds now also emit `LUMA-unsigned.ipa` (owner re-signs with Feather).
 
 ## Summary
 Repository started empty (README only). Session 1 built the complete MVP: puzzle engine,
@@ -30,11 +32,11 @@ tests, validators, CI/CD workflows and documentation. **Version 0.1.0 (internal)
 ## CI runs (GitHub Actions, commit `cc7e007`)
 | Workflow | Run | Result |
 |---|---|---|
-| CI (static checks, 75 tests + solver, exported-build smoke test) | [40202228260](https://github.com/mmzlopasa/luma-game/actions/runs/40202228260) | ✅ success |
-| Android build (debug APK, apksigner/aapt/content/permission checks) | [40202230026](https://github.com/mmzlopasa/luma-game/actions/runs/40202230026) | ✅ success — artefact `luma-android-3-…` (debug APK). Release APK/AAB step skipped: no keystore secrets |
-| iOS build (Xcode 26 export, simulator build, unsigned device archive) | [40202230045](https://github.com/mmzlopasa/luma-game/actions/runs/40202230045) | ✅ success — artefact `luma-ios-3-…` (unsigned .xcarchive, **not installable**). Signed IPA skipped: no Apple secrets |
+| CI (static checks, 75 tests + solver, exported-build smoke test) | [40202228260](https://github.com/byscyde/luma-game/actions/runs/40202228260) | ✅ success |
+| Android build (debug APK, apksigner/aapt/content/permission checks) | [40202230026](https://github.com/byscyde/luma-game/actions/runs/40202230026) | ✅ success — artefact `luma-android-3-…` (debug APK). Release APK/AAB step skipped: no keystore secrets |
+| iOS build (Xcode 26 export, simulator build, unsigned device archive) | [40202230045](https://github.com/byscyde/luma-game/actions/runs/40202230045) | ✅ success — artefact `luma-ios-3-…` (unsigned .xcarchive, **not installable**). Signed IPA skipped: no Apple secrets |
 
-| Nightly (tests via workflow_call + visual QA tour at 720×1280, 640×1136, 1536×2048) | [40202706450](https://github.com/mmzlopasa/luma-game/actions/runs/40202706450) | ✅ success — artefact `screenshots-*` |
+| Nightly (tests via workflow_call + visual QA tour at 720×1280, 640×1136, 1536×2048) | [40202706450](https://github.com/byscyde/luma-game/actions/runs/40202706450) | ✅ success — artefact `screenshots-*` |
 
 Not yet executed: `release.yml` (needs a `v0.1.0` tag; creates a draft release only) and its
 TestFlight step (needs App Store Connect credentials).
