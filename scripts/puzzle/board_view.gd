@@ -53,10 +53,12 @@ func _ready() -> void:
 func _build_environment() -> void:
 	var sun := DirectionalLight3D.new()
 	sun.light_color = Color(1.0, 0.94, 0.84)
-	sun.light_energy = 0.66
+	sun.light_energy = 0.6
 	sun.rotation_degrees = Vector3(-58, -32, 0)
 	sun.shadow_enabled = true
 	sun.shadow_blur = 1.2
+	sun.shadow_bias = 0.06
+	sun.shadow_normal_bias = 1.6
 	sun.directional_shadow_max_distance = 25.0
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
 	_root.add_child(sun)
@@ -103,8 +105,8 @@ func _build_plinth() -> void:
 	var h := float(board.height)
 	# garden bed: earth block, grass skirt, cream stone frame flush with the lawn
 	LowPoly.instance(LowPoly.slab(Vector3(w + 0.8, 0.85, h + 0.8), 0.22), LowPoly.mat(Color(0.6, 0.45, 0.32)), Vector3(0, -0.93, 0), _plinth)
-	LowPoly.instance(LowPoly.slab(Vector3(w + 0.78, 0.1, h + 0.78), 0.16), LowPoly.mat(Color(0.45, 0.68, 0.33)), Vector3(0, -0.1, 0), _plinth)
-	LowPoly.instance(LowPoly.slab(Vector3(w + 0.3, 0.1, h + 0.3), 0.08), LowPoly.mat(Color(0.93, 0.87, 0.74)), Vector3(0, -0.02, 0), _plinth)
+	LowPoly.instance(LowPoly.slab(Vector3(w + 0.78, 0.1, h + 0.78), 0.16), LowPoly.mat(Color(0.4, 0.62, 0.3)), Vector3(0, -0.1, 0), _plinth)
+	LowPoly.instance(LowPoly.slab(Vector3(w + 0.3, 0.1, h + 0.3), 0.08), LowPoly.mat(Color(0.86, 0.79, 0.65)), Vector3(0, -0.04, 0), _plinth)
 	# a few pebbles and tufts on the skirt for a hand-made diorama feel
 	var rng := RandomNumberGenerator.new()
 	rng.seed = int(w * 13 + h * 7)

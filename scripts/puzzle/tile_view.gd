@@ -18,8 +18,8 @@ const DISC_R := 0.465      ## disc radius: neighbouring discs almost touch
 const GROOVE_W := 0.24     ## carved channel width
 const WATER_W := 0.17      ## water ribbon width inside the groove
 
-const DISC_SIDE := Color("d8c39a")
-const DISC_FACE := Color("f4ead3")
+const DISC_SIDE := Color("cfb78b")
+const DISC_FACE := Color("efe3c6")
 const DISC_NOTCH := Color("bba578")
 const SLAB_SIDE := Color("a9a397")
 const SLAB_FACE := Color("cfc9bc")
@@ -27,8 +27,8 @@ const RIVET := Color("b07f45")
 const GROOVE_FLOOR := Color("4c5d6a")
 const GROOVE_LIP_DISC := Color("e2d3b2")
 const GROOVE_LIP_SLAB := Color("b7b0a2")
-const LAWN_A := Color("8fcd69")
-const LAWN_B := Color("84c360")
+const LAWN_A := Color("74b553")
+const LAWN_B := Color("6aab4b")
 
 var tile: PuzzleTile
 var board: PuzzleBoard
@@ -164,7 +164,7 @@ func _build_tufts() -> void:
 
 ## Round stone disc with four notches between the channel directions.
 func _build_disc() -> void:
-	LowPoly.instance(LowPoly.cyl(DISC_R, DISC_R - 0.015, TOP - LAWN - 0.02, 32), _m(DISC_SIDE), Vector3(0, LAWN, 0), _disc)
+	LowPoly.instance(LowPoly.cyl(DISC_R, DISC_R - 0.015, TOP - LAWN - 0.02, 40), _m(DISC_SIDE), Vector3(0, LAWN, 0), _disc)
 	LowPoly.instance(LowPoly.cyl(DISC_R - 0.025, DISC_R - 0.045, 0.02, 32), _m(DISC_FACE), Vector3(0, TOP - 0.02, 0), _disc)
 	for i in 4:
 		var a := TAU * (i + 0.5) / 4.0
