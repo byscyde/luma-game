@@ -249,6 +249,9 @@ func pick_area(pos: Vector2) -> String:
 func _gui_input(event: InputEvent) -> void:
 	if not interactive:
 		return
+	# Ignore mouse events emulated from touches; the touch itself is handled.
+	if event.device == InputEvent.DEVICE_ID_EMULATION:
+		return
 	var press := false
 	var release := false
 	var pos := Vector2.ZERO

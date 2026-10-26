@@ -169,6 +169,10 @@ func cell_at(local: Vector2) -> Vector2i:
 func _gui_input(event: InputEvent) -> void:
 	if not input_enabled or board == null:
 		return
+	# On touch screens Godot also emits an emulated mouse click for every touch
+	# (emulate_mouse_from_touch); handling both rotated each tile twice per tap.
+	if event.device == InputEvent.DEVICE_ID_EMULATION:
+		return
 	var pressed := false
 	var pos := Vector2.ZERO
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:

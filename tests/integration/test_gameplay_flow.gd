@@ -80,6 +80,28 @@ func test_input_ignored_on_non_interactive_tiles() -> void:
 	assert_false(screen.solved)
 
 
+func test_touch_with_emulated_mouse_rotates_once() -> void:
+	# On devices every touch also arrives as an emulated mouse click; level 3
+	# was unsolvable because each tap rotated the tile twice.
+	_complete_first_levels(2)
+	await _open(GAMEPLAY, {"level_id": "w1_l03"})
+	var bv: BoardView = screen.board_view
+	var t := Vector2i(1, 0)
+	var r0: int = screen.board.get_tile(t).rotation
+	var touch := InputEventScreenTouch.new()
+	touch.pressed = true
+	touch.position = bv.cell_center(t)
+	bv._gui_input(touch)
+	var click := InputEventMouseButton.new()
+	click.device = InputEvent.DEVICE_ID_EMULATION
+	click.button_index = MOUSE_BUTTON_LEFT
+	click.pressed = true
+	click.position = touch.position
+	bv._gui_input(click)
+	assert_eq(screen.moves, 1)
+	assert_eq(screen.board.get_tile(t).rotation, (r0 + 1) % 4)
+
+
 func test_undo_and_reset() -> void:
 	_complete_first_levels(2)
 	await _open(GAMEPLAY, {"level_id": "w1_l03"})
