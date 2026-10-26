@@ -2,7 +2,7 @@
 
 *Restore a forgotten world, one satisfying puzzle at a time.*
 
-A premium, accessible mobile puzzle game for iOS and Android by **SCYDE**. Rotate ancient
+A premium, accessible mobile puzzle game for iOS and Android. Developer: **SCYDE**. Rotate ancient
 stone channels to guide water from a spring to dry saplings. Every solved puzzle visibly
 restores a small isometric island: trees grow, ponds fill, waterfalls return and wildlife
 comes back.

@@ -4,7 +4,7 @@ Read this first, then `docs/HANDOFF.md`, then `docs/CURRENT_STATUS.md`, then `gi
 The full specification is `docs/MASTER_PLAN.md`; decisions are in `docs/DECISION_LOG.md`.
 
 ## What this is
-A portrait mobile puzzle + world-restoration game (iOS/Android) by SCYDE.
+A portrait mobile puzzle + world-restoration game (iOS/Android). Developer: SCYDE.
 Rotate stone channels so water reaches dry saplings; each solved puzzle
 restores part of an isometric island. Offline, no accounts, no monetization yet.
 
@@ -25,7 +25,7 @@ godot --headless --path . --script res://tools/validate_levels.gd   # level repo
 python3 tools/validate_levels.py && python3 tools/validate_assets.py && python3 tools/check_repo_hygiene.py
 python3 tools/level_designer.py w1_l07   # regenerate a level from tools/level_specs/world_01.py
 python3 tools/generate_audio.py          # regenerate all sound (deterministic)
-python3 tools/generate_icons.py          # regenerate icons
+python3 tools/build_brand_assets.py      # app icon, splash, logo from art/source masters
 # visual QA (needs a display; Xvfb works):
 xvfb-run -a -s "-screen 0 1280x1400x24" godot --path . --resolution 720x1280 --rendering-driver opengl3 \
   --audio-driver Dummy res://tools/screenshot_tour.tscn -- --save-path=user://tour.json

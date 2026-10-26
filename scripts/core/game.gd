@@ -20,12 +20,16 @@ var pending_receipt: Dictionary = {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_tree().root.theme = ThemeBuilder.build()
 	content = ContentDB.load_default()
 	for e in content.errors:
 		push_error("Content: " + e)
 	store = SaveStore.new(_save_path())
 	_load()
+	Palette.apply(wants_dark())
+	get_tree().root.theme = ThemeBuilder.build()
+	if DisplayServer.has_method("set_system_theme_change_callback"):
+		DisplayServer.call("set_system_theme_change_callback", refresh_theme)
+	_build_fps_overlay()
 	data["stats"]["sessions"] = int(data["stats"]["sessions"]) + 1
 	apply_settings()
 	Analytics.log_event("app_started", {"build": ProjectSettings.get_setting("application/config/version", "")})
@@ -79,8 +83,10 @@ func _notification(what: int) -> void:
 		NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_WM_CLOSE_REQUEST:
 			if data:
 				save()
-		NOTIFICATION_PREDELETE:
-			pass
+		NOTIFICATION_APPLICATION_FOCUS_IN, NOTIFICATION_APPLICATION_RESUMED:
+			# the device theme may have changed while we were in the background
+			if data:
+				refresh_theme()
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		Analytics.log_event("session_ended", {"session_s": Analytics.session_seconds()})
 
@@ -101,6 +107,63 @@ func set_setting(key: String, value) -> void:
 func apply_settings() -> void:
 	Analytics.enabled = bool(data["settings"]["analytics"])
 	Audio.apply_volumes(float(data["settings"]["music_volume"]), float(data["settings"]["sfx_volume"]))
+	if _fps_label:
+		_fps_label.visible = bool(data["settings"].get("show_fps", false))
+	if get_tree().root.theme:
+		refresh_theme()
+
+
+# ---------------------------------------------------------------- theme
+
+## Dark UI when the player chose it, or when "system" and the device is dark.
+func wants_dark() -> bool:
+	match str(data["settings"].get("theme", "system")):
+		"dark":
+			return true
+		"light":
+			return false
+	return DisplayServer.is_dark_mode_supported() and DisplayServer.is_dark_mode()
+
+
+## Re-themes the UI if the wanted mode changed; the current screen is rebuilt
+## (gameplay resumes from its saved in-progress state).
+func refresh_theme() -> void:
+	var want := wants_dark()
+	if want == Palette.dark:
+		return
+	Palette.apply(want)
+	ThemeBuilder.invalidate()
+	get_tree().root.theme = ThemeBuilder.build()
+	Router.reload()
+
+
+# ---------------------------------------------------------------- fps overlay
+
+var _fps_label: Label
+var _fps_t := 0.0
+
+
+func _build_fps_overlay() -> void:
+	var layer := CanvasLayer.new()
+	layer.layer = 120
+	add_child(layer)
+	_fps_label = Label.new()
+	_fps_label.position = Vector2(16, 8)
+	_fps_label.add_theme_font_size_override("font_size", 22)
+	_fps_label.add_theme_color_override("font_color", Color(1, 1, 1))
+	_fps_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
+	_fps_label.add_theme_constant_override("outline_size", 6)
+	_fps_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_fps_label.visible = bool(data["settings"].get("show_fps", false))
+	layer.add_child(_fps_label)
+
+
+func _process(delta: float) -> void:
+	if _fps_label and _fps_label.visible:
+		_fps_t += delta
+		if _fps_t >= 0.5:
+			_fps_t = 0.0
+			_fps_label.text = "%d FPS" % Engine.get_frames_per_second()
 
 
 func reduced_motion() -> bool:

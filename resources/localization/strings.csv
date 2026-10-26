@@ -72,10 +72,16 @@ RESET_CONFIRM_TITLE,Start over?
 RESET_CONFIRM_BODY,"Your island, essence and discoveries will be cleared. Settings are kept."
 RESET_CONFIRM_YES,Reset everything
 CANCEL,Cancel
-CREDITS,Made by SCYDE · Font: Nunito (SIL OFL) · All art and sound generated in-house
+CREDITS,Developer: SCYDE · Fonts: Nunito and Fredoka (SIL OFL)
 CHIP_BONUS,Flowers
 CHIP_NO_LEAKS,No spills
 LICENCES,Licences
 CLOSE,Close
 AREA_N,Area %d of %d
 LEVEL_KICKER,Level %d · %s
+THEME,Appearance
+THEME_SYSTEM,System
+THEME_LIGHT,Light
+THEME_DARK,Dark
+SHOW_FPS,Show FPS counter
+LOADING,Loading…

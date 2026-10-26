@@ -1,5 +1,6 @@
 extends Control
-## Settings: audio, haptics, reduced motion, analytics opt-out, reset progress.
+## Settings: audio, haptics, reduced motion, theme, FPS counter, analytics
+## opt-out, reset progress.
 
 var _confirm: Control
 
@@ -33,6 +34,8 @@ func _ready() -> void:
 	v.add_child(_slider(UI.t("SOUNDS"), "sfx_volume"))
 	v.add_child(_toggle(UI.t("HAPTICS"), "haptics"))
 	v.add_child(_toggle(UI.t("REDUCED_MOTION"), "reduced_motion"))
+	v.add_child(_theme_picker())
+	v.add_child(_toggle(UI.t("SHOW_FPS"), "show_fps"))
 	v.add_child(_toggle(UI.t("ANALYTICS"), "analytics"))
 	v.add_child(UI.label(UI.t("ANALYTICS_NOTE"), "CaptionLabel", 22))
 
@@ -63,6 +66,29 @@ func _slider(text: String, key: String) -> VBoxContainer:
 	s.value_changed.connect(func(val): Game.set_setting(key, val))
 	s.drag_ended.connect(func(_c): Audio.play("tap"))
 	box.add_child(s)
+	return box
+
+
+## System / Light / Dark segmented choice; "System" follows the device.
+func _theme_picker() -> VBoxContainer:
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 10)
+	box.add_child(UI.label(UI.t("THEME"), "", 30))
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 10)
+	box.add_child(row)
+	var current := str(Game.setting("theme"))
+	for mode in ["system", "light", "dark"]:
+		var b := UI.button(UI.t("THEME_" + mode.to_upper()), "",
+			"PrimaryButton" if mode == current else "SecondaryButton", Vector2(0, 76))
+		b.name = "Theme_" + mode
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.add_theme_font_size_override("font_size", 26)
+		b.pressed.connect(func():
+			if str(Game.setting("theme")) != mode:
+				Game.set_setting("theme", mode)
+				Router.reload())
+		row.add_child(b)
 	return box
 
 

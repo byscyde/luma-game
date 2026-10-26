@@ -69,7 +69,7 @@ func _build() -> void:
 	add_child(Backdrop.new())
 	var margin := UI.safe_margin(self, 22)
 	var col := VBoxContainer.new()
-	col.add_theme_constant_override("separation", 14)
+	col.add_theme_constant_override("separation", 12)
 	margin.add_child(col)
 
 	var top := HBoxContainer.new()
@@ -126,14 +126,18 @@ func _build() -> void:
 	board_view.setup(board)
 	board_view.tile_tapped.connect(_on_tile_tapped)
 
+	# bottom dock: three icon-over-label tools on one card; Hint is the accent
+	var dock := PanelContainer.new()
+	dock.name = "Dock"
+	dock.add_theme_stylebox_override("panel", ThemeBuilder.box(Palette.PAPER, 40, 18, Color.TRANSPARENT, 0, 14, 10))
+	col.add_child(dock)
 	var bottom := HBoxContainer.new()
-	bottom.add_theme_constant_override("separation", 14)
-	col.add_child(bottom)
-	_undo_btn = UI.button(UI.t("UNDO"), "undo", "SecondaryButton", Vector2(0, 96))
-	_reset_btn = UI.button(UI.t("RESET"), "reset", "SecondaryButton", Vector2(0, 96))
-	_hint_btn = UI.button(UI.t("HINT"), "hint", "SecondaryButton", Vector2(0, 96))
+	bottom.add_theme_constant_override("separation", 8)
+	dock.add_child(bottom)
+	_undo_btn = _tool_button(UI.t("UNDO"), "undo", false)
+	_reset_btn = _tool_button(UI.t("RESET"), "reset", false)
+	_hint_btn = _tool_button(UI.t("HINT"), "hint", true)
 	for b in [_undo_btn, _reset_btn, _hint_btn]:
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		bottom.add_child(b)
 	_undo_btn.name = "UndoButton"
 	_reset_btn.name = "ResetButton"
@@ -142,6 +146,40 @@ func _build() -> void:
 	_reset_btn.pressed.connect(reset)
 	_hint_btn.pressed.connect(hint)
 	_update_buttons()
+
+
+func _tool_button(text: String, icon_kind: String, accent: bool) -> Button:
+	var b := Button.new()
+	b.theme_type_variation = "ToolButton"
+	b.custom_minimum_size = Vector2(0, 124)
+	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	b.focus_mode = Control.FOCUS_ALL
+	b.tooltip_text = text
+	if "accessibility_name" in b:
+		b.set("accessibility_name", text)
+	var v := VBoxContainer.new()
+	v.set_anchors_preset(Control.PRESET_FULL_RECT)
+	v.alignment = BoxContainer.ALIGNMENT_CENTER
+	v.add_theme_constant_override("separation", 6)
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	b.add_child(v)
+	var disc := PanelContainer.new()
+	disc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	disc.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	disc.custom_minimum_size = Vector2(68, 68)
+	disc.add_theme_stylebox_override("panel", ThemeBuilder.box(Palette.SUN if accent else Palette.TEAL_SOFT, 34, 0, Color.TRANSPARENT, 0, 0, 0))
+	v.add_child(disc)
+	var cc := CenterContainer.new()
+	cc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	disc.add_child(cc)
+	cc.add_child(UI.icon(icon_kind, Palette.SUN_INK if accent else Palette.INK, 34))
+	var l := UI.label(text, "", 24, HORIZONTAL_ALIGNMENT_CENTER)
+	l.autowrap_mode = TextServer.AUTOWRAP_OFF
+	l.add_theme_font_override("font", ThemeBuilder.font_display())
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(l)
+	b.pressed.connect(func(): Audio.play("ui_click"))
+	return b
 
 
 func _chip(icon_kind: String, text: String) -> PanelContainer:
@@ -172,6 +210,8 @@ func _update_buttons() -> void:
 	_undo_btn.disabled = history.is_empty() or solved
 	_reset_btn.disabled = solved or (moves == 0 and history.is_empty())
 	_hint_btn.disabled = solved
+	for b in [_undo_btn, _reset_btn, _hint_btn]:
+		b.modulate.a = 0.38 if b.disabled else 1.0
 
 
 func _update_chips() -> void:
@@ -363,14 +403,14 @@ func _show_result(evaluation: Dictionary) -> void:
 	var r := last_receipt
 	if int(r.get("essence", 0)) > 0:
 		var pill := PanelContainer.new()
-		pill.add_theme_stylebox_override("panel", ThemeBuilder.box(Color("fff3d1"), 30, 0, Color.TRANSPARENT, 0, 26, 10))
+		pill.add_theme_stylebox_override("panel", ThemeBuilder.box(Palette.SUN_SOFT, 30, 0, Color.TRANSPARENT, 0, 26, 10))
 		pill.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		var er := HBoxContainer.new()
 		er.add_theme_constant_override("separation", 10)
 		pill.add_child(er)
 		er.add_child(UI.icon("leaf", Palette.LEAF_DARK, 40))
 		var el := UI.label("+%d %s" % [r["essence"], UI.t("ESSENCE")], "HeadingLabel", 34)
-		el.add_theme_color_override("font_color", Palette.SUN_INK)
+		el.add_theme_color_override("font_color", Palette.SUN if Palette.dark else Palette.SUN_INK)
 		el.autowrap_mode = TextServer.AUTOWRAP_OFF
 		er.add_child(el)
 		v.add_child(pill)
@@ -409,7 +449,7 @@ func _show_result(evaluation: Dictionary) -> void:
 func _result_row(icon_kind: String, text: String, met: bool) -> HBoxContainer:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
-	row.add_child(UI.icon(icon_kind, Palette.TEAL if met else Color("cbd8d3"), 32))
+	row.add_child(UI.icon(icon_kind, Palette.TEAL if met else Palette.MUTED, 32))
 	var l := UI.label(text, "" if met else "CaptionLabel", 28)
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(l)
@@ -453,6 +493,6 @@ class Medal extends Control:
 			var n := max_stars
 			for i in n:
 				var x := c.x + (i - (n - 1) * 0.5) * 40.0
-				var col := Palette.SUN if i < stars else Color("e2e8e5")
+				var col := Palette.SUN if i < stars else Palette.MUTED
 				draw_circle(Vector2(x, c.y + 58), 21, Color.WHITE, true, -1, true)
 				draw_texture_rect(star, Rect2(x - 16, c.y + 42, 32, 32), false, col)

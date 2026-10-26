@@ -27,6 +27,9 @@ func setup(p_data: Dictionary, w: IslandWorld, deco := false) -> void:
 	rotation.y = Painter.hash01(_seed) * TAU if kind in ["tree", "fruit_tree", "pine", "willow", "palm", "meadow", "reeds", "rabbits", "deer"] else 0.0
 	_build()
 	set_growth(0.0)
+	# only animated kinds need a per-frame update (keeps the island cheap at 120 Hz)
+	set_process(kind == "koi" if is_deco else kind in ["mill", "rabbits", "ducks", "birds", "spring",
+		"tree", "fruit_tree", "heart_tree", "willow", "pine", "palm"])
 
 
 # ------------------------------------------------------------------ building

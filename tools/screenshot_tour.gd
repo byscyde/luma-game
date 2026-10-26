@@ -1,16 +1,19 @@
 extends Node
 ## Visual QA tour: drives the real game through its screens and saves
 ## screenshots from actual engine renders (not mockups).
-##   xvfb-run godot --path . --resolution 720x1280 res://tools/screenshot_tour.tscn -- --save-path=user://tour.json [--out=dir]
+##   xvfb-run godot --path . --resolution 720x1280 res://tools/screenshot_tour.tscn -- --save-path=user://tour.json [--out=dir] [--theme=light|dark]
 ## Requires a rendering-capable display (e.g. Xvfb + Mesa); not for --headless.
 
 var out_dir := "res://build/screenshots"
+var theme_mode := "light"
 
 
 func _ready() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--out="):
 			out_dir = a.substr(6)
+		elif a.begins_with("--theme="):
+			theme_mode = a.substr(8)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out_dir))
 	# Detach from the current scene so scene changes don't free the tour.
 	await get_tree().process_frame
@@ -18,7 +21,15 @@ func _ready() -> void:
 	get_tree().root.add_child(placeholder)
 	get_tree().current_scene = placeholder
 	Game.reset_progress()
+	Game.set_setting("theme", theme_mode)
 	await _wait(0.5)
+	# 0. Boot: SCYDE logo hand-over, then the loading screen
+	get_tree().change_scene_to_file("res://scenes/boot/boot.tscn")
+	await _wait(0.35)
+	await _shot("00a_logo")
+	await _wait(0.9)
+	await _shot("00b_loading")
+	await _wait(1.6)
 	# 1. First-time experience: level 1 with the tutorial pointer
 	await _go("gameplay", {"level_id": "w1_l01"}, 1.2)
 	await _shot("01_tutorial_level1")

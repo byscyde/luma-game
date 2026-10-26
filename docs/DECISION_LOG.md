@@ -2,6 +2,23 @@
 
 Newest first. Each entry: context → decision → consequences.
 
+### D-017 · Dark mode, brand assets, 120 Hz, redesigned board (2026-10-26)
+- **Theme**: Settings → Appearance (System / Light / Dark, default System). UI design-system
+  colours in `Palette` are static and swapped by `Palette.apply()`; `Game.refresh_theme()`
+  follows the device (system theme callback + app focus/resume) and rebuilds the current
+  screen. The 3D island and board stay daylight dioramas in both modes.
+- **Brand**: owner-supplied app icon art and SCYDE logo live in `art/source` (not shipped);
+  `tools/build_brand_assets.py` builds the icon set, the boot splash (SCYDE wordmark redrawn
+  at high resolution with Inter Display ExtraBold, since the supplied logo is 98×49 px) and
+  the loading key art. Boot: native splash → identical in-game SCYDE logo → loading screen
+  with threaded scene load. Credits say "Developer: SCYDE".
+- **120 Hz**: vsync follows the display; iOS gets `CADisableMinimumFrameDurationOnPhone` so
+  ProMotion iPhones can run at 120 Hz; 2× MSAA and a 2048 shadow map on phones; only
+  animated island props process per frame. Settings → "Show FPS counter" to verify on device.
+- **Board**: checkered lawn under every cell, round cream discs with four notches (whole
+  disc turns), grey slabs with rivets for fixed tiles, slate grooves with bright water;
+  gameplay dock with icon-over-label Undo / Reset / Hint.
+
 ### D-016 · Unsigned iOS builds are published as GitHub pre-releases (2026-10-26)
 The owner asked that the iOS `.ipa` always end up under the repository's Releases page, so
 they can fetch it on the phone and re-sign it with Feather. Every successful direct run of

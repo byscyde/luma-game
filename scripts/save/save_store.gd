@@ -46,6 +46,8 @@ static func default_data() -> Dictionary:
 			"haptics": true,
 			"reduced_motion": false,
 			"analytics": true,
+			"theme": "system",  # system | light | dark
+			"show_fps": false,
 		},
 		"stats": {"sessions": 0, "levels_started": 0},
 	}

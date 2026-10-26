@@ -25,6 +25,7 @@ ICON_SIZES = {
     "assets/icons/icon_192.png": (192, 192),
     "assets/icons/adaptive_foreground.png": (432, 432),
     "assets/icons/adaptive_background.png": (432, 432),
+    "assets/branding/scyde_splash.png": (1080, 1080),
 }
 MAX_ASSET_BYTES = 4 * 1024 * 1024
 

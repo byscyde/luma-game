@@ -67,6 +67,21 @@
       "license": "Proprietary - SCYDE (original work)"
     },
     {
+      "path": "assets/branding/luma_key_art.png",
+      "source": "Owner-supplied LUMA app icon art (art/source/luma_app_icon_master.jpg), corners filled and resized by tools/build_brand_assets.py",
+      "license": "Proprietary - SCYDE (owner-supplied artwork)"
+    },
+    {
+      "path": "assets/branding/scyde_splash.png",
+      "source": "SCYDE wordmark redrawn at high resolution by tools/build_brand_assets.py from the owner-supplied logo (art/source/scyde_logo_reference.png), rasterised with Inter Display ExtraBold (SIL OFL 1.1; font not shipped)",
+      "license": "Proprietary - SCYDE (company logo)"
+    },
+    {
+      "path": "assets/branding/scyde_wordmark.png",
+      "source": "SCYDE wordmark redrawn at high resolution by tools/build_brand_assets.py from the owner-supplied logo (art/source/scyde_logo_reference.png), rasterised with Inter Display ExtraBold (SIL OFL 1.1; font not shipped)",
+      "license": "Proprietary - SCYDE (company logo)"
+    },
+    {
       "path": "assets/fonts/OFL-Fredoka.txt",
       "source": "Licence text shipped with @fontsource/fredoka 5.1.0",
       "license": "SIL Open Font License 1.1"
@@ -93,28 +108,23 @@
     },
     {
       "path": "assets/icons/adaptive_background.png",
-      "source": "Procedurally drawn by tools/generate_icons.py (original work)",
+      "source": "Flat colour from tools/build_brand_assets.py",
       "license": "Proprietary - SCYDE (original work)"
     },
     {
       "path": "assets/icons/adaptive_foreground.png",
-      "source": "Procedurally drawn by tools/generate_icons.py (original work)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Owner-supplied LUMA app icon art (art/source/luma_app_icon_master.jpg), corners filled and resized by tools/build_brand_assets.py",
+      "license": "Proprietary - SCYDE (owner-supplied artwork)"
     },
     {
       "path": "assets/icons/icon.png",
-      "source": "Procedurally drawn by tools/generate_icons.py (original work)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Owner-supplied LUMA app icon art (art/source/luma_app_icon_master.jpg), corners filled and resized by tools/build_brand_assets.py",
+      "license": "Proprietary - SCYDE (owner-supplied artwork)"
     },
     {
       "path": "assets/icons/icon_192.png",
-      "source": "Procedurally drawn by tools/generate_icons.py (original work)",
-      "license": "Proprietary - SCYDE (original work)"
-    },
-    {
-      "path": "assets/icons/splash.png",
-      "source": "Procedurally drawn by tools/generate_icons.py (original work)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Owner-supplied LUMA app icon art (art/source/luma_app_icon_master.jpg), corners filled and resized by tools/build_brand_assets.py",
+      "license": "Proprietary - SCYDE (owner-supplied artwork)"
     },
     {
       "path": "assets/icons/ui/back.svg",

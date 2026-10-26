@@ -256,6 +256,20 @@ func test_settings_apply_and_persist() -> void:
 	Game.set_setting("haptics", true)
 
 
+func test_theme_choice_switches_palette_and_persists() -> void:
+	await _open("res://scenes/menus/settings.tscn")
+	(screen.find_child("Theme_dark", true, false) as Button).pressed.emit()
+	assert_eq(str(Game.setting("theme")), "dark")
+	assert_true(Palette.dark, "dark palette active")
+	assert_ne(Palette.PAPER, Color("ffffff"), "cards are not white in dark mode")
+	Game._load()
+	assert_eq(str(Game.setting("theme")), "dark", "persisted")
+	Game.set_setting("theme", "light")
+	assert_false(Palette.dark)
+	assert_eq(Palette.PAPER, Color("ffffff"))
+	Game.set_setting("theme", "system")
+
+
 func test_reset_progress_requires_confirmation() -> void:
 	_complete_first_levels(3)
 	await _open("res://scenes/menus/settings.tscn")

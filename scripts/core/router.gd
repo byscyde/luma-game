@@ -68,5 +68,12 @@ func go_now(scene_key: String, p_params: Dictionary = {}) -> void:
 	get_tree().change_scene_to_file(SCENES[scene_key])
 
 
+## Rebuilds the current screen with the same parameters (theme change).
+func reload() -> void:
+	if dry_run or current == "" or _busy:
+		return
+	go(current, params)
+
+
 func is_busy() -> bool:
 	return _busy

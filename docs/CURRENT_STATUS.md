@@ -15,6 +15,13 @@ Old run links redirect. iOS builds now also emit `LUMA-unsigned.ipa` (owner re-s
 Each successful iOS build run is now also published as a pre-release `ios-build-<run>` under
 GitHub Releases with the unsigned IPA (D-016).
 
+## Session 4
+Board and level screen redesigned; dark mode following the device (plus manual choice);
+SCYDE boot logo + LUMA loading screen; owner's app icon; 120 Hz settings and mobile render
+budget; FPS counter in Settings; "Developer: SCYDE" wording. See D-017. Verified locally:
+77/77 tests, 30/30 levels, validators, screenshot tour in light and dark at 720×1280 and
+level 30 at 640×1136. Not verifiable here: real-device frame rate (use the FPS counter).
+
 ## Session 3 (handoff)
 Fixed double rotation per tap on touch devices (level 3 unsolvable). iOS IPA now published to
 Releases per build. Board redesign started on `wip/board-redesign` (unverified). Full handoff

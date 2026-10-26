@@ -55,28 +55,14 @@ regression test. Not yet in an IPA → **trigger a new iOS build** and ask the o
 re-test on the phone.
 
 ## 4. Next tasks (in order)
-1. **Board & level-screen redesign (owner: "looks awful").** Started on branch
-   `wip/board-redesign` (one commit, **never compiled or looked at**). Ideas there:
-   checkered lawn under every cell (empty cells become background), rotatable tiles as
-   round cream discs (r 0.465) with 4 notches that turn as a whole, fixed tiles as grey
-   square slabs with bronze rivets, dark slate grooves with bright water, cream stone frame
-   around the board. Problems seen in the old look (`build/before/*.png` is not committed;
-   regenerate with the screenshot tour): discs as big as the tile so they overlap
-   neighbours, dry channels look like brown planks, empty cells as loud as pieces, big
-   empty gap above the board, washed-out bottom buttons, tutorial caption pushes the
-   board around.
-   Still to do for the screen (`scripts/ui/gameplay_screen.gd`): compact header,
-   one status bar for moves + objectives, caption as an overlay bubble, bottom dock with
-   icon-over-label Undo / Reset / Hint (Hint accented). Keep node names
-   (`UndoButton`, `ResetButton`, `HintButton`, `Board`) and fields used by tests.
-   Verify with the Xvfb screenshot command in `CLAUDE.md` at 720×1280 and 640×1136, run
-   `tools/run_tests.sh`, then merge into `feature/mvp-core`.
-2. Trigger iOS build, give the owner the release link, collect feedback from the device.
-3. Ask the owner: iOS build on every push to `feature/mvp-core`? Public vs draft IPA
-   releases (D-016)?
-4. Remove the stray tracked file `tools/_probe.gd.uid` (its `.gd` no longer exists).
-5. Then continue `docs/MASTER_PLAN.md` (World 2, store-readiness checklist in
-   `PRIVACY_AND_COMPLIANCE.md`: privacy policy URL, legal entity).
+Session 4 finished the board / level-screen redesign, dark mode, splash + loading screen,
+app icon and 120 Hz work (D-017). Next:
+1. Owner tests the new IPA on the phone (FPS counter in Settings) and reports issues.
+2. Planned: port to **Unity** (owner's decision, after this Godot pass). Start with a written
+   port plan; Unity needs the owner's Unity licence as a GitHub secret before CI can build.
+3. Open questions for the owner: iOS build on every push to `feature/mvp-core`? Public vs
+   draft IPA releases (D-016)?
+4. Then `docs/MASTER_PLAN.md` (World 2, store-readiness checklist).
 
 ## 5. Working rules that matter
 - Never claim a build/test passed without seeing it; report failures with output.

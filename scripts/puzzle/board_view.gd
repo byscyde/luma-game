@@ -36,7 +36,8 @@ func _ready() -> void:
 	_vp = SubViewport.new()
 	_vp.own_world_3d = true
 	_vp.transparent_bg = true
-	_vp.msaa_3d = Viewport.MSAA_4X
+	# 2x on phones: high-refresh (120 Hz) budget; 4x on desktop
+	_vp.msaa_3d = Viewport.MSAA_2X if OS.has_feature("mobile") else Viewport.MSAA_4X
 	_svc.add_child(_vp)
 	_root = Node3D.new()
 	_vp.add_child(_root)

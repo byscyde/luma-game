@@ -105,7 +105,7 @@ func _fill_achievements() -> void:
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 18)
 		card.add_child(row)
-		row.add_child(UI.icon("trophy", Palette.SUN_EDGE if have else Color("d7e0dc"), 56))
+		row.add_child(UI.icon("trophy", Palette.SUN_EDGE if have else Palette.MUTED, 56))
 		var txt := VBoxContainer.new()
 		txt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(txt)
@@ -135,10 +135,10 @@ class DecorPreview extends Control:
 
 	func _draw() -> void:
 		var c := size * 0.5
-		draw_circle(c, size.x * 0.48, Color("eaf5f1") if not locked else Color("eef1f0"), true, -1, true)
-		Painter.ellipse(self, c + Vector2(0, size.y * 0.28), size.x * 0.36, size.y * 0.1, Color("8cc56a") if not locked else Color("dfe5e2"))
+		draw_circle(c, size.x * 0.48, Palette.TEAL_SOFT.lerp(Palette.PAPER, 0.5) if not locked else Palette.DISABLED, true, -1, true)
+		Painter.ellipse(self, c + Vector2(0, size.y * 0.28), size.x * 0.36, size.y * 0.1, Color("8cc56a") if not locked else Palette.MUTED)
 		if locked:
 			var tex := IconGlyph.texture_for("lock")
-			draw_texture_rect(tex, Rect2(c - Vector2(24, 26), Vector2(48, 48)), false, Color("b8c5c0"))
+			draw_texture_rect(tex, Rect2(c - Vector2(24, 26), Vector2(48, 48)), false, Palette.INK_SOFT)
 			return
 		Painter.decoration(self, kind, c + Vector2(0, size.y * 0.3), size.x * 0.7, _t)

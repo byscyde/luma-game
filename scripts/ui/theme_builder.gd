@@ -34,7 +34,7 @@ static func box(bg: Color, radius: int = 24, shadow: int = 0, border: Color = Co
 	s.corner_detail = 12
 	s.anti_aliasing = true
 	if shadow > 0:
-		s.shadow_color = Color(0.08, 0.2, 0.2, 0.16)
+		s.shadow_color = Palette.CARD_SHADOW
 		s.shadow_size = shadow
 		s.shadow_offset = Vector2(0, shadow * 0.45)
 	if border_w > 0:
@@ -58,6 +58,11 @@ static func button_box(face: Color, edge: Color, radius: int, pressed := false, 
 	return s
 
 
+## Drops the cached theme so the next build() picks up the current Palette.
+static func invalidate() -> void:
+	_cache = null
+
+
 static func build() -> Theme:
 	if _cache:
 		return _cache
@@ -74,14 +79,24 @@ static func build() -> Theme:
 	for v in ["PrimaryButton", "SecondaryButton", "GhostButton", "Button"]:
 		t.set_font("font", v, font_display())
 
+	# ToolButton: flat icon-over-label button used in the gameplay dock
+	t.set_type_variation("ToolButton", "Button")
+	for st in ["normal", "disabled"]:
+		t.set_stylebox(st, "ToolButton", StyleBoxEmpty.new())
+	t.set_stylebox("hover", "ToolButton", box(Color(Palette.TEAL_SOFT, 0.35), 28, 0, Color.TRANSPARENT, 0, 6, 6))
+	t.set_stylebox("pressed", "ToolButton", box(Color(Palette.TEAL_SOFT, 0.7), 28, 0, Color.TRANSPARENT, 0, 6, 6))
+	t.set_stylebox("hover_pressed", "ToolButton", box(Color(Palette.TEAL_SOFT, 0.7), 28, 0, Color.TRANSPARENT, 0, 6, 6))
+	var tfocus := box(Color.TRANSPARENT, 30, 0, Palette.TEAL, 3, 6, 6)
+	t.set_stylebox("focus", "ToolButton", tfocus)
+
 	t.set_stylebox("panel", "PanelContainer", box(Palette.PAPER, 36, 18, Color.TRANSPARENT, 0, 30, 26))
 	for v in ["Card", "Sheet", "ChipPanel", "DarkCard"]:
 		t.set_type_variation(v, "PanelContainer")
 	t.set_stylebox("panel", "Card", box(Palette.PAPER, 40, 22, Color.TRANSPARENT, 0, 34, 30))
 	var sheet := box(Palette.SHEET, 44, 24, Color.TRANSPARENT, 0, 34, 30)
 	t.set_stylebox("panel", "Sheet", sheet)
-	t.set_stylebox("panel", "ChipPanel", box(Color(1, 1, 1, 0.9), 26, 6, Color.TRANSPARENT, 0, 18, 9))
-	t.set_stylebox("panel", "DarkCard", box(Color(1, 1, 1, 0.95), 30, 12, Color.TRANSPARENT, 0, 28, 18))
+	t.set_stylebox("panel", "ChipPanel", box(Palette.CHIP, 26, 6, Color.TRANSPARENT, 0, 18, 9))
+	t.set_stylebox("panel", "DarkCard", box(Palette.CALLOUT, 30, 12, Color.TRANSPARENT, 0, 28, 18))
 
 	t.set_color("font_color", "Label", Palette.INK)
 	for v in ["TitleLabel", "HeadingLabel", "CaptionLabel", "LightLabel", "LightCaption", "KickerLabel"]:
@@ -105,11 +120,11 @@ static func build() -> Theme:
 	t.set_color("font_color", "KickerLabel", Palette.TEAL)
 
 	# Progress bars
-	t.set_stylebox("background", "ProgressBar", box(Color("e4efeb"), 10, 0, Color.TRANSPARENT, 0, 0, 0))
+	t.set_stylebox("background", "ProgressBar", box(Palette.TRACK, 10, 0, Color.TRANSPARENT, 0, 0, 0))
 	t.set_stylebox("fill", "ProgressBar", box(Palette.TEAL, 10, 0, Color.TRANSPARENT, 0, 0, 0))
 
 	# Sliders / toggles
-	t.set_stylebox("slider", "HSlider", box(Color("e4efeb"), 10, 0, Color.TRANSPARENT, 0, 0, 7))
+	t.set_stylebox("slider", "HSlider", box(Palette.TRACK, 10, 0, Color.TRANSPARENT, 0, 0, 7))
 	var fill := box(Palette.TEAL, 10, 0, Color.TRANSPARENT, 0, 0, 7)
 	t.set_stylebox("grabber_area", "HSlider", fill)
 	t.set_stylebox("grabber_area_highlight", "HSlider", fill)
@@ -162,7 +177,7 @@ static func _switch_texture(on: bool) -> ImageTexture:
 	var w := 92
 	var h := 52
 	var img := Image.create(w, h, false, Image.FORMAT_RGBA8)
-	var bg := Palette.TEAL if on else Color("d9e4e0")
+	var bg := Palette.TEAL if on else Palette.TRACK
 	var r := h / 2.0
 	for y in h:
 		for x in w:

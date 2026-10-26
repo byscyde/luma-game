@@ -29,7 +29,7 @@
 
 ## Privacy policy template
 > **LUMA: Restore the Wild — Privacy Policy** (last updated: ____)
-> LUMA is developed by ____ ("SCYDE"). The game does not collect, transmit or share personal
+> Developer: SCYDE. The game does not collect, transmit or share personal
 > data. Your progress and settings are stored only on your device. Optional anonymous gameplay
 > statistics, if enabled, are stored only on your device in this version and can be turned off
 > in Settings. The game contains no ads and no in-app purchases. Contact: dev@scyde.dev.
