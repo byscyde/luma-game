@@ -48,6 +48,10 @@ jobs:
     needs: tests
     uses: ./.github/workflows/ios-build.yml
     secrets: inherit
+    # ios-build.yml's publish-release job declares contents: write; it is skipped
+    # when called from here, but a called workflow may not request more than this.
+    permissions:
+      contents: write
 
   testflight:
     needs: ios

@@ -12,6 +12,8 @@ composition, not reproduced pixel-for-pixel (procedural real-time art; no copyin
 third-party images). A Medium article with prompts could not be fetched (HTTP 403).
 Repository transferred to `byscyde/luma-game` (owner's new account); contact `dev@scyde.dev`.
 Old run links redirect. iOS builds now also emit `LUMA-unsigned.ipa` (owner re-signs with Feather).
+Each successful iOS build run is now also published as a pre-release `ios-build-<run>` under
+GitHub Releases with the unsigned IPA (D-016).
 
 ## Summary
 Repository started empty (README only). Session 1 built the complete MVP: puzzle engine,

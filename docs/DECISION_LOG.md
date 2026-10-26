@@ -2,6 +2,14 @@
 
 Newest first. Each entry: context → decision → consequences.
 
+### D-016 · Unsigned iOS builds are published as GitHub pre-releases (2026-10-26)
+The owner asked that the iOS `.ipa` always end up under the repository's Releases page, so
+they can fetch it on the phone and re-sign it with Feather. Every successful direct run of
+`ios-build.yml` now creates a pre-release `ios-build-<run>` (not marked latest) with the
+unsigned IPA and its SHA-256. This is an owner-authorized exception to D-013 for unsigned
+test builds only: version releases from `release.yml` stay drafts, and store submission is
+still never automated. If the repository is public, these pre-releases are public too.
+
 ### D-015 · Low-poly 3D island and board; reference-guided cove layout (2026-10-26)
 Owner feedback rejected the 2D look. The island and puzzle board are now real-time low-poly
 3D (procedural meshes, flat shading, GL Compatibility) inside SubViewports; the UI moved to a

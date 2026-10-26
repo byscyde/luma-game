@@ -5,6 +5,9 @@ name: iOS build
 #  2. Unsigned device archive + unsigned IPA       -> no credentials; NOT installable as-is
 #  3. Signed IPA                                   -> needs IOS_* signing secrets + APPLE_TEAM_ID
 #  4. TestFlight upload                            -> release.yml only, needs App Store Connect API key
+# Every direct run (push / workflow_dispatch) that succeeds also publishes the
+# unsigned IPA as a GitHub pre-release tagged ios-build-<run number> (D-016),
+# so the owner can fetch it from Releases and re-sign it (e.g. with Feather).
 # See docs/RELEASE_RUNBOOK.md for secret names and formats.
 
 on:
@@ -219,3 +222,44 @@ jobs:
             build/metadata.json
           retention-days: 30
           if-no-files-found: warn
+
+  publish-release:
+    # Direct runs only: under workflow_call github.workflow_ref names the caller
+    # (release.yml), which attaches the IPA to its own draft release instead.
+    needs: ios
+    if: contains(github.workflow_ref, '/.github/workflows/ios-build.yml@')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: luma-ios-${{ github.run_number }}-${{ github.sha }}
+          path: dist
+
+      - name: Publish unsigned IPA as a GitHub pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          VERSION=$(python3 -c "import json; print(json.load(open('dist/metadata.json'))['version'])")
+          TAG="ios-build-${{ github.run_number }}"
+          IPA="dist/LUMA-${VERSION}-ios-build${{ github.run_number }}-unsigned.ipa"
+          cp dist/ios/LUMA-unsigned.ipa "$IPA"
+          unzip -l "$IPA" | grep -q "Payload/.*\.app/Info.plist"
+          (cd dist && sha256sum "$(basename "$IPA")" > SHA256SUMS.txt)
+          {
+            echo "Unsigned iOS build ${{ github.run_number }} of LUMA ${VERSION}."
+            echo ""
+            echo "- Commit: ${GITHUB_SHA} (\`${GITHUB_REF_NAME}\`)"
+            echo "- Workflow run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo ""
+            echo "The IPA is **not signed**: re-sign it (e.g. with Feather) before installing."
+          } > notes.md
+          gh release create "$TAG" "$IPA" dist/SHA256SUMS.txt --target "$GITHUB_SHA" \
+            --title "LUMA ${VERSION} · iOS build ${{ github.run_number }} (unsigned)" \
+            --notes-file notes.md --prerelease --latest=false
+          URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${TAG}"
+          echo "## Release" >> "$GITHUB_STEP_SUMMARY"
+          echo "Unsigned IPA published: ${URL}" >> "$GITHUB_STEP_SUMMARY"

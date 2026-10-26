@@ -51,6 +51,12 @@ tool (e.g. Sideloadly/AltStore; a free Apple ID gives a 7-day signature, ≤3 ap
 `codesign` with a development certificate + a profile listing the device. For TestFlight or
 anything beyond personal testing, use the signed path below.
 
+Every successful direct `iOS build` run (push or manual dispatch) also publishes the unsigned
+IPA as a GitHub **pre-release** under
+[Releases](https://github.com/byscyde/luma-game/releases), tagged `ios-build-<run number>`,
+asset `LUMA-<version>-ios-build<run>-unsigned.ipa` plus `SHA256SUMS.txt` (job
+`publish-release`, D-016). Download it there and re-sign it (the owner uses Feather).
+
 ### Secrets for a signed IPA
 | Secret | Format | Purpose |
 |---|---|---|
