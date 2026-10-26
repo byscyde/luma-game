@@ -2,7 +2,7 @@ name: iOS build
 
 # Capabilities are separated and reported honestly:
 #  1. Xcode project export + simulator build      -> no credentials needed
-#  2. Unsigned device archive (.xcarchive)         -> no credentials; NOT installable
+#  2. Unsigned device archive + unsigned IPA       -> no credentials; NOT installable as-is
 #  3. Signed IPA                                   -> needs IOS_* signing secrets + APPLE_TEAM_ID
 #  4. TestFlight upload                            -> release.yml only, needs App Store Connect API key
 # See docs/RELEASE_RUNBOOK.md for secret names and formats.
@@ -127,6 +127,15 @@ jobs:
           test -d build/ios/LUMA-unsigned.xcarchive/Products/Applications
           (cd build/ios && ditto -c -k --keepParent LUMA-unsigned.xcarchive LUMA-unsigned-xcarchive.zip)
 
+      - name: Package unsigned IPA (must be re-signed before it installs)
+        run: |
+          set -euo pipefail
+          rm -rf build/ios/unsigned-ipa && mkdir -p build/ios/unsigned-ipa/Payload
+          cp -R build/ios/LUMA-unsigned.xcarchive/Products/Applications/*.app build/ios/unsigned-ipa/Payload/
+          (cd build/ios/unsigned-ipa && zip -qry ../LUMA-unsigned.ipa Payload)
+          unzip -l build/ios/LUMA-unsigned.ipa | grep -q "Payload/.*\.app/Info.plist"
+          ls -la build/ios/LUMA-unsigned.ipa
+
       - name: Signed archive + IPA export
         id: sign
         if: env.HAS_SIGNING == 'true'
@@ -188,6 +197,7 @@ jobs:
             echo "- Xcode project export: $([ -d build/ios/LUMA.xcodeproj ] && echo yes || echo no)"
             echo "- Simulator build: $([ -d build/ios/derived/Build/Products ] && echo yes || echo no)"
             echo "- Unsigned device archive: $([ -d build/ios/LUMA-unsigned.xcarchive ] && echo yes || echo no) (not installable; for diagnostics)"
+            echo "- Unsigned IPA: $([ -f build/ios/LUMA-unsigned.ipa ] && echo yes || echo no) (must be re-signed, e.g. by a sideloading tool, before it installs)"
             if [ "$HAS_SIGNING" = "true" ]; then
               echo "- Signed IPA: $(ls build/ios/ipa/*.ipa >/dev/null 2>&1 && echo yes || echo no)"
             else
@@ -203,6 +213,7 @@ jobs:
           name: luma-ios-${{ github.run_number }}-${{ github.sha }}
           path: |
             build/ios/ipa/*.ipa
+            build/ios/LUMA-unsigned.ipa
             build/ios/LUMA-unsigned-xcarchive.zip
             build/ios/*.log
             build/metadata.json

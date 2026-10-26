@@ -44,8 +44,12 @@ Enrol in **Play App Signing** in the Play Console; this keystore then acts as th
 ## 3. iOS
 
 ### What runs without credentials
-Xcode project export → **simulator build** → **unsigned device archive** (diagnostic only;
-an unsigned archive is **not** an installable IPA).
+Xcode project export → **simulator build** → **unsigned device archive** → **unsigned IPA**
+(`LUMA-unsigned.ipa` in the run's artefact). Neither installs on an iPhone as-is: iOS only runs
+signed apps. The unsigned IPA can be re-signed with the tester's own Apple ID by a sideloading
+tool (e.g. Sideloadly/AltStore; a free Apple ID gives a 7-day signature, ≤3 apps), or by
+`codesign` with a development certificate + a profile listing the device. For TestFlight or
+anything beyond personal testing, use the signed path below.
 
 ### Secrets for a signed IPA
 | Secret | Format | Purpose |
