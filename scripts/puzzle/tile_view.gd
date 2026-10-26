@@ -1,77 +1,83 @@
 class_name TileView
-extends Node3D
-## One puzzle tile as a small 3D diorama piece. Purely visual: reads logical
-## state from its PuzzleTile/PuzzleBoard and animates toward it.
+extends Node2D
+## One puzzle tile, drawn crisp and top-down at its cell centre. Purely visual:
+## reads logical state from its PuzzleTile/PuzzleBoard and animates toward it.
 ##
 ## Visual language (never colour-only):
-##  * every cell sits on a checkered lawn, so empty cells read as background
-##  * rotatable tiles are round cream stone discs with four notches; the whole
-##    disc turns
-##  * pinned / fixed tiles are square grey slabs with bronze corner rivets
-##  * channels are dark slate grooves that fill with bright flowing water;
-##    spills show droplets
-##  * targets are dry saplings that grow when water reaches them
+##  * rotatable tiles are raised ivory discs with four notches; the disc turns
+##  * pinned / fixed tiles are raised square slabs with bronze corner rivets
+##  * channels are dark carved grooves that fill with bright, flowing water;
+##    spills show falling droplets
+##  * gates are wooden planks across the groove, tagged with the link's colour
+##    and shape; levers are toggle pills with the same tag
+##  * targets are dry saplings on soil that leaf out when water reaches them
 
-const LAWN := 0.08         ## lawn top height (empty cells, plants, rocks)
-const TOP := 0.26          ## top surface of discs and slabs (tap plane)
-const DISC_R := 0.465      ## disc radius: neighbouring discs almost touch
-const GROOVE_W := 0.24     ## carved channel width
-const WATER_W := 0.17      ## water ribbon width inside the groove
+const DISC_R := 0.44           ## disc radius (cell units)
+const SLAB := 0.86             ## slab side (cell units)
+const LIFT := 0.05             ## visible thickness of raised tiles
+const GROOVE := 0.25           ## carved groove width
+const WATER := 0.165           ## water ribbon width
 
-const DISC_SIDE := Color("cfb78b")
-const DISC_FACE := Color("efe3c6")
-const DISC_NOTCH := Color("bba578")
-const SLAB_SIDE := Color("a9a397")
-const SLAB_FACE := Color("cfc9bc")
-const RIVET := Color("b07f45")
-const GROOVE_FLOOR := Color("4c5d6a")
-const GROOVE_LIP_DISC := Color("e2d3b2")
-const GROOVE_LIP_SLAB := Color("b7b0a2")
-const LAWN_A := Color("74b553")
-const LAWN_B := Color("6aab4b")
+const DISC_FACE := Color("f6eedb")
+const DISC_FACE_LOW := Color("eadcbd")
+const DISC_SIDE := Color("c7ae80")
+const NOTCH := Color("d3bd91")
+const SLAB_FACE := Color("e4dfd4")
+const SLAB_FACE_LOW := Color("cec6b6")
+const SLAB_SIDE := Color("9d9586")
+const RIVET := Color("b9853f")
+const GROOVE_FLOOR := Color("33434d")
+const GROOVE_DEEP := Color("27343c")
+const WATER_COL := Color("2cc3e0")
+const WATER_DEEP_COL := Color("1593b8")
+const WATER_SHINE := Color("c9fbff")
+const SOIL := Color("8a6243")
+const SOIL_DARK := Color("6b4a31")
+const BARK := Color("7a5534")
 
 var tile: PuzzleTile
 var board: PuzzleBoard
 var cell := Vector2i.ZERO
+var unit := 100.0:             ## cell size in pixels
+	set(v):
+		unit = v
+		queue_redraw()
 
-var rot_offset := 0.0:     ## radians, animates to 0 after a rotation
+var rot_offset := 0.0:         ## radians, animates to 0 after a rotation
 	set(v):
 		rot_offset = v
-		if _disc:
-			_disc.rotation.y = v
+		queue_redraw()
 var press := 1.0:
 	set(v):
 		press = v
-		if _disc:
-			_disc.scale = Vector3(v, 1.0, v)
+		queue_redraw()
 var water := 0.0:
 	set(v):
 		water = v
-		_update_water()
+		queue_redraw()
 var wet := false
 var entry_mask := 0
 var leak_mask := 0:
 	set(v):
 		leak_mask = v
-		_update_water()
+		queue_redraw()
 var bloom := 0.0:
 	set(v):
 		bloom = v
-		_update_bloom()
-var highlight := false
-var celebrate := 0.0
+		queue_redraw()
+var highlight := false:
+	set(v):
+		highlight = v
+		queue_redraw()
+var celebrate := 0.0:
+	set(v):
+		celebrate = v
+		queue_redraw()
 
-var _disc: Node3D            ## moving part: turns on rotation, squashes on press
-var _arms: Dictionary = {}   ## dir -> {"node": Node3D, "mesh": MeshInstance3D}
-var _hub_water: Node3D
-var _drops: Node3D
-var _ring: MeshInstance3D
-var _sapling: Dictionary = {}
-var _flowers: Node3D
-var _gate_plank: Node3D
-var _lever: Node3D
 var _t := 0.0
 var _seed := 0
+var _gate_open := 0.0          ## 0 closed .. 1 open (eased toward the board state)
+var _switch_on := 0.0
 
 
 func setup(p_tile: PuzzleTile, p_board: PuzzleBoard, p_cell: Vector2i) -> void:
@@ -80,204 +86,287 @@ func setup(p_tile: PuzzleTile, p_board: PuzzleBoard, p_cell: Vector2i) -> void:
 	cell = p_cell
 	_seed = p_cell.x * 31 + p_cell.y * 17
 	set_meta("mask", tile.shape_mask())
-	for c in get_children():
-		remove_child(c)
-		c.queue_free()
-	_disc = null
-	_hub_water = null
-	_sapling.clear()
-	_flowers = null
-	_gate_plank = null
-	_lever = null
-	_arms.clear()
-	_build()
+	if tile.is_gate():
+		_gate_open = 1.0 if board.is_gate_open(tile) else 0.0
+	if tile.type == TileTypes.SWITCH:
+		_switch_on = 1.0 if bool(board.switches.get(tile.link, false)) else 0.0
+	queue_redraw()
 
 
-# ------------------------------------------------------------------ materials
+func _process(delta: float) -> void:
+	if tile == null:
+		return
+	_t += delta
+	var redraw := not Game.reduced_motion() and (wet or highlight or tile.is_source() or leak_mask != 0)
+	if tile.is_gate():
+		var want := 1.0 if board.is_gate_open(tile) else 0.0
+		if not is_equal_approx(_gate_open, want):
+			_gate_open = move_toward(_gate_open, want, delta * 5.0)
+			redraw = true
+	if tile.type == TileTypes.SWITCH:
+		var on := 1.0 if bool(board.switches.get(tile.link, false)) else 0.0
+		if not is_equal_approx(_switch_on, on):
+			_switch_on = move_toward(_switch_on, on, delta * 7.0)
+			redraw = true
+	if redraw:
+		queue_redraw()
 
-func _water() -> StandardMaterial3D:
-	# bright, slightly luminous turquoise that reads well on slate
-	return LowPoly.mat(Color(0.3, 0.84, 0.94), 0.35, 0.2)
 
+# ------------------------------------------------------------------ drawing
 
-func _m(c: Color, em := 0.0) -> StandardMaterial3D:
-	return LowPoly.mat(c, em)
-
-
-func _box(sz: Vector3, c: Color, pos: Vector3, parent: Node3D, chamfer := 0.02) -> MeshInstance3D:
-	return LowPoly.instance(LowPoly.slab(sz, chamfer), _m(c), pos, parent)
-
-
-# ------------------------------------------------------------------ building
-
-func _build() -> void:
-	_build_lawn()
-	_disc = Node3D.new()
-	add_child(_disc)
+func _draw() -> void:
+	if tile == null:
+		return
+	var u := unit
+	var hop := -sin(celebrate * PI) * 0.08 * u
+	draw_set_transform(Vector2(0, hop), 0.0, Vector2(press, press))
 	match tile.type:
 		TileTypes.EMPTY:
-			_build_tufts()
+			_draw_moss()
 		TileTypes.ROCK:
-			LowPoly.instance(LowPoly.blob(0.27, 1, 0.22, _seed, Vector3(1.1, 0.75, 1.0)), _m(Color(0.64, 0.66, 0.7)), Vector3(0, LAWN + 0.1, 0), _disc)
-			LowPoly.instance(LowPoly.blob(0.12, 1, 0.2, _seed + 1, Vector3(1.2, 0.5, 1)), _m(Color(0.5, 0.7, 0.36)), Vector3(-0.08, LAWN + 0.25, 0.04), _disc)
+			_draw_rock()
 		TileTypes.TARGET:
-			_build_target()
+			_draw_target()
 		TileTypes.BONUS:
-			_build_bonus()
+			_draw_bonus()
 		TileTypes.SWITCH:
-			_build_switch()
+			_draw_switch()
 		TileTypes.SOURCE:
-			_build_slab()
-			_build_channels(GROOVE_LIP_SLAB, 0.5)
-			_build_source()
+			_draw_slab()
+			_draw_channels(SLAB * 0.5, 0.0)
+			_draw_spring()
 		_:
 			if tile.is_rotatable():
-				_build_disc()
-				_build_channels(GROOVE_LIP_DISC, DISC_R)
+				_draw_disc_body()
+				_draw_disc_top(rot_offset)
 			else:
-				_build_slab()
-				_build_channels(GROOVE_LIP_SLAB, 0.5)
-			if tile.is_gate():
-				_build_gate()
-	_drops = Node3D.new()
-	add_child(_drops)
-	_ring = LowPoly.instance(_ring_mesh(), _m(Color(1.0, 0.8, 0.3), 1.6), Vector3(0, LAWN + 0.01, 0), self, false)
-	_ring.visible = false
-	_update_water()
-	_update_bloom()
+				_draw_slab()
+				_draw_channels(SLAB * 0.5, 0.0)
+				if tile.is_gate():
+					_draw_gate()
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	if leak_mask != 0 and wet and water >= 0.99:
+		_draw_leaks()
+	if highlight:
+		var pulse := 0.5 + 0.5 * sin(_t * 6.0)
+		draw_arc(Vector2.ZERO, u * (0.53 + 0.02 * pulse), 0, TAU, 48, Color(1.0, 0.8, 0.28, 0.55 + 0.4 * pulse), u * 0.055, true)
 
 
-## Checkered lawn square under every cell; flush with its neighbours.
-func _build_lawn() -> void:
-	var g := LAWN_A if (cell.x + cell.y) % 2 == 0 else LAWN_B
-	_box(Vector3(1.0, LAWN, 1.0), g, Vector3.ZERO, self, 0.0)
+## Soft drop shadow under a raised tile (several stacked translucent shapes).
+func _shadow_circle(r: float) -> void:
+	var u := unit
+	for i in 4:
+		var k := float(i) / 3.0
+		draw_circle(Vector2(0, u * (LIFT + 0.03)), r + u * 0.03 * (1.0 - k), Color(0, 0, 0, 0.07 + 0.05 * k), true, -1, true)
 
 
-func _build_tufts() -> void:
-	if Painter.hash01(_seed) > 0.45:
-		return
-	var g := (LAWN_A if (cell.x + cell.y) % 2 == 0 else LAWN_B).darkened(0.16)
-	for i in 3:
-		var p := Vector3((Painter.hash01(_seed + i * 7) - 0.5) * 0.6, LAWN, (Painter.hash01(_seed * 3 + i) - 0.5) * 0.6)
-		LowPoly.instance(LowPoly.cyl(0.03, 0.0, 0.09, 4), _m(g), p, _disc, false)
+func _shadow_rect(half: float, radius: float) -> void:
+	var u := unit
+	for i in 4:
+		var k := float(i) / 3.0
+		var g := u * 0.03 * (1.0 - k)
+		_round_rect(Rect2(Vector2(-half - g, -half - g + u * (LIFT + 0.03)), Vector2(half + g, half + g) * 2.0), radius + g, Color(0, 0, 0, 0.07 + 0.05 * k))
 
 
-## Round stone disc with four notches between the channel directions.
-func _build_disc() -> void:
-	LowPoly.instance(LowPoly.cyl(DISC_R, DISC_R - 0.015, TOP - LAWN - 0.02, 40), _m(DISC_SIDE), Vector3(0, LAWN, 0), _disc)
-	LowPoly.instance(LowPoly.cyl(DISC_R - 0.025, DISC_R - 0.045, 0.02, 32), _m(DISC_FACE), Vector3(0, TOP - 0.02, 0), _disc)
+func _draw_disc_body() -> void:
+	var u := unit
+	var r := DISC_R * u
+	_shadow_circle(r)
+	draw_circle(Vector2(0, u * LIFT), r, DISC_SIDE, true, -1, true)
+	# face: base colour, then a lighter upper half for a soft top light
+	draw_circle(Vector2.ZERO, r, DISC_FACE_LOW, true, -1, true)
+	draw_circle(Vector2(0, -r * 0.06), r * 0.94, DISC_FACE, true, -1, true)
+	draw_arc(Vector2.ZERO, r - u * 0.012, PI * 1.08, PI * 1.92, 32, Color(1, 1, 1, 0.65), u * 0.02, true)
+
+
+func _draw_disc_top(angle: float) -> void:
+	var u := unit
+	draw_set_transform(Vector2(0, -sin(celebrate * PI) * 0.08 * u), angle, Vector2(press, press))
 	for i in 4:
 		var a := TAU * (i + 0.5) / 4.0
-		LowPoly.instance(LowPoly.cyl(0.035, 0.035, 0.006, 10), _m(DISC_NOTCH), Vector3(cos(a) * 0.34, TOP, sin(a) * 0.34), _disc, false)
+		var p := Vector2(cos(a), sin(a)) * DISC_R * u * 0.74
+		draw_circle(p, u * 0.036, NOTCH, true, -1, true)
+		draw_circle(p + Vector2(0, -u * 0.008), u * 0.026, NOTCH.darkened(0.12), true, -1, true)
+	_draw_channels(DISC_R, angle)
 
 
-## Square grey slab with corner rivets for tiles that cannot turn.
-func _build_slab() -> void:
-	_box(Vector3(0.94, TOP - LAWN - 0.02, 0.94), SLAB_SIDE, Vector3(0, LAWN, 0), _disc, 0.05)
-	_box(Vector3(0.88, 0.02, 0.88), SLAB_FACE, Vector3(0, TOP - 0.02, 0), _disc, 0.02)
+func _draw_slab() -> void:
+	var u := unit
+	var half := SLAB * 0.5 * u
+	var rad := 0.16 * u
+	_shadow_rect(half, rad)
+	_round_rect(Rect2(Vector2(-half, -half + u * LIFT), Vector2(half, half) * 2.0), rad, SLAB_SIDE)
+	_round_rect(Rect2(Vector2(-half, -half), Vector2(half, half) * 2.0), rad, SLAB_FACE_LOW)
+	_round_rect(Rect2(Vector2(-half + u * 0.02, -half + u * 0.01), Vector2(half - u * 0.02, half - u * 0.05) * 2.0), rad * 0.9, SLAB_FACE)
 	for v in [Vector2(-1, -1), Vector2(1, -1), Vector2(-1, 1), Vector2(1, 1)]:
-		LowPoly.instance(LowPoly.cyl(0.045, 0.035, 0.03, 8), _m(RIVET), Vector3(v.x * 0.35, TOP, v.y * 0.35), _disc)
+		var p: Vector2 = v * half * 0.72
+		draw_circle(p + Vector2(0, u * 0.01), u * 0.04, RIVET.darkened(0.3), true, -1, true)
+		draw_circle(p, u * 0.038, RIVET, true, -1, true)
+		draw_circle(p + Vector2(-u * 0.01, -u * 0.012), u * 0.014, Color(1, 0.92, 0.7, 0.9), true, -1, true)
 
 
-func _ring_mesh() -> ArrayMesh:
-	var st := SurfaceTool.new()
-	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var n := 32
-	for i in n:
-		var a0 := TAU * i / n
-		var a1 := TAU * (i + 1) / n
-		var p := func(a: float, r: float, y: float) -> Vector3: return Vector3(cos(a) * r, y, sin(a) * r)
-		for q in [[p.call(a0, 0.47, 0), p.call(a1, 0.47, 0), p.call(a1, 0.53, 0)], [p.call(a0, 0.47, 0), p.call(a1, 0.53, 0), p.call(a0, 0.53, 0)]]:
-			st.add_vertex(q[0]); st.add_vertex(q[2]); st.add_vertex(q[1])
-	st.generate_normals()
-	return st.commit()
-
-
-## Carved grooves along each opening, out to `reach` from the centre. Arms
-## live under _disc so they turn with it.
-func _build_channels(lip: Color, reach: float) -> void:
+## Carved grooves from the centre to `reach` (cell units) along each opening,
+## filled with water as the tile gets wet. `angle` is the visual rotation.
+func _draw_channels(reach: float, angle: float) -> void:
+	var u := unit
 	var mask := tile.shape_mask()
-	var holder := _disc
+	if mask == 0:
+		return
+	var lip := Color(0, 0, 0, 0.16)
+	var len := reach * u
+	# rotate the logical mask back by the in-flight animation so arms turn smoothly
+	for d in Dir.LIST:
+		if mask & d:
+			var dir := _dir_vec(d)
+			draw_line(Vector2.ZERO, dir * len, lip, (GROOVE + 0.07) * u, true)
+	draw_circle(Vector2.ZERO, (GROOVE + 0.07) * 0.5 * u, lip, true, -1, true)
+	for d in Dir.LIST:
+		if mask & d:
+			draw_line(Vector2.ZERO, _dir_vec(d) * len, GROOVE_FLOOR, GROOVE * u, true)
+	draw_circle(Vector2.ZERO, GROOVE * 0.5 * u, GROOVE_FLOOR, true, -1, true)
+	for d in Dir.LIST:
+		if mask & d:
+			draw_line(_dir_vec(d) * u * 0.06, _dir_vec(d) * len, GROOVE_DEEP, GROOVE * 0.35 * u, true)
+	if not wet:
+		return
+	# water: per-arm fill from the entry side, hub, flowing glints
+	var hub_full := water >= 0.5 or tile.is_source()
 	for d in Dir.LIST:
 		if not (mask & d):
 			continue
-		var arm := Node3D.new()
-		holder.add_child(arm)
-		arm.rotation.y = -Dir.angle(d)       # local -Z points along the arm
-		_box(Vector3(GROOVE_W + 0.07, 0.008, reach), lip.darkened(0.12), Vector3(0, TOP, -reach * 0.5), arm, 0.0)
-		_box(Vector3(GROOVE_W, 0.014, reach), GROOVE_FLOOR, Vector3(0, TOP, -reach * 0.5), arm, 0.0)
-		var w := Node3D.new()
-		w.name = "water"
-		arm.add_child(w)
-		var wm := LowPoly.instance(LowPoly.slab(Vector3(WATER_W, 0.022, reach), 0.0), _water(), Vector3(0, TOP + 0.004, -reach * 0.5), w, false)
-		wm.set_meta("top", TOP)
-		wm.set_meta("reach", reach)
-		_arms[d] = {"node": w, "mesh": wm}
-	LowPoly.instance(LowPoly.cyl((GROOVE_W + 0.07) * 0.5, (GROOVE_W + 0.07) * 0.5, 0.008, 16), _m(lip.darkened(0.12)), Vector3(0, TOP, 0), holder)
-	LowPoly.instance(LowPoly.cyl(GROOVE_W * 0.5, GROOVE_W * 0.5, 0.014, 16), _m(GROOVE_FLOOR), Vector3(0, TOP, 0), holder)
-	_hub_water = LowPoly.instance(LowPoly.cyl(WATER_W * 0.5, WATER_W * 0.5, 0.026, 16), _water(), Vector3(0, TOP, 0), holder, false)
+		var f := _arm_fill(d)
+		if f <= 0.01:
+			continue
+		var dir := _dir_vec(d)
+		var a: Vector2
+		var b: Vector2
+		if (entry_mask & d) and not tile.is_source():
+			a = dir * len
+			b = dir * len * (1.0 - f)
+		else:
+			a = Vector2.ZERO
+			b = dir * len * f
+		draw_line(a, b, WATER_DEEP_COL, WATER * u, true)
+		draw_line(a, b, WATER_COL, WATER * u * 0.72, true)
+		draw_line(a + Vector2(-dir.y, dir.x) * u * 0.02, b + Vector2(-dir.y, dir.x) * u * 0.02, Color(WATER_SHINE, 0.55), WATER * u * 0.18, true)
+		if f >= 0.99 and not Game.reduced_motion():
+			# glints travel away from where the water came in
+			var outward := not (entry_mask & d) or tile.is_source()
+			for k in 2:
+				var ph := fmod(_t * 0.9 + k * 0.5 + float(_seed % 7) * 0.13, 1.0)
+				var s := ph if outward else 1.0 - ph
+				var p := dir * len * s
+				draw_circle(p, u * 0.03 * (1.0 - absf(ph - 0.5)), Color(1, 1, 1, 0.75 * sin(ph * PI)), true, -1, true)
+	if hub_full:
+		draw_circle(Vector2.ZERO, WATER * 0.5 * u, WATER_DEEP_COL, true, -1, true)
+		draw_circle(Vector2.ZERO, WATER * 0.36 * u, WATER_COL, true, -1, true)
 
 
-func _build_source() -> void:
+func _draw_spring() -> void:
+	var u := unit
 	for i in 9:
 		var a := TAU * i / 9.0
-		LowPoly.instance(LowPoly.blob(0.06, 0, 0.25, i, Vector3(1.1, 0.8, 1)), _m(Color(0.93, 0.93, 0.9)), Vector3(cos(a) * 0.24, TOP + 0.02, sin(a) * 0.24), _disc)
-	LowPoly.instance(LowPoly.cyl(0.21, 0.21, 0.04, 18), _water(), Vector3(0, TOP, 0), _disc, false)
-	var orb := LowPoly.instance(LowPoly.blob(0.11, 1, 0.0, 1), _m(Color(0.6, 0.93, 1.0), 0.7), Vector3(0, TOP + 0.12, 0), self, false)
-	orb.name = "orb"
-	var l := OmniLight3D.new()
-	l.light_color = Color(0.6, 0.95, 1.0)
-	l.light_energy = 0.45
-	l.omni_range = 0.9
-	l.position = Vector3(0, TOP + 0.3, 0)
-	add_child(l)
-
-
-func _build_target() -> void:
-	LowPoly.instance(LowPoly.cyl(0.32, 0.27, 0.05, 14), _m(Color(0.55, 0.4, 0.27)), Vector3(0, LAWN - 0.01, 0), _disc)
-	var puddle := LowPoly.instance(LowPoly.cyl(0.28, 0.28, 0.05, 14), _water(), Vector3(0, LAWN, 0), _disc, false)
-	_sapling["puddle"] = puddle
-	var root := Node3D.new()
-	root.position = Vector3(0, LAWN + 0.04, 0)
-	_disc.add_child(root)
-	_sapling["root"] = root
-	var trunk := LowPoly.instance(LowPoly.cyl(0.05, 0.025, 0.42, 6, 0.1, _seed), _m(Color(0.5, 0.36, 0.24)), Vector3.ZERO, root)
-	_sapling["trunk"] = trunk
-	var bare := Node3D.new()
-	root.add_child(bare)
+		var p := Vector2(cos(a), sin(a)) * u * 0.25
+		draw_circle(p + Vector2(0, u * 0.012), u * 0.055, Color(0.55, 0.57, 0.6), true, -1, true)
+		draw_circle(p, u * 0.052, Color(0.86, 0.87, 0.88), true, -1, true)
+	draw_circle(Vector2.ZERO, u * 0.2, WATER_DEEP_COL, true, -1, true)
+	draw_circle(Vector2.ZERO, u * 0.17, WATER_COL, true, -1, true)
+	var t := 0.0 if Game.reduced_motion() else _t
+	for k in 3:
+		var ph := fmod(t * 0.6 + k / 3.0, 1.0)
+		draw_arc(Vector2.ZERO, u * (0.05 + 0.13 * ph), 0, TAU, 28, Color(1, 1, 1, 0.5 * (1.0 - ph)), u * 0.015, true)
 	for i in 3:
-		var b := LowPoly.instance(LowPoly.cyl(0.016, 0.006, 0.2, 4), _m(Color(0.55, 0.42, 0.3)), Vector3(0, 0.28, 0), bare)
-		b.rotation = Vector3(deg_to_rad(45), TAU * i / 3.0, 0)
-	_sapling["bare"] = bare
-	var canopy := Node3D.new()
-	canopy.position = Vector3(0, 0.46, 0)
-	root.add_child(canopy)
-	var greens := [Color(0.3, 0.6, 0.3), Color(0.4, 0.7, 0.33), Color(0.5, 0.78, 0.38)]
+		draw_circle(Vector2.ZERO, u * (0.11 - i * 0.025), Color(0.75, 0.97, 1.0, 0.25 + i * 0.25), true, -1, true)
+
+
+func _draw_moss() -> void:
+	if Painter.hash01(_seed) > 0.4:
+		return
+	var u := unit
 	for i in 3:
-		var p: Vector3 = [Vector3(0, 0.05, 0), Vector3(-0.12, -0.02, 0.06), Vector3(0.11, 0.04, -0.05)][i]
-		LowPoly.instance(LowPoly.blob([0.22, 0.16, 0.17][i], 1, 0.14, _seed + i), _m(greens[i]), p, canopy)
-	for i in 6:
-		var a := TAU * i / 6.0
-		LowPoly.instance(LowPoly.blob(0.035, 0, 0.0, 1), _m(Color(1, 0.88, 0.9)), Vector3(cos(a) * 0.17, 0.1 + 0.08 * Painter.hash01(i), sin(a) * 0.17), canopy, false)
-	_sapling["canopy"] = canopy
+		var p := Vector2(Painter.hash01(_seed + i * 7) - 0.5, Painter.hash01(_seed * 3 + i) - 0.5) * u * 0.55
+		draw_circle(p, u * (0.03 + 0.02 * Painter.hash01(_seed + i)), Color(0.45, 0.68, 0.42, 0.35), true, -1, true)
 
 
-func _build_bonus() -> void:
-	LowPoly.instance(LowPoly.cyl(0.34, 0.3, 0.05, 14), _m(Color(0.53, 0.39, 0.27)), Vector3(0, LAWN - 0.01, 0), _disc)
+func _draw_rock() -> void:
+	var u := unit
+	var pts := PackedVector2Array()
+	var n := 11
+	for i in n:
+		var a := TAU * i / n
+		var r := u * 0.34 * (0.85 + 0.25 * Painter.hash01(_seed * 5 + i))
+		pts.append(Vector2(cos(a) * r, sin(a) * r * 0.86))
+	var shadow := PackedVector2Array()
+	for p in pts:
+		shadow.append(p + Vector2(0, u * 0.07))
+	draw_colored_polygon(shadow, Color(0, 0, 0, 0.22))
+	var side := PackedVector2Array()
+	for p in pts:
+		side.append(p + Vector2(0, u * 0.04))
+	draw_colored_polygon(side, Color("767b84"))
+	draw_colored_polygon(pts, Color("a3a8b0"))
+	var top := PackedVector2Array()
+	for p in pts:
+		top.append(p * 0.72 + Vector2(-u * 0.03, -u * 0.05))
+	draw_colored_polygon(top, Color("bdc2c9"))
+	draw_circle(Vector2(u * 0.08, -u * 0.1), u * 0.09, Color(0.47, 0.68, 0.38, 0.95), true, -1, true)
+	draw_circle(Vector2(u * 0.13, -u * 0.06), u * 0.06, Color(0.55, 0.76, 0.43, 0.95), true, -1, true)
+
+
+func _draw_target() -> void:
+	var u := unit
+	draw_circle(Vector2(0, u * 0.04), u * 0.33, Color(0, 0, 0, 0.16), true, -1, true)
+	draw_circle(Vector2.ZERO, u * 0.33, SOIL_DARK, true, -1, true)
+	draw_circle(Vector2(0, -u * 0.015), u * 0.3, SOIL, true, -1, true)
+	if wet and water > 0.3:
+		draw_arc(Vector2.ZERO, u * 0.27, 0, TAU, 40, Color(WATER_COL, 0.85), u * 0.05, true)
+	_draw_sapling(Vector2(0, u * 0.08), u, bloom)
+
+
+func _draw_sapling(base: Vector2, u: float, b: float) -> void:
+	var trunk_h := u * (0.26 + 0.08 * b)
+	var top := base + Vector2(0, -trunk_h)
+	draw_line(base, top, BARK, u * (0.045 + 0.02 * b), true)
+	if b < 0.6:
+		# a thirsty sapling: bare twigs with a few curled, dry leaves
+		var a := 1.0 - b / 0.6
+		var tips := [top + Vector2(-u * 0.12, -u * 0.06), top + Vector2(u * 0.12, -u * 0.03), top + Vector2(0, -u * 0.12)]
+		for k in 3:
+			draw_line(top + Vector2(0, u * 0.06 * float(k != 2)), tips[k], Color(BARK, a), u * 0.024, true)
+			draw_circle(tips[k], u * 0.035, Color(0.8, 0.64, 0.38, a), true, -1, true)
+			draw_circle(tips[k] + Vector2(-u * 0.008, -u * 0.01), u * 0.018, Color(0.9, 0.78, 0.52, a), true, -1, true)
+	if b > 0.02:
+		var s := u * (0.1 + 0.16 * b)
+		var c := top + Vector2(0, -s * 0.35)
+		draw_circle(c + Vector2(0, s * 0.18), s * 1.02, Color(0, 0, 0, 0.12), true, -1, true)
+		draw_circle(c + Vector2(-s * 0.45, s * 0.1), s * 0.62, Color("3f8f4a"), true, -1, true)
+		draw_circle(c + Vector2(s * 0.45, s * 0.12), s * 0.6, Color("3f8f4a"), true, -1, true)
+		draw_circle(c, s * 0.75, Color("5fb355"), true, -1, true)
+		draw_circle(c + Vector2(-s * 0.2, -s * 0.25), s * 0.4, Color("86cf6a"), true, -1, true)
+		if b > 0.7:
+			for i in 5:
+				var a := TAU * i / 5.0 + 0.4
+				draw_circle(c + Vector2(cos(a), sin(a)) * s * 0.55, s * 0.11, Color("ffd2dc"), true, -1, true)
+
+
+func _draw_bonus() -> void:
+	var u := unit
+	draw_circle(Vector2(0, u * 0.03), u * 0.3, Color(0, 0, 0, 0.14), true, -1, true)
+	draw_circle(Vector2.ZERO, u * 0.3, SOIL_DARK, true, -1, true)
+	draw_circle(Vector2(0, -u * 0.012), u * 0.27, SOIL, true, -1, true)
 	for i in 10:
 		var a := TAU * i / 10.0
-		LowPoly.instance(LowPoly.blob(0.025, 0, 0.0, 1), _m(Color(1.0, 0.8, 0.3), 0.6), Vector3(cos(a) * 0.42, LAWN, sin(a) * 0.42), _disc, false).name = "marker"
-	_flowers = Node3D.new()
-	_disc.add_child(_flowers)
-	var cols := [Color(0.98, 0.5, 0.6), Color(1, 1, 1), Color(0.72, 0.58, 0.95), Color(1.0, 0.8, 0.28)]
-	for i in 7:
-		var a := TAU * i / 7.0 + 0.3
-		var r := 0.18 if i % 2 == 0 else 0.1
-		var f := Node3D.new()
-		f.position = Vector3(cos(a) * r, LAWN + 0.04, sin(a) * r)
-		_flowers.add_child(f)
-		LowPoly.instance(LowPoly.cyl(0.012, 0.01, 0.16, 3), _m(Color(0.35, 0.6, 0.3)), Vector3.ZERO, f, false)
-		LowPoly.instance(LowPoly.blob(0.055, 0, 0.1, i), _m(cols[i % 4]), Vector3(0, 0.17, 0), f, false)
+		draw_circle(Vector2(cos(a), sin(a)) * u * 0.4, u * 0.022, Color(1.0, 0.82, 0.35, 0.9), true, -1, true)
+	var cols := [Color("f58ea1"), Color("ffffff"), Color("b89be8"), Color("ffd15a")]
+	var g := 0.3 + 0.7 * bloom
+	for i in 6:
+		var a := TAU * i / 6.0 + 0.3
+		var p := Vector2(cos(a), sin(a)) * u * (0.15 if i % 2 == 0 else 0.08)
+		draw_line(p + Vector2(0, u * 0.06), p, Color("4f8f3e"), u * 0.018, true)
+		if bloom > 0.2:
+			Painter.flower(self, p, u * 0.07 * g, cols[i % 4], bloom)
+		else:
+			draw_circle(p, u * 0.025, Color("6faa55"), true, -1, true)
 
 
 func link_index() -> int:
@@ -286,42 +375,87 @@ func link_index() -> int:
 	return (tile.link.unicode_at(0) - 97) % Palette.LINK_COLORS.size()
 
 
-func _badge(parent: Node3D, pos: Vector3) -> void:
+## Link tag: colour AND shape (circle, triangle, square, diamond).
+func _badge(c: Vector2, r: float) -> void:
 	var col: Color = Palette.LINK_COLORS[link_index()]
-	var mesh: Mesh
+	var pts := PackedVector2Array()
 	match link_index():
-		0: mesh = LowPoly.blob(0.07, 1, 0.0, 1)                 # circle -> ball
-		1: mesh = LowPoly.cyl(0.08, 0.0, 0.13, 3)               # triangle -> pyramid
-		2: mesh = LowPoly.slab(Vector3(0.12, 0.12, 0.12), 0.01) # square -> cube
-		_: mesh = LowPoly.cyl(0.08, 0.0, 0.12, 4)               # diamond
-	LowPoly.instance(mesh, _m(col, 0.25), pos, parent)
+		0:
+			draw_circle(c, r * 1.12, Color.WHITE, true, -1, true)
+			draw_circle(c, r * 0.85, col, true, -1, true)
+			return
+		1:
+			for i in 3:
+				var a := -PI * 0.5 + TAU * i / 3.0
+				pts.append(c + Vector2(cos(a), sin(a)) * r * 1.15)
+		2:
+			for v in [Vector2(-1, -1), Vector2(1, -1), Vector2(1, 1), Vector2(-1, 1)]:
+				pts.append(c + v * r * 0.82)
+		_:
+			for v in [Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0)]:
+				pts.append(c + v * r * 1.1)
+	var outline := PackedVector2Array()
+	for p in pts:
+		outline.append(c + (p - c) * 1.3)
+	draw_colored_polygon(outline, Color.WHITE)
+	draw_colored_polygon(pts, col)
 
 
-func _build_gate() -> void:
-	var holder := Node3D.new()
-	holder.rotation.y = -Dir.angle(Dir.rotate_mask(Dir.N, tile.rotation))
-	_disc.add_child(holder)
-	for s in [-1.0, 1.0]:
-		LowPoly.instance(LowPoly.cyl(0.05, 0.045, 0.42, 6), _m(Color(0.45, 0.31, 0.2)), Vector3(s * 0.24, TOP, 0), holder)
-	_badge(holder, Vector3(0.24, TOP + 0.44, 0))
-	LowPoly.instance(LowPoly.slab(Vector3(0.56, 0.06, 0.08), 0.01), _m(Color(0.5, 0.35, 0.22)), Vector3(0, TOP + 0.4, 0), holder)
-	_gate_plank = Node3D.new()
-	holder.add_child(_gate_plank)
-	LowPoly.instance(LowPoly.slab(Vector3(0.4, 0.2, 0.06), 0.015), _m(Color(0.66, 0.47, 0.29)), Vector3(0, 0, 0), _gate_plank)
-	_gate_plank.position.y = TOP + 0.01
+func _draw_gate() -> void:
+	var u := unit
+	var axis := _dir_vec(Dir.rotate_mask(Dir.N, tile.rotation))
+	var across := Vector2(-axis.y, axis.x)
+	var ang := across.angle()
+	# a wooden sluice board across the groove; it slides aside when open
+	var slide := across * u * 0.27 * _gate_open
+	var alpha := 1.0 - 0.5 * _gate_open
+	var len := u * 0.5
+	var thick := u * 0.17
+	draw_set_transform(slide + Vector2(0, -sin(celebrate * PI) * 0.08 * u), ang, Vector2(press, press))
+	var body := Rect2(Vector2(-len * 0.5, -thick * 0.5), Vector2(len, thick))
+	_round_rect(Rect2(body.position + Vector2(0, u * 0.035), body.size), u * 0.04, Color(0, 0, 0, 0.3 * alpha))
+	_round_rect(body, u * 0.04, Color(0.47, 0.31, 0.18, alpha))
+	_round_rect(body.grow(-u * 0.018), u * 0.03, Color(0.69, 0.48, 0.28, alpha))
+	for k in [-0.28, 0.28]:
+		draw_line(Vector2(len * k, -thick * 0.5), Vector2(len * k, thick * 0.5), Color(0.35, 0.36, 0.38, alpha), u * 0.03, true)
+	draw_line(Vector2(-len * 0.42, -thick * 0.12), Vector2(len * 0.42, -thick * 0.12), Color(1, 0.9, 0.7, 0.35 * alpha), u * 0.012, true)
+	draw_set_transform(Vector2(0, -sin(celebrate * PI) * 0.08 * u), 0.0, Vector2(press, press))
+	_badge(slide + across * u * 0.33, u * 0.09)
 
 
-func _build_switch() -> void:
-	LowPoly.instance(LowPoly.cyl(0.24, 0.28, 0.1, 12), _m(SLAB_FACE), Vector3(0, LAWN, 0), _disc)
-	_lever = Node3D.new()
-	_lever.position = Vector3(0, LAWN + 0.12, 0)
-	_disc.add_child(_lever)
-	LowPoly.instance(LowPoly.cyl(0.03, 0.025, 0.42, 6), _m(Color(0.5, 0.35, 0.22)), Vector3.ZERO, _lever)
-	_badge(_lever, Vector3(0, 0.44, 0))
-	LowPoly.instance(LowPoly.slab(Vector3(0.14, 0.06, 0.12), 0.01), _m(Color(0.42, 0.42, 0.42)), Vector3(0, LAWN + 0.08, 0), _disc)
+func _draw_switch() -> void:
+	var u := unit
+	var w := u * 0.7
+	var h := u * 0.36
+	var rect := Rect2(Vector2(-w * 0.5, -h * 0.5), Vector2(w, h))
+	var col: Color = Palette.LINK_COLORS[link_index()]
+	_round_rect(Rect2(rect.position + Vector2(0, u * 0.06), rect.size), h * 0.5, Color(0, 0, 0, 0.22))
+	_round_rect(Rect2(rect.position + Vector2(0, u * 0.035), rect.size), h * 0.5, Color("8f897d").lerp(col.darkened(0.35), _switch_on))
+	_round_rect(rect, h * 0.5, Color("d9d3c6").lerp(col, _switch_on))
+	var kx := lerpf(-w * 0.5 + h * 0.5, w * 0.5 - h * 0.5, _switch_on)
+	draw_circle(Vector2(kx, u * 0.025), h * 0.42, Color(0, 0, 0, 0.2), true, -1, true)
+	draw_circle(Vector2(kx, 0), h * 0.42, Color.WHITE, true, -1, true)
+	_badge(Vector2(kx, 0), h * 0.2)
 
 
-# ------------------------------------------------------------------ state
+func _draw_leaks() -> void:
+	var u := unit
+	var t := 0.0 if Game.reduced_motion() else _t
+	for d in Dir.LIST:
+		if leak_mask & d and tile.shape_mask() & d:
+			var dir := _dir_vec(d)
+			for k in 3:
+				var ph := fmod(t * 1.4 + k * 0.33, 1.0)
+				var p := dir * u * (0.46 + 0.12 * ph) + Vector2(0, u * 0.18 * ph * ph)
+				draw_circle(p, u * 0.035 * (1.0 - ph * 0.5), Color(0.55, 0.9, 1.0, 0.9 * (1.0 - ph)), true, -1, true)
+
+
+# ------------------------------------------------------------------ helpers
+
+func _dir_vec(d: int) -> Vector2:
+	var o := Dir.offset(d)
+	return Vector2(o.x, o.y)
+
 
 func _arm_fill(d: int) -> float:
 	if not wet:
@@ -333,84 +467,14 @@ func _arm_fill(d: int) -> float:
 	return clampf(water * 2.0 - 1.0, 0.0, 1.0)
 
 
-func _update_water() -> void:
-	if tile == null:
-		return
-	for d in _arms:
-		var arm: Dictionary = _arms[d]
-		var f := _arm_fill(d)
-		var node: Node3D = arm["node"]
-		var mesh: MeshInstance3D = arm["mesh"]
-		node.visible = f > 0.01
-		var top: float = mesh.get_meta("top")
-		var reach: float = mesh.get_meta("reach")
-		mesh.scale = Vector3(1, 1, maxf(f, 0.01))
-		if (entry_mask & d) and not tile.is_source():
-			# fill from the edge inward
-			mesh.position = Vector3(0, top + 0.004, -reach + reach * 0.5 * f)
-		else:
-			mesh.position = Vector3(0, top + 0.004, -reach * 0.5 * f)
-	if _hub_water:
-		_hub_water.visible = wet and (water >= 0.5 or tile.is_source())
-	if _sapling.has("puddle"):
-		_sapling["puddle"].visible = wet and water > 0.3
-	_update_drops()
-
-
-func _update_drops() -> void:
-	if _drops == null:
-		return
-	for c in _drops.get_children():
-		c.queue_free()
-	if not wet or water < 0.99 or leak_mask == 0:
-		return
-	for d in Dir.LIST:
-		if leak_mask & d and tile.shape_mask() & d:
-			var off := Vector3(Dir.offset(d).x, 0, Dir.offset(d).y) * 0.47
-			for k in 3:
-				var drop := LowPoly.instance(LowPoly.blob(0.035, 0, 0.0, k), _m(Color(0.7, 0.95, 1.0), 0.6), off + Vector3(0, TOP + 0.1, 0), _drops, false)
-				drop.set_meta("k", k)
-				drop.set_meta("base", off)
-
-
-func _update_bloom() -> void:
-	if _sapling.has("canopy"):
-		var b := bloom
-		var canopy: Node3D = _sapling["canopy"]
-		canopy.scale = Vector3.ONE * maxf(0.001, 0.15 + 0.85 * b)
-		canopy.visible = b > 0.02
-		(_sapling["bare"] as Node3D).visible = b < 0.6
-		(_sapling["trunk"] as Node3D).scale = Vector3.ONE * (0.75 + 0.25 * b)
-	if _flowers:
-		for f in _flowers.get_children():
-			f.scale = Vector3.ONE * maxf(0.001, 0.25 + 0.75 * bloom)
-			(f.get_child(1) as Node3D).visible = bloom > 0.3
-
-
-func _process(delta: float) -> void:
-	_t += delta
-	if tile == null:
-		return
-	if _gate_plank:
-		var open := board.is_gate_open(tile)
-		_gate_plank.position.y = move_toward(_gate_plank.position.y, TOP + (0.3 if open else 0.01), delta * 1.6)
-	if _lever:
-		var on := bool(board.switches.get(tile.link, false))
-		_lever.rotation.z = move_toward(_lever.rotation.z, -0.6 if on else 0.6, delta * 6.0)
-	if _ring:
-		_ring.visible = highlight
-		if highlight:
-			var s := 1.0 + 0.06 * sin(_t * 6.0)
-			_ring.scale = Vector3(s, 1, s)
-			_ring.position.y = LAWN + 0.01
-	var orb := get_node_or_null("orb")
-	if orb:
-		orb.position.y = TOP + 0.12 + sin(_t * 2.0) * 0.02
-	for drop in _drops.get_children():
-		var k: int = drop.get_meta("k")
-		var ph := fmod(_t * 1.4 + k * 0.33, 1.0)
-		var base: Vector3 = drop.get_meta("base")
-		drop.position = base * (1.0 + ph * 0.15) + Vector3(0, TOP + 0.12 - ph * 0.25, 0)
-		drop.scale = Vector3.ONE * (1.0 - ph * 0.6)
-	if celebrate > 0.0 and _disc:
-		_disc.position.y = sin(celebrate * PI) * 0.08
+func _round_rect(r: Rect2, radius: float, col: Color) -> void:
+	radius = minf(radius, minf(r.size.x, r.size.y) * 0.5)
+	var pts := PackedVector2Array()
+	var corners := [r.position + Vector2(r.size.x - radius, radius), r.position + Vector2(r.size.x - radius, r.size.y - radius),
+		r.position + Vector2(radius, r.size.y - radius), r.position + Vector2(radius, radius)]
+	for ci in 4:
+		var start := -PI * 0.5 + ci * PI * 0.5
+		for k in 7:
+			var a := start + PI * 0.5 * k / 6.0
+			pts.append(corners[ci] + Vector2(cos(a), sin(a)) * radius)
+	draw_colored_polygon(pts, col)

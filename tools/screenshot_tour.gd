@@ -27,9 +27,9 @@ func _ready() -> void:
 	get_tree().change_scene_to_file("res://scenes/boot/boot.tscn")
 	await _wait(0.35)
 	await _shot("00a_logo")
-	await _wait(0.9)
-	await _shot("00b_loading")
 	await _wait(1.6)
+	await _shot("00b_loading")
+	await _wait(2.4)
 	# 1. First-time experience: level 1 with the tutorial pointer
 	await _go("gameplay", {"level_id": "w1_l01"}, 1.2)
 	await _shot("01_tutorial_level1")

@@ -85,3 +85,21 @@ THEME_LIGHT,Light
 THEME_DARK,Dark
 SHOW_FPS,Show FPS counter
 LOADING,Loading…
+LOAD_CH1_TITLE,Verdant Isle
+LOAD_CH1_LINE,"A forgotten island, waiting for the water to return."
+LOAD_CH2_TITLE,Spring Glade
+LOAD_CH2_LINE,Where the first spring wakes beneath the palms.
+LOAD_CH3_TITLE,Heart Falls
+LOAD_CH3_LINE,"High above, the old falls are ready to run again."
+LOAD_CH4_TITLE,Lily Ponds
+LOAD_CH4_LINE,"Still water, blossoms, and the koi coming home."
+LOAD_STATUS_1,Waking the spring…
+LOAD_STATUS_2,Carving the channels…
+LOAD_STATUS_3,Calling the rain…
+LOAD_STATUS_4,Ready
+LOAD_TIP_1,Round stones turn when you tap them. Square stones stay put.
+LOAD_TIP_2,Water must reach every sapling to finish a level.
+LOAD_TIP_3,"Undo as often as you like, there is no penalty."
+LOAD_TIP_4,A lever opens every gate with the same colour and shape.
+LOAD_TIP_5,"Hints are free. Ask whenever you are stuck."
+LOAD_TIP_6,Close every open channel for the No spills bonus.

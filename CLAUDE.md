@@ -26,6 +26,7 @@ python3 tools/validate_levels.py && python3 tools/validate_assets.py && python3 
 python3 tools/level_designer.py w1_l07   # regenerate a level from tools/level_specs/world_01.py
 python3 tools/generate_audio.py          # regenerate all sound (deterministic)
 python3 tools/build_brand_assets.py      # app icon, splash, logo from art/source masters
+xvfb-run -a godot --path . --rendering-driver opengl3 res://tools/render_key_art.tscn && python3 tools/paint_key_art.py  # loading art
 # visual QA (needs a display; Xvfb works):
 xvfb-run -a -s "-screen 0 1280x1400x24" godot --path . --resolution 720x1280 --rendering-driver opengl3 \
   --audio-driver Dummy res://tools/screenshot_tour.tscn -- --save-path=user://tour.json

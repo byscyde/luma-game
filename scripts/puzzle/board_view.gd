@@ -1,49 +1,39 @@
 class_name BoardView
 extends Control
-## Renders a PuzzleBoard as a 3D diorama (orthographic camera, so channel
-## connections are never distorted), turns touches into tile taps and
-## animates water. Holds no rules: it emits `tile_tapped` and is told what the
-## water did.
+## Renders a PuzzleBoard as a crisp top-down tray of tiles, turns touches into
+## tile taps and animates water. Holds no rules: it emits `tile_tapped` and is
+## told what the water did.
 
 signal tile_tapped(cell: Vector2i)
 
 const FILL_STEP := 0.075       ## seconds between consecutive BFS rings filling
 const FILL_TIME := 0.16        ## seconds for one tile to fill
-const PITCH := 56.0            ## camera tilt in degrees from horizontal
+const PAD := 0.2               ## tray padding around the grid (cell units)
+const MAX_CELL := 170.0        ## px; keeps tiny boards from looking bloated
+
+const TRAY_TOP := Color("2f6461")
+const TRAY_BOTTOM := Color("214a4c")
+const TRAY_EDGE := Color("173638")
+const SLOT := Color("1c3f41")
+const SLOT_LIGHT := Color(1, 1, 1, 0.05)
 
 var board: PuzzleBoard
 var input_enabled := true
 var views: Dictionary = {}     ## Vector2i -> TileView
-var cell_size := 100.0         ## approx on-screen width of a cell (for overlays)
+var cell_size := 100.0         ## on-screen size of a cell in px
+var origin := Vector2.ZERO     ## top-left of cell (0, 0)
 var _wet_since: Dictionary = {}
+var _bridges: Array = []       ## [Vector2 a, Vector2 b] water across the gaps between tiles
+var _edges: Array = []         ## last simulation's water edges
 var _pointer: Node2D
 var _pointer_cell := Vector2i(-1, -1)
-var _svc: SubViewportContainer
-var _vp: SubViewport
-var _root: Node3D
-var _tiles_root: Node3D
-var _camera: Camera3D
-var _plinth: Node3D
+var _tiles: Node2D
 
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	_svc = SubViewportContainer.new()
-	_svc.stretch = true
-	_svc.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_svc.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_svc)
-	_vp = SubViewport.new()
-	_vp.own_world_3d = true
-	_vp.transparent_bg = true
-	# 2x on phones: high-refresh (120 Hz) budget; 4x on desktop
-	_vp.msaa_3d = Viewport.MSAA_2X if OS.has_feature("mobile") else Viewport.MSAA_4X
-	_svc.add_child(_vp)
-	_root = Node3D.new()
-	_vp.add_child(_root)
-	_build_environment()
-	_tiles_root = Node3D.new()
-	_root.add_child(_tiles_root)
+	if _tiles == null:
+		_ready_children()
 	_pointer = PointerHand.new()
 	_pointer.visible = false
 	_pointer.z_index = 10
@@ -51,122 +41,58 @@ func _ready() -> void:
 	resized.connect(_layout)
 
 
-func _build_environment() -> void:
-	var sun := DirectionalLight3D.new()
-	sun.light_color = Color(1.0, 0.94, 0.84)
-	sun.light_energy = 0.6
-	sun.rotation_degrees = Vector3(-58, -32, 0)
-	sun.shadow_enabled = true
-	sun.shadow_blur = 1.2
-	sun.shadow_bias = 0.06
-	sun.shadow_normal_bias = 1.6
-	sun.directional_shadow_max_distance = 25.0
-	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
-	_root.add_child(sun)
-	var env := Environment.new()
-	env.background_mode = Environment.BG_CLEAR_COLOR
-	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	env.ambient_light_color = Color(0.78, 0.85, 0.95)
-	env.ambient_light_energy = 0.26
-	env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
-	var we := WorldEnvironment.new()
-	we.environment = env
-	_root.add_child(we)
-	_camera = Camera3D.new()
-	_camera.projection = Camera3D.PROJECTION_ORTHOGONAL
-	_camera.near = 0.1
-	_camera.far = 100.0
-	_root.add_child(_camera)
-
-
 func setup(p_board: PuzzleBoard) -> void:
 	board = p_board
+	if _tiles == null:
+		_ready_children()
 	for v in views.values():
 		v.queue_free()
 	views.clear()
 	_wet_since.clear()
+	_bridges.clear()
+	# row-major so lower tiles draw over the shadows of the row above
 	for y in board.height:
 		for x in board.width:
 			var p := Vector2i(x, y)
 			var v := TileView.new()
-			_tiles_root.add_child(v)
-			v.position = cell_world(p)
+			_tiles.add_child(v)
 			v.setup(board.get_tile(p), board, p)
 			views[p] = v
-	_build_plinth()
 	_layout()
 
 
-func _build_plinth() -> void:
-	if _plinth:
-		_plinth.queue_free()
-	_plinth = Node3D.new()
-	_root.add_child(_plinth)
-	var w := float(board.width)
-	var h := float(board.height)
-	# garden bed: earth block, grass skirt, cream stone frame flush with the lawn
-	LowPoly.instance(LowPoly.slab(Vector3(w + 0.8, 0.85, h + 0.8), 0.22), LowPoly.mat(Color(0.6, 0.45, 0.32)), Vector3(0, -0.93, 0), _plinth)
-	LowPoly.instance(LowPoly.slab(Vector3(w + 0.78, 0.1, h + 0.78), 0.16), LowPoly.mat(Color(0.4, 0.62, 0.3)), Vector3(0, -0.1, 0), _plinth)
-	LowPoly.instance(LowPoly.slab(Vector3(w + 0.3, 0.1, h + 0.3), 0.08), LowPoly.mat(Color(0.86, 0.79, 0.65)), Vector3(0, -0.04, 0), _plinth)
-	# a few pebbles and tufts on the skirt for a hand-made diorama feel
-	var rng := RandomNumberGenerator.new()
-	rng.seed = int(w * 13 + h * 7)
-	for i in 10:
-		var side := i % 4
-		var t := rng.randf_range(-0.45, 0.45)
-		var p := Vector3()
-		match side:
-			0: p = Vector3(t * w, 0, -h * 0.5 - 0.29)
-			1: p = Vector3(w * 0.5 + 0.29, 0, t * h)
-			2: p = Vector3(t * w, 0, h * 0.5 + 0.29)
-			_: p = Vector3(-w * 0.5 - 0.29, 0, t * h)
-		if i % 3 == 0:
-			LowPoly.instance(LowPoly.blob(0.08, 0, 0.25, i, Vector3(1.2, 0.7, 1)), LowPoly.mat(Color(0.72, 0.72, 0.74)), p, _plinth)
-		else:
-			LowPoly.instance(LowPoly.cyl(0.04, 0.0, 0.12, 4), LowPoly.mat(Color(0.36, 0.58, 0.28)), p, _plinth, false)
-
-
-func cell_world(p: Vector2i) -> Vector3:
-	return Vector3(p.x - (board.width - 1) * 0.5, 0.0, p.y - (board.height - 1) * 0.5)
+func _ready_children() -> void:
+	_tiles = Node2D.new()
+	add_child(_tiles)
 
 
 func _layout() -> void:
 	if board == null or size.x < 2 or size.y < 2:
 		return
-	var w := float(board.width) + 0.95
-	var h := float(board.height) + 0.95
-	var pitch := deg_to_rad(PITCH)
-	# vertical screen extent of the board in world units (ortho, tilted)
-	var vert := h * sin(pitch) + 1.0 * cos(pitch)
-	var aspect := size.x / size.y
-	_camera.size = maxf(vert, w / aspect) * 1.04
-	var target := Vector3(0, 0.1, 0.05)
-	var dir := Vector3(0, sin(pitch), cos(pitch))
-	_camera.position = target + dir * 20.0
-	_camera.look_at(target, Vector3.UP)
-	cell_size = size.y / _camera.size
+	var cols := float(board.width) + PAD * 2.0
+	var rows := float(board.height) + PAD * 2.0 + 0.1
+	cell_size = minf(MAX_CELL, minf(size.x / cols, size.y / rows))
+	var grid := Vector2(board.width, board.height) * cell_size
+	origin = ((size - grid) * 0.5).floor()
+	for p in views:
+		var v: TileView = views[p]
+		v.position = cell_center(p)
+		v.unit = cell_size
+	_rebuild_bridges()
+	queue_redraw()
 	if _pointer_cell != Vector2i(-1, -1):
 		show_pointer(_pointer_cell)
 
 
 func cell_center(p: Vector2i) -> Vector2:
-	if _vp == null or _vp.size.x == 0:
-		return size * 0.5
-	var sp := _camera.unproject_position(cell_world(p) + Vector3(0, TileView.TOP, 0))
-	return sp * (size / Vector2(_vp.size))
+	return origin + (Vector2(p) + Vector2(0.5, 0.5)) * cell_size
 
 
 func cell_at(local: Vector2) -> Vector2i:
-	if board == null or _vp.size.x == 0:
+	if board == null or cell_size <= 0.0:
 		return Vector2i(-1, -1)
-	var vp_pos := local * (Vector2(_vp.size) / size)
-	var o := _camera.project_ray_origin(vp_pos)
-	var n := _camera.project_ray_normal(vp_pos)
-	if absf(n.y) < 0.0001:
-		return Vector2i(-1, -1)
-	var t := (TileView.TOP - o.y) / n.y
-	var hit := o + n * t
-	var c := Vector2i(floori(hit.x + board.width * 0.5), floori(hit.z + board.height * 0.5))
+	var g := (local - origin) / cell_size
+	var c := Vector2i(floori(g.x), floori(g.y))
 	return c if board.in_bounds(c) else Vector2i(-1, -1)
 
 
@@ -192,38 +118,87 @@ func _gui_input(event: InputEvent) -> void:
 			tile_tapped.emit(c)
 
 
+# ------------------------------------------------------------------ tray
+
+func _draw() -> void:
+	if board == null:
+		return
+	var c := cell_size
+	var grid := Rect2(origin, Vector2(board.width, board.height) * c)
+	var tray := grid.grow(PAD * c)
+	var r := 0.3 * c
+	# soft shadow, then the tray body with a darker lip and a lit top edge
+	for i in 5:
+		var k := float(i) / 4.0
+		_round_rect(Rect2(tray.position + Vector2(0, c * 0.08), tray.size).grow(c * 0.05 * (1.0 - k)), r + c * 0.05, Color(0, 0, 0, 0.05 + 0.04 * k))
+	_round_rect(Rect2(tray.position + Vector2(0, c * 0.07), tray.size), r, TRAY_EDGE)
+	_gradient_round_rect(tray, r, TRAY_TOP, TRAY_BOTTOM)
+	draw_polyline(_closed(_round_rect_points(tray, r)), Color(1, 1, 1, 0.1), maxf(1.5, c * 0.012), true)
+	draw_line(tray.position + Vector2(r, c * 0.012), tray.position + Vector2(tray.size.x - r, c * 0.012), Color(1, 1, 1, 0.16), c * 0.02, true)
+	# recessed slots
+	var inset := c * 0.045
+	for y in board.height:
+		for x in board.width:
+			var cell := Rect2(origin + Vector2(x, y) * c, Vector2(c, c)).grow(-inset)
+			_round_rect(cell, c * 0.2, SLOT)
+			_round_rect(Rect2(cell.position + Vector2(0, cell.size.y - c * 0.05), Vector2(cell.size.x, c * 0.05)).grow_individual(-c * 0.12, 0, -c * 0.12, 0), c * 0.025, SLOT_LIGHT)
+	# water bridging the gaps between connected tiles
+	for b in _bridges:
+		draw_line(b[0], b[1], TileView.WATER_DEEP_COL, TileView.WATER * c, true)
+		draw_line(b[0], b[1], TileView.WATER_COL, TileView.WATER * c * 0.72, true)
+
+
+func _closed(pts: PackedVector2Array) -> PackedVector2Array:
+	pts.append(pts[0])
+	return pts
+
+
+func _round_rect(rect: Rect2, radius: float, col: Color) -> void:
+	draw_colored_polygon(_round_rect_points(rect, radius), col)
+
+
+func _gradient_round_rect(rect: Rect2, radius: float, top: Color, bottom: Color) -> void:
+	var pts := _round_rect_points(rect, radius)
+	var cols := PackedColorArray()
+	for p in pts:
+		cols.append(top.lerp(bottom, clampf((p.y - rect.position.y) / rect.size.y, 0.0, 1.0)))
+	draw_polygon(pts, cols)
+
+
+func _round_rect_points(r: Rect2, radius: float) -> PackedVector2Array:
+	radius = minf(radius, minf(r.size.x, r.size.y) * 0.5)
+	var pts := PackedVector2Array()
+	var corners := [r.position + Vector2(r.size.x - radius, radius), r.position + Vector2(r.size.x - radius, r.size.y - radius),
+		r.position + Vector2(radius, r.size.y - radius), r.position + Vector2(radius, radius)]
+	for ci in 4:
+		var start := -PI * 0.5 + ci * PI * 0.5
+		for k in 9:
+			var a := start + PI * 0.5 * k / 8.0
+			pts.append(corners[ci] + Vector2(cos(a), sin(a)) * radius)
+	return pts
+
+
 # ------------------------------------------------------------------ animation hooks
-
-func _refresh_shape(v: TileView) -> void:
-	# Rebuild a tile whose logical shape changed (rotation, undo, reset).
-	var keep := {"wet": v.wet, "water": v.water, "entry": v.entry_mask, "leak": v.leak_mask, "bloom": v.bloom}
-	v.setup(v.tile, board, v.cell)
-	v.wet = keep["wet"]
-	v.entry_mask = keep["entry"]
-	v.water = keep["water"]
-	v.leak_mask = keep["leak"]
-	v.bloom = keep["bloom"]
-
 
 ## Called after the tile's logical rotation changed; animates the turn.
 func animate_rotation(p: Vector2i) -> void:
 	var v: TileView = views.get(p)
 	if v == null:
 		return
-	_refresh_shape(v)
+	v.set_meta("mask", v.tile.shape_mask())
 	var reduced := Game.reduced_motion()
-	v.rot_offset = PI * 0.5
+	v.rot_offset = -PI * 0.5
 	var tw := v.create_tween().set_parallel(true)
-	tw.tween_property(v, "rot_offset", 0.0, 0.06 if reduced else 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	v.press = 0.94
-	tw.tween_property(v, "press", 1.0, 0.18).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(v, "rot_offset", 0.0, 0.06 if reduced else 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	v.press = 0.93
+	tw.tween_property(v, "press", 1.0, 0.2).set_trans(Tween.TRANS_SINE)
 
 
 func animate_press(p: Vector2i) -> void:
 	var v: TileView = views.get(p)
 	if v == null:
 		return
-	v.press = 0.94
+	v.press = 0.93
 	v.create_tween().tween_property(v, "press", 1.0, 0.14)
 
 
@@ -247,8 +222,8 @@ func apply_water(sim: WaterResult, animate: bool = true) -> float:
 			base_dist = mini(base_dist, int(sim.distance[p]))
 	for p in views:
 		var v: TileView = views[p]
-		if v.tile.shape_mask() != _built_mask(v):
-			_refresh_shape(v)
+		if v.tile.shape_mask() != int(v.get_meta("mask", -1)):
+			v.set_meta("mask", v.tile.shape_mask())
 		var now_wet := sim.is_wet(p)
 		v.entry_mask = int(entry.get(p, 0))
 		v.leak_mask = int(leaks.get(p, 0))
@@ -269,13 +244,32 @@ func apply_water(sim: WaterResult, animate: bool = true) -> float:
 			v.water = 0.0
 			if v.tile.is_sink():
 				v.create_tween().tween_property(v, "bloom", 0.0, 0.2)
-		elif now_wet:
-			v.water = v.water  # refresh entry/leak visuals
+		v.queue_redraw()
+	_edges = sim.edges.duplicate()
+	_rebuild_bridges()
+	queue_redraw()
 	return longest
 
 
-func _built_mask(v: TileView) -> int:
-	return int(v.get_meta("mask", -1))
+func _rebuild_bridges() -> void:
+	_bridges.clear()
+	for e in _edges:
+		var a: Vector2i = e[0]
+		var b: Vector2i = e[1]
+		var ca := cell_center(a)
+		var cb := cell_center(b)
+		var dir := (cb - ca).normalized()
+		_bridges.append([ca + dir * cell_size * (_reach(a) - 0.03), cb - dir * cell_size * (_reach(b) - 0.03)])
+
+
+## How far a tile's own channel reaches from its centre (cell units).
+func _reach(p: Vector2i) -> float:
+	var t := board.get_tile(p)
+	if t.is_sink():
+		return 0.3
+	if t.is_rotatable():
+		return TileView.DISC_R
+	return TileView.SLAB * 0.5
 
 
 func _dir_between(from: Vector2i, to: Vector2i) -> int:

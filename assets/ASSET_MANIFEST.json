@@ -67,6 +67,26 @@
       "license": "Proprietary - SCYDE (original work)"
     },
     {
+      "path": "assets/branding/loading_1.jpg",
+      "source": "Rendered from the game's own 3D island (shot \"dawn\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/branding/loading_2.jpg",
+      "source": "Rendered from the game's own 3D island (shot \"glade\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/branding/loading_3.jpg",
+      "source": "Rendered from the game's own 3D island (shot \"falls\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/branding/loading_4.jpg",
+      "source": "Rendered from the game's own 3D island (shot \"ponds\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
       "path": "assets/branding/luma_key_art.png",
       "source": "Owner-supplied LUMA app icon art (art/source/luma_app_icon_master.jpg), corners filled and resized by tools/build_brand_assets.py",
       "license": "Proprietary - SCYDE (owner-supplied artwork)"

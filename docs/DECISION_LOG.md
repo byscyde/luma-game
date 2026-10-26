@@ -2,6 +2,19 @@
 
 Newest first. Each entry: context → decision → consequences.
 
+### D-018 · 2D puzzle board; iosgame-style loading screen (2026-10-26)
+Owner rejected the 3D low-poly board ("worst look ever"). The board is now drawn crisp and
+top-down in 2D (`BoardView` tray + `TileView` per tile): dark teal tray with recessed slots,
+raised ivory discs with notches (rotatable), riveted square slabs (fixed), carved slate
+grooves with flowing water glints, water bridges across connected gaps, wooden sluice
+gates and toggle levers tagged by link colour **and** shape, saplings that leaf out. It is
+also far cheaper than the 3D SubViewport (120 Hz budget). Supersedes the board part of
+D-015/D-017; the island stays 3D.
+Loading screen follows the owner's iosgame project: key art rendered from the real 3D
+island (`tools/render_key_art.gd`, graded by `tools/paint_key_art.py`), Ken Burns drift and
+cross-dissolve, chapter captions (numeral between gold rules, name, line, pips), rising
+fireflies, title at the top, status + percent + bar with a glowing head, rotating tips.
+
 ### D-017 · Dark mode, brand assets, 120 Hz, redesigned board (2026-10-26)
 - **Theme**: Settings → Appearance (System / Light / Dark, default System). UI design-system
   colours in `Palette` are static and swapped by `Palette.apply()`; `Game.refresh_theme()`

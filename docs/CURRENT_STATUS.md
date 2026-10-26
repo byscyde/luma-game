@@ -15,6 +15,12 @@ Old run links redirect. iOS builds now also emit `LUMA-unsigned.ipa` (owner re-s
 Each successful iOS build run is now also published as a pre-release `ios-build-<run>` under
 GitHub Releases with the unsigned IPA (D-016).
 
+## Session 5
+Board redrawn as a crisp 2D tray (owner rejected the 3D board) and a new loading screen in
+the style of the owner's iosgame project, with key art rendered from the real island
+(D-018). iOS CI moved to `macos-26` (no macos-15 runner was being assigned). Verified
+locally: 77/77 tests, 30/30 levels, validators, screenshot tour.
+
 ## Session 4
 Board and level screen redesigned; dark mode following the device (plus manual choice);
 SCYDE boot logo + LUMA loading screen; owner's app icon; 120 Hz settings and mobile render
