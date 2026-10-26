@@ -9,8 +9,8 @@ static var _mat_cache: Dictionary = {}
 
 
 ## Matte material, cached by colour/emission. Vertex colours optional.
-static func mat(col: Color, emission: float = 0.0, rough: float = 0.85, vertex_colors := false) -> StandardMaterial3D:
-	var key := "%s|%.2f|%.2f|%s" % [col.to_html(), emission, rough, vertex_colors]
+static func mat(col: Color, emission: float = 0.0, rough: float = 0.85, vertex_colors := false, double_sided := false) -> StandardMaterial3D:
+	var key := "%s|%.2f|%.2f|%s|%s" % [col.to_html(), emission, rough, vertex_colors, double_sided]
 	if _mat_cache.has(key):
 		return _mat_cache[key]
 	var m := StandardMaterial3D.new()
@@ -19,6 +19,8 @@ static func mat(col: Color, emission: float = 0.0, rough: float = 0.85, vertex_c
 	m.metallic_specular = 0.25
 	if vertex_colors:
 		m.vertex_color_use_as_albedo = true
+	if double_sided:
+		m.cull_mode = BaseMaterial3D.CULL_DISABLED
 	if emission > 0.0:
 		m.emission_enabled = true
 		m.emission = col
@@ -179,6 +181,72 @@ static func _add_outward(st: SurfaceTool, p0: Vector3, p1: Vector3, p2: Vector3,
 		st.add_vertex(p0); st.add_vertex(p2); st.add_vertex(p1)
 	else:
 		st.add_vertex(p0); st.add_vertex(p1); st.add_vertex(p2)
+
+
+## One arched, tapering leaf blade along +Z (local), drooping by `droop`.
+static func _blade(st: SurfaceTool, base: Vector3, yaw: float, length: float, width: float, lift: float, droop: float, segs: int, shade: float) -> void:
+	var dir := Vector3(sin(yaw), 0, cos(yaw))
+	var side := Vector3(cos(yaw), 0, -sin(yaw))
+	var prev_l := Vector3.ZERO
+	var prev_r := Vector3.ZERO
+	for i in segs + 1:
+		var u := float(i) / segs
+		var p := base + dir * length * u + Vector3.UP * (lift * u - droop * u * u)
+		var wdt := width * sin(PI * minf(0.15 + u * 0.95, 1.0)) * (1.0 - u * 0.65)
+		# slight V-fold along the midrib reads as a real leaf under light
+		var l := p - side * wdt + Vector3.UP * wdt * 0.25
+		var r := p + side * wdt + Vector3.UP * wdt * 0.25
+		if i > 0:
+			var c := Color(shade, shade, shade)
+			st.set_color(c); st.add_vertex(prev_l); st.set_color(c); st.add_vertex(l); st.set_color(c); st.add_vertex(p)
+			st.set_color(c); st.add_vertex(prev_l); st.set_color(c); st.add_vertex(p); st.set_color(c); st.add_vertex(prev_l.lerp(prev_r, 0.5))
+			st.set_color(c); st.add_vertex(prev_r); st.set_color(c); st.add_vertex(p); st.set_color(c); st.add_vertex(r)
+			st.set_color(c); st.add_vertex(prev_r); st.set_color(c); st.add_vertex(prev_l.lerp(prev_r, 0.5)); st.set_color(c); st.add_vertex(p)
+		prev_l = l
+		prev_r = r
+
+
+## Fern / tropical plant rosette (white vertex colours with light shading;
+## tint per instance). kind: "fern" (many narrow fronds), "broad" (few wide leaves).
+static func plant(kind: String, seed_n: int = 0) -> ArrayMesh:
+	var key := "plant|%s|%d" % [kind, seed_n]
+	if _mesh_cache.has(key):
+		return _mesh_cache[key]
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_n * 101 + 7
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	st.set_smooth_group(-1)
+	var n := 9 if kind == "fern" else 6
+	for i in n:
+		var yaw := TAU * i / n + rng.randf_range(-0.25, 0.25)
+		if kind == "fern":
+			_blade(st, Vector3.ZERO, yaw, rng.randf_range(0.32, 0.46), 0.07, 0.34, 0.42, 6, rng.randf_range(0.8, 1.0))
+		else:
+			_blade(st, Vector3.ZERO, yaw, rng.randf_range(0.3, 0.4), 0.13, 0.32, 0.36, 5, rng.randf_range(0.82, 1.0))
+	st.generate_normals()
+	var mesh := st.commit()
+	_mesh_cache[key] = mesh
+	return mesh
+
+
+## Palm frond crown: long drooping blades radiating from the top.
+static func palm_crown(seed_n: int = 0) -> ArrayMesh:
+	var key := "palm|%d" % seed_n
+	if _mesh_cache.has(key):
+		return _mesh_cache[key]
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_n * 37 + 3
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	st.set_smooth_group(-1)
+	for i in 8:
+		var yaw := TAU * i / 8.0 + rng.randf_range(-0.2, 0.2)
+		_blade(st, Vector3.ZERO, yaw, rng.randf_range(0.55, 0.7), 0.11, 0.25, 0.62, 7, rng.randf_range(0.82, 1.0))
+	st.generate_normals()
+	var mesh := st.commit()
+	_mesh_cache[key] = mesh
+	return mesh
 
 
 static func instance(mesh: Mesh, material: Material, pos := Vector3.ZERO, parent: Node3D = null, shadows := true) -> MeshInstance3D:

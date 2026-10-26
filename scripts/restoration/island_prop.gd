@@ -24,7 +24,7 @@ func setup(p_data: Dictionary, w: IslandWorld, deco := false) -> void:
 	var px: float = data["pos"][0]
 	var pz: float = data["pos"][1]
 	position = w.surface(px, pz)
-	rotation.y = Painter.hash01(_seed) * TAU if kind in ["tree", "fruit_tree", "pine", "willow", "meadow", "reeds", "rabbits", "deer"] else 0.0
+	rotation.y = Painter.hash01(_seed) * TAU if kind in ["tree", "fruit_tree", "pine", "willow", "palm", "meadow", "reeds", "rabbits", "deer"] else 0.0
 	_build()
 	set_growth(0.0)
 
@@ -53,6 +53,8 @@ func _build() -> void:
 			_build_tree()
 		"pine":
 			_build_pine()
+		"palm":
+			_build_palm()
 		"willow":
 			_build_willow()
 		"meadow":
@@ -93,14 +95,15 @@ func _build_tree() -> void:
 		br.rotation = Vector3(deg_to_rad(40), TAU * i / 3.0 + _seed, 0)
 	var canopy := _node("canopy")
 	canopy.position = Vector3(0, 0.52 * big, 0)
-	var greens := [Color(0.3, 0.58, 0.27), Color(0.38, 0.68, 0.3), Color(0.47, 0.75, 0.33), Color(0.33, 0.62, 0.28)]
+	var greens := [Color(0.24, 0.52, 0.18), Color(0.34, 0.64, 0.22), Color(0.46, 0.74, 0.26), Color(0.3, 0.6, 0.2)]
 	if kind == "heart_tree":
 		greens = [Color(0.3, 0.6, 0.42), Color(0.38, 0.7, 0.48), Color(0.5, 0.78, 0.52), Color(0.34, 0.64, 0.45)]
-	var blobs := [[Vector3(0, 0.12, 0), 0.3], [Vector3(-0.17, 0.0, 0.08), 0.22], [Vector3(0.18, 0.02, -0.06), 0.23], [Vector3(0.02, 0.3, -0.04), 0.2]]
+	var blobs := [[Vector3(0, 0.12, 0), 0.3], [Vector3(-0.19, 0.0, 0.08), 0.22], [Vector3(0.2, 0.02, -0.06), 0.23], [Vector3(0.02, 0.32, -0.04), 0.21],
+		[Vector3(-0.1, 0.22, 0.14), 0.17], [Vector3(0.14, 0.2, 0.13), 0.16]]
 	for i in blobs.size():
 		var b: Array = blobs[i]
-		var mi := LowPoly.instance(LowPoly.blob(float(b[1]) * big, 1, 0.14, _seed + i), _m(greens[i]), b[0] * big, canopy)
-		mi.set_meta("green", greens[i])
+		var mi := LowPoly.instance(LowPoly.blob(float(b[1]) * big, 1, 0.14, _seed + i), _m(greens[i % greens.size()]), b[0] * big, canopy)
+		mi.set_meta("green", greens[i % greens.size()])
 	var bloom := _node("bloom", canopy)
 	var accent := Color(1, 0.96, 0.94)
 	if kind == "fruit_tree":
@@ -119,6 +122,27 @@ func _build_tree() -> void:
 		light.position = Vector3(0, 0.7, 0)
 		add_child(light)
 		_parts["light"] = light
+
+
+func _build_palm() -> void:
+	var trunk := _node("trunk")
+	var lean := Vector3(0.12 + 0.1 * Painter.hash01(_seed), 0, 0.05)
+	var p := Vector3.ZERO
+	for i in 6:
+		var seg := LowPoly.instance(LowPoly.cyl(0.06 - i * 0.005, 0.055 - i * 0.005, 0.2, 7), _m(Color(0.62, 0.48, 0.34).darkened(0.08 * (i % 2))), p, trunk)
+		seg.rotation.z = -0.08 * i * 0.6
+		p += Vector3(lean.x * (0.25 + i * 0.12), 0.19, lean.z * 0.3)
+	_node("bare", trunk)
+	var canopy := _node("canopy")
+	canopy.position = p + Vector3(0, 0.02, 0)
+	var crown := LowPoly.instance(LowPoly.palm_crown(_seed % 5), _m(Color(0.34, 0.66, 0.24)), Vector3.ZERO, canopy, true)
+	crown.material_override = LowPoly.mat(Color(0.34, 0.66, 0.24), 0.0, 0.85, false, true)
+	crown.set_meta("green", Color(0.34, 0.66, 0.24))
+	crown.set_meta("double", true)
+	for i in 3:
+		var a := TAU * i / 3.0
+		LowPoly.instance(LowPoly.blob(0.04, 0, 0.0, 1), _m(Color(0.45, 0.32, 0.18)), Vector3(cos(a) * 0.05, -0.04, sin(a) * 0.05), canopy, false)
+	_node("bloom", canopy)
 
 
 func _build_pine() -> void:
@@ -263,24 +287,25 @@ func _build_stream() -> void:
 
 
 func _build_waterfall() -> void:
-	var area: Dictionary = Game.content.areas.get(data["area"], {})
-	var r: Array = area.get("rect", [0, 0, 0, 0])
-	var edge := float(r[3]) + 1.0
-	var x: float = data["pos"][0]
-	var top_y := _w.plateau_y(data["area"])
-	var low_y := _w.height_at(x, edge + 0.5)
-	position = Vector3(x, 0, edge)
+	var to: Array = data.get("to", data["pos"])
+	var top := _w.surface(data["pos"][0], data["pos"][1])
+	var bot := _w.surface(to[0], to[1])
+	position = Vector3(top.x, 0, top.z)
+	var low_y := bot.y
+	var run := Vector3(bot.x - top.x, 0, bot.z - top.z)
+	rotation.y = atan2(run.x, run.z)
+	var dist := run.length()
 	var pts: Array[Vector3] = []
 	for i in 9:
 		var k := i / 8.0
-		var z := -0.15 + 0.32 * k * k
-		pts.append(Vector3(0, lerpf(top_y + 0.02, low_y + 0.02, k), z))
+		var z := dist * (0.15 * k + 0.85 * k * k)
+		pts.append(Vector3(0, lerpf(top.y + 0.03, low_y + 0.02, k), z))
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	for i in pts.size():
 		var v := float(i) / (pts.size() - 1)
-		st.set_uv(Vector2(0, v)); st.add_vertex(pts[i] + Vector3(-0.17, 0, 0.06))
-		st.set_uv(Vector2(1, v)); st.add_vertex(pts[i] + Vector3(0.17, 0, 0.06))
+		st.set_uv(Vector2(0, v)); st.add_vertex(pts[i] + Vector3(-0.2, 0, 0.0))
+		st.set_uv(Vector2(1, v)); st.add_vertex(pts[i] + Vector3(0.2, 0, 0.0))
 	for i in pts.size() - 1:
 		var a := i * 2
 		st.add_index(a); st.add_index(a + 1); st.add_index(a + 3)
@@ -294,7 +319,7 @@ func _build_waterfall() -> void:
 	add_child(fall)
 	_parts["flow"] = fall
 	var pool := _node("pool")
-	pool.position = Vector3(0, low_y + 0.01, 0.42)
+	pool.position = Vector3(0, low_y + 0.01, dist + 0.1)
 	LowPoly.instance(LowPoly.cyl(0.36, 0.36, 0.02, 10), _m(Color(0.32, 0.78, 0.86), 0.2), Vector3.ZERO, pool)
 	var foam := _node("foam", pool)
 	for i in 6:
@@ -314,25 +339,34 @@ func _build_terrace() -> void:
 
 func _build_mill() -> void:
 	var walls := _node("walls")
-	_add(LowPoly.slab(Vector3(0.75, 0.62, 0.6), 0.03), Color(0.95, 0.89, 0.76), Vector3.ZERO, walls)
-	_add(LowPoly.slab(Vector3(0.16, 0.3, 0.02), 0.01), Color(0.45, 0.3, 0.2), Vector3(0.1, 0, 0.3), walls)
-	_add(LowPoly.slab(Vector3(0.14, 0.14, 0.02), 0.01), Color(0.4, 0.6, 0.72), Vector3(-0.2, 0.32, 0.3), walls)
+	var wood := Color(0.6, 0.41, 0.26)
+	for i in 6:
+		_add(LowPoly.slab(Vector3(0.78, 0.1, 0.62), 0.03), wood.darkened(0.07 * (i % 2)), Vector3(0, i * 0.1, 0), walls)
+	for c in [Vector2(-1, -1), Vector2(1, -1), Vector2(-1, 1), Vector2(1, 1)]:
+		_add(LowPoly.cyl(0.05, 0.05, 0.62, 6), Color(0.48, 0.32, 0.2), Vector3(c.x * 0.39, 0, c.y * 0.31), walls)
+	var door := _add(LowPoly.slab(Vector3(0.22, 0.36, 0.03), 0.01), Color(0.4, 0.26, 0.16), Vector3(0.08, 0, 0.315), walls)
+	door.set_meta("door", true)
+	_add(LowPoly.slab(Vector3(0.14, 0.12, 0.03), 0.01), Color(0.95, 0.82, 0.5), Vector3(-0.22, 0.3, 0.315), walls, 0.6)
 	var ruin := _node("ruin")
-	_add(LowPoly.slab(Vector3(0.78, 0.36, 0.63), 0.03), Color(0.62, 0.58, 0.52), Vector3.ZERO, ruin)
+	for i in 3:
+		_add(LowPoly.slab(Vector3(0.78, 0.1, 0.62), 0.03), Color(0.5, 0.42, 0.34), Vector3(0, i * 0.1, 0), ruin)
 	for i in 4:
-		_add(LowPoly.blob(0.09, 0, 0.3, i), Color(0.6, 0.57, 0.52), Vector3(-0.3 + i * 0.2, 0.38, 0.25 - (i % 2) * 0.5), ruin)
+		_add(LowPoly.blob(0.08, 0, 0.3, i), Color(0.55, 0.46, 0.36), Vector3(-0.3 + i * 0.2, 0.3, 0.25 - (i % 2) * 0.5), ruin)
 	var roof := _node("roof")
-	roof.position.y = 0.62
-	_add(LowPoly.roof(0.92, 0.74, 0.42), Color(0.78, 0.36, 0.25), Vector3.ZERO, roof)
+	roof.position.y = 0.6
+	for side in [-1.0, 1.0]:
+		for k in 4:
+			var plank := _add(LowPoly.slab(Vector3(0.5, 0.04, 0.2), 0.01), Color(0.5, 0.34, 0.22).darkened(0.05 * (k % 2)), Vector3(side * 0.22, 0.12, -0.3 + k * 0.2), roof)
+			plank.rotation.z = -side * 0.55
 	var wheel := _node("wheel")
 	wheel.position = Vector3(0.48, 0.3, 0.05)
 	wheel.rotation.z = PI * 0.5
 	var spokes := _node("spokes", wheel)
-	LowPoly.instance(LowPoly.cyl(0.29, 0.29, 0.07, 10), _m(Color(0.52, 0.36, 0.22)), Vector3(0, -0.035, 0), spokes)
+	LowPoly.instance(LowPoly.cyl(0.27, 0.27, 0.06, 12), _m(Color(0.5, 0.34, 0.22)), Vector3(0, -0.03, 0), spokes)
 	for i in 8:
-		var p := LowPoly.instance(LowPoly.slab(Vector3(0.08, 0.12, 0.18), 0.01), _m(Color(0.62, 0.45, 0.28)), Vector3.ZERO, spokes)
+		var p := LowPoly.instance(LowPoly.slab(Vector3(0.08, 0.1, 0.16), 0.01), _m(Color(0.62, 0.45, 0.28)), Vector3.ZERO, spokes)
 		var a := TAU * i / 8.0
-		p.position = Vector3(cos(a) * 0.3, -0.06, sin(a) * 0.3)
+		p.position = Vector3(cos(a) * 0.28, -0.05, sin(a) * 0.28)
 		p.rotation.y = -a
 
 
@@ -446,7 +480,7 @@ func _build_deco() -> void:
 func _tint(n: Node, dry: Color, life: float) -> void:
 	for c in n.get_children():
 		if c is MeshInstance3D and c.has_meta("green"):
-			(c as MeshInstance3D).material_override = _m(dry.lerp(c.get_meta("green"), life))
+			(c as MeshInstance3D).material_override = LowPoly.mat(dry.lerp(c.get_meta("green"), life), 0.0, 0.85, false, c.has_meta("double"))
 		if c.get_child_count() > 0:
 			_tint(c, dry, life)
 
@@ -466,12 +500,13 @@ func set_growth(value: float) -> void:
 	var mature := clampf(g - 1.0, 0.0, 1.0)
 	var life_q := snappedf(life, 0.05)  # limit material churn while animating
 	match kind:
-		"tree", "fruit_tree", "heart_tree", "pine", "willow":
+		"tree", "fruit_tree", "heart_tree", "pine", "willow", "palm":
 			_scale("trunk", 0.65 + 0.2 * life + 0.15 * mature)
 			_scale("bare", 1.0 - smoothstep(0.3, 0.9, g))
 			_scale("canopy", smoothstep(0.1, 1.0, g) * (0.68 + 0.32 * mature))
 			if _parts.has("canopy"):
-				_parts["canopy"].position.y = (0.52 if kind != "pine" else 0.18) * (1.55 if kind == "heart_tree" else 1.0) * (0.65 + 0.2 * life + 0.15 * mature)
+				if kind != "palm":
+					_parts["canopy"].position.y = (0.52 if kind != "pine" else 0.18) * (1.55 if kind == "heart_tree" else 1.0) * (0.65 + 0.2 * life + 0.15 * mature)
 			_tint(_parts["canopy"], Color(0.62, 0.6, 0.35), life_q)
 			_scale("bloom", smoothstep(0.3, 1.0, mature))
 			if _parts.has("light"):
@@ -545,6 +580,6 @@ func _process(delta: float) -> void:
 					bub.position = Vector3(sin(k * 2.0) * 0.08, 0.04 + ph * 0.25, cos(k * 2.0) * 0.08)
 					bub.scale = Vector3.ONE * (1.0 - ph)
 					k += 1
-		"tree", "fruit_tree", "heart_tree", "willow", "pine":
+		"tree", "fruit_tree", "heart_tree", "willow", "pine", "palm":
 			if _parts.has("canopy"):
 				_parts["canopy"].rotation.z = sin(_t * 1.1 + _seed) * 0.03 * clampf(g, 0, 1)

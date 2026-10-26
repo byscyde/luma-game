@@ -5,6 +5,15 @@ versions follow `config/version` in `project.godot`.
 
 ## [Unreleased]
 
+### Changed
+- The island and the puzzle board are now low-poly 3D with a turquoise lagoon, rocky cliffs,
+  palms, ferns, flowers, huts, stairs and drifting clouds; the UI uses a new light theme,
+  rounded fonts and icons.
+- Verdant Isle is re-shaped around a sandy cove with terraced plateaus.
+
+### Fixed
+- The island now fits on screen on narrow portrait phones.
+
 ## [0.1.0] - 2026-10-25
 
 First playable MVP (internal; not released to any store).

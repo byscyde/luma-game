@@ -77,8 +77,8 @@ func _layout() -> void:
 	if island == null or size.x < 2 or size.y < 2:
 		return
 	var visible_h := maxf(size.y - top_inset - bottom_inset, size.y * 0.35)
-	_home_dist = island.fit_distance(size.x / visible_h)
-	_home_target = Vector3(island.cols * 0.5, 0.45, island.rows * 0.5 + 0.3)
+	_home_dist = island.fit_distance(size.x / size.y, visible_h / size.y)
+	_home_target = Vector3(island.cols * 0.5, 0.6, island.rows * 0.5 + 0.4)
 	# shift the image so the island centres in the uncovered region
 	var px_per_unit := size.y / (2.0 * _home_dist * tan(deg_to_rad(island.camera.fov) * 0.5))
 	island.camera.v_offset = -((bottom_inset - top_inset) * 0.5) / px_per_unit
@@ -124,7 +124,7 @@ func _process(delta: float) -> void:
 		_dirty = false
 		_push()
 	if idle_orbit and not _dragging and (_cam_tween == null or not _cam_tween.is_running()):
-		island.cam_yaw = deg_to_rad(-28.0) + _yaw_offset + sin(_t * 0.15) * deg_to_rad(3.0)
+		island.cam_yaw = deg_to_rad(-12.0) + _yaw_offset + sin(_t * 0.15) * deg_to_rad(2.5)
 		island._apply_camera()
 	_update_labels()
 
@@ -216,13 +216,7 @@ func burst(at: Vector3, col := Color(0.7, 0.95, 0.45)) -> void:
 # ------------------------------------------------------------------ geometry helpers
 
 func area_world_center(area_id: String) -> Vector3:
-	for a in world.get("areas", []):
-		if a["id"] == area_id:
-			var r: Array = a["rect"]
-			var x := (float(r[0]) + float(r[2]) + 1.0) * 0.5
-			var z := (float(r[1]) + float(r[3]) + 1.0) * 0.5
-			return Vector3(x, island.plateau_y(area_id), z)
-	return _home_target
+	return island.area_center3d(area_id) if island else _home_target
 
 
 func _to_local(p3: Vector3) -> Vector2:
@@ -271,7 +265,7 @@ func _gui_input(event: InputEvent) -> void:
 			_dragging = true
 		if _dragging:
 			_yaw_offset = clampf(_yaw_offset - event.relative.x * 0.006, -0.9, 0.9)
-			island.cam_yaw = deg_to_rad(-28.0) + _yaw_offset
+			island.cam_yaw = deg_to_rad(-12.0) + _yaw_offset
 			island._apply_camera()
 			accept_event()
 		return

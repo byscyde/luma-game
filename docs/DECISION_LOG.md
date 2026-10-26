@@ -2,6 +2,14 @@
 
 Newest first. Each entry: context → decision → consequences.
 
+### D-015 · Low-poly 3D island and board; reference-guided cove layout (2026-10-26)
+Owner feedback rejected the 2D look. The island and puzzle board are now real-time low-poly
+3D (procedural meshes, flat shading, GL Compatibility) inside SubViewports; the UI moved to a
+light lagoon theme. World 1 was re-laid out as a cove island (sandy central cove, rock-cliff
+plateaus, huts, stairs, rowboat, turquoise shallows) following an owner-supplied reference
+image's composition and palette. The reference is used for direction only: all geometry,
+textures and code are original and procedural; no third-party image is copied or shipped.
+
 ### D-014 · Repository licence: proprietary (2026-10-25)
 The repo is public but no licence was specified. Defaulted to **all rights reserved (SCYDE)**,
 the safest choice for a commercial product. The owner can switch to an open licence at any

@@ -5,9 +5,9 @@ render_mode specular_schlick_ggx;
 
 uniform sampler2D heightmap : filter_linear, repeat_disable;
 uniform vec4 bounds; // xmin, zmin, xsize, zsize
-uniform vec3 shallow : source_color = vec3(0.62, 0.90, 0.84);
-uniform vec3 mid : source_color = vec3(0.36, 0.74, 0.80);
-uniform vec3 deep : source_color = vec3(0.26, 0.56, 0.70);
+uniform vec3 shallow : source_color = vec3(0.66, 0.95, 0.88);
+uniform vec3 mid : source_color = vec3(0.2, 0.78, 0.82);
+uniform vec3 deep : source_color = vec3(0.12, 0.58, 0.72);
 uniform vec3 foam_col : source_color = vec3(1.0, 1.0, 0.97);
 
 varying vec3 world_pos;
@@ -30,10 +30,16 @@ void fragment() {
 		h = texture(heightmap, uv).r;
 	}
 	float depth = clamp(-h, 0.0, 2.0);
-	vec3 col = mix(shallow, mid, smoothstep(0.02, 0.35, depth));
-	col = mix(col, deep, smoothstep(0.35, 1.0, depth));
+	vec3 col = mix(shallow, mid, smoothstep(0.02, 0.3, depth));
+	col = mix(col, deep, smoothstep(0.3, 0.95, depth));
 	float n = noise(world_pos.xz * 3.0 + vec2(TIME * 0.25, TIME * 0.18));
 	float n2 = noise(world_pos.xz * 7.0 - vec2(TIME * 0.4, -TIME * 0.3));
+	// caustic light net in the shallows (reads as crystal-clear water)
+	vec2 cp = world_pos.xz * 2.2;
+	float c1 = noise(cp + vec2(TIME * 0.35, TIME * 0.2));
+	float c2 = noise(cp * 1.7 - vec2(TIME * 0.25, -TIME * 0.3));
+	float caustic = smoothstep(0.42, 0.5, 1.0 - abs(c1 - c2) * 2.0);
+	col += vec3(0.16, 0.2, 0.18) * caustic * smoothstep(0.7, 0.05, depth);
 	// soft sparkles on the open water
 	col += vec3(0.035) * smoothstep(0.8, 0.98, n * 0.5 + n2 * 0.5);
 	// shore foam: a solid lip plus a travelling ring

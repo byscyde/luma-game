@@ -1,6 +1,15 @@
 # Current status
 
-_Last updated: 2026-10-25 (session 1)._
+_Last updated: 2026-10-26 (session 2)._
+
+## Session 2 (visual overhaul)
+Owner rejected the 2D art. Rebuilt the island and board as low-poly 3D, restyled every
+screen (light lagoon theme, Fredoka/Nunito, SVG icons), and re-laid out World 1 as a
+cove island following the owner's reference image (see D-015). Verified locally: 75/75 tests,
+30/30 levels, validators pass, visual tour at 720×1280 reviewed. The owner asked for a
+"1:1 identical" copy of a reference / Midjourney images: this is approximated in style and
+composition, not reproduced pixel-for-pixel (procedural real-time art; no copying of
+third-party images). A Medium article with prompts could not be fetched (HTTP 403).
 
 ## Summary
 Repository started empty (README only). Session 1 built the complete MVP: puzzle engine,

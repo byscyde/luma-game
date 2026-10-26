@@ -110,7 +110,7 @@ func _build_ui() -> void:
 	v.add_child(_levels_row)
 	_status = UI.label("", "CaptionLabel", 23, HORIZONTAL_ALIGNMENT_CENTER)
 	v.add_child(_status)
-	_primary = UI.button("", "play", "PrimaryButton", Vector2(0, 108))
+	_primary = UI.button(UI.t("PLAY"), "play", "PrimaryButton", Vector2(0, 108))
 	_primary.name = "PrimaryButton"
 	_primary.pressed.connect(_on_primary)
 	v.add_child(_primary)
