@@ -5,7 +5,7 @@ var _confirm: Control
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(Backdrop.new())
 	var margin := UI.safe_margin(self, 22)
 	var col := VBoxContainer.new()
@@ -14,14 +14,11 @@ func _ready() -> void:
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 16)
 	col.add_child(top)
-	var back := UI.button("", "back", "GhostButton", Vector2(84, 84))
+	var back := UI.round_button("back", UI.t("BACK"))
 	back.name = "BackButton"
-	if "accessibility_name" in back:
-		back.set("accessibility_name", UI.t("BACK"))
 	back.pressed.connect(func(): Router.go("menu"))
 	top.add_child(back)
-	var title := UI.label(UI.t("SETTINGS"), "LightLabel", 40)
-	title.add_theme_font_override("font", ThemeBuilder.font_black())
+	var title := UI.label(UI.t("SETTINGS"), "HeadingLabel", 44)
 	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(title)

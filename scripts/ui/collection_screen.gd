@@ -7,7 +7,7 @@ var _tab_buttons: Dictionary = {}
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(Backdrop.new())
 	var margin := UI.safe_margin(self, 22)
 	var col := VBoxContainer.new()
@@ -16,14 +16,11 @@ func _ready() -> void:
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 16)
 	col.add_child(top)
-	var back := UI.button("", "back", "GhostButton", Vector2(84, 84))
+	var back := UI.round_button("back", UI.t("BACK"))
 	back.name = "BackButton"
-	if "accessibility_name" in back:
-		back.set("accessibility_name", UI.t("BACK"))
 	back.pressed.connect(func(): Router.go("menu"))
 	top.add_child(back)
-	var title := UI.label(UI.t("COLLECTION"), "LightLabel", 40)
-	title.add_theme_font_override("font", ThemeBuilder.font_black())
+	var title := UI.label(UI.t("COLLECTION"), "HeadingLabel", 44)
 	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(title)
@@ -108,7 +105,7 @@ func _fill_achievements() -> void:
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 18)
 		card.add_child(row)
-		row.add_child(UI.icon("star", Palette.GOLD_DEEP if have else Palette.SAND_SHADE, 56))
+		row.add_child(UI.icon("trophy", Palette.SUN_EDGE if have else Color("d7e0dc"), 56))
 		var txt := VBoxContainer.new()
 		txt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(txt)
@@ -138,8 +135,10 @@ class DecorPreview extends Control:
 
 	func _draw() -> void:
 		var c := size * 0.5
-		Painter.ellipse(self, c + Vector2(0, size.y * 0.28), size.x * 0.42, size.y * 0.14, Palette.GRASS if not locked else Palette.SAND_SHADE)
+		draw_circle(c, size.x * 0.48, Color("eaf5f1") if not locked else Color("eef1f0"), true, -1, true)
+		Painter.ellipse(self, c + Vector2(0, size.y * 0.28), size.x * 0.36, size.y * 0.1, Color("8cc56a") if not locked else Color("dfe5e2"))
 		if locked:
-			Painter.icon(self, "lock", Rect2(c - Vector2(22, 30), Vector2(44, 44)), Palette.STONE_DARK)
+			var tex := IconGlyph.texture_for("lock")
+			draw_texture_rect(tex, Rect2(c - Vector2(24, 26), Vector2(48, 48)), false, Color("b8c5c0"))
 			return
 		Painter.decoration(self, kind, c + Vector2(0, size.y * 0.3), size.x * 0.7, _t)

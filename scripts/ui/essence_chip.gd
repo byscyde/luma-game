@@ -14,8 +14,8 @@ func _init() -> void:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 8)
 	add_child(row)
-	row.add_child(UI.icon("leaf", Palette.LEAF_LIGHT, 30))
-	_label = UI.label(str(Game.progression.essence()), "LightLabel", 30)
+	row.add_child(UI.icon("leaf", Palette.LEAF_DARK, 32))
+	_label = UI.label(str(Game.progression.essence()), "HeadingLabel", 30)
 	_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	row.add_child(_label)
 

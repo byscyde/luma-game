@@ -1,9 +1,13 @@
 extends Control
-## Island screen: shows the restored world, plays pending restoration after a
-## level, lets the player pick an area, replay levels and awaken new areas.
+## Island screen: the 3D island fills the screen; a floating top bar and a
+## bottom sheet show the selected area, its levels and the next action.
+## Plays pending restoration after a level, offers area awakening.
+
+const SHEET_H := 400.0
 
 var view: IslandView
 var _panel_title: Label
+var _panel_kicker: Label
 var _panel_progress: ProgressBar
 var _panel_percent: Label
 var _levels_row: HBoxContainer
@@ -11,14 +15,20 @@ var _primary: Button
 var _status: Label
 var _toast: PanelContainer
 var _toast_label: Label
+var _toast_tween: Tween
 var _area := ""
 var _animating := false
-var _toast_tween: Tween
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
-	add_child(Backdrop.new())
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	view = IslandView.new()
+	view.name = "IslandView"
+	view.set_anchors_preset(Control.PRESET_FULL_RECT)
+	view.top_inset = 150.0
+	view.bottom_inset = SHEET_H
+	add_child(view)
+	view.area_selected.connect(_on_area_selected)
 	_build_ui()
 	Audio.play_music()
 	_area = _default_area()
@@ -34,76 +44,80 @@ func _ready() -> void:
 func _default_area() -> String:
 	var next := Game.progression.next_level_id()
 	if next != "":
-		var a: String = Game.content.get_level(next).area
-		if Game.progression.is_area_unlocked(a):
-			return a
-		# next level is behind a locked area: focus that area so the unlock is offered
-		return a
+		return Game.content.get_level(next).area
 	return Game.content.area_order[-1]
 
 
 func _build_ui() -> void:
 	var margin := UI.safe_margin(self, 22)
+	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var col := VBoxContainer.new()
 	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	col.add_theme_constant_override("separation", 0)
 	margin.add_child(col)
+
 	var top := HBoxContainer.new()
-	top.add_theme_constant_override("separation", 16)
+	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	top.add_theme_constant_override("separation", 14)
 	col.add_child(top)
-	var home := UI.button("", "back", "GhostButton", Vector2(84, 84))
+	var home := UI.round_button("home", UI.t("MENU"))
 	home.name = "MenuButton"
-	if "accessibility_name" in home:
-		home.set("accessibility_name", UI.t("MENU"))
 	home.pressed.connect(func(): Router.go("menu"))
 	top.add_child(home)
-	var title := UI.label(tr(Game.content.worlds[0].get("name", "")), "LightLabel", 40)
-	title.add_theme_font_override("font", ThemeBuilder.font_black())
-	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	top.add_child(title)
+	var title_chip := PanelContainer.new()
+	title_chip.theme_type_variation = "ChipPanel"
+	title_chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var title := UI.label(tr(Game.content.worlds[0].get("name", "")), "HeadingLabel", 32)
+	title.autowrap_mode = TextServer.AUTOWRAP_OFF
+	title_chip.add_child(title)
+	top.add_child(title_chip)
+	var spacer := Control.new()
+	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	top.add_child(spacer)
 	top.add_child(UI.essence_chip())
+	col.add_child(UI.spacer(0, true))
 
-	view = IslandView.new()
-	view.name = "IslandView"
-	view.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	col.add_child(view)
-	view.area_selected.connect(_on_area_selected)
-
-	var card := PanelContainer.new()
-	card.theme_type_variation = "Card"
-	col.add_child(card)
+	var sheet := PanelContainer.new()
+	sheet.theme_type_variation = "Sheet"
+	sheet.custom_minimum_size = Vector2(0, SHEET_H - 40)
+	col.add_child(sheet)
 	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", 12)
-	card.add_child(v)
+	v.add_theme_constant_override("separation", 14)
+	sheet.add_child(v)
 	var head := HBoxContainer.new()
 	v.add_child(head)
-	_panel_title = UI.label("", "HeadingLabel", 38)
-	_panel_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	head.add_child(_panel_title)
-	_panel_percent = UI.label("", "CaptionLabel", 26)
+	var titles := VBoxContainer.new()
+	titles.add_theme_constant_override("separation", -2)
+	titles.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(titles)
+	_panel_kicker = UI.label("", "KickerLabel")
+	titles.add_child(_panel_kicker)
+	_panel_title = UI.label("", "HeadingLabel", 40)
+	titles.add_child(_panel_title)
+	_panel_percent = UI.label("", "CaptionLabel", 24)
 	_panel_percent.autowrap_mode = TextServer.AUTOWRAP_OFF
+	_panel_percent.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	head.add_child(_panel_percent)
 	_panel_progress = ProgressBar.new()
 	_panel_progress.show_percentage = false
-	_panel_progress.custom_minimum_size = Vector2(0, 16)
+	_panel_progress.custom_minimum_size = Vector2(0, 18)
 	_panel_progress.max_value = 1.0
-	_panel_progress.add_theme_stylebox_override("background", ThemeBuilder.box(Palette.SAND_SHADE, 8, 0, Color.TRANSPARENT, 0, 0, 0))
-	_panel_progress.add_theme_stylebox_override("fill", ThemeBuilder.box(Palette.LEAF, 8, 0, Color.TRANSPARENT, 0, 0, 0))
 	v.add_child(_panel_progress)
 	_levels_row = HBoxContainer.new()
 	_levels_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	_levels_row.add_theme_constant_override("separation", 12)
+	_levels_row.add_theme_constant_override("separation", 14)
 	v.add_child(_levels_row)
-	_status = UI.label("", "CaptionLabel", 24, HORIZONTAL_ALIGNMENT_CENTER)
+	_status = UI.label("", "CaptionLabel", 23, HORIZONTAL_ALIGNMENT_CENTER)
 	v.add_child(_status)
-	_primary = UI.button("", "play", "PrimaryButton", Vector2(0, 104))
+	_primary = UI.button("", "play", "PrimaryButton", Vector2(0, 108))
 	_primary.name = "PrimaryButton"
 	_primary.pressed.connect(_on_primary)
 	v.add_child(_primary)
-	# toast floats over the island, below the top bar
+
 	var toast_holder := CenterContainer.new()
 	toast_holder.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	toast_holder.offset_top = 140
+	toast_holder.offset_top = 150
 	toast_holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(toast_holder)
 	_toast = PanelContainer.new()
@@ -111,7 +125,7 @@ func _build_ui() -> void:
 	_toast.visible = false
 	_toast.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_toast.custom_minimum_size = Vector2(420, 0)
-	_toast_label = UI.label("", "LightLabel", 28, HORIZONTAL_ALIGNMENT_CENTER)
+	_toast_label = UI.label("", "", 27, HORIZONTAL_ALIGNMENT_CENTER)
 	_toast.add_child(_toast_label)
 	toast_holder.add_child(_toast)
 
@@ -128,6 +142,8 @@ func _refresh_panel() -> void:
 	var prog := Game.progression
 	var area: Dictionary = Game.content.areas[_area]
 	view.selected_area = _area
+	var idx := Game.content.area_order.find(_area) + 1
+	_panel_kicker.text = (UI.t("AREA_N") % [idx, Game.content.area_order.size()]).to_upper()
 	_panel_title.text = tr(area["name"])
 	var pct := prog.area_progress(_area)
 	_panel_progress.value = pct
@@ -167,7 +183,6 @@ func _refresh_panel() -> void:
 		if _primary.disabled:
 			_status.text = UI.t("LOCK_PREVIOUS")
 		return
-	# area finished: point at whatever comes next
 	var global_next := prog.next_level_id()
 	if global_next == "":
 		_primary.text = UI.t("ALL_RESTORED")
@@ -188,23 +203,35 @@ func _level_button(lid: String, area_unlocked: bool) -> Button:
 	var done := prog.is_completed(lid)
 	var open := area_unlocked and prog.is_level_unlocked(lid)
 	var b := Button.new()
-	b.custom_minimum_size = Vector2(92, 92)
+	b.custom_minimum_size = Vector2(96, 96)
 	b.theme_type_variation = "PrimaryButton" if (open and not done) else "SecondaryButton"
-	b.text = str(n)
+	b.add_theme_font_size_override("font_size", 34)
+	for st in ["normal", "hover", "pressed", "hover_pressed", "disabled"]:
+		var sb := (ThemeBuilder.build().get_stylebox(st, b.theme_type_variation) as StyleBoxFlat).duplicate() as StyleBoxFlat
+		sb.set_corner_radius_all(48)
+		sb.content_margin_left = 0
+		sb.content_margin_right = 0
+		b.add_theme_stylebox_override(st, sb)
+	b.text = str(n) if not (not open and not done) else ""
 	b.disabled = not open
 	b.name = "Level%d" % n
+	b.pressed.connect(func(): Audio.play("ui_click"))
 	if "accessibility_name" in b:
 		var state := UI.t("STATE_DONE") if done else (UI.t("STATE_OPEN") if open else UI.t("STATE_LOCKED"))
 		b.set("accessibility_name", "%s %d, %s" % [UI.t("LEVEL"), n, state])
+	if not open and not done:
+		var lock := UI.icon("lock", Color(Palette.INK_SOFT, 0.5), 34)
+		lock.position = Vector2(31, 28)
+		b.add_child(lock)
 	if done:
-		var stars := prog.optional_met_count(lid)
 		var lvl := Game.content.get_level(lid)
-		var badge := UI.icon("check" if stars < lvl.optional.size() else "star", Palette.LEAF_DARK if stars < lvl.optional.size() else Palette.GOLD_DEEP, 24)
-		badge.position = Vector2(62, 6)
+		var perfect := prog.optional_met_count(lid) >= lvl.optional.size()
+		var badge := Badge.new()
+		badge.icon = "star" if perfect else "check"
+		badge.fill = Palette.SUN if perfect else Palette.TEAL
+		badge.position = Vector2(60, -8)
 		b.add_child(badge)
-	b.pressed.connect(func():
-		Audio.play("ui_click")
-		Router.go("gameplay", {"level_id": lid}))
+	b.pressed.connect(func(): Router.go("gameplay", {"level_id": lid}))
 	return b
 
 
@@ -218,7 +245,7 @@ func _on_primary() -> void:
 				Game.haptic(25)
 				_animating = true
 				_primary.disabled = true
-				await view.animate_area_unlock(_area, 0.3 if Game.reduced_motion() else 1.4)
+				await view.animate_area_unlock(_area, 0.3 if Game.reduced_motion() else 1.6)
 				_animating = false
 				_show_toast(UI.t("AREA_AWAKENED") % tr(Game.content.areas[_area]["name"]))
 				_refresh_panel()
@@ -232,19 +259,20 @@ func _play_restoration(receipt: Dictionary) -> void:
 	var lvl := Game.content.get_level(receipt["level"])
 	_area = lvl.area
 	view.selected_area = _area
-	# start from the pre-level state, then grow into the saved state
 	for ch in receipt["restoration"]:
 		view.display_stage[ch["object"]] = float(ch["from"])
+	view._dirty = true
 	_refresh_panel()
 	_primary.disabled = true
 	var reduced := Game.reduced_motion()
-	await get_tree().create_timer(0.1 if reduced else 0.45).timeout
+	await get_tree().create_timer(0.1 if reduced else 0.5).timeout
 	for ch in receipt["restoration"]:
 		var o: Dictionary = Game.content.objects[ch["object"]]
 		_show_toast(UI.t("RESTORING") % tr(o.get("name", "")))
 		Audio.play("bloom")
 		Game.haptic(15)
-		await view.animate_object(ch["object"], float(ch["to"]), 0.3 if reduced else 1.5)
+		await view.animate_object(ch["object"], float(ch["to"]), 0.3 if reduced else 1.4)
+	await view.return_home()
 	var msgs: Array[String] = []
 	for d in receipt.get("discoveries", []):
 		msgs.append(UI.t("NEW_DISCOVERY") % tr(Game.content.decorations[d]["name"]))
@@ -257,7 +285,6 @@ func _play_restoration(receipt: Dictionary) -> void:
 		_show_toast("\n".join(msgs), 4.0)
 	_animating = false
 	view.sync_from_progress()
-	# After the area is complete, steer the panel towards the next area.
 	var next := Game.progression.next_level_id()
 	if next != "" and Game.progression.area_complete(_area):
 		_area = Game.content.get_level(next).area
@@ -276,3 +303,22 @@ func _show_toast(text: String, hold: float = 1.6) -> void:
 	tw.tween_interval(hold)
 	tw.tween_property(_toast, "modulate:a", 0.0, 0.4)
 	tw.tween_callback(func(): _toast.visible = false)
+
+
+## Small circular status badge (check / star) on a level bubble.
+class Badge extends Control:
+	var icon := "check"
+	var fill := Palette.TEAL
+
+	func _init() -> void:
+		size = Vector2(40, 40)
+		custom_minimum_size = Vector2(40, 40)
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _draw() -> void:
+		draw_circle(Vector2(20, 22), 19, Color(0, 0, 0, 0.12), true, -1, true)
+		draw_circle(Vector2(20, 20), 19, Color.WHITE, true, -1, true)
+		draw_circle(Vector2(20, 20), 15, fill, true, -1, true)
+		var tex := IconGlyph.texture_for(icon)
+		if tex:
+			draw_texture_rect(tex, Rect2(9, 9, 22, 22), false, Color.WHITE)

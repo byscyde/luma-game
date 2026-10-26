@@ -67,9 +67,19 @@
       "license": "Proprietary - SCYDE (original work)"
     },
     {
+      "path": "assets/fonts/OFL-Fredoka.txt",
+      "source": "Licence text shipped with @fontsource/fredoka 5.1.0",
+      "license": "SIL Open Font License 1.1"
+    },
+    {
       "path": "assets/fonts/OFL-Nunito.txt",
       "source": "Licence text shipped with @fontsource/nunito 5.1.0",
       "license": "SIL Open Font License 1.1"
+    },
+    {
+      "path": "assets/fonts/fredoka-latin-600-normal.woff2",
+      "source": "Fredoka by The Fredoka Project Authors via @fontsource/fredoka 5.1.0 (npm)",
+      "license": "SIL Open Font License 1.1 (assets/fonts/OFL-Fredoka.txt)"
     },
     {
       "path": "assets/fonts/nunito-latin-700-normal.woff2",
@@ -104,6 +114,106 @@
     {
       "path": "assets/icons/splash.png",
       "source": "Procedurally drawn by tools/generate_icons.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/back.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/check.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/close.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/collection.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/drop.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/flower.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/gear.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/hint.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/home.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/island.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/leaf.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/lock.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/moves.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/no_leaks.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/play.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/reset.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/star.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/tap.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/trophy.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/icons/ui/undo.svg",
+      "source": "Hand-authored SVG icon set (original work, SCYDE)",
       "license": "Proprietary - SCYDE (original work)"
     }
   ]

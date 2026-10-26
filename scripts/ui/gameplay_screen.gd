@@ -34,7 +34,7 @@ var _overlay: Control
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var id: String = Router.params.get("level_id", "")
 	if id == "":
 		id = Game.progression.next_level_id()
@@ -75,20 +75,19 @@ func _build() -> void:
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 16)
 	col.add_child(top)
-	var back := UI.button("", "back", "GhostButton", Vector2(84, 84))
+	var back := UI.round_button("back", UI.t("BACK"))
 	back.name = "BackButton"
-	if "accessibility_name" in back:
-		back.set("accessibility_name", UI.t("BACK"))
 	back.pressed.connect(_on_back)
 	top.add_child(back)
 	var titles := VBoxContainer.new()
 	titles.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	titles.add_theme_constant_override("separation", -4)
+	titles.add_theme_constant_override("separation", -6)
+	titles.alignment = BoxContainer.ALIGNMENT_CENTER
 	top.add_child(titles)
-	_title = UI.label(UI.t("LEVEL_N") % Game.content.level_number(level.id), "LightCaption", 24)
+	var area_name: String = tr(Game.content.areas.get(level.area, {}).get("name", ""))
+	_title = UI.label((UI.t("LEVEL_KICKER") % [Game.content.level_number(level.id), area_name]).to_upper(), "KickerLabel")
 	titles.add_child(_title)
-	_subtitle = UI.label(tr(level.name), "LightLabel", 36)
-	_subtitle.add_theme_font_override("font", ThemeBuilder.font_black())
+	_subtitle = UI.label(tr(level.name), "HeadingLabel", 40)
 	titles.add_child(_subtitle)
 	top.add_child(UI.essence_chip())
 
@@ -97,7 +96,7 @@ func _build() -> void:
 	_chips.add_theme_constant_override("h_separation", 10)
 	_chips.add_theme_constant_override("v_separation", 8)
 	col.add_child(_chips)
-	var mv := _chip("moves", "")
+	var mv := _chip("tap", "")
 	_moves_label = mv.get_meta("label")
 	_chips.add_child(mv)
 	if level.has_optional(LevelData.OBJ_NO_LEAKS):
@@ -110,8 +109,13 @@ func _build() -> void:
 	_caption_panel = PanelContainer.new()
 	_caption_panel.theme_type_variation = "DarkCard"
 	_caption_panel.visible = false
-	_caption = UI.label("", "LightLabel", 28, HORIZONTAL_ALIGNMENT_CENTER)
-	_caption_panel.add_child(_caption)
+	var cap_row := HBoxContainer.new()
+	cap_row.add_theme_constant_override("separation", 14)
+	_caption_panel.add_child(cap_row)
+	cap_row.add_child(UI.icon("hint", Palette.SUN_EDGE, 38))
+	_caption = UI.label("", "", 28)
+	_caption.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	cap_row.add_child(_caption)
 	col.add_child(_caption_panel)
 
 	board_view = BoardView.new()
@@ -146,9 +150,9 @@ func _chip(icon_kind: String, text: String) -> PanelContainer:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 8)
 	chip.add_child(row)
-	var ic := UI.icon(icon_kind, Palette.TEXT_LIGHT, 28)
+	var ic := UI.icon(icon_kind, Palette.INK_SOFT, 28)
 	row.add_child(ic)
-	var l := UI.label(text, "LightLabel", 24)
+	var l := UI.label(text, "", 24)
 	l.autowrap_mode = TextServer.AUTOWRAP_OFF
 	row.add_child(l)
 	chip.set_meta("label", l)
@@ -160,8 +164,8 @@ func _set_chip_state(chip: PanelContainer, ok: bool) -> void:
 	if chip == null:
 		return
 	var ic: IconGlyph = chip.get_meta("icon")
-	ic.color = Palette.LEAF_LIGHT if ok else Palette.TEXT_LIGHT
-	chip.modulate = Color(1, 1, 1, 1.0 if ok else 0.78)
+	ic.color = Palette.TEAL if ok else Palette.INK_SOFT
+	(chip.get_meta("label") as Label).add_theme_color_override("font_color", Palette.TEAL if ok else Palette.INK)
 
 
 func _update_buttons() -> void:
@@ -326,7 +330,7 @@ func _show_result(evaluation: Dictionary) -> void:
 	_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(_overlay)
 	var dim := ColorRect.new()
-	dim.color = Color(0.02, 0.07, 0.08, 0.0)
+	dim.color = Color(0.08, 0.22, 0.22, 0.0)
 	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_overlay.add_child(dim)
 	var center := CenterContainer.new()
@@ -336,29 +340,40 @@ func _show_result(evaluation: Dictionary) -> void:
 	card.theme_type_variation = "Card"
 	card.custom_minimum_size = Vector2(minf(620, size.x - 48), 0)
 	center.add_child(card)
+	var medal := Medal.new()
+	medal.anchor = card
+	medal.stars = 1 + int(evaluation.get("optional_met", 0))
+	medal.max_stars = 1 + (evaluation.get("objectives", []) as Array).size()
+	_overlay.add_child(medal)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 14)
 	card.add_child(v)
+	v.add_child(UI.spacer(70))
 	var idx := Game.content.level_number(level.id) % RESULT_TITLES.size()
-	var head := UI.label(UI.t(RESULT_TITLES[idx]), "HeadingLabel", 48, HORIZONTAL_ALIGNMENT_CENTER)
+	var head := UI.label(UI.t(RESULT_TITLES[idx]), "HeadingLabel", 52, HORIZONTAL_ALIGNMENT_CENTER)
+	head.add_theme_color_override("font_color", Palette.TEAL)
 	v.add_child(head)
 	v.add_child(UI.label(tr(level.name), "CaptionLabel", 28, HORIZONTAL_ALIGNMENT_CENTER))
 	v.add_child(UI.spacer(6))
 	# objectives
 	v.add_child(_result_row("check", UI.t("OBJ_RESTORE"), true))
 	for o in evaluation.get("objectives", []):
-		v.add_child(_result_row("check" if o["met"] else "star", PuzzleValidator.objective_label(o), o["met"]))
+		v.add_child(_result_row("check" if o["met"] else "check", PuzzleValidator.objective_label(o), o["met"]))
 	v.add_child(UI.spacer(4))
 	var r := last_receipt
 	if int(r.get("essence", 0)) > 0:
+		var pill := PanelContainer.new()
+		pill.add_theme_stylebox_override("panel", ThemeBuilder.box(Color("fff3d1"), 30, 0, Color.TRANSPARENT, 0, 26, 10))
+		pill.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		var er := HBoxContainer.new()
-		er.alignment = BoxContainer.ALIGNMENT_CENTER
 		er.add_theme_constant_override("separation", 10)
+		pill.add_child(er)
 		er.add_child(UI.icon("leaf", Palette.LEAF_DARK, 40))
-		var el := UI.label("+%d %s" % [r["essence"], UI.t("ESSENCE")], "HeadingLabel", 36)
+		var el := UI.label("+%d %s" % [r["essence"], UI.t("ESSENCE")], "HeadingLabel", 34)
+		el.add_theme_color_override("font_color", Palette.SUN_INK)
 		el.autowrap_mode = TextServer.AUTOWRAP_OFF
 		er.add_child(el)
-		v.add_child(er)
+		v.add_child(pill)
 	elif not r.get("first_completion", false):
 		v.add_child(UI.label(UI.t("BEST_MOVES") % int(r.get("best_moves", moves)), "CaptionLabel", 26, HORIZONTAL_ALIGNMENT_CENTER))
 	for d in r.get("discoveries", []):
@@ -369,7 +384,7 @@ func _show_result(evaluation: Dictionary) -> void:
 			if ach["id"] == a:
 				v.add_child(UI.label(UI.t("ACHIEVEMENT_UNLOCKED") % tr(ach["name"]), "", 28, HORIZONTAL_ALIGNMENT_CENTER))
 	v.add_child(UI.spacer(8))
-	var cont := UI.button(UI.t("CONTINUE"), "island", "PrimaryButton", Vector2(0, 104))
+	var cont := UI.button(UI.t("CONTINUE"), "play", "PrimaryButton", Vector2(0, 104))
 	cont.name = "ContinueButton"
 	cont.pressed.connect(func(): Router.go("island", {"from_level": level.id}))
 	v.add_child(cont)
@@ -394,8 +409,50 @@ func _show_result(evaluation: Dictionary) -> void:
 func _result_row(icon_kind: String, text: String, met: bool) -> HBoxContainer:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
-	row.add_child(UI.icon(icon_kind, Palette.LEAF_DARK if met else Palette.STONE_DARK, 30))
+	row.add_child(UI.icon(icon_kind, Palette.TEAL if met else Color("cbd8d3"), 32))
 	var l := UI.label(text, "" if met else "CaptionLabel", 28)
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(l)
 	return row
+
+
+## Sunny medal with one star per objective met, overlapping the result card.
+class Medal extends Control:
+	var stars := 1
+	var max_stars := 1
+	var anchor: Control
+	var _t := 0.0
+
+	func _init() -> void:
+		size = Vector2(260, 200)
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _process(delta: float) -> void:
+		_t += delta
+		if is_instance_valid(anchor):
+			global_position = anchor.global_position + Vector2(anchor.size.x * 0.5 - size.x * 0.5, -100)
+			modulate.a = anchor.modulate.a
+		queue_redraw()
+
+	func _draw() -> void:
+		var c := Vector2(size.x * 0.5, 100)
+		for i in 12:
+			var a := TAU * i / 12.0 + _t * 0.3
+			var p1 := c + Vector2(cos(a), sin(a)) * 62
+			var p2 := c + Vector2(cos(a + 0.12), sin(a + 0.12)) * 86
+			var p3 := c + Vector2(cos(a - 0.12), sin(a - 0.12)) * 86
+			draw_colored_polygon(PackedVector2Array([p1, p2, p3]), Color(1.0, 0.86, 0.4, 0.45))
+		draw_circle(c + Vector2(0, 4), 56, Color(0, 0, 0, 0.12), true, -1, true)
+		draw_circle(c, 56, Color.WHITE, true, -1, true)
+		draw_circle(c, 47, Palette.SUN, true, -1, true)
+		var tex := IconGlyph.texture_for("leaf")
+		if tex:
+			draw_texture_rect(tex, Rect2(c - Vector2(30, 30), Vector2(60, 60)), false, Color.WHITE)
+		var star := IconGlyph.texture_for("star")
+		if star:
+			var n := max_stars
+			for i in n:
+				var x := c.x + (i - (n - 1) * 0.5) * 40.0
+				var col := Palette.SUN if i < stars else Color("e2e8e5")
+				draw_circle(Vector2(x, c.y + 58), 21, Color.WHITE, true, -1, true)
+				draw_texture_rect(star, Rect2(x - 16, c.y + 42, 32, 32), false, col)

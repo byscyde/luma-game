@@ -3,9 +3,9 @@ extends Control
 ## (no menu before the first puzzle) or the menu for returning players.
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(Backdrop.new())
-	var title := UI.label("LUMA", "TitleLabel", 120, HORIZONTAL_ALIGNMENT_CENTER)
+	var title := UI.label("LUMA", "TitleLabel", 150, HORIZONTAL_ALIGNMENT_CENTER)
 	title.set_anchors_preset(Control.PRESET_CENTER)
 	title.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	title.grow_vertical = Control.GROW_DIRECTION_BOTH

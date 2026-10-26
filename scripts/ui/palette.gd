@@ -48,3 +48,18 @@ const SHADOW := Color(0.05, 0.1, 0.1, 0.28)
 
 ## Link colours + shapes so gates/switches never rely on colour alone.
 const LINK_COLORS := [Color("f2c14e"), Color("b89be8"), Color("f28c9b"), Color("7fd1e0")]
+
+# ---- UI design system (light, warm lagoon theme) ----
+const INK := Color("23423a")
+const INK_SOFT := Color("5f7b71")
+const PAPER := Color("ffffff")
+const SHEET := Color("fbf8f1")
+const SUN := Color("ffc94a")
+const SUN_EDGE := Color("e0952a")
+const SUN_INK := Color("5a3a10")
+const MINT_EDGE := Color("cfe2dc")
+const TEAL := Color("2c97a3")
+const TEAL_SOFT := Color("bfe6e4")
+const LAGOON_TOP := Color("dff3ee")
+const LAGOON_BOTTOM := Color("9ad6d6")
+const DISABLED := Color("e7ece9")

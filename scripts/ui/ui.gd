@@ -56,6 +56,23 @@ static func button(text: String, icon_kind: String = "", variation: String = "Se
 	return b
 
 
+## Round white icon button (back, home, settings).
+static func round_button(icon_kind: String, label_text: String) -> Button:
+	var b := Button.new()
+	b.theme_type_variation = "GhostButton"
+	b.custom_minimum_size = Vector2(88, 88)
+	b.focus_mode = Control.FOCUS_ALL
+	if "accessibility_name" in b:
+		b.set("accessibility_name", label_text)
+	b.tooltip_text = label_text
+	var glyph := icon(icon_kind, Palette.INK, 40)
+	glyph.position = Vector2(24, 21)
+	glyph.size = Vector2(40, 40)
+	b.add_child(glyph)
+	b.pressed.connect(func(): Audio.play("ui_back"))
+	return b
+
+
 static func icon(kind: String, color: Color, size := 34.0) -> IconGlyph:
 	var g := IconGlyph.new()
 	g.kind = kind

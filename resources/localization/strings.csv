@@ -77,3 +77,5 @@ CHIP_BONUS,Flowers
 CHIP_NO_LEAKS,No spills
 LICENCES,Licences
 CLOSE,Close
+AREA_N,Area %d of %d
+LEVEL_KICKER,Level %d · %s
