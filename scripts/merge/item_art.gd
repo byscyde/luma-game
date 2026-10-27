@@ -26,6 +26,15 @@ static func draw_portrait(ci: CanvasItem, who: String, r: Rect2) -> void:
 		PortraitArt.draw(ci, who, r)
 
 
+## A customer bust (no frame), baked like the items.
+static func draw_bust(ci: CanvasItem, who: String, r: Rect2) -> void:
+	var t := IconBaker.texture("bust:" + who)
+	if t:
+		ci.draw_texture_rect(t, r.grow(r.size.x * 0.0435), false)
+	else:
+		PortraitArt.draw_bust(ci, who, r)
+
+
 static func draw(ci: CanvasItem, id: String, r: Rect2) -> void:
 	var s := minf(r.size.x, r.size.y)
 	if s < 6.0:
@@ -106,6 +115,10 @@ static func draw(ci: CanvasItem, id: String, r: Rect2) -> void:
 			_scissors(ci, c, s)
 		"crate":
 			_crate_box(ci, c, s)
+		"star":
+			_xp_star(ci, c, s)
+		"coin":
+			_gold_coin(ci, c, s)
 		_:
 			_shape(ci, _circle_pts(c, s * 0.3), Color("cccccc"), s)
 
@@ -1814,3 +1827,24 @@ static func _crate_box(ci: CanvasItem, c: Vector2, s: float) -> void:
 	for p in [r.position + Vector2(s * 0.09, s * 0.07), Vector2(r.end.x - s * 0.09, r.position.y + s * 0.07),
 			Vector2(r.position.x + s * 0.09, r.end.y - s * 0.09), r.end - Vector2(s * 0.09, s * 0.09)]:
 		ci.draw_circle(p, s * 0.03, Color("8c949c"), true, -1, true)
+
+
+## The experience star on order rewards (drawn as "star:1").
+static func _xp_star(ci: CanvasItem, c: Vector2, s: float) -> void:
+	var p := PackedVector2Array()
+	for k in 10:
+		var a := -PI * 0.5 + TAU * k / 10.0
+		p.append(c + Vector2(cos(a), sin(a)) * s * (0.42 if k % 2 == 0 else 0.2))
+	_shape(ci, p, Color("ffc93a"), s)
+	_hl(ci, c + Vector2(-s * 0.08, -s * 0.1), s * 0.07, 0.6)
+
+
+## A single upright gold coin with a lantern stamp (currency pill and rewards).
+static func _gold_coin(ci: CanvasItem, c: Vector2, s: float) -> void:
+	var r := s * 0.36
+	_shape(ci, _circle_pts(c + Vector2(r * 0.12, r * 0.08), r, 32, 1.0), Color("c98512"), s)
+	_shape(ci, _circle_pts(c, r, 32, 1.0), Color("ffc93a"), s)
+	_shape(ci, _circle_pts(c, r * 0.74, 28, 1.0), Color("ffb420"), s * 0.5, Color("e09a18"))
+	var l := r * 0.3
+	ci.draw_colored_polygon(PackedVector2Array([c + Vector2(0, -l * 1.4), c + Vector2(l, -l * 0.3), c + Vector2(l * 0.8, l), c + Vector2(-l * 0.8, l), c + Vector2(-l, -l * 0.3)]), Color("ffe48a"))
+	_hl(ci, c + Vector2(-r * 0.42, -r * 0.42), r * 0.18, 0.7)

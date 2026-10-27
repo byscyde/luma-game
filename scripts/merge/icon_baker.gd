@@ -10,7 +10,7 @@ extends Node
 
 signal baked
 
-const CELL := 160            ## px per icon in the atlas
+const CELL := 256            ## px per icon in the atlas
 const GRID := 8              ## icons per atlas side
 const SHADER := preload("res://scripts/merge/icon_3d.gdshader")
 
@@ -49,14 +49,23 @@ func _kick() -> void:
 		return
 	_busy = true
 	while not _queue.is_empty():
-		var batch: Array = _queue.slice(0, GRID * GRID)
-		_queue = _queue.slice(GRID * GRID)
-		await _bake(batch)
+		# people get a softer, rounder relief than items (no lumps on faces)
+		var soft := _is_person(str(_queue[0]))
+		var batch: Array = []
+		for k in _queue.duplicate():
+			if batch.size() < GRID * GRID and _is_person(k) == soft:
+				batch.append(k)
+				_queue.erase(k)
+		await _bake(batch, soft)
 	_busy = false
 	baked.emit()
 
 
-func _bake(keys: Array) -> void:
+static func _is_person(key: String) -> bool:
+	return key.begins_with("portrait:") or key.begins_with("bust:")
+
+
+func _bake(keys: Array, soft := false) -> void:
 	var size := Vector2i(CELL * GRID, CELL * GRID)
 	var flat := SubViewport.new()
 	flat.size = size
@@ -79,6 +88,9 @@ func _bake(keys: Array) -> void:
 	mat.shader = SHADER
 	mat.set_shader_parameter("px", Vector2(1.0 / size.x, 1.0 / size.y))
 	mat.set_shader_parameter("src", flat.get_texture())
+	mat.set_shader_parameter("radius", (12.0 if soft else 10.0) * CELL / 160.0)
+	mat.set_shader_parameter("relief", 1.6 if soft else 9.0)
+	mat.set_shader_parameter("lum_weight", 0.03 if soft else 0.22)
 	rect.material = mat
 	lit.add_child(rect)
 	add_child(lit)
@@ -107,5 +119,7 @@ class _Painter:
 			r.position.y -= CELL * 0.03
 			if key.begins_with("portrait:"):
 				PortraitArt.draw(self, key.substr(9), cell.grow(-CELL * 0.04))
+			elif key.begins_with("bust:"):
+				PortraitArt.draw_bust(self, key.substr(5), cell.grow(-CELL * 0.04))
 			else:
 				ItemArt.draw(self, key, r)

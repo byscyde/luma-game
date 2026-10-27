@@ -47,6 +47,25 @@ static func look_of(who: String) -> Dictionary:
 		"outfit": outfits[absi(h >> 9) % outfits.size()], "acc": ""}
 
 
+static var _framed := true   ## false while drawing a free-standing customer bust
+
+
+## A customer standing behind the counter: the same character, larger, without the round
+## frame, the torso running to the bottom of `r` (order cards).
+static func draw_bust(ci: CanvasItem, who: String, r: Rect2) -> void:
+	var s := minf(r.size.x, r.size.y)
+	if s < 8.0:
+		return
+	var c := r.get_center() + Vector2(0, s * 0.02)
+	var look := look_of(who)
+	_framed = false
+	if look.has("animal"):
+		_animal(ci, str(look["animal"]), c, s * 0.5)
+	else:
+		_person(ci, look, c, s * 0.5)
+	_framed = true
+
+
 static func draw(ci: CanvasItem, who: String, r: Rect2, ring := Color(0, 0, 0, 0)) -> void:
 	var s := minf(r.size.x, r.size.y)
 	if s < 8.0:
@@ -87,6 +106,8 @@ static func _fill(ci: CanvasItem, pts: PackedVector2Array, col: Color, line := 0
 
 ## The part of the frame circle below a curve: shoulders and clothes.
 static func _bust(c: Vector2, rad: float, top: float) -> PackedVector2Array:
+	if not _framed:
+		return _torso(c, rad, top)
 	var r := rad * 0.98
 	var curve := func(x: float) -> float: return top * rad + x * x / rad * 0.45
 	var p := PackedVector2Array()
@@ -100,6 +121,17 @@ static func _bust(c: Vector2, rad: float, top: float) -> PackedVector2Array:
 		var y: float = curve.call(x)
 		if x * x + y * y <= r * r:
 			p.append(c + Vector2(x, y))
+	return p
+
+
+## Free-standing torso: rounded shoulders widening down to the bottom of the picture.
+static func _torso(c: Vector2, rad: float, top: float) -> PackedVector2Array:
+	var p := PackedVector2Array()
+	for i in 21:
+		var x := lerpf(-0.86, 0.86, i / 20.0)
+		p.append(c + Vector2(x * rad, (top + x * x * 0.3) * rad - (1.0 - x * x) * rad * 0.04))
+	p.append(c + Vector2(rad * 0.98, rad))
+	p.append(c + Vector2(-rad * 0.98, rad))
 	return p
 
 

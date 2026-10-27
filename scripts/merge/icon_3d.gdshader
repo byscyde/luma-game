@@ -8,13 +8,14 @@ uniform sampler2D src : filter_linear;   // the flat atlas (helper functions can
 uniform vec2 px;                 // 1 / atlas size
 uniform float radius = 10.0;     // bevel width in pixels
 uniform float relief = 9.0;      // slope strength
-uniform float grid = 8.0;        // icons per atlas side (for the top-to-bottom shading)
+uniform float grid = 8.0;
+uniform float lum_weight = 0.22; // how much colour edges inside an icon add relief (low for faces)        // icons per atlas side (for the top-to-bottom shading)
 const vec3 KEY_LIGHT = vec3(-0.42, -0.68, 0.6);   // screen space: up and to the left
 
 float field(vec2 uv) {
 	vec4 c = texture(src, uv);
 	float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
-	return c.a * (0.78 + 0.22 * lum);
+	return c.a * (1.0 - lum_weight + lum_weight * lum);
 }
 
 float height(vec2 uv) {

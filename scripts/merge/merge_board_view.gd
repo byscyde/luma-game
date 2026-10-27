@@ -7,11 +7,12 @@ extends Control
 signal cell_tapped(cell: Vector2i)
 signal cell_dropped(from: Vector2i, to: Vector2i)
 
-const TILE_A := Color("fff8ea")
-const TILE_B := Color("f6ead2")
-const TILE_EDGE := Color("e6d3b0")
-const FRAME := Color("f3dcb2")
-const FRAME_DARK := Color("b9874f")
+const TILE_A := Color("8fd2e2")
+const TILE_B := Color("80c6d9")
+const GRID := Color("6fb4c9")
+const FRAME := Color("cfeef6")
+const FRAME_DARK := Color("3f7fb0")
+const SELECT := Color("2fc4e8")
 const DRAG_START := 12.0
 
 var game: MergeGame
@@ -129,19 +130,20 @@ func _draw() -> void:
 		return
 	var now := int(Time.get_unix_time_from_system())
 	var board := Rect2(origin, Vector2(game.db.cols, game.db.rows) * cell)
-	# soft shadow, wooden rim, cream tray, rounded tiles with a lip
-	draw_style_box(_box(Color(0.1, 0.06, 0.02, 0.22), cell * 0.3), board.grow(cell * 0.2).grow_side(SIDE_BOTTOM, cell * 0.14))
-	draw_style_box(_box(FRAME_DARK, cell * 0.28), board.grow(cell * 0.17).grow_side(SIDE_BOTTOM, cell * 0.07))
-	draw_style_box(_box(FRAME, cell * 0.24), board.grow(cell * 0.12))
+	# a light rim and a dark blue frame around a grid of teal tiles
+	draw_style_box(_box(FRAME_DARK, cell * 0.12), board.grow(cell * 0.09))
+	draw_style_box(_box(FRAME, cell * 0.09), board.grow(cell * 0.04))
 	for y in game.db.rows:
 		for x in game.db.cols:
 			var c := Vector2i(x, y)
-			var tr := cell_rect(c).grow(-cell * 0.035)
-			draw_style_box(_box(TILE_EDGE, cell * 0.16), tr.grow_side(SIDE_BOTTOM, cell * 0.03))
-			draw_style_box(_box(TILE_A if (x + y) % 2 == 0 else TILE_B, cell * 0.16), tr)
+			draw_rect(cell_rect(c), TILE_A if (x + y) % 2 == 0 else TILE_B)
+	var lw := maxf(1.0, cell * 0.012)
+	for x in range(1, game.db.cols):
+		draw_line(board.position + Vector2(x * cell, 0), board.position + Vector2(x * cell, board.size.y), GRID, lw)
+	for y in range(1, game.db.rows):
+		draw_line(board.position + Vector2(0, y * cell), board.position + Vector2(board.size.x, y * cell), GRID, lw)
 	if selected != Vector2i(-1, -1) and game.at(selected) != null:
-		var pulse := 0.5 + 0.5 * sin(_t * 6.0)
-		draw_style_box(_box(Color(0, 0, 0, 0), cell * 0.16, Color(1.0, 0.72, 0.2, 0.7 + 0.3 * pulse), maxf(3.0, cell * 0.05)), cell_rect(selected).grow(-cell * 0.02))
+		_brackets(cell_rect(selected))
 	# items
 	for y in game.db.rows:
 		for x in game.db.cols:
@@ -185,7 +187,7 @@ func _draw_item(c: Vector2i, v: Dictionary, r: Rect2, now: int) -> void:
 			_pops.erase(c)
 		else:
 			scale = 0.55 + 0.6 * sin(k * PI * 0.5) - 0.15 * sin(k * PI)
-	var ir := Rect2(r.get_center() - r.size * 0.5 * scale, r.size * scale).grow(-cell * 0.05)
+	var ir := Rect2(r.get_center() - r.size * 0.5 * scale, r.size * scale).grow(cell * 0.06)
 	var boxed: bool = v.get("boxed", false)
 	var bubble := float(v.get("bubble_until", 0)) > 0.0
 	if boxed:
@@ -222,11 +224,10 @@ func _draw_item(c: Vector2i, v: Dictionary, r: Rect2, now: int) -> void:
 			_corner_badge(r, "!", Color("e2554f"))
 	elif kind == "tool":
 		_corner_badge(r, "x%d" % int(v.get("uses", 1)), Color("6c7a88"))
+	if kind != "generator" and game.db.is_max(id) and game.db.max_level(MergeDB.chain_of(id)) > 1:
+		_crown(r.position + Vector2(cell * 0.2, r.size.y - cell * 0.16))
 	if needed.has(id):
-		var p := r.position + Vector2(r.size.x - cell * 0.18, cell * 0.18)
-		draw_circle(p, cell * 0.13, Color.WHITE, true, -1, true)
-		draw_circle(p, cell * 0.105, Color("4fb36a"), true, -1, true)
-		draw_polyline(PackedVector2Array([p + Vector2(-cell * 0.05, 0), p + Vector2(-cell * 0.01, cell * 0.04), p + Vector2(cell * 0.06, -cell * 0.04)]), Color.WHITE, maxf(2.0, cell * 0.03), true)
+		_check(r.position + Vector2(r.size.x - cell * 0.26, r.size.y - cell * 0.24))
 
 
 ## A wooden crate with a paper label showing what is inside.
@@ -237,13 +238,60 @@ func _draw_crate(r: Rect2, id: String) -> void:
 	ItemArt.draw_3d(self, id, label.grow(-cell * 0.04))
 
 
+## Generators that cost energy: a pink lightning tag in the lower right corner, and a
+## twinkle while they can be tapped.
 func _energy_badge(r: Rect2) -> void:
-	var p := r.position + Vector2(cell * 0.17, cell * 0.17)
-	draw_circle(p, cell * 0.12, Color.WHITE, true, -1, true)
-	draw_circle(p, cell * 0.1, Color("4fb36a"), true, -1, true)
-	var b := cell * 0.06
-	draw_colored_polygon(PackedVector2Array([p + Vector2(b * 0.2, -b), p + Vector2(-b * 0.6, b * 0.15), p + Vector2(0, b * 0.15),
-		p + Vector2(-b * 0.2, b), p + Vector2(b * 0.6, -b * 0.15), p + Vector2(0, -b * 0.15)]), Color("fff36b"))
+	var p := r.end - Vector2(cell * 0.14, cell * 0.16)
+	var b := cell * 0.11
+	var bolt := PackedVector2Array([p + Vector2(b * 0.3, -b), p + Vector2(-b * 0.65, b * 0.2), p + Vector2(-b * 0.02, b * 0.2),
+		p + Vector2(-b * 0.3, b), p + Vector2(b * 0.65, -b * 0.2), p + Vector2(b * 0.02, -b * 0.2)])
+	var outline := bolt.duplicate()
+	outline.append(bolt[0])
+	draw_polyline(outline, Color.WHITE, cell * 0.06, true)
+	draw_colored_polygon(bolt, Color("f06ab4"))
+	var tw := 0.5 + 0.5 * sin(_t * 3.0 + r.position.x)
+	_sparkle(r.position + Vector2(cell * 0.24, cell * 0.22), cell * 0.07 * tw)
+
+
+func _sparkle(p: Vector2, s: float) -> void:
+	if s < 1.0:
+		return
+	draw_colored_polygon(PackedVector2Array([p + Vector2(0, -s * 2), p + Vector2(s * 0.4, -s * 0.4), p + Vector2(s * 2, 0), p + Vector2(s * 0.4, s * 0.4),
+		p + Vector2(0, s * 2), p + Vector2(-s * 0.4, s * 0.4), p + Vector2(-s * 2, 0), p + Vector2(-s * 0.4, -s * 0.4)]), Color(1, 1, 1, 0.95))
+
+
+## Cyan corner brackets around the selected cell.
+func _brackets(r: Rect2) -> void:
+	var g := r.grow(cell * 0.03)
+	var l := cell * 0.24
+	var w := maxf(3.0, cell * 0.06)
+	var pulse := 0.85 + 0.15 * sin(_t * 6.0)
+	var col := Color(SELECT, pulse)
+	for corner in [[g.position, Vector2(1, 1)], [Vector2(g.end.x, g.position.y), Vector2(-1, 1)],
+			[Vector2(g.position.x, g.end.y), Vector2(1, -1)], [g.end, Vector2(-1, -1)]]:
+		var p: Vector2 = corner[0]
+		var d: Vector2 = corner[1]
+		draw_polyline(PackedVector2Array([p + Vector2(0, d.y * l), p, p + Vector2(d.x * l, 0)]), col, w, true)
+
+
+## A gold crown on items at the top of their chain.
+func _crown(p: Vector2) -> void:
+	var s := cell * 0.13
+	var pts := PackedVector2Array([p + Vector2(-s, s * 0.6), p + Vector2(-s * 1.1, -s * 0.5), p + Vector2(-s * 0.45, 0),
+		p + Vector2(0, -s * 0.85), p + Vector2(s * 0.45, 0), p + Vector2(s * 1.1, -s * 0.5), p + Vector2(s, s * 0.6)])
+	var outline := pts.duplicate()
+	outline.append(pts[0])
+	draw_polyline(outline, Color("9a6200"), cell * 0.03, true)
+	draw_colored_polygon(pts, Color("ffcc2e"))
+	draw_rect(Rect2(p + Vector2(-s, s * 0.35), Vector2(s * 2, s * 0.25)), Color("f0a400"))
+
+
+## The big green tick on items an order is waiting for.
+func _check(p: Vector2) -> void:
+	var s := cell * 0.16
+	var pts := PackedVector2Array([p + Vector2(-s, 0), p + Vector2(-s * 0.25, s * 0.75), p + Vector2(s * 1.05, -s * 0.7)])
+	draw_polyline(pts, Color.WHITE, cell * 0.12, true)
+	draw_polyline(pts, Color("3fbf4a"), cell * 0.075, true)
 
 
 func _corner_badge(r: Rect2, text: String, col: Color) -> void:
