@@ -1,0 +1,326 @@
+{
+ "cast": {
+  "marisol": {
+   "name": "Marisol",
+   "role": "Grill master",
+   "color": "e8744f"
+  },
+  "kai": {
+   "name": "Kai",
+   "role": "Pearl diver",
+   "color": "3f9fbf"
+  },
+  "ula": {
+   "name": "Nana Ula",
+   "role": "Reef elder",
+   "color": "8a6fb0"
+  },
+  "tobias": {
+   "name": "Tobias",
+   "role": "Old fisherman",
+   "color": "5b86b5"
+  },
+  "nell": {
+   "name": "Nell",
+   "role": "Lantern Café",
+   "color": "e8875f"
+  },
+  "sparky": {
+   "name": "Sparky",
+   "role": "Hermit crab",
+   "color": "d9534f"
+  }
+ },
+ "hosts": [
+  "marisol",
+  "sparky",
+  "nell"
+ ],
+ "chapters": [
+  {
+   "id": "rg1",
+   "title": "Coals on the Reef",
+   "reward": {
+    "gems": 15,
+    "energy": 50
+   },
+   "tasks": [
+    {
+     "id": "r1_shack",
+     "title": "Rebuild the grill shack",
+     "cost": 20,
+     "dialogue": [
+      [
+       "marisol",
+       "Another visitor from Verdant Isle? Careful, the reef bites."
+      ],
+      [
+       "nell",
+       "Nell, from the Lantern Café. Tobias said you knew my grandfather."
+      ],
+      [
+       "marisol",
+       "Everyone knew him. Help me get this grill going and I'll tell you what I saw."
+      ]
+     ]
+    },
+    {
+     "id": "r1_coals",
+     "title": "Light the ember pit",
+     "cost": 40,
+     "dialogue": [
+      [
+       "marisol",
+       "The reef's coals never go out. Volcanic. Perfect for grilling."
+      ],
+      [
+       "sparky",
+       "*click click*"
+      ],
+      [
+       "marisol",
+       "That's Sparky. He steals shrimp. Ignore him."
+      ]
+     ],
+     "designs": [
+      "Stone pit",
+      "Iron brazier",
+      "Clay oven"
+     ]
+    },
+    {
+     "id": "r1_counter",
+     "title": "Carve a driftwood counter",
+     "cost": 60,
+     "dialogue": [
+      [
+       "kai",
+       "Smells amazing up here. Trade you a pearl for a skewer?"
+      ],
+      [
+       "marisol",
+       "Kai dives the deep reef. Finds everything the tide hides."
+      ],
+      [
+       "kai",
+       "Even things people throw away at night..."
+      ]
+     ],
+     "designs": [
+      "Driftwood",
+      "Coral stone",
+      "Bamboo"
+     ]
+    },
+    {
+     "id": "r1_lanterns",
+     "title": "Hang shell lanterns",
+     "cost": 80,
+     "dialogue": [
+      [
+       "ula",
+       "Lanterns on the reef again. Like the old festival nights."
+      ],
+      [
+       "ula",
+       "Your grandfather lit the first one here, child. The night before the café burned."
+      ],
+      [
+       "nell",
+       "He was here? That night?"
+      ]
+     ]
+    },
+    {
+     "id": "r1_stools",
+     "title": "Set out bar stools",
+     "cost": 100,
+     "dialogue": [
+      [
+       "kai",
+       "Found this in the shallows. A brass lighter. Initials R.H."
+      ],
+      [
+       "nell",
+       "R.H.... Rafe Holloway?"
+      ],
+      [
+       "marisol",
+       "The mayor smokes cigars. Everyone knows that lighter."
+      ]
+     ],
+     "designs": [
+      "Rope stools",
+      "Barrel seats",
+      "Coral benches"
+     ]
+    },
+    {
+     "id": "r1_open",
+     "title": "Open the Reef Grill",
+     "cost": 130,
+     "dialogue": [
+      [
+       "marisol",
+       "The Reef Grill is open! First skewer's on the house."
+      ],
+      [
+       "tobias",
+       "Came all the way by boat for this. Worth it."
+      ],
+      [
+       "nell",
+       "One clue at a time. The fire's story is out here somewhere."
+      ]
+     ],
+     "designs": [
+      "Painted sign",
+      "Neon shell",
+      "Carved plank"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "rg2",
+   "title": "Pearls and Promises",
+   "reward": {
+    "gems": 20,
+    "energy": 80
+   },
+   "tasks": [
+    {
+     "id": "r2_dock",
+     "title": "Fix the diving dock",
+     "cost": 150,
+     "dialogue": [
+      [
+       "kai",
+       "With a proper dock I can reach the old wreck."
+      ],
+      [
+       "ula",
+       "The wreck holds the reef's memory. And maybe yours."
+      ]
+     ]
+    },
+    {
+     "id": "r2_tank",
+     "title": "Build a reef tank",
+     "cost": 190,
+     "dialogue": [
+      [
+       "sparky",
+       "*happy clicks*"
+      ],
+      [
+       "marisol",
+       "A home for Sparky's cousins. Customers love it."
+      ]
+     ],
+     "designs": [
+      "Coral tank",
+      "Rock pool",
+      "Glass dome"
+     ]
+    },
+    {
+     "id": "r2_wreck",
+     "title": "Search the old wreck",
+     "cost": 230,
+     "dialogue": [
+      [
+       "kai",
+       "A strongbox, sealed with wax. The seal is a lantern."
+      ],
+      [
+       "nell",
+       "Grandpa's seal. He hid something out here."
+      ]
+     ]
+    },
+    {
+     "id": "r2_kitchen",
+     "title": "Expand the kitchen",
+     "cost": 280,
+     "dialogue": [
+      [
+       "marisol",
+       "More orders than ever. Your café sends us half the island!"
+      ],
+      [
+       "nell",
+       "And Ember Reef sends us its coals. Fair trade."
+      ]
+     ],
+     "designs": [
+      "Copper hoods",
+      "Stone hearth",
+      "Open grill"
+     ]
+    },
+    {
+     "id": "r2_box",
+     "title": "Open the strongbox",
+     "cost": 330,
+     "dialogue": [
+      [
+       "nell",
+       "A deed. The harbour spring... signed over to the island, not to anyone."
+      ],
+      [
+       "ula",
+       "So no one could ever sell the water. He protected it."
+      ],
+      [
+       "nell",
+       "Then whoever burned the café wanted this deed gone."
+      ]
+     ]
+    },
+    {
+     "id": "r2_festival",
+     "title": "Host the Pearl Festival",
+     "cost": 400,
+     "dialogue": [
+      [
+       "marisol",
+       "The whole reef is dancing tonight."
+      ],
+      [
+       "kai",
+       "And look who's watching from the dock... the mayor."
+      ],
+      [
+       "nell",
+       "Next stop, Lantern Bay. The lighthouse keeper saw that night too."
+      ]
+     ],
+     "designs": [
+      "Pearl arches",
+      "Torch path",
+      "Floating lights"
+     ]
+    }
+   ]
+  }
+ ],
+ "intro": [
+  [
+   "marisol",
+   "Welcome to Ember Reef. Hot coals, cold water, and nobody's secrets stay buried long."
+  ],
+  [
+   "marisol",
+   "Grill, kelp, fresh fruit. Merge two of the same and serve the reef folk."
+  ],
+  [
+   "nell",
+   "And in return, you'll tell me what you saw the night of the fire?"
+  ],
+  [
+   "marisol",
+   "Serve first. Stories later."
+  ]
+ ]
+}

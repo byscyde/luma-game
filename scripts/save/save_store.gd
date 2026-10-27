@@ -42,6 +42,7 @@ static func default_data() -> Dictionary:
 		"in_progress": {},
 		"merge": {},
 		"islands": {},
+		"merge_loc": {},
 		"settings": {
 			"music_volume": 0.7,
 			"sfx_volume": 0.9,

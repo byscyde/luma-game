@@ -552,7 +552,7 @@ func _new_order() -> Dictionary:
 		items.append(MergeDB.make_id(chain, l))
 		coins += int(coin_t[mini(l, coin_t.size() - 1)])
 		xp += int(xp_t[mini(l, xp_t.size() - 1)])
-	var who: Array = db.cast.keys().filter(func(k): return k != "nell" and k != "pip")
+	var who: Array = db.cast.keys().filter(func(k): return not db.hosts.has(k))
 	s["order_seq"] = int(s["order_seq"]) + 1
 	return {"id": int(s["order_seq"]), "who": who[rng.randi_range(0, who.size() - 1)], "items": items,
 		"coins": coins, "xp": maxi(1, xp)}

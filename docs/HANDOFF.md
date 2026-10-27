@@ -57,9 +57,7 @@ re-test on the phone.
 ## 4. Next tasks (in order)
 Follow `docs/ISLANDS_PLAN.md`: each island = puzzle game (30 solver-checked levels) + merge
 location; café hub unlocks islands.
-1. Reef Grill merge location for Ember Reef (new chains, cast, chapters; generalise MergeGame
-   to several locations: `save["merge_loc"][id]`).
-2. Lantern Bay (mirrors & light) puzzle + Lighthouse Workshop; then Stone Steps, Rope Isles,
+1. Lantern Bay (mirrors & light) puzzle + Lighthouse Workshop; then Stone Steps, Rope Isles,
    Moon Grove.
 3. Lantern Café phase 2 (café scene art) — `docs/MERGE_DESIGN.md`.
 4. Owner decisions pending: real-money purchases/ads; Unity port timing.

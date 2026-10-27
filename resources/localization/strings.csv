@@ -159,3 +159,4 @@ ISLAND_DONE,Island complete! A new café chapter is open.
 ISLAND_UNLOCKED,New island unlocked: %s!
 CHAPTER_NEEDS_ISLAND,Finish %s to open the next chapter.
 GO_THERE,Go there
+LOCATION_LOCKED,%s: finish all levels to open

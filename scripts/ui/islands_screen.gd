@@ -108,6 +108,16 @@ func _show_levels(id: String) -> void:
 	head.add_child(back)
 	_list.add_child(UI.label(tr(isl["name"]), "HeadingLabel", 40, HORIZONTAL_ALIGNMENT_CENTER))
 	_list.add_child(UI.label(tr(isl.get("game_name", "")), "CaptionLabel", 24, HORIZONTAL_ALIGNMENT_CENTER))
+	if isl.has("merge_location"):
+		var mloc: Dictionary = isl["merge_location"]
+		var lid := str(mloc["id"])
+		var open := Game.merge_location_unlocked(lid)
+		var mb := UI.button(tr(str(mloc["name"])) if open else UI.t("LOCATION_LOCKED") % tr(str(mloc["name"])), "home" if open else "lock",
+			"PrimaryButton" if open else "SecondaryButton", Vector2(0, 90))
+		mb.name = "Location_" + lid
+		mb.disabled = not open
+		mb.pressed.connect(func(): Router.go("merge", {"location": lid}))
+		_list.add_child(mb)
 	var grid := GridContainer.new()
 	grid.columns = 5
 	grid.add_theme_constant_override("h_separation", 12)

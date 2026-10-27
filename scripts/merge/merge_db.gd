@@ -14,12 +14,20 @@ var balance: Dictionary = {}
 var cast: Dictionary = {}
 var chapters: Array = []
 var intro: Array = []             ## dialogue shown on the first visit
+var hosts: Array = []             ## cast members who never place orders (owner, pet)
 var errors: Array[String] = []
 
 
 static func load_default() -> MergeDB:
 	var db := MergeDB.new()
 	db.load_from(_read(ITEMS_PATH), _read(BALANCE_PATH), _read(STORY_PATH))
+	return db
+
+
+## Another merge location (Reef Grill, ...): items/balance/story.json in `dir`.
+static func load_location(dir: String) -> MergeDB:
+	var db := MergeDB.new()
+	db.load_from(_read(dir.path_join("items.json")), _read(dir.path_join("balance.json")), _read(dir.path_join("story.json")))
 	return db
 
 
@@ -39,6 +47,7 @@ func load_from(items: Dictionary, p_balance: Dictionary, story: Dictionary) -> v
 	cast = story.get("cast", {})
 	chapters = story.get("chapters", [])
 	intro = story.get("intro", [])
+	hosts = story.get("hosts", [])
 	_validate()
 
 

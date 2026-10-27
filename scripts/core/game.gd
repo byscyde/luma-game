@@ -76,6 +76,7 @@ func _bind() -> void:
 	progression = ProgressionModel.new(content, data["progress"])
 	tutorial = TutorialModel.new(data["tutorial"])
 	_merge = null
+	_locations.clear()
 
 
 # ---------------------------------------------------------------- merge mode
@@ -93,8 +94,40 @@ func merge_db() -> MergeDB:
 	return _merge_db
 
 
-## The merge rules bound to save["merge"] (created on first use).
-func merge_game() -> MergeGame:
+var _locations: Dictionary = {}       ## merge location id -> MergeGame
+
+
+## Merge locations of the islands: id -> {"id", "name", "dir", "island"}.
+func merge_locations() -> Dictionary:
+	var out := {}
+	for i in islands():
+		if i.has("merge_location"):
+			var m: Dictionary = (i["merge_location"] as Dictionary).duplicate()
+			m["island"] = i["id"]
+			out[m["id"]] = m
+	return out
+
+
+## An island's merge location opens when its 30 puzzle levels are done.
+func merge_location_unlocked(loc: String) -> bool:
+	var m: Dictionary = merge_locations().get(loc, {})
+	return not m.is_empty() and island_done(str(m["island"]))
+
+
+## The merge rules bound to save["merge"] (Lantern Café, loc "") or to
+## save["merge_loc"][loc] for an island's location (created on first use).
+func merge_game(loc: String = "") -> MergeGame:
+	if loc != "":
+		if not _locations.has(loc):
+			var m: Dictionary = merge_locations().get(loc, {})
+			if not data.has("merge_loc") or typeof(data["merge_loc"]) != TYPE_DICTIONARY:
+				data["merge_loc"] = {}
+			if not data["merge_loc"].has(loc):
+				data["merge_loc"][loc] = {}
+			var g := MergeGame.new(MergeDB.load_location(str(m.get("dir", ""))), data["merge_loc"][loc])
+			g.island_done = island_done
+			_locations[loc] = g
+		return _locations[loc]
 	if _merge == null:
 		if not data.has("merge") or typeof(data["merge"]) != TYPE_DICTIONARY:
 			data["merge"] = {}

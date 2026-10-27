@@ -4,6 +4,7 @@ extends Control
 ## the bottom navigation (home, inventory, tasks). Rules live in MergeGame.
 
 var game: MergeGame
+var loc := ""                   ## "" = Lantern Café, else an island's merge location
 var board_view: MergeBoardView
 var _level_badge: LevelBadge
 var _energy_label: Label
@@ -27,7 +28,8 @@ var _level_queue: Array[int] = []
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	game = Game.merge_game()
+	loc = str(Router.params.get("location", ""))
+	game = Game.merge_game(loc)
 	var now := _now()
 	game.tick(now)
 	game.deliver_gifts()
@@ -36,8 +38,8 @@ func _ready() -> void:
 	_build()
 	_refresh()
 	Audio.play_music()
-	if Router.params.get("intro", false) or not Game.data["merge"].get("intro_seen", false):
-		Game.data["merge"]["intro_seen"] = true
+	if Router.params.get("intro", false) or not game.s.get("intro_seen", false):
+		game.s["intro_seen"] = true
 		_show_dialogue(game.db.intro, func(): pass)
 
 
@@ -170,7 +172,10 @@ func _build_nav() -> Control:
 	home.name = "HomeButton"
 	home.pressed.connect(func():
 		_save_now()
-		Router.go("menu"))
+		if loc != "":
+			Router.go("islands", {"island": str(Game.merge_locations()[loc]["island"])})
+		else:
+			Router.go("menu"))
 	row.add_child(home)
 	_inv_btn = UI.button(UI.t("INVENTORY"), "collection", "SecondaryButton", Vector2(0, 88))
 	_inv_btn.name = "InventoryButton"

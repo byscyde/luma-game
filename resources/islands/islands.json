@@ -20,6 +20,11 @@
    "color": "e8744f",
    "unlock": {
     "cafe_task": "c1_open"
+   },
+   "merge_location": {
+    "id": "reef_grill",
+    "name": "Reef Grill",
+    "dir": "res://resources/merge/reef_grill"
    }
   },
   {

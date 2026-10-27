@@ -304,3 +304,16 @@ func test_state_survives_json_roundtrip() -> void:
 	var a := g.tap(Vector2i(3, 4), T0)
 	var b := g2.tap(Vector2i(3, 4), T0)
 	assert_eq(a["id"], b["id"], "same random sequence after reload")
+
+
+func test_reef_grill_location_content() -> void:
+	var reef := MergeDB.load_location("res://resources/merge/reef_grill")
+	assert_true(reef.errors.is_empty(), "reef content errors: %s" % str(reef.errors))
+	var g := MergeGame.new(reef, {})
+	assert_eq(g.orders().size(), 3)
+	for o in g.orders():
+		assert_false(reef.hosts.has(o["who"]), "hosts never order")
+		for id in o["items"]:
+			assert_true(MergeDB.chain_of(id) in ["grill", "seaweed"], "level 1 orders use the two starting chains")
+	assert_eq(reef.chapters.size(), 2)
+	assert_true(reef.intro.size() > 0)
