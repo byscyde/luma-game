@@ -40,5 +40,8 @@ coins and gems stay per location in phase 1 (shared wallet is a later option).
       lit) and night blooms (must stay dark); 30 generated levels
       (`tools/generate_light_levels.tscn`), par = fewest taps proven by the exhaustive solver;
       unlocked by café task `c2_fountain`
-- [ ] Island 3 Lighthouse Workshop merge location (next)
+- [x] Island 3 Lighthouse Workshop merge location: `resources/merge/lighthouse_workshop`, 4 chains
+      (glass, candle, lamp, chart), free Oil Barrel, 2 chapters / 12 tasks; opens when Lantern Bay
+      is complete; café chapter 3 requires Lantern Bay
+- [ ] Island 4 Stone Steps (Sokoban) + Terrace Tea House (next)
 - [ ] Islands 3–6

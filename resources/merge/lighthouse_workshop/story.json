@@ -1,0 +1,336 @@
+{
+ "cast": {
+  "isolde": {
+   "name": "Isolde",
+   "role": "Lighthouse keeper",
+   "color": "f2c14e"
+  },
+  "bram": {
+   "name": "Bram",
+   "role": "Glassblower",
+   "color": "5b86b5"
+  },
+  "wick": {
+   "name": "Wick",
+   "role": "Barn owl",
+   "color": "b08a5a"
+  },
+  "marisol": {
+   "name": "Marisol",
+   "role": "Reef Grill",
+   "color": "e8744f"
+  },
+  "nell": {
+   "name": "Nell",
+   "role": "Lantern Café",
+   "color": "e8875f"
+  },
+  "tobias": {
+   "name": "Tobias",
+   "role": "Old fisherman",
+   "color": "5b86b5"
+  },
+  "kai": {
+   "name": "Kai",
+   "role": "Pearl diver",
+   "color": "3f9fbf"
+  }
+ },
+ "hosts": [
+  "isolde",
+  "wick",
+  "nell"
+ ],
+ "intro": [
+  [
+   "isolde",
+   "So you're the one lighting up the archipelago again. Mind the stairs, there are two hundred."
+  ],
+  [
+   "isolde",
+   "Glass, wax, oil and charts. Merge two of a kind and the sailors will pay you for them."
+  ],
+  [
+   "nell",
+   "Marisol says you saw the café burn from up here."
+  ],
+  [
+   "isolde",
+   "I saw a boat with no lights. Fix my workshop and I'll show you my logbook."
+  ]
+ ],
+ "chapters": [
+  {
+   "id": "lw1",
+   "title": "The Dark Lighthouse",
+   "reward": {
+    "gems": 15,
+    "energy": 50
+   },
+   "tasks": [
+    {
+     "id": "w1_door",
+     "title": "Clear the workshop door",
+     "cost": 25,
+     "dialogue": [
+      [
+       "isolde",
+       "Salt has eaten the hinges. Everything up here is rust and fog."
+      ],
+      [
+       "wick",
+       "Hoo."
+      ],
+      [
+       "isolde",
+       "That's Wick. He keeps the moths away and judges my cooking."
+      ]
+     ]
+    },
+    {
+     "id": "w1_kiln",
+     "title": "Fire up the glass kiln",
+     "cost": 45,
+     "dialogue": [
+      [
+       "bram",
+       "Bram, glassblower. Well, apprentice. The kiln's been cold for years."
+      ],
+      [
+       "isolde",
+       "Since the night the lamp went out."
+      ],
+      [
+       "nell",
+       "The lamp went out? The same night as the fire?"
+      ]
+     ],
+     "designs": [
+      "Brick kiln",
+      "Iron furnace",
+      "Stone dome"
+     ]
+    },
+    {
+     "id": "w1_bench",
+     "title": "Build a work bench",
+     "cost": 65,
+     "dialogue": [
+      [
+       "bram",
+       "With a bench I can cut lenses again. Proper ones."
+      ],
+      [
+       "isolde",
+       "The old lens cracked. Somebody climbed up here and broke it."
+      ]
+     ],
+     "designs": [
+      "Oak bench",
+      "Driftwood bench",
+      "Iron table"
+     ]
+    },
+    {
+     "id": "w1_log",
+     "title": "Find the keeper's logbook",
+     "cost": 85,
+     "dialogue": [
+      [
+       "isolde",
+       "Here. Last entry before the dark: 'Boat, no lights, rowing from the café pier. One man. Cigar smoke.'"
+      ],
+      [
+       "nell",
+       "Cigar smoke... the lighter Kai found had the initials R.H."
+      ],
+      [
+       "isolde",
+       "I wrote it down. Nobody ever asked to read it."
+      ]
+     ]
+    },
+    {
+     "id": "w1_stairs",
+     "title": "Repair the spiral stairs",
+     "cost": 110,
+     "dialogue": [
+      [
+       "wick",
+       "Hoo hoo!"
+      ],
+      [
+       "bram",
+       "He likes the new steps. Less flying."
+      ],
+      [
+       "isolde",
+       "Now visitors can reach the lamp room. Business, at last."
+      ]
+     ],
+     "designs": [
+      "Painted iron",
+      "Polished brass",
+      "Sea-blue rails"
+     ]
+    },
+    {
+     "id": "w1_lamp",
+     "title": "Relight the great lamp",
+     "cost": 140,
+     "dialogue": [
+      [
+       "isolde",
+       "Look at that. Every boat between here and Verdant can see it."
+      ],
+      [
+       "marisol",
+       "We saw it from the Reef Grill! The whole crew cheered."
+      ],
+      [
+       "nell",
+       "Grandpa would have loved this."
+      ]
+     ],
+     "designs": [
+      "Golden beam",
+      "Pale moonlight",
+      "Warm amber"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lw2",
+   "title": "Signals in the Fog",
+   "reward": {
+    "gems": 20,
+    "energy": 80
+   },
+   "tasks": [
+    {
+     "id": "w2_shop",
+     "title": "Open the lantern shop",
+     "cost": 160,
+     "dialogue": [
+      [
+       "bram",
+       "Sailors want lanterns, candles, charts. We'll sell them all."
+      ],
+      [
+       "isolde",
+       "And we'll ask every one of them what they remember."
+      ]
+     ],
+     "designs": [
+      "Glass front",
+      "Wooden stall",
+      "Rope awning"
+     ]
+    },
+    {
+     "id": "w2_charts",
+     "title": "Restore the chart room",
+     "cost": 200,
+     "dialogue": [
+      [
+       "isolde",
+       "Your grandfather drew half of these charts. Look, the harbour spring is marked in red."
+      ],
+      [
+       "nell",
+       "He marked it on every map. Like he wanted nobody to forget it."
+      ]
+     ]
+    },
+    {
+     "id": "w2_horn",
+     "title": "Fix the fog horn",
+     "cost": 240,
+     "dialogue": [
+      [
+       "tobias",
+       "I heard that horn from my boat! Thought it was a ghost."
+      ],
+      [
+       "isolde",
+       "Tobias. You were out that night too."
+      ],
+      [
+       "tobias",
+       "I was. I saw the mayor's skiff tied at the café pier. I never said. I was afraid."
+      ]
+     ],
+     "designs": [
+      "Brass horn",
+      "Bell tower",
+      "Conch horn"
+     ]
+    },
+    {
+     "id": "w2_lens",
+     "title": "Cut a new lens",
+     "cost": 290,
+     "dialogue": [
+      [
+       "bram",
+       "My first full lens. It's not perfect."
+      ],
+      [
+       "isolde",
+       "It's perfect enough. Light doesn't need perfect, it needs someone to keep it."
+      ]
+     ]
+    },
+    {
+     "id": "w2_gallery",
+     "title": "Build a lamp gallery",
+     "cost": 340,
+     "dialogue": [
+      [
+       "kai",
+       "I dove for the old lens pieces. One still has a fingerprint in the soot."
+      ],
+      [
+       "nell",
+       "The deed, the lighter, the logbook, the skiff... and now this."
+      ],
+      [
+       "isolde",
+       "Evidence enough for the island council."
+      ]
+     ],
+     "designs": [
+      "Lantern wall",
+      "Hanging lamps",
+      "Candle maze"
+     ]
+    },
+    {
+     "id": "w2_festival",
+     "title": "Hold the Night of Lights",
+     "cost": 420,
+     "dialogue": [
+      [
+       "isolde",
+       "Every lantern on every island, lit at once. For your grandfather."
+      ],
+      [
+       "wick",
+       "Hoooo."
+      ],
+      [
+       "nell",
+       "Next, the Stone Steps. The council meets at the Terrace Tea House."
+      ]
+     ],
+     "designs": [
+      "Floating lanterns",
+      "Sky lanterns",
+      "Lantern boats"
+     ]
+    }
+   ]
+  }
+ ]
+}

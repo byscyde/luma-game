@@ -168,3 +168,17 @@ func test_reef_grill_opens_after_ember_reef_and_has_its_own_board() -> void:
 	g.tap(Vector2i(3, 4), int(Time.get_unix_time_from_system()))
 	assert_true(Game.data["merge_loc"].has("reef_grill"), "state saved under merge_loc")
 	assert_eq(Game.merge_game().at(Vector2i(3, 4))["id"], "gen_coffee:1", "café board untouched")
+
+
+func test_lighthouse_workshop_opens_after_lantern_bay() -> void:
+	assert_false(Game.merge_location_unlocked("lighthouse_workshop"))
+	for lv in Game.island_levels("lantern_bay"):
+		Game.island_progress("lantern_bay")["completed"][lv["id"]] = {"stars": 1}
+	assert_true(Game.merge_location_unlocked("lighthouse_workshop"))
+	Router.params = {"location": "lighthouse_workshop"}
+	await _open()
+	var g: MergeGame = screen.game
+	assert_eq(g.at(Vector2i(3, 4))["id"], "gen_glass:1")
+	g.tap(Vector2i(3, 4), int(Time.get_unix_time_from_system()))
+	assert_true(Game.data["merge_loc"].has("lighthouse_workshop"), "state saved under merge_loc")
+	assert_false(Game.data["merge_loc"].has("reef_grill"), "other locations untouched")

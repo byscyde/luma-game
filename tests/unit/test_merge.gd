@@ -317,3 +317,31 @@ func test_reef_grill_location_content() -> void:
 			assert_true(MergeDB.chain_of(id) in ["grill", "seaweed"], "level 1 orders use the two starting chains")
 	assert_eq(reef.chapters.size(), 2)
 	assert_true(reef.intro.size() > 0)
+
+
+func test_lighthouse_workshop_location_content() -> void:
+	var ws := MergeDB.load_location("res://resources/merge/lighthouse_workshop")
+	assert_true(ws.errors.is_empty(), "workshop content errors: %s" % str(ws.errors))
+	var g := MergeGame.new(ws, {})
+	assert_eq(g.orders().size(), 3)
+	for o in g.orders():
+		assert_false(ws.hosts.has(o["who"]), "hosts never order")
+		for id in o["items"]:
+			assert_true(MergeDB.chain_of(id) in ["glass", "candle"], "level 1 orders use the two starting chains")
+	assert_eq(ws.chapters.size(), 2)
+	assert_true(ws.intro.size() > 0)
+	assert_eq(g.at(Vector2i(3, 4))["id"], "gen_glass:1")
+
+
+func test_cafe_chapter_three_waits_for_lantern_bay() -> void:
+	var g := MergeGame.new(db, {})
+	var bay_done := [false]   # lambdas capture locals by value
+	g.island_done = func(id: String) -> bool: return id != "lantern_bay" or bay_done[0]
+	for ch in db.chapters.slice(0, 2):
+		for t in ch["tasks"]:
+			(g.s["tasks_done"] as Array).append(t["id"])
+	assert_eq(g.chapter_blocked_by(), "lantern_bay")
+	assert_true(g.open_tasks().is_empty())
+	bay_done[0] = true
+	assert_eq(g.chapter_blocked_by(), "")
+	assert_false(g.open_tasks().is_empty())

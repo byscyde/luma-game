@@ -57,8 +57,8 @@ re-test on the phone.
 ## 4. Next tasks (in order)
 Follow `docs/ISLANDS_PLAN.md`: each island = puzzle game (30 solver-checked levels) + merge
 location; café hub unlocks islands.
-1. Lantern Bay (mirrors & light) puzzle + Lighthouse Workshop; then Stone Steps, Rope Isles,
-   Moon Grove.
+1. Stone Steps (Sokoban) + Terrace Tea House; then Rope Isles, Moon Grove
+   (Ember Reef and Lantern Bay are done).
 3. Lantern Café phase 2 (café scene art) — `docs/MERGE_DESIGN.md`.
 4. Owner decisions pending: real-money purchases/ads; Unity port timing.
 5. iOS CI: GitHub often fails to assign a macOS runner within 15 min; re-run later.

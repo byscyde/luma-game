@@ -21,7 +21,9 @@ verified levels, unlocked by the café task "Open the doors"; café chapter 2 ne
 island levels pay café coins. Reef Grill (Ember Reef's merge location) added: own board, chains,
 cast and two chapters; opens when Ember Reef is complete. Lantern Bay (island 3, mirrors &
 light) added: `scripts/light/`, 30 generated levels with solver-proven par, unlocked by café task
-"c2_fountain"; 123/123 tests. Next: Lighthouse Workshop (Lantern Bay's merge location).
+"c2_fountain". Lighthouse Workshop (its merge location: glass, candles, lamps, charts; cast
+Isolde, Bram, Wick) opens when Lantern Bay is complete; café chapter 3 now needs Lantern Bay.
+126/126 tests. Next: Stone Steps (island 4, Sokoban) + Terrace Tea House.
 
 ## Session 6
 Merge-2 mode "LUMA Harbour" (Lantern Café) unlocks after level 30 (D-019,

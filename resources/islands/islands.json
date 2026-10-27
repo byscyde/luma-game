@@ -38,7 +38,12 @@
     "cafe_task": "c2_fountain"
    },
    "levels": "res://resources/islands/lantern_bay/levels",
-   "scene": "light"
+   "scene": "light",
+   "merge_location": {
+    "id": "lighthouse_workshop",
+    "name": "Lighthouse Workshop",
+    "dir": "res://resources/merge/lighthouse_workshop"
+   }
   },
   {
    "id": "stone_steps",
