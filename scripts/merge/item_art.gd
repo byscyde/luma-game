@@ -8,8 +8,13 @@ const OUT := Color("4a2f24")          ## outline ink
 const OUT_W := 0.035                  ## outline width (fraction of icon size)
 
 
-## The glossy baked version (IconBaker) when it is ready, the flat drawing until then.
+## The rendered 3D item (MergeArt), else the glossy baked drawing (IconBaker) when it
+## is ready, else the flat drawing.
 static func draw_3d(ci: CanvasItem, id: String, r: Rect2) -> void:
+	var art := MergeArt.texture(id)
+	if art:
+		ci.draw_texture_rect(art, r.grow(r.size.x * 0.06), false)
+		return
 	var t := IconBaker.texture(id)
 	if t:
 		ci.draw_texture_rect(t, r.grow(r.size.x * 0.125), false)   # the bake keeps a 10 % margin
@@ -17,8 +22,18 @@ static func draw_3d(ci: CanvasItem, id: String, r: Rect2) -> void:
 		draw(ci, id, r)
 
 
-## A character portrait, baked like the items.
+## A character portrait in a round frame.
 static func draw_portrait(ci: CanvasItem, who: String, r: Rect2) -> void:
+	var art := MergeArt.texture("face:" + who)
+	if art:
+		var c := r.get_center()
+		var rad := minf(r.size.x, r.size.y) * 0.5
+		var look := PortraitArt.look_of(who)
+		var bg := Color(str(look.get("outfit", "88aacc"))).lightened(0.6) if not look.has("animal") else Color("d6eef6")
+		ci.draw_circle(c, rad, bg, true, -1, true)
+		ci.draw_circle(c + Vector2(0, rad * 0.25), rad * 0.85, bg.darkened(0.06), true, -1, true)
+		ci.draw_texture_rect(art, Rect2(c - Vector2(rad, rad), Vector2(rad, rad) * 2.0), false)
+		return
 	var t := IconBaker.texture("portrait:" + who)
 	if t:
 		ci.draw_texture_rect(t, r.grow(r.size.x * 0.0435), false)
@@ -26,8 +41,12 @@ static func draw_portrait(ci: CanvasItem, who: String, r: Rect2) -> void:
 		PortraitArt.draw(ci, who, r)
 
 
-## A customer bust (no frame), baked like the items.
+## A customer bust (no frame), the shoulders running to the bottom of r.
 static func draw_bust(ci: CanvasItem, who: String, r: Rect2) -> void:
+	var art := MergeArt.texture("bust:" + who)
+	if art:
+		ci.draw_texture_rect(art, r, false)
+		return
 	var t := IconBaker.texture("bust:" + who)
 	if t:
 		ci.draw_texture_rect(t, r.grow(r.size.x * 0.0435), false)

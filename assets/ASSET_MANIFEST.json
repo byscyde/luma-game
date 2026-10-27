@@ -255,6 +255,656 @@
       "path": "assets/icons/ui/undo.svg",
       "source": "Hand-authored SVG icon set (original work, SCYDE)",
       "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bakery_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bakery_10.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bakery_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bakery_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bakery_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bakery_5.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bakery_6.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bakery_7.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bakery_8.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bakery_9.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_ada.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_bram.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_dusk.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_hana.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_ines.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_isolde.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_juno.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_kai.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_kiki.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_luna.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_marek.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_marisol.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_nell.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_pebble.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_pip.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_rafe.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_silas.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_sparky.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_tobias.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_toma.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_ula.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_vesna.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/bust_wick.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/catch_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/catch_10.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/catch_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/catch_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/catch_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/catch_5.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/catch_6.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/catch_7.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/catch_8.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/catch_9.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/chest_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/chest_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/chest_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coffee_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coffee_10.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coffee_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coffee_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coffee_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coffee_5.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coffee_6.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coffee_7.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coffee_8.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coffee_9.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coin_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coins_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coins_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coins_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coins_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/coins_5.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/crate_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/energy_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/energy_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/energy_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/energy_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/energy_5.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_ada.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_bram.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_dusk.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_hana.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_ines.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_isolde.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_juno.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_kai.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_kiki.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_luna.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_marek.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_marisol.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_nell.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_pebble.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_pip.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_rafe.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_silas.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_sparky.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_tobias.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_toma.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_ula.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_vesna.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/face_wick.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/garden_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/garden_10.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/garden_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/garden_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/garden_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/garden_5.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/garden_6.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/garden_7.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/garden_8.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/garden_9.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gems_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gems_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gems_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gems_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_bakery_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_bakery_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_bakery_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_bakery_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_bakery_5.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_catch_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_catch_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_catch_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_catch_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_catch_5.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_coffee_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_coffee_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_coffee_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_coffee_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_coffee_5.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_garden_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_garden_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_garden_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_garden_4.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_garden_5.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_planter_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_planter_2.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/gen_planter_3.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/scissors_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/merge/art/star_1.png",
+      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
+      "license": "Proprietary - SCYDE (original work)"
     }
   ]
 }
