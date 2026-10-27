@@ -1,0 +1,64 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "##.o..o#",
+    "##..#B.#",
+    "#.B....#",
+    "#..#.#.#",
+    "#@.B...#",
+    "#o.....#",
+    "########"
+  ],
+  "h": 8,
+  "id": "ss_l22",
+  "island": "stone_steps",
+  "name": "Rockfall",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 37
+      }
+    ]
+  },
+  "par": 30,
+  "pushes": 12,
+  "rewards": {
+    "cafe_coins": 51,
+    "essence": 36
+  },
+  "solution": [
+    "N",
+    "N",
+    "E",
+    "E",
+    "E",
+    "E",
+    "N",
+    "E",
+    "N",
+    "W",
+    "W",
+    "E",
+    "S",
+    "S",
+    "W",
+    "S",
+    "S",
+    "W",
+    "W",
+    "N",
+    "W",
+    "S",
+    "E",
+    "E",
+    "E",
+    "E",
+    "E",
+    "N",
+    "N",
+    "N"
+  ],
+  "w": 8
+}

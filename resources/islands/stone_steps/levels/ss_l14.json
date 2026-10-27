@@ -1,0 +1,56 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "#o.#..#",
+    "#....##",
+    "#oB..##",
+    "#...B@#",
+    "#...B.#",
+    "#o...##",
+    "#######"
+  ],
+  "h": 8,
+  "id": "ss_l14",
+  "island": "stone_steps",
+  "name": "Three Stones",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 27
+      }
+    ]
+  },
+  "par": 22,
+  "pushes": 11,
+  "rewards": {
+    "cafe_coins": 35,
+    "essence": 28
+  },
+  "solution": [
+    "S",
+    "W",
+    "E",
+    "N",
+    "W",
+    "W",
+    "W",
+    "E",
+    "S",
+    "E",
+    "S",
+    "W",
+    "W",
+    "N",
+    "W",
+    "N",
+    "N",
+    "N",
+    "E",
+    "E",
+    "S",
+    "W"
+  ],
+  "w": 7
+}

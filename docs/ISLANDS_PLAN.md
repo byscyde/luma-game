@@ -43,5 +43,19 @@ coins and gems stay per location in phase 1 (shared wallet is a later option).
 - [x] Island 3 Lighthouse Workshop merge location: `resources/merge/lighthouse_workshop`, 4 chains
       (glass, candle, lamp, chart), free Oil Barrel, 2 chapters / 12 tasks; opens when Lantern Bay
       is complete; café chapter 3 requires Lantern Bay
-- [ ] Island 4 Stone Steps (Sokoban) + Terrace Tea House (next)
+- [x] Island 4 Stone Steps — puzzle: `PushBoard`/`PushSolver` (`scripts/push/`), Sokoban with
+      swipe-to-step and tap-to-walk; 30 levels from `tools/generate_push_levels.tscn` (reverse
+      pulls from the solved state, hardest of many candidates, BFS par in steps); unlocked by café
+      task `c3_festival`
+- [x] Island 4 Terrace Tea House merge location: tea, pottery, dumpling, stone chains; free
+      Bamboo Steamer; cast Hana, Toma, Pebble, Vesna; the council hearing sends Nell to the Rope Isles
+- [x] Café chapter 4 "Someone Else" (requires Stone Steps; task `c4_ferry` unlocks Rope Isles);
+      café tasks `c2_fountain`/`c3_festival` now show their island-unlocked card too
+- [x] Island 5 Rope Isles — puzzle: `BridgeBoard`/`BridgeSolver` (`scripts/bridges/`), Hashi:
+      drag from an islet (or tap the water between two) to cycle 0/1/2 bridges; 30 levels from
+      `tools/generate_bridge_levels.tscn`, each proven to have exactly one solution
+- [x] Island 5 Rope Market merge location: fruit, rope, woven, sail chains; free Reed Bed; cast
+      Ines, Marek, Kiki; the oil ledger points to Silas in Moon Grove
+- [ ] Café chapter 5 (requires Rope Isles; unlocks Moon Grove) + Island 6 Moon Grove (match-3)
+      + Moonlight Bakery (next)
 - [ ] Islands 3–6

@@ -1,0 +1,48 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "####o.#",
+    "#....@#",
+    "#.BB..#",
+    "#.....#",
+    "#o....#",
+    "#######"
+  ],
+  "h": 7,
+  "id": "ss_l05",
+  "island": "stone_steps",
+  "name": "Rice Terrace",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 19
+      }
+    ]
+  },
+  "par": 15,
+  "pushes": 8,
+  "rewards": {
+    "cafe_coins": 17,
+    "essence": 19
+  },
+  "solution": [
+    "W",
+    "W",
+    "S",
+    "N",
+    "W",
+    "S",
+    "S",
+    "E",
+    "S",
+    "W",
+    "E",
+    "E",
+    "N",
+    "N",
+    "N"
+  ],
+  "w": 7
+}

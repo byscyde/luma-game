@@ -12,6 +12,8 @@ const SCENES := {
 	"islands": "res://scenes/menus/islands.tscn",
 	"slide": "res://scenes/islands/slide.tscn",
 	"light": "res://scenes/islands/light.tscn",
+	"push": "res://scenes/islands/push.tscn",
+	"bridges": "res://scenes/islands/bridges.tscn",
 }
 
 var params: Dictionary = {}

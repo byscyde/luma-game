@@ -23,7 +23,10 @@ cast and two chapters; opens when Ember Reef is complete. Lantern Bay (island 3,
 light) added: `scripts/light/`, 30 generated levels with solver-proven par, unlocked by café task
 "c2_fountain". Lighthouse Workshop (its merge location: glass, candles, lamps, charts; cast
 Isolde, Bram, Wick) opens when Lantern Bay is complete; café chapter 3 now needs Lantern Bay.
-126/126 tests. Next: Stone Steps (island 4, Sokoban) + Terrace Tea House.
+Stone Steps (island 4, Sokoban, `scripts/push/`, 30 levels, unlocked by café task
+"c3_festival") and its Terrace Tea House added. Café chapter 4 (needs Stone Steps) launches the
+ferry to Rope Isles (island 5, Hashi bridges, `scripts/bridges/`, 30 unique-solution levels) and
+its Rope Market. Next: café chapter 5 + Moon Grove (match-3) + Moonlight Bakery.
 
 ## Session 6
 Merge-2 mode "LUMA Harbour" (Lantern Café) unlocks after level 30 (D-019,

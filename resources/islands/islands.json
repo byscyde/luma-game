@@ -54,7 +54,13 @@
    "unlock": {
     "cafe_task": "c3_festival"
    },
-   "coming_soon": true
+   "levels": "res://resources/islands/stone_steps/levels",
+   "scene": "push",
+   "merge_location": {
+    "id": "terrace_tea_house",
+    "name": "Terrace Tea House",
+    "dir": "res://resources/merge/terrace_tea_house"
+   }
   },
   {
    "id": "rope_isles",
@@ -63,9 +69,15 @@
    "game_name": "Build the bridges",
    "color": "5b86b5",
    "unlock": {
-    "cafe_task": ""
+    "cafe_task": "c4_ferry"
    },
-   "coming_soon": true
+   "levels": "res://resources/islands/rope_isles/levels",
+   "scene": "bridges",
+   "merge_location": {
+    "id": "rope_market",
+    "name": "Rope Market",
+    "dir": "res://resources/merge/rope_market"
+   }
   },
   {
    "id": "moon_grove",

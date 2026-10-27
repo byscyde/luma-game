@@ -345,3 +345,34 @@ func test_cafe_chapter_three_waits_for_lantern_bay() -> void:
 	bay_done[0] = true
 	assert_eq(g.chapter_blocked_by(), "")
 	assert_false(g.open_tasks().is_empty())
+
+
+func test_terrace_tea_house_location_content() -> void:
+	var th := MergeDB.load_location("res://resources/merge/terrace_tea_house")
+	assert_true(th.errors.is_empty(), "tea house content errors: %s" % str(th.errors))
+	var g := MergeGame.new(th, {})
+	assert_eq(g.orders().size(), 3)
+	for o in g.orders():
+		assert_false(th.hosts.has(o["who"]), "hosts never order")
+		for id in o["items"]:
+			assert_true(MergeDB.chain_of(id) in ["tea", "pottery"], "level 1 orders use the two starting chains")
+	assert_eq(th.chapters.size(), 2)
+	assert_eq(g.at(Vector2i(3, 4))["id"], "gen_tea:1")
+
+
+func test_rope_market_location_content() -> void:
+	var rm := MergeDB.load_location("res://resources/merge/rope_market")
+	assert_true(rm.errors.is_empty(), "rope market content errors: %s" % str(rm.errors))
+	var g := MergeGame.new(rm, {})
+	for o in g.orders():
+		assert_false(rm.hosts.has(o["who"]), "hosts never order")
+		for id in o["items"]:
+			assert_true(MergeDB.chain_of(id) in ["fruit", "rope"], "level 1 orders use the two starting chains")
+	assert_eq(rm.chapters.size(), 2)
+
+
+func test_cafe_chapter_four_needs_stone_steps_and_launches_the_ferry() -> void:
+	var ch4: Dictionary = db.chapters[3]
+	assert_eq(str(ch4["requires_island"]), "stone_steps")
+	assert_eq(str(ch4["tasks"][-1]["unlocks_island"]), "rope_isles")
+	assert_eq(str(Game.island("rope_isles")["unlock"]["cafe_task"]), str(ch4["tasks"][-1]["id"]))

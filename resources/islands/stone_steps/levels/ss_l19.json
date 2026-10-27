@@ -1,0 +1,63 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#...#..#",
+    "#.#.o#o#",
+    "#.B....#",
+    "#.@#.#.#",
+    "#..B.B.#",
+    "#.....o#",
+    "########"
+  ],
+  "h": 8,
+  "id": "ss_l19",
+  "island": "stone_steps",
+  "name": "Pine Ridge",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 35
+      }
+    ]
+  },
+  "par": 29,
+  "pushes": 15,
+  "rewards": {
+    "cafe_coins": 45,
+    "essence": 33
+  },
+  "solution": [
+    "W",
+    "N",
+    "E",
+    "E",
+    "N",
+    "E",
+    "S",
+    "S",
+    "S",
+    "E",
+    "S",
+    "E",
+    "N",
+    "N",
+    "N",
+    "W",
+    "W",
+    "W",
+    "W",
+    "S",
+    "S",
+    "E",
+    "S",
+    "E",
+    "E",
+    "W",
+    "N",
+    "N",
+    "N"
+  ],
+  "w": 8
+}

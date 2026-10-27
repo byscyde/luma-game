@@ -1,0 +1,58 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "#.....#",
+    "#...B@#",
+    "#...#.#",
+    "#oB#.o#",
+    "#..#..#",
+    "#######"
+  ],
+  "h": 7,
+  "id": "ss_l06",
+  "island": "stone_steps",
+  "name": "Old Spillway",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 31
+      }
+    ]
+  },
+  "par": 25,
+  "pushes": 12,
+  "rewards": {
+    "cafe_coins": 19,
+    "essence": 20
+  },
+  "solution": [
+    "W",
+    "W",
+    "W",
+    "S",
+    "W",
+    "S",
+    "S",
+    "E",
+    "N",
+    "N",
+    "E",
+    "N",
+    "N",
+    "W",
+    "W",
+    "S",
+    "S",
+    "N",
+    "E",
+    "E",
+    "E",
+    "N",
+    "E",
+    "S",
+    "S"
+  ],
+  "w": 7
+}

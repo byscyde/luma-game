@@ -1,0 +1,51 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "#...@.#",
+    "##BB..#",
+    "#...#.#",
+    "#.....#",
+    "#o..#o#",
+    "#######"
+  ],
+  "h": 7,
+  "id": "ss_l07",
+  "island": "stone_steps",
+  "name": "Mountain Tea",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 23
+      }
+    ]
+  },
+  "par": 18,
+  "pushes": 9,
+  "rewards": {
+    "cafe_coins": 21,
+    "essence": 21
+  },
+  "solution": [
+    "W",
+    "W",
+    "S",
+    "S",
+    "N",
+    "E",
+    "E",
+    "N",
+    "E",
+    "S",
+    "S",
+    "S",
+    "W",
+    "W",
+    "W",
+    "N",
+    "W",
+    "S"
+  ],
+  "w": 7
+}

@@ -166,3 +166,12 @@ LIGHT_TUTORIAL_PRISM,A prism splits a beam in two: one half turns left and one t
 CRYSTALS_LIT,Crystals %d/%d
 BLOOMS_BURNT,%d bloom lit
 LIGHT_RESULT,The bay is glowing!
+PUSH_TUTORIAL,Swipe to walk and push a boulder. Tap a path to walk there. Fill every spillway socket.
+SOCKETS_FILLED,Sockets %d/%d
+BOULDER_STUCK,a boulder is stuck: undo
+HINT_UNDO,No way forward from here. Undo a few moves and try again.
+PUSH_RESULT,The terraces are flowing!
+BRIDGE_TUTORIAL,Drag from an islet toward a neighbour to lay a rope bridge. Each number says how many bridges that islet needs.
+BRIDGE_TUTORIAL_2,Tap a bridge again to double it, a third time to remove it. Bridges cannot cross and every islet must be joined.
+ISLETS_DONE,Islets %d/%d
+BRIDGE_RESULT,The isles are joined!

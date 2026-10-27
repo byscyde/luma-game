@@ -1,0 +1,63 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#o@....#",
+    "#.B*#..#",
+    "##.....#",
+    "##...#.#",
+    "#....B.#",
+    "#....o##",
+    "########"
+  ],
+  "h": 8,
+  "id": "ss_l20",
+  "island": "stone_steps",
+  "name": "Tea Garden",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 35
+      }
+    ]
+  },
+  "par": 29,
+  "pushes": 11,
+  "rewards": {
+    "cafe_coins": 47,
+    "essence": 34
+  },
+  "solution": [
+    "E",
+    "S",
+    "S",
+    "W",
+    "N",
+    "E",
+    "N",
+    "W",
+    "E",
+    "E",
+    "E",
+    "E",
+    "S",
+    "S",
+    "S",
+    "S",
+    "W",
+    "S",
+    "W",
+    "N",
+    "W",
+    "N",
+    "N",
+    "E",
+    "S",
+    "S",
+    "W",
+    "S",
+    "E"
+  ],
+  "w": 8
+}

@@ -1,0 +1,61 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "#...#.#",
+    "##..B.#",
+    "#.o.B.#",
+    "##.#..#",
+    "#...B.#",
+    "#o.@o.#",
+    "#######"
+  ],
+  "h": 8,
+  "id": "ss_l13",
+  "island": "stone_steps",
+  "name": "Fog Terrace",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 33
+      }
+    ]
+  },
+  "par": 27,
+  "pushes": 12,
+  "rewards": {
+    "cafe_coins": 33,
+    "essence": 27
+  },
+  "solution": [
+    "E",
+    "N",
+    "E",
+    "N",
+    "N",
+    "N",
+    "W",
+    "W",
+    "N",
+    "W",
+    "S",
+    "S",
+    "S",
+    "S",
+    "E",
+    "E",
+    "E",
+    "N",
+    "N",
+    "W",
+    "W",
+    "E",
+    "S",
+    "S",
+    "W",
+    "S",
+    "W"
+  ],
+  "w": 7
+}

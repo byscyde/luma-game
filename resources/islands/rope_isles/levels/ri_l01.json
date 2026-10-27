@@ -1,0 +1,78 @@
+{
+  "format_version": 1,
+  "h": 5,
+  "id": "ri_l01",
+  "island": "rope_isles",
+  "islands": [
+    [
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      4,
+      1
+    ],
+    [
+      3,
+      0,
+      3
+    ],
+    [
+      3,
+      2,
+      3
+    ],
+    [
+      3,
+      4,
+      2
+    ]
+  ],
+  "name": "First Rope",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 8
+      }
+    ]
+  },
+  "par": 5,
+  "rewards": {
+    "cafe_coins": 10,
+    "essence": 17
+  },
+  "solution": [
+    [
+      1,
+      0,
+      3,
+      0,
+      1
+    ],
+    [
+      1,
+      4,
+      3,
+      4,
+      1
+    ],
+    [
+      3,
+      0,
+      3,
+      2,
+      2
+    ],
+    [
+      3,
+      2,
+      3,
+      4,
+      1
+    ]
+  ],
+  "w": 5
+}

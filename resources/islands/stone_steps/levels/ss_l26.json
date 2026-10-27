@@ -1,0 +1,72 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#...#..#",
+    "#.###.o#",
+    "#...@..#",
+    "#.o..B.#",
+    "#.#.#B.#",
+    "#o#B...#",
+    "#......#",
+    "########"
+  ],
+  "h": 9,
+  "id": "ss_l26",
+  "island": "stone_steps",
+  "name": "Four Stones",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 45
+      }
+    ]
+  },
+  "par": 37,
+  "pushes": 15,
+  "rewards": {
+    "cafe_coins": 59,
+    "essence": 40
+  },
+  "solution": [
+    "E",
+    "E",
+    "S",
+    "W",
+    "W",
+    "W",
+    "W",
+    "E",
+    "E",
+    "E",
+    "S",
+    "E",
+    "S",
+    "S",
+    "W",
+    "W",
+    "W",
+    "N",
+    "N",
+    "S",
+    "E",
+    "E",
+    "S",
+    "E",
+    "N",
+    "N",
+    "N",
+    "N",
+    "S",
+    "W",
+    "W",
+    "W",
+    "N",
+    "W",
+    "W",
+    "S",
+    "S"
+  ],
+  "w": 8
+}

@@ -1,0 +1,72 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#.....o#",
+    "##B##..#",
+    "#...B@o#",
+    "#.B.#..#",
+    "#......#",
+    "##..o..#",
+    "########"
+  ],
+  "h": 8,
+  "id": "ss_l17",
+  "island": "stone_steps",
+  "name": "Clay Wall",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 46
+      }
+    ]
+  },
+  "par": 38,
+  "pushes": 15,
+  "rewards": {
+    "cafe_coins": 41,
+    "essence": 31
+  },
+  "solution": [
+    "S",
+    "S",
+    "W",
+    "W",
+    "W",
+    "W",
+    "N",
+    "E",
+    "N",
+    "E",
+    "E",
+    "E",
+    "S",
+    "E",
+    "N",
+    "N",
+    "W",
+    "N",
+    "W",
+    "W",
+    "W",
+    "S",
+    "S",
+    "E",
+    "S",
+    "S",
+    "W",
+    "S",
+    "E",
+    "N",
+    "W",
+    "N",
+    "W",
+    "N",
+    "E",
+    "E",
+    "E",
+    "E"
+  ],
+  "w": 8
+}

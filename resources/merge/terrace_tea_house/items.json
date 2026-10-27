@@ -1,0 +1,589 @@
+{
+ "board": {
+  "cols": 7,
+  "rows": 9
+ },
+ "chains": {
+  "tea": {
+   "kind": "food",
+   "names": [
+    "Tea Leaf",
+    "Leaf Bundle",
+    "Tea Tin",
+    "Tea Cup",
+    "Teapot",
+    "Tea Tray",
+    "Matcha Bowl",
+    "Tea Chest",
+    "Tea Ceremony Set",
+    "Golden Teapot"
+   ],
+   "unlock_level": 1
+  },
+  "pottery": {
+   "kind": "food",
+   "names": [
+    "Clay Lump",
+    "Clay Ball",
+    "Small Bowl",
+    "Cup Pair",
+    "Vase",
+    "Glazed Jar",
+    "Plate Stack",
+    "Celadon Vase",
+    "Dragon Urn",
+    "Moon Vase"
+   ],
+   "unlock_level": 1
+  },
+  "dumpling": {
+   "kind": "food",
+   "names": [
+    "Flour",
+    "Dough Ball",
+    "Dumpling",
+    "Dumpling Pair",
+    "Steamer Basket",
+    "Bun Platter",
+    "Noodle Bowl",
+    "Hot Pot",
+    "Banquet Tray",
+    "Festival Feast"
+   ],
+   "unlock_level": 3
+  },
+  "stone": {
+   "kind": "food",
+   "names": [
+    "Pebble",
+    "Smooth Stone",
+    "Stone Pair",
+    "Stone Stack",
+    "Stone Lantern",
+    "Garden Rock",
+    "Stone Bridge",
+    "Rock Garden",
+    "Stone Pagoda",
+    "Mountain Shrine"
+   ],
+   "unlock_level": 5
+  },
+  "gen_tea": {
+   "kind": "generator",
+   "produces": "tea",
+   "unlock_level": 1,
+   "names": [
+    "Tea Bush I",
+    "Tea Bush II",
+    "Tea Bush III",
+    "Tea Bush IV",
+    "Tea Bush V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "tea",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "tea",
+      1,
+      85
+     ],
+     [
+      "tea",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "tea",
+      1,
+      70
+     ],
+     [
+      "tea",
+      2,
+      25
+     ],
+     [
+      "tea",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "tea",
+      1,
+      55
+     ],
+     [
+      "tea",
+      2,
+      32
+     ],
+     [
+      "tea",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "tea",
+      1,
+      40
+     ],
+     [
+      "tea",
+      2,
+      38
+     ],
+     [
+      "tea",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_pottery": {
+   "kind": "generator",
+   "produces": "pottery",
+   "unlock_level": 1,
+   "names": [
+    "Potter's Wheel I",
+    "Potter's Wheel II",
+    "Potter's Wheel III",
+    "Potter's Wheel IV",
+    "Potter's Wheel V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "pottery",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "pottery",
+      1,
+      85
+     ],
+     [
+      "pottery",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "pottery",
+      1,
+      70
+     ],
+     [
+      "pottery",
+      2,
+      25
+     ],
+     [
+      "pottery",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "pottery",
+      1,
+      55
+     ],
+     [
+      "pottery",
+      2,
+      32
+     ],
+     [
+      "pottery",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "pottery",
+      1,
+      40
+     ],
+     [
+      "pottery",
+      2,
+      38
+     ],
+     [
+      "pottery",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_stone": {
+   "kind": "generator",
+   "produces": "stone",
+   "unlock_level": 5,
+   "names": [
+    "Stone Quarry I",
+    "Stone Quarry II",
+    "Stone Quarry III",
+    "Stone Quarry IV",
+    "Stone Quarry V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "stone",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "stone",
+      1,
+      85
+     ],
+     [
+      "stone",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "stone",
+      1,
+      70
+     ],
+     [
+      "stone",
+      2,
+      25
+     ],
+     [
+      "stone",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "stone",
+      1,
+      55
+     ],
+     [
+      "stone",
+      2,
+      32
+     ],
+     [
+      "stone",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "stone",
+      1,
+      40
+     ],
+     [
+      "stone",
+      2,
+      38
+     ],
+     [
+      "stone",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_dumpling": {
+   "kind": "generator",
+   "produces": "dumpling",
+   "unlock_level": 3,
+   "names": [
+    "Bamboo Steamer I",
+    "Bamboo Steamer II",
+    "Bamboo Steamer III"
+   ],
+   "energy": 0,
+   "charges": [
+    6,
+    8,
+    10
+   ],
+   "cooldown": [
+    1800,
+    1500,
+    1200
+   ],
+   "drops": [
+    [
+     [
+      "dumpling",
+      1,
+      80
+     ],
+     [
+      "dumpling",
+      2,
+      20
+     ]
+    ],
+    [
+     [
+      "dumpling",
+      1,
+      65
+     ],
+     [
+      "dumpling",
+      2,
+      30
+     ],
+     [
+      "energy",
+      1,
+      5
+     ]
+    ],
+    [
+     [
+      "dumpling",
+      1,
+      50
+     ],
+     [
+      "dumpling",
+      2,
+      38
+     ],
+     [
+      "energy",
+      1,
+      12
+     ]
+    ]
+   ]
+  },
+  "coins": {
+   "kind": "resource",
+   "resource": "coins",
+   "names": [
+    "Coin",
+    "Coin Stack",
+    "Coin Pouch",
+    "Coin Chest",
+    "Treasure"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20,
+    50
+   ]
+  },
+  "gems": {
+   "kind": "resource",
+   "resource": "gems",
+   "names": [
+    "Gem",
+    "Gem Pair",
+    "Gem Cluster",
+    "Gem Crown"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20
+   ]
+  },
+  "energy": {
+   "kind": "resource",
+   "resource": "energy",
+   "names": [
+    "Energy Drop",
+    "Energy Bottle",
+    "Energy Jug",
+    "Energy Barrel",
+    "Energy Fountain"
+   ],
+   "values": [
+    5,
+    12,
+    25,
+    60,
+    150
+   ]
+  },
+  "scissors": {
+   "kind": "tool",
+   "names": [
+    "Scissors"
+   ]
+  },
+  "chest": {
+   "kind": "chest",
+   "names": [
+    "Wooden Chest",
+    "Silver Chest",
+    "Golden Chest"
+   ],
+   "timer": [
+    900,
+    3600,
+    14400
+   ],
+   "rush_gems": [
+    4,
+    10,
+    25
+   ],
+   "contents": [
+    [
+     [
+      "tea",
+      1
+     ],
+     [
+      "pottery",
+      1
+     ],
+     [
+      "coins",
+      1
+     ]
+    ],
+    [
+     [
+      "tea",
+      2
+     ],
+     [
+      "pottery",
+      2
+     ],
+     [
+      "dumpling",
+      2
+     ],
+     [
+      "energy",
+      1
+     ],
+     [
+      "coins",
+      2
+     ]
+    ],
+    [
+     [
+      "tea",
+      3
+     ],
+     [
+      "pottery",
+      3
+     ],
+     [
+      "dumpling",
+      3
+     ],
+     [
+      "stone",
+      3
+     ],
+     [
+      "energy",
+      2
+     ],
+     [
+      "gems",
+      1
+     ],
+     [
+      "coins",
+      3
+     ],
+     [
+      "scissors",
+      1
+     ]
+    ]
+   ]
+  }
+ }
+}

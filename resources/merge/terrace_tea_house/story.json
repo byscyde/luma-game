@@ -1,0 +1,337 @@
+{
+ "cast": {
+  "hana": {
+   "name": "Hana",
+   "role": "Tea house owner",
+   "color": "6f9a4a"
+  },
+  "toma": {
+   "name": "Toma",
+   "role": "Potter",
+   "color": "b4643c"
+  },
+  "pebble": {
+   "name": "Pebble",
+   "role": "Old tortoise",
+   "color": "8a8a6a"
+  },
+  "vesna": {
+   "name": "Vesna",
+   "role": "Island council",
+   "color": "7d5ba6"
+  },
+  "isolde": {
+   "name": "Isolde",
+   "role": "Lighthouse keeper",
+   "color": "f2c14e"
+  },
+  "nell": {
+   "name": "Nell",
+   "role": "Lantern Café",
+   "color": "e8875f"
+  },
+  "tobias": {
+   "name": "Tobias",
+   "role": "Old fisherman",
+   "color": "5b86b5"
+  }
+ },
+ "hosts": [
+  "hana",
+  "pebble",
+  "nell"
+ ],
+ "intro": [
+  [
+   "hana",
+   "Welcome to the Stone Steps. Two hundred terraces, one teapot, and never enough cups."
+  ],
+  [
+   "hana",
+   "Tea, clay, dumplings and stones. Merge two of a kind and the climbers will thank you."
+  ],
+  [
+   "nell",
+   "Isolde said the island council meets here."
+  ],
+  [
+   "hana",
+   "It does, when the tea house has a roof. Help me fix it and I'll call them together."
+  ]
+ ],
+ "chapters": [
+  {
+   "id": "tt1",
+   "title": "Tea on the Terraces",
+   "reward": {
+    "gems": 15,
+    "energy": 50
+   },
+   "tasks": [
+    {
+     "id": "t1_roof",
+     "title": "Patch the tea house roof",
+     "cost": 30,
+     "dialogue": [
+      [
+       "hana",
+       "The storm took half the tiles. Rain in the teapot is not a flavour."
+      ],
+      [
+       "pebble",
+       "..."
+      ],
+      [
+       "hana",
+       "That's Pebble. Older than the steps. He approves of slow work."
+      ]
+     ]
+    },
+    {
+     "id": "t1_kettle",
+     "title": "Hang the iron kettle",
+     "cost": 50,
+     "dialogue": [
+      [
+       "toma",
+       "I'm Toma, the potter. I'll trade cups for dumplings, any day."
+      ],
+      [
+       "hana",
+       "Toma's cups are the only ones that survive the stairs."
+      ]
+     ],
+     "designs": [
+      "Iron kettle",
+      "Copper kettle",
+      "Clay kettle"
+     ]
+    },
+    {
+     "id": "t1_kiln",
+     "title": "Light Toma's kiln",
+     "cost": 70,
+     "dialogue": [
+      [
+       "toma",
+       "My kiln has been cold since the spring dried up. No water, no clay."
+      ],
+      [
+       "nell",
+       "The water's back now. Lantern Bay's light reached all the islands."
+      ]
+     ],
+     "designs": [
+      "Brick kiln",
+      "Hill kiln",
+      "Stone oven"
+     ]
+    },
+    {
+     "id": "t1_tables",
+     "title": "Set out low tables",
+     "cost": 95,
+     "dialogue": [
+      [
+       "vesna",
+       "Vesna, island council. I hear you carry a logbook, a deed and a lighter."
+      ],
+      [
+       "nell",
+       "And a fingerprint on a broken lens."
+      ],
+      [
+       "vesna",
+       "Then the council will listen. Bring everyone up the steps."
+      ]
+     ],
+     "designs": [
+      "Cedar tables",
+      "Stone tables",
+      "Bamboo mats"
+     ]
+    },
+    {
+     "id": "t1_garden",
+     "title": "Rake the stone garden",
+     "cost": 120,
+     "dialogue": [
+      [
+       "pebble",
+       "..."
+      ],
+      [
+       "hana",
+       "He moved. That means something important is about to happen."
+      ]
+     ],
+     "designs": [
+      "Wave pattern",
+      "Spiral pattern",
+      "Mountain pattern"
+     ]
+    },
+    {
+     "id": "t1_open",
+     "title": "Reopen the tea house",
+     "cost": 150,
+     "dialogue": [
+      [
+       "hana",
+       "The tea house is open! First pot is free for anyone who climbed."
+      ],
+      [
+       "tobias",
+       "Two hundred steps at my age. This tea had better be worth it."
+      ],
+      [
+       "vesna",
+       "The council meets tomorrow at dawn."
+      ]
+     ],
+     "designs": [
+      "Paper lanterns",
+      "Silk banners",
+      "Wind chimes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tt2",
+   "title": "The Council at Dawn",
+   "reward": {
+    "gems": 25,
+    "energy": 90
+   },
+   "tasks": [
+    {
+     "id": "t2_hall",
+     "title": "Prepare the council hall",
+     "cost": 180,
+     "dialogue": [
+      [
+       "vesna",
+       "Every island sends one voice. We need seats for six."
+      ],
+      [
+       "hana",
+       "Six islands. It's been one for so long."
+      ]
+     ],
+     "designs": [
+      "Round hall",
+      "Long hall",
+      "Open terrace"
+     ]
+    },
+    {
+     "id": "t2_evidence",
+     "title": "Lay out the evidence",
+     "cost": 220,
+     "dialogue": [
+      [
+       "nell",
+       "The deed. The lighter. The logbook. Tobias's word. The fingerprint."
+      ],
+      [
+       "vesna",
+       "Rafe Holloway admits he took the boat for the deed. He swears someone else lit the fire."
+      ],
+      [
+       "nell",
+       "Then he has to say who, in front of everyone."
+      ]
+     ]
+    },
+    {
+     "id": "t2_tea",
+     "title": "Brew the council tea",
+     "cost": 260,
+     "dialogue": [
+      [
+       "hana",
+       "A strong pot. Hard truths go down easier with tea."
+      ],
+      [
+       "toma",
+       "I made new cups. Six of them, one for each island."
+      ]
+     ],
+     "designs": [
+      "Green tea",
+      "Smoked tea",
+      "Blossom tea"
+     ]
+    },
+    {
+     "id": "t2_hearing",
+     "title": "Hold the hearing",
+     "cost": 310,
+     "dialogue": [
+      [
+       "vesna",
+       "Rafe Holloway is called to answer. He is... not here."
+      ],
+      [
+       "tobias",
+       "His skiff left at first light. Heading for the Rope Isles."
+      ],
+      [
+       "nell",
+       "Then that's where I'm going."
+      ]
+     ]
+    },
+    {
+     "id": "t2_bridge",
+     "title": "Rebuild the steps bridge",
+     "cost": 360,
+     "dialogue": [
+      [
+       "toma",
+       "If you're crossing to the Rope Isles, take the high bridge. I'll fire stones for it."
+      ],
+      [
+       "pebble",
+       "..."
+      ],
+      [
+       "hana",
+       "He's coming with you. He's never left the steps before."
+      ]
+     ],
+     "designs": [
+      "Stone arch",
+      "Rope span",
+      "Wooden bridge"
+     ]
+    },
+    {
+     "id": "t2_festival",
+     "title": "Hold the Lantern Climb",
+     "cost": 440,
+     "dialogue": [
+      [
+       "hana",
+       "Every terrace lit, from the sea to the summit."
+      ],
+      [
+       "vesna",
+       "The council stands with you, Nell. Bring him back to answer."
+      ],
+      [
+       "nell",
+       "Next, the Rope Isles."
+      ]
+     ],
+     "designs": [
+      "Lantern stairs",
+      "Fire bowls",
+      "Firefly jars"
+     ]
+    }
+   ]
+  }
+ ]
+}

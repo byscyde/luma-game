@@ -1,0 +1,63 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "#o...o#",
+    "#...#B#",
+    "#..B..#",
+    "#.B.#.#",
+    "#.#..@#",
+    "#...o##",
+    "#######"
+  ],
+  "h": 8,
+  "id": "ss_l12",
+  "island": "stone_steps",
+  "name": "Bamboo Gate",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 35
+      }
+    ]
+  },
+  "par": 29,
+  "pushes": 9,
+  "rewards": {
+    "cafe_coins": 31,
+    "essence": 26
+  },
+  "solution": [
+    "N",
+    "N",
+    "N",
+    "S",
+    "W",
+    "W",
+    "N",
+    "W",
+    "W",
+    "S",
+    "S",
+    "E",
+    "N",
+    "N",
+    "E",
+    "N",
+    "W",
+    "E",
+    "S",
+    "S",
+    "S",
+    "S",
+    "N",
+    "W",
+    "W",
+    "S",
+    "S",
+    "E",
+    "E"
+  ],
+  "w": 7
+}

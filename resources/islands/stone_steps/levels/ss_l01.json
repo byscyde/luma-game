@@ -1,0 +1,41 @@
+{
+  "format_version": 1,
+  "grid": [
+    "######",
+    "#.#.##",
+    "#....#",
+    "#..B.#",
+    "#+...#",
+    "######"
+  ],
+  "h": 6,
+  "id": "ss_l01",
+  "island": "stone_steps",
+  "name": "First Stone",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 12
+      }
+    ]
+  },
+  "par": 9,
+  "pushes": 3,
+  "rewards": {
+    "cafe_coins": 9,
+    "essence": 15
+  },
+  "solution": [
+    "N",
+    "N",
+    "E",
+    "E",
+    "S",
+    "E",
+    "S",
+    "W",
+    "W"
+  ],
+  "w": 6
+}

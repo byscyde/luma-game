@@ -1,0 +1,41 @@
+{
+  "format_version": 1,
+  "grid": [
+    "######",
+    "#....#",
+    "#....#",
+    "#.B#.#",
+    "##@.o#",
+    "######"
+  ],
+  "h": 6,
+  "id": "ss_l03",
+  "island": "stone_steps",
+  "name": "Tea Path",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 12
+      }
+    ]
+  },
+  "par": 9,
+  "pushes": 5,
+  "rewards": {
+    "cafe_coins": 13,
+    "essence": 17
+  },
+  "solution": [
+    "N",
+    "W",
+    "N",
+    "E",
+    "E",
+    "N",
+    "E",
+    "S",
+    "S"
+  ],
+  "w": 6
+}

@@ -1,0 +1,70 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#.o..@.#",
+    "#.#..*.#",
+    "#oBo...#",
+    "#...####",
+    "#..B...#",
+    "#..B...#",
+    "#..#.###",
+    "########"
+  ],
+  "h": 9,
+  "id": "ss_l29",
+  "island": "stone_steps",
+  "name": "Summit Dam",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 42
+      }
+    ]
+  },
+  "par": 35,
+  "pushes": 13,
+  "rewards": {
+    "cafe_coins": 65,
+    "essence": 43
+  },
+  "solution": [
+    "W",
+    "W",
+    "W",
+    "W",
+    "S",
+    "S",
+    "E",
+    "S",
+    "E",
+    "N",
+    "N",
+    "E",
+    "N",
+    "W",
+    "S",
+    "S",
+    "S",
+    "W",
+    "S",
+    "S",
+    "E",
+    "N",
+    "N",
+    "S",
+    "E",
+    "E",
+    "S",
+    "W",
+    "W",
+    "W",
+    "S",
+    "W",
+    "N",
+    "N",
+    "N"
+  ],
+  "w": 8
+}

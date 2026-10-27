@@ -1,0 +1,53 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "#..@.##",
+    "#.....#",
+    "#.B.###",
+    "#...B.#",
+    "#o..o.#",
+    "#######"
+  ],
+  "h": 7,
+  "id": "ss_l08",
+  "island": "stone_steps",
+  "name": "Narrow Ledge",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 25
+      }
+    ]
+  },
+  "par": 20,
+  "pushes": 6,
+  "rewards": {
+    "cafe_coins": 23,
+    "essence": 22
+  },
+  "solution": [
+    "S",
+    "W",
+    "S",
+    "S",
+    "E",
+    "S",
+    "E",
+    "E",
+    "N",
+    "W",
+    "S",
+    "W",
+    "W",
+    "N",
+    "N",
+    "E",
+    "S",
+    "W",
+    "S",
+    "E"
+  ],
+  "w": 7
+}

@@ -345,7 +345,8 @@
       "Shell basin",
       "Lion head",
       "Mosaic star"
-     ]
+     ],
+     "unlocks_island": "lantern_bay"
     }
    ],
    "requires_island": "ember_reef"
@@ -499,10 +500,123 @@
        "tobias",
        "To be continued, lass. Some secrets take more than one night."
       ]
-     ]
+     ],
+     "unlocks_island": "stone_steps"
     }
    ],
    "requires_island": "lantern_bay"
+  },
+  {
+   "id": "ch4",
+   "title": "Someone Else",
+   "reward": {
+    "gems": 35,
+    "energy": 120
+   },
+   "requires_island": "stone_steps",
+   "tasks": [
+    {
+     "id": "c4_hall",
+     "title": "Turn the back room into a meeting hall",
+     "cost": 780,
+     "area": "office",
+     "dialogue": [
+      [
+       "nell",
+       "The council wants to meet here now. The café of all places."
+      ],
+      [
+       "ada",
+       "Where else? Everyone ends up here sooner or later."
+      ]
+     ]
+    },
+    {
+     "id": "c4_board",
+     "title": "Pin the clues to a board",
+     "cost": 840,
+     "area": "office2",
+     "dialogue": [
+      [
+       "juno",
+       "Deed, lighter, logbook, lens... and Rafe's story."
+      ],
+      [
+       "nell",
+       "He says the café was already burning when he arrived."
+      ],
+      [
+       "pip",
+       "*squeak*"
+      ]
+     ]
+    },
+    {
+     "id": "c4_oven",
+     "title": "Rebuild Ada's big oven",
+     "cost": 900,
+     "area": "kitchen2",
+     "dialogue": [
+      [
+       "ada",
+       "I smelled lamp oil that night. Not cigar smoke. Oil."
+      ],
+      [
+       "nell",
+       "Oil... like the ropes the Rope Isles traders soak?"
+      ]
+     ]
+    },
+    {
+     "id": "c4_garden",
+     "title": "Plant the memory garden",
+     "cost": 960,
+     "area": "planters",
+     "dialogue": [
+      [
+       "juno",
+       "One tree for every island that came back."
+      ],
+      [
+       "tobias",
+       "Four so far. Your grandfather would want six."
+      ]
+     ]
+    },
+    {
+     "id": "c4_map",
+     "title": "Paint the archipelago map",
+     "cost": 1020,
+     "area": "terrace",
+     "dialogue": [
+      [
+       "nell",
+       "Verdant, Ember Reef, Lantern Bay, Stone Steps... and the Rope Isles."
+      ],
+      [
+       "tobias",
+       "Rafe's skiff was seen there. And a trader who sells lamp oil."
+      ]
+     ]
+    },
+    {
+     "id": "c4_ferry",
+     "title": "Launch the Rope Isles ferry",
+     "cost": 1100,
+     "area": "dock",
+     "dialogue": [
+      [
+       "tobias",
+       "The ferry's ready. The isles are a maze of ropes and tides."
+      ],
+      [
+       "nell",
+       "Then I'll learn to cross them. Someone else lit that fire."
+      ]
+     ],
+     "unlocks_island": "rope_isles"
+    }
+   ]
   }
  ],
  "intro": [

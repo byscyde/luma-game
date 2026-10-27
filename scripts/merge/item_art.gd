@@ -46,6 +46,26 @@ static func draw(ci: CanvasItem, id: String, r: Rect2) -> void:
 			_chart(ci, c, s, l)
 		"gen_glass", "gen_candle", "gen_lamp", "gen_chart":
 			_workshop_generator(ci, c, s, chain, l)
+		"tea":
+			_tea(ci, c, s, l)
+		"pottery":
+			_pottery(ci, c, s, l)
+		"dumpling":
+			_dumpling(ci, c, s, l)
+		"stone":
+			_stone(ci, c, s, l)
+		"gen_tea", "gen_pottery", "gen_dumpling", "gen_stone":
+			_teahouse_generator(ci, c, s, chain, l)
+		"fruit":
+			_fruit(ci, c, s, l)
+		"rope":
+			_rope(ci, c, s, l)
+		"woven":
+			_woven(ci, c, s, l)
+		"sail":
+			_sail(ci, c, s, l)
+		"gen_fruit", "gen_rope", "gen_woven", "gen_sail":
+			_market_generator(ci, c, s, chain, l)
 		"coins":
 			_coins(ci, c, s, l)
 		"gems":
@@ -1022,4 +1042,499 @@ static func _workshop_generator(ci: CanvasItem, c: Vector2, s: float, chain: Str
 			_line(ci, c + Vector2(s * 0.26, s * 0.1), c + Vector2(s * 0.3, s * 0.36), OUT, s * 0.05)
 			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.26, -s * 0.24), Vector2(s * 0.44, s * 0.2)), s * 0.02), PAPER_TAN, s * 0.6)
 			_shape(ci, _circle_pts(c + Vector2(s * 0.24, -s * 0.16), s * 0.08, 14), BRASS, s * 0.5)
+	_stars(ci, c + Vector2(0, s * 0.4), s, l)
+
+
+# ------------------------------------------------------------------ Terrace Tea House
+
+const TEA_GREEN := Color("6f9a4a")
+const CLAY := Color("c97a4a")
+const CELADON := Color("a8cfb4")
+const DOUGH := Color("f6efe0")
+const STONE_GREY := Color("a7a39a")
+
+
+static func _tea_leaf(ci: CanvasItem, base: Vector2, dir: Vector2, len: float, s: float) -> void:
+	_leaf(ci, base, dir, len, TEA_GREEN, s)
+
+
+static func _teacup(ci: CanvasItem, c: Vector2, w: float, s: float, col: Color, tea := true) -> void:
+	_shape(ci, PackedVector2Array([c + Vector2(-w * 0.5, -w * 0.3), c + Vector2(w * 0.5, -w * 0.3), c + Vector2(w * 0.35, w * 0.3), c + Vector2(-w * 0.35, w * 0.3)]), col, s)
+	if tea:
+		_shape(ci, _circle_pts(c + Vector2(0, -w * 0.3), w * 0.46, 18, 0.25), Color("a7c464"), s * 0.4)
+
+
+static func _teapot(ci: CanvasItem, c: Vector2, s: float, col: Color) -> void:
+	_line(ci, c + Vector2(s * 0.2, 0), c + Vector2(s * 0.38, -s * 0.16), OUT, s * 0.08)
+	_line(ci, c + Vector2(s * 0.2, 0), c + Vector2(s * 0.38, -s * 0.16), col, s * 0.05)
+	ci.draw_arc(c + Vector2(-s * 0.24, 0), s * 0.1, PI * 0.5, PI * 1.5, 12, OUT, s * 0.05, true)
+	_shape(ci, _circle_pts(c + Vector2(0, s * 0.04), s * 0.24, 24, 0.8), col, s)
+	_shape(ci, _circle_pts(c + Vector2(0, -s * 0.15), s * 0.12, 16, 0.35), col.darkened(0.15), s * 0.6)
+	ci.draw_circle(c + Vector2(0, -s * 0.2), s * 0.035, OUT, true, -1, true)
+	_hl(ci, c + Vector2(-s * 0.08, -s * 0.02), s * 0.05)
+
+
+static func _tea(ci: CanvasItem, c: Vector2, s: float, l: int) -> void:
+	match l:
+		1:
+			_tea_leaf(ci, c + Vector2(-s * 0.14, s * 0.2), Vector2(0.6, -0.8), s * 0.5, s)
+		2:
+			for k in 3:
+				_tea_leaf(ci, c + Vector2(0, s * 0.22), Vector2(-0.5 + k * 0.5, -1).normalized(), s * 0.44, s)
+			_line(ci, c + Vector2(-s * 0.08, s * 0.2), c + Vector2(s * 0.08, s * 0.2), Color("c9a265"), s * 0.05)
+		3:
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.2, -s * 0.26), Vector2(s * 0.4, s * 0.56)), s * 0.05), Color("c0473e"), s)
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.22, -s * 0.32), Vector2(s * 0.44, s * 0.1)), s * 0.03), BRASS, s * 0.6)
+			_tea_leaf(ci, c + Vector2(-s * 0.06, s * 0.14), Vector2(0.6, -0.8), s * 0.24, s * 0.6)
+		4:
+			_teacup(ci, c + Vector2(0, s * 0.06), s * 0.46, s, Color("f4efe6"))
+		5:
+			_teapot(ci, c, s, Color("4a7a8c"))
+		6:
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.4, s * 0.12), Vector2(s * 0.8, s * 0.14)), s * 0.04), Color("8a5a3a"), s)
+			_teapot(ci, c + Vector2(-s * 0.1, -s * 0.06), s * 0.7, Color("4a7a8c"))
+			_teacup(ci, c + Vector2(s * 0.24, s * 0.04), s * 0.18, s * 0.7, Color("f4efe6"))
+		7:
+			_shape(ci, _circle_pts(c + Vector2(0, s * 0.08), s * 0.34, 24, 0.55), Color("3a3a40"), s)
+			_shape(ci, _circle_pts(c, s * 0.28, 24, 0.35), Color("8fc24a"), s * 0.5)
+			for k in 5:
+				_line(ci, c + Vector2(s * 0.2, -s * 0.3 + k * s * 0.03), c + Vector2(s * 0.34, -s * 0.36 + k * s * 0.03), Color("e6d4a8"), s * 0.015)
+		8:
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.34, -s * 0.22), Vector2(s * 0.68, s * 0.52)), s * 0.04), Color("8a5a3a"), s)
+			_line(ci, c + Vector2(-s * 0.34, -s * 0.06), c + Vector2(s * 0.34, -s * 0.06), Color("5a3a24"), s * 0.03)
+			_tea_leaf(ci, c + Vector2(-s * 0.06, s * 0.18), Vector2(0.6, -0.8), s * 0.22, s * 0.6)
+			ci.draw_circle(c + Vector2(0, -s * 0.14), s * 0.04, BRASS, true, -1, true)
+		_:
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.42, s * 0.14), Vector2(s * 0.84, s * 0.14)), s * 0.04), Color("5a3a24"), s)
+			_teapot(ci, c + Vector2(0, -s * 0.08), s * 0.75, BRASS if l == 10 else Color("4a7a8c"))
+			_teacup(ci, c + Vector2(-s * 0.32, s * 0.06), s * 0.14, s * 0.6, Color("f4efe6"))
+			_teacup(ci, c + Vector2(s * 0.32, s * 0.06), s * 0.14, s * 0.6, Color("f4efe6"))
+			if l == 10:
+				_stars(ci, c + Vector2(0, s * 0.42), s, 3)
+
+
+static func _vase(ci: CanvasItem, c: Vector2, s: float, col: Color, tall := 1.0) -> void:
+	var p := PackedVector2Array()
+	var prof := [0.08, 0.1, 0.2, 0.28, 0.26, 0.18, 0.12]
+	for k in prof.size():
+		p.append(c + Vector2(prof[k] * s, (-0.36 + k * 0.12) * s * tall))
+	for k in range(prof.size() - 1, -1, -1):
+		p.append(c + Vector2(-prof[k] * s, (-0.36 + k * 0.12) * s * tall))
+	_shape(ci, p, col, s)
+	_hl(ci, c + Vector2(-s * 0.1, 0), s * 0.05)
+
+
+static func _pottery(ci: CanvasItem, c: Vector2, s: float, l: int) -> void:
+	match l:
+		1:
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.24, s * 0.2), c + Vector2(-s * 0.18, -s * 0.12), c + Vector2(s * 0.04, -s * 0.22), c + Vector2(s * 0.24, -s * 0.04), c + Vector2(s * 0.2, s * 0.22)]), CLAY, s)
+		2:
+			_shape(ci, _circle_pts(c, s * 0.24, 24), CLAY, s)
+			_hl(ci, c + Vector2(-s * 0.08, -s * 0.08), s * 0.06)
+		3:
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.32, -s * 0.06), c + Vector2(s * 0.32, -s * 0.06), c + Vector2(s * 0.18, s * 0.22), c + Vector2(-s * 0.18, s * 0.22)]), CLAY, s)
+			_shape(ci, _circle_pts(c + Vector2(0, -s * 0.06), s * 0.3, 20, 0.2), CLAY.darkened(0.25), s * 0.5)
+		4:
+			_teacup(ci, c + Vector2(-s * 0.14, s * 0.06), s * 0.28, s, CLAY, false)
+			_teacup(ci, c + Vector2(s * 0.16, s * 0.1), s * 0.28, s, CELADON, false)
+		5:
+			_vase(ci, c, s, CLAY)
+		6:
+			_vase(ci, c, s, Color("3d6fb0"))
+			ci.draw_arc(c + Vector2(0, s * 0.02), s * 0.22, 0.2, PI - 0.2, 16, Color("f4efe6"), s * 0.03, true)
+		7:
+			for k in 3:
+				_shape(ci, _circle_pts(c + Vector2(0, s * 0.2 - k * s * 0.08), s * 0.36, 28, 0.25), [Color("f4efe6"), CELADON, Color("3d6fb0")][k], s)
+		8:
+			_vase(ci, c, s * 1.1, CELADON)
+			for k in 3:
+				_line(ci, c + Vector2(-s * 0.18, -s * 0.06 + k * s * 0.08), c + Vector2(s * 0.18, -s * 0.06 + k * s * 0.08), CELADON.darkened(0.2), s * 0.015)
+		_:
+			_vase(ci, c + Vector2(0, s * 0.02), s * 1.15, Color("2f3f6a") if l == 10 else Color("c0473e"))
+			if l == 10:
+				_shape(ci, _circle_pts(c + Vector2(s * 0.02, -s * 0.06), s * 0.12, 18), Color("f5e6b0"), s * 0.4)
+				_stars(ci, c + Vector2(0, s * 0.44), s, 3)
+			else:
+				ci.draw_polyline(PackedVector2Array([c + Vector2(-s * 0.18, s * 0.06), c + Vector2(-s * 0.06, -s * 0.06), c + Vector2(s * 0.06, s * 0.06), c + Vector2(s * 0.18, -s * 0.06)]), BRASS, s * 0.035, true)
+
+
+static func _bun(ci: CanvasItem, c: Vector2, r: float, s: float) -> void:
+	_shape(ci, _circle_pts(c, r, 20, 0.8), DOUGH, s * 0.7)
+	for k in 3:
+		_line(ci, c + Vector2(0, -r * 0.6), c + Vector2((k - 1) * r * 0.5, -r * 0.1), Color(0.6, 0.5, 0.4, 0.5), s * 0.015)
+
+
+static func _steamer(ci: CanvasItem, c: Vector2, w: float, s: float) -> void:
+	_shape(ci, _rect_pts(Rect2(c + Vector2(-w * 0.5, -w * 0.12), Vector2(w, w * 0.32)), w * 0.06), Color("d9b46a"), s)
+	for k in 4:
+		_line(ci, c + Vector2(-w * 0.5, -w * 0.06 + k * w * 0.07), c + Vector2(w * 0.5, -w * 0.06 + k * w * 0.07), Color("a8823f"), s * 0.012)
+
+
+static func _dumpling(ci: CanvasItem, c: Vector2, s: float, l: int) -> void:
+	match l:
+		1:
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.26, s * 0.24), c + Vector2(s * 0.26, s * 0.24), c + Vector2(s * 0.2, -s * 0.12), c + Vector2(0, -s * 0.26), c + Vector2(-s * 0.2, -s * 0.12)]), Color("e8d9b8"), s)
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.12, -s * 0.02), Vector2(s * 0.24, s * 0.14)), s * 0.02), Color("c0473e"), s * 0.5)
+		2:
+			_shape(ci, _circle_pts(c, s * 0.24, 24, 0.85), DOUGH, s)
+		3:
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.3, s * 0.12), c + Vector2(-s * 0.16, -s * 0.16), c + Vector2(0, -s * 0.22), c + Vector2(s * 0.16, -s * 0.16), c + Vector2(s * 0.3, s * 0.12), c + Vector2(0, s * 0.2)]), DOUGH, s)
+			for k in 4:
+				_line(ci, c + Vector2(-s * 0.15 + k * s * 0.1, -s * 0.16), c + Vector2(-s * 0.12 + k * s * 0.08, -s * 0.06), Color(0.6, 0.5, 0.4, 0.6), s * 0.015)
+		4:
+			for k in 2:
+				_bun(ci, c + Vector2(-s * 0.15 + k * s * 0.3, k * s * 0.06), s * 0.17, s)
+		5:
+			_steamer(ci, c + Vector2(0, s * 0.12), s * 0.7, s)
+			for k in 3:
+				_bun(ci, c + Vector2(-s * 0.2 + k * s * 0.2, -s * 0.06), s * 0.11, s)
+		6:
+			_plate(ci, c, s, 0.42)
+			for k in 4:
+				_bun(ci, c + Vector2(-s * 0.21 + k * s * 0.14, s * 0.02 - (k % 2) * s * 0.06), s * 0.09, s)
+		7:
+			_shape(ci, _circle_pts(c + Vector2(0, s * 0.08), s * 0.34, 24, 0.6), Color("f4efe6"), s)
+			_shape(ci, _circle_pts(c, s * 0.28, 24, 0.38), Color("e6a93a"), s * 0.5)
+			for k in 4:
+				ci.draw_arc(c + Vector2(-s * 0.1 + k * s * 0.06, 0), s * 0.06, 0, PI, 8, Color("fff3c4"), s * 0.02, true)
+			_line(ci, c + Vector2(s * 0.1, -s * 0.1), c + Vector2(s * 0.34, -s * 0.36), Color("a77b4f"), s * 0.03)
+		8:
+			_shape(ci, _circle_pts(c + Vector2(0, s * 0.1), s * 0.38, 24, 0.55), Color("3a3a40"), s)
+			_shape(ci, _circle_pts(c + Vector2(0, s * 0.02), s * 0.32, 24, 0.38), Color("e2554f"), s * 0.5)
+			for k in 4:
+				ci.draw_circle(c + Vector2(-s * 0.15 + k * s * 0.1, (k % 2) * s * 0.05), s * 0.045, [DOUGH, Color("6cc24a"), Color("f5cf3c"), DOUGH][k], true, -1, true)
+		_:
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.42, s * 0.04), Vector2(s * 0.84, s * 0.28)), s * 0.05), Color("c0473e"), s)
+			_steamer(ci, c + Vector2(-s * 0.16, -s * 0.06), s * 0.36, s * 0.7)
+			_steamer(ci, c + Vector2(s * 0.18, -s * 0.06), s * 0.36, s * 0.7)
+			_bun(ci, c + Vector2(0, -s * 0.24), s * 0.1, s)
+			if l == 10:
+				_stars(ci, c + Vector2(0, s * 0.42), s, 3)
+
+
+static func _pebble(ci: CanvasItem, c: Vector2, rx: float, ry: float, s: float, col := STONE_GREY) -> void:
+	_shape(ci, _circle_pts(c, rx, 20, ry / rx), col, s * 0.7)
+	_hl(ci, c + Vector2(-rx * 0.35, -ry * 0.35), rx * 0.25, 0.6)
+
+
+static func _stone(ci: CanvasItem, c: Vector2, s: float, l: int) -> void:
+	match l:
+		1:
+			_pebble(ci, c, s * 0.2, s * 0.14, s)
+		2:
+			_pebble(ci, c, s * 0.28, s * 0.18, s, Color("8f9aa0"))
+		3:
+			_pebble(ci, c + Vector2(-s * 0.12, s * 0.06), s * 0.18, s * 0.12, s)
+			_pebble(ci, c + Vector2(s * 0.14, -s * 0.02), s * 0.16, s * 0.11, s, Color("8f9aa0"))
+		4:
+			for k in 3:
+				_pebble(ci, c + Vector2(0, s * 0.2 - k * s * 0.16), s * (0.26 - k * 0.06), s * 0.09, s, [STONE_GREY, Color("8f9aa0"), Color("b8b3a8")][k])
+		5:
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.08, s * 0.0), Vector2(s * 0.16, s * 0.34)), s * 0.02), STONE_GREY, s)
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.16, -s * 0.16), Vector2(s * 0.32, s * 0.18)), s * 0.03), Color("8f9aa0"), s)
+			ci.draw_rect(Rect2(c + Vector2(-s * 0.08, -s * 0.12), Vector2(s * 0.16, s * 0.1)), Color("ffe08a"))
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.26, -s * 0.16), c + Vector2(0, -s * 0.36), c + Vector2(s * 0.26, -s * 0.16)]), STONE_GREY, s)
+		6:
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.36, s * 0.24), c + Vector2(-s * 0.24, -s * 0.14), c + Vector2(0, -s * 0.3), c + Vector2(s * 0.3, -s * 0.06), c + Vector2(s * 0.36, s * 0.24)]), Color("8f9aa0"), s)
+			ci.draw_circle(c + Vector2(-s * 0.1, -s * 0.12), s * 0.08, MOSS_GREEN, true, -1, true)
+		7:
+			ci.draw_arc(c + Vector2(0, s * 0.24), s * 0.34, PI, TAU, 24, OUT, s * 0.16, true)
+			ci.draw_arc(c + Vector2(0, s * 0.24), s * 0.34, PI, TAU, 24, STONE_GREY, s * 0.12, true)
+			_line(ci, c + Vector2(-s * 0.42, s * 0.3), c + Vector2(s * 0.42, s * 0.3), Color("57b8d6"), s * 0.06)
+		8:
+			_shape(ci, _rect_pts(Rect2(c - Vector2(s * 0.38, s * 0.26), Vector2(s * 0.76, s * 0.52)), s * 0.04), Color("e6dcc6"), s)
+			for k in 4:
+				ci.draw_arc(c + Vector2(-s * 0.1, 0), s * (0.06 + k * 0.06), 0, TAU, 24, Color("b8ad94"), s * 0.012, true)
+			_pebble(ci, c + Vector2(-s * 0.1, 0), s * 0.06, s * 0.05, s)
+			_pebble(ci, c + Vector2(s * 0.22, s * 0.1), s * 0.08, s * 0.06, s)
+		_:
+			for k in 4:
+				var w := s * (0.36 - k * 0.07)
+				var y := s * 0.28 - k * s * 0.17
+				_shape(ci, _rect_pts(Rect2(c + Vector2(-w * 0.6, y - s * 0.08), Vector2(w * 1.2, s * 0.1)), s * 0.02), STONE_GREY, s * 0.7)
+				_shape(ci, PackedVector2Array([c + Vector2(-w, y - s * 0.08), c + Vector2(w, y - s * 0.08), c + Vector2(w * 0.7, y - s * 0.14), c + Vector2(-w * 0.7, y - s * 0.14)]), Color("6f6a61"), s * 0.6)
+			if l == 10:
+				ci.draw_circle(c + Vector2(0, -s * 0.42), s * 0.06, Color("ffe08a"), true, -1, true)
+				_stars(ci, c + Vector2(0, s * 0.44), s, 3)
+
+
+const MOSS_GREEN := Color("7fa35a")
+
+
+static func _teahouse_generator(ci: CanvasItem, c: Vector2, s: float, chain: String, l: int) -> void:
+	_shape(ci, _circle_pts(c + Vector2(0, s * 0.36), s * 0.36, 24, 0.18), Color(0, 0, 0, 0.18), s, Color(0, 0, 0, 0))
+	match chain:
+		"gen_tea":
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.18, s * 0.12), Vector2(s * 0.36, s * 0.22)), s * 0.04), CLAY, s)
+			for k in 7:
+				var a := -PI * 0.5 + (k - 3) * 0.4
+				_tea_leaf(ci, c + Vector2(0, s * 0.12), Vector2(cos(a), sin(a)), s * 0.36, s)
+		"gen_pottery":
+			_shape(ci, _circle_pts(c + Vector2(0, s * 0.18), s * 0.36, 24, 0.35), Color("8a5a3a"), s)
+			_shape(ci, _circle_pts(c + Vector2(0, s * 0.1), s * 0.3, 24, 0.3), Color("5a3a24"), s * 0.6)
+			_vase(ci, c + Vector2(0, -s * 0.04), s * 0.6, CLAY)
+		"gen_dumpling":
+			for k in 2:
+				_steamer(ci, c + Vector2(0, s * 0.16 - k * s * 0.2), s * 0.66, s)
+			_shape(ci, _circle_pts(c + Vector2(0, -s * 0.18), s * 0.34, 24, 0.25), Color("e6c47a"), s)
+			for k in 3:
+				ci.draw_arc(c + Vector2(-s * 0.12 + k * s * 0.12, -s * 0.34), s * 0.05, PI, TAU, 8, Color(1, 1, 1, 0.7), s * 0.02, true)
+		"gen_stone":
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.4, s * 0.3), c + Vector2(-s * 0.28, -s * 0.12), c + Vector2(-s * 0.04, -s * 0.28), c + Vector2(s * 0.3, -s * 0.16), c + Vector2(s * 0.4, s * 0.3)]), Color("8f9aa0"), s)
+			_line(ci, c + Vector2(-s * 0.06, -s * 0.24), c + Vector2(s * 0.06, s * 0.1), Color("5e5b4f"), s * 0.03)
+			_line(ci, c + Vector2(s * 0.12, -s * 0.04), c + Vector2(s * 0.3, -s * 0.36), Color("a77b4f"), s * 0.04)
+			_shape(ci, PackedVector2Array([c + Vector2(s * 0.26, -s * 0.42), c + Vector2(s * 0.4, -s * 0.34), c + Vector2(s * 0.34, -s * 0.28)]), Color("8c9aa6"), s * 0.5)
+	_stars(ci, c + Vector2(0, s * 0.4), s, l)
+
+
+# ------------------------------------------------------------------ Rope Market
+
+const ROPE_TAN := Color("c9a265")
+const ROPE_DARK := Color("8a6a3a")
+const REED := Color("d8b86a")
+const CLOTH_RED := Color("e2554f")
+const CLOTH_BLUE := Color("3d6fb0")
+
+
+static func _berry(ci: CanvasItem, c: Vector2, r: float, s: float, col := Color("c0396b")) -> void:
+	_shape(ci, _circle_pts(c, r, 16), col, s * 0.6)
+	_hl(ci, c + Vector2(-r * 0.35, -r * 0.35), r * 0.3, 0.7)
+
+
+static func _banana(ci: CanvasItem, c: Vector2, s: float) -> void:
+	var p := PackedVector2Array()
+	for i in 12:
+		var a := PI * 0.15 + PI * 0.7 * i / 11.0
+		p.append(c + Vector2(cos(a) * s * 0.3, sin(a) * s * 0.3 - s * 0.16))
+	for i in range(11, -1, -1):
+		var a := PI * 0.15 + PI * 0.7 * i / 11.0
+		p.append(c + Vector2(cos(a) * s * 0.2, sin(a) * s * 0.18 - s * 0.1))
+	_shape(ci, p, Color("f5cf3c"), s)
+
+
+static func _fruit(ci: CanvasItem, c: Vector2, s: float, l: int) -> void:
+	match l:
+		1:
+			_berry(ci, c, s * 0.16, s)
+			_leaf(ci, c + Vector2(0, -s * 0.14), Vector2(0.7, -0.7), s * 0.14, Color("6cc24a"), s * 0.6)
+		2:
+			_berry(ci, c + Vector2(-s * 0.1, s * 0.04), s * 0.14, s)
+			_berry(ci, c + Vector2(s * 0.12, -s * 0.02), s * 0.14, s, Color("5a3d8a"))
+		3:
+			_banana(ci, c, s)
+		4:
+			_shape(ci, _circle_pts(c, s * 0.28, 24, 1.25), Color("f5a524"), s)
+			_shape(ci, _circle_pts(c + Vector2(0, s * 0.04), s * 0.14, 18, 1.4), Color("f28a5c"), s * 0.5)
+			for k in 3:
+				ci.draw_circle(c + Vector2(0, -s * 0.04 + k * s * 0.07), s * 0.025, OUT, true, -1, true)
+		5:
+			_shape(ci, _circle_pts(c + Vector2(0, s * 0.12), s * 0.34, 24, 0.55), Color("c9935a"), s)
+			_berry(ci, c + Vector2(-s * 0.14, -s * 0.02), s * 0.1, s)
+			_shape(ci, _circle_pts(c + Vector2(s * 0.12, -s * 0.04), s * 0.12, 16), Color("f5a524"), s * 0.6)
+			_berry(ci, c + Vector2(0, -s * 0.12), s * 0.09, s, Color("6cc24a"))
+		6:
+			_line(ci, c + Vector2(-s * 0.36, s * 0.3), c + Vector2(s * 0.36, -s * 0.3), Color("a77b4f"), s * 0.03)
+			for k in 4:
+				var p := c + Vector2(-s * 0.36, s * 0.3).lerp(Vector2(s * 0.36, -s * 0.3), (k + 1) / 5.0)
+				_berry(ci, p, s * 0.08, s, [Color("c0396b"), Color("f5a524"), Color("6cc24a"), Color("f5cf3c")][k])
+		7, 8:
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.36, -s * 0.06), Vector2(s * 0.72, s * 0.34)), s * 0.03), Color("b07a45"), s)
+			for k in 3:
+				_line(ci, c + Vector2(-s * 0.36, s * 0.04 + k * s * 0.08), c + Vector2(s * 0.36, s * 0.04 + k * s * 0.08), Color("7a5230"), s * 0.015)
+			for k in 4:
+				_berry(ci, c + Vector2(-s * 0.24 + k * s * 0.16, -s * 0.1), s * 0.08, s, [Color("f5a524"), Color("c0396b"), Color("6cc24a"), Color("f5cf3c")][k])
+			if l == 8:
+				for k in 2:
+					_shape(ci, _circle_pts(c + Vector2(-s * 0.24 + k * s * 0.48, s * 0.3), s * 0.09, 16), Color("3a3a40"), s * 0.6)
+		_:
+			if l == 10:
+				_shape(ci, PackedVector2Array([c + Vector2(-s * 0.42, s * 0.04), c + Vector2(s * 0.42, s * 0.04), c + Vector2(s * 0.3, s * 0.3), c + Vector2(-s * 0.3, s * 0.3)]), Color("8a5a3a"), s)
+			for row in 3:
+				for k in 3 - row:
+					var p := c + Vector2((k - (2 - row) * 0.5) * s * 0.18, s * (0.08 if l == 9 else -0.04) - row * s * 0.15 + (s * 0.12 if l == 9 else 0.0))
+					_berry(ci, p, s * 0.09, s, [Color("f5a524"), Color("c0396b"), Color("6cc24a")][(row + k) % 3])
+			if l == 10:
+				_stars(ci, c + Vector2(0, s * 0.42), s, 3)
+
+
+static func _coil(ci: CanvasItem, c: Vector2, r: float, s: float, col := ROPE_TAN) -> void:
+	_shape(ci, _circle_pts(c, r, 24, 0.8), col, s)
+	for k in 3:
+		ci.draw_arc(c, r * (0.3 + k * 0.22), 0, TAU, 20, ROPE_DARK, s * 0.018, true)
+
+
+static func _rope(ci: CanvasItem, c: Vector2, s: float, l: int) -> void:
+	match l:
+		1:
+			var p := PackedVector2Array()
+			for i in 12:
+				p.append(c + Vector2(-s * 0.3 + i * s * 0.055, sin(i * 0.9) * s * 0.08))
+			ci.draw_polyline(p, OUT, s * 0.07, true)
+			ci.draw_polyline(p, ROPE_TAN, s * 0.045, true)
+		2:
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.18, -s * 0.24), Vector2(s * 0.36, s * 0.48)), s * 0.06), Color("a77b4f"), s)
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.14, -s * 0.16), Vector2(s * 0.28, s * 0.32)), s * 0.03), ROPE_TAN, s * 0.6)
+		3:
+			_coil(ci, c, s * 0.3, s)
+		4:
+			_coil(ci, c + Vector2(0, s * 0.08), s * 0.24, s)
+			ci.draw_arc(c + Vector2(0, -s * 0.2), s * 0.1, 0, TAU, 16, OUT, s * 0.07, true)
+			ci.draw_arc(c + Vector2(0, -s * 0.2), s * 0.1, 0, TAU, 16, ROPE_TAN, s * 0.045, true)
+		5:
+			for k in 2:
+				_line(ci, c + Vector2(-s * 0.18 + k * s * 0.36, -s * 0.4), c + Vector2(-s * 0.18 + k * s * 0.36, s * 0.4), ROPE_TAN, s * 0.05)
+			for k in 5:
+				_line(ci, c + Vector2(-s * 0.18, -s * 0.3 + k * s * 0.15), c + Vector2(s * 0.18, -s * 0.3 + k * s * 0.15), Color("a77b4f"), s * 0.05)
+		6:
+			_shape(ci, _circle_pts(c, s * 0.36, 24, 0.85), Color(0, 0, 0, 0), s, Color(0, 0, 0, 0))
+			for k in 5:
+				_line(ci, c + Vector2(-s * 0.36 + k * s * 0.18, -s * 0.3), c + Vector2(-s * 0.3 + k * s * 0.15, s * 0.3), ROPE_TAN, s * 0.025)
+				_line(ci, c + Vector2(-s * 0.36, -s * 0.3 + k * s * 0.15), c + Vector2(s * 0.36, -s * 0.3 + k * s * 0.15), ROPE_TAN, s * 0.025)
+			_shape(ci, _circle_pts(c + Vector2(s * 0.24, s * 0.24), s * 0.08, 14), Color("f2efe9"), s * 0.5)
+		7:
+			for k in 2:
+				_line(ci, c + Vector2(-s * 0.42 + k * s * 0.84, -s * 0.36), c + Vector2(-s * 0.42 + k * s * 0.84, s * 0.3), Color("8a5a3a"), s * 0.06)
+			var p := PackedVector2Array()
+			for i in 13:
+				var t := i / 12.0
+				p.append(c + Vector2(-s * 0.4 + t * s * 0.8, -s * 0.2 + sin(t * PI) * s * 0.3))
+			ci.draw_polyline(p, OUT, s * 0.16, true)
+			ci.draw_polyline(p, CLOTH_RED, s * 0.12, true)
+		8:
+			_line(ci, c + Vector2(-s * 0.4, -s * 0.06), c + Vector2(s * 0.4, -s * 0.06), ROPE_TAN, s * 0.04)
+			_line(ci, c + Vector2(-s * 0.4, s * 0.14), c + Vector2(s * 0.4, s * 0.14), ROPE_TAN, s * 0.04)
+			for k in 6:
+				ci.draw_rect(Rect2(c + Vector2(-s * 0.36 + k * s * 0.125, -s * 0.04), Vector2(s * 0.08, s * 0.16)), Color("a77b4f"))
+			for k in 2:
+				_line(ci, c + Vector2(-s * 0.4 + k * s * 0.8, -s * 0.3), c + Vector2(-s * 0.4 + k * s * 0.8, s * 0.3), Color("8a5a3a"), s * 0.05)
+		_:
+			_line(ci, c + Vector2(0, -s * 0.42), c + Vector2(0, s * 0.36), Color("8a5a3a"), s * 0.06)
+			for k in 4:
+				_line(ci, c + Vector2(0, -s * 0.38), c + Vector2(-s * 0.36 + k * s * 0.24, s * 0.32), Color(0.5, 0.4, 0.25), s * 0.02)
+			_line(ci, c + Vector2(-s * 0.2, -s * 0.12), c + Vector2(s * 0.2, -s * 0.12), Color("8a5a3a"), s * 0.04)
+			if l == 10:
+				_coil(ci, c + Vector2(0, s * 0.16), s * 0.16, s * 0.7, Color("ffcf3a"))
+				_stars(ci, c + Vector2(0, s * 0.44), s, 3)
+
+
+static func _basket(ci: CanvasItem, c: Vector2, w: float, h: float, s: float) -> void:
+	_shape(ci, PackedVector2Array([c + Vector2(-w * 0.5, -h * 0.5), c + Vector2(w * 0.5, -h * 0.5), c + Vector2(w * 0.4, h * 0.5), c + Vector2(-w * 0.4, h * 0.5)]), REED, s)
+	for k in 3:
+		_line(ci, c + Vector2(-w * 0.46, -h * 0.25 + k * h * 0.25), c + Vector2(w * 0.46, -h * 0.25 + k * h * 0.25), REED.darkened(0.25), s * 0.015)
+	for k in 5:
+		_line(ci, c + Vector2(-w * 0.4 + k * w * 0.2, -h * 0.5), c + Vector2(-w * 0.32 + k * w * 0.16, h * 0.5), REED.darkened(0.25), s * 0.012)
+
+
+static func _woven(ci: CanvasItem, c: Vector2, s: float, l: int) -> void:
+	match l:
+		1:
+			_line(ci, c + Vector2(-s * 0.04, s * 0.36), c + Vector2(s * 0.04, -s * 0.36), REED, s * 0.05)
+			_shape(ci, _circle_pts(c + Vector2(s * 0.03, -s * 0.24), s * 0.05, 10, 2.0), Color("8a5a3a"), s * 0.5)
+		2:
+			for k in 5:
+				_line(ci, c + Vector2(-s * 0.12 + k * s * 0.06, s * 0.36), c + Vector2(-s * 0.08 + k * s * 0.04, -s * 0.36), REED, s * 0.04)
+			_line(ci, c + Vector2(-s * 0.16, 0), c + Vector2(s * 0.16, 0), CLOTH_RED, s * 0.05)
+		3:
+			_shape(ci, _rect_pts(Rect2(c - Vector2(s * 0.34, s * 0.24), Vector2(s * 0.68, s * 0.48)), s * 0.03), REED, s)
+			for k in 4:
+				_line(ci, c + Vector2(-s * 0.34, -s * 0.18 + k * s * 0.12), c + Vector2(s * 0.34, -s * 0.18 + k * s * 0.12), REED.darkened(0.2), s * 0.02)
+		4:
+			_basket(ci, c + Vector2(0, s * 0.06), s * 0.5, s * 0.36, s)
+		5:
+			_shape(ci, _circle_pts(c + Vector2(0, s * 0.1), s * 0.42, 28, 0.3), REED, s)
+			_shape(ci, _circle_pts(c + Vector2(0, -s * 0.02), s * 0.2, 20, 0.8), REED.darkened(0.08), s)
+			_line(ci, c + Vector2(-s * 0.2, s * 0.02), c + Vector2(s * 0.2, s * 0.02), CLOTH_RED, s * 0.05)
+		6:
+			ci.draw_arc(c + Vector2(0, -s * 0.06), s * 0.24, PI, TAU, 16, OUT, s * 0.07, true)
+			ci.draw_arc(c + Vector2(0, -s * 0.06), s * 0.24, PI, TAU, 16, REED.darkened(0.15), s * 0.045, true)
+			_basket(ci, c + Vector2(0, s * 0.12), s * 0.62, s * 0.36, s)
+		7:
+			_basket(ci, c, s * 0.42, s * 0.56, s)
+			ci.draw_circle(c, s * 0.12, Color(1.0, 0.85, 0.4, 0.6), true, -1, true)
+			_line(ci, c + Vector2(0, -s * 0.28), c + Vector2(0, -s * 0.4), ROPE_DARK, s * 0.03)
+		8:
+			_basket(ci, c + Vector2(0, s * 0.02), s * 0.56, s * 0.3, s)
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.26, -s * 0.38), Vector2(s * 0.52, s * 0.26)), s * 0.06), REED, s * 0.8)
+			for k in 2:
+				_line(ci, c + Vector2(-s * 0.2 + k * s * 0.4, s * 0.16), c + Vector2(-s * 0.22 + k * s * 0.44, s * 0.36), REED.darkened(0.25), s * 0.04)
+		_:
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.44, -s * 0.02), c + Vector2(s * 0.44, -s * 0.02), c + Vector2(s * 0.3, s * 0.22), c + Vector2(-s * 0.3, s * 0.22)]), REED, s)
+			for k in 4:
+				_line(ci, c + Vector2(-s * 0.3 + k * s * 0.2, -s * 0.02), c + Vector2(-s * 0.26 + k * s * 0.17, s * 0.22), REED.darkened(0.25), s * 0.015)
+			if l == 10:
+				_shape(ci, PackedVector2Array([c + Vector2(-s * 0.26, -s * 0.06), c + Vector2(-s * 0.26, -s * 0.3), c + Vector2(-s * 0.13, -s * 0.18), c + Vector2(0, -s * 0.36), c + Vector2(s * 0.13, -s * 0.18), c + Vector2(s * 0.26, -s * 0.3), c + Vector2(s * 0.26, -s * 0.06)]), Color("ffcf3a"), s * 0.7)
+				_stars(ci, c + Vector2(0, s * 0.42), s, 3)
+			else:
+				_line(ci, c + Vector2(0, -s * 0.02), c + Vector2(0, -s * 0.4), ROPE_DARK, s * 0.03)
+				_shape(ci, PackedVector2Array([c + Vector2(s * 0.02, -s * 0.38), c + Vector2(s * 0.28, -s * 0.08), c + Vector2(s * 0.02, -s * 0.08)]), Color("f4efe6"), s * 0.6)
+
+
+static func _sail(ci: CanvasItem, c: Vector2, s: float, l: int) -> void:
+	match l:
+		1:
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.24, -s * 0.16), c + Vector2(s * 0.2, -s * 0.22), c + Vector2(s * 0.26, s * 0.18), c + Vector2(-s * 0.2, s * 0.22)]), CLOTH_RED, s)
+		2:
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.32, -s * 0.14), Vector2(s * 0.64, s * 0.28)), s * 0.12), CLOTH_BLUE, s)
+			ci.draw_arc(c + Vector2(-s * 0.32, 0), s * 0.12, PI * 0.5, PI * 1.5, 12, CLOTH_BLUE.darkened(0.3), s * 0.03, true)
+		3:
+			for k in 4:
+				ci.draw_rect(Rect2(c + Vector2(-s * 0.3 + (k % 2) * s * 0.3, -s * 0.3 + (k / 2) * s * 0.3), Vector2(s * 0.3, s * 0.3)), [CLOTH_RED, Color("f5cf3c"), CLOTH_BLUE, Color("6cc24a")][k])
+			_shape(ci, _rect_pts(Rect2(c - Vector2(s * 0.3, s * 0.3), Vector2(s * 0.6, s * 0.6)), s * 0.02), Color(0, 0, 0, 0), s)
+		4:
+			_line(ci, c + Vector2(-s * 0.24, -s * 0.38), c + Vector2(-s * 0.24, s * 0.38), Color("8a5a3a"), s * 0.05)
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.22, -s * 0.34), c + Vector2(s * 0.32, -s * 0.2), c + Vector2(-s * 0.22, -s * 0.04)]), CLOTH_RED, s)
+		5:
+			var p := PackedVector2Array()
+			for i in 9:
+				p.append(c + Vector2(-s * 0.42 + i * s * 0.105, -s * 0.2 + sin(i * PI / 8.0) * s * 0.12))
+			ci.draw_polyline(p, ROPE_DARK, s * 0.025, true)
+			for i in 4:
+				var q: Vector2 = p[i * 2 + 1]
+				_shape(ci, PackedVector2Array([q + Vector2(-s * 0.07, 0), q + Vector2(s * 0.07, 0), q + Vector2(0, s * 0.18)]), [CLOTH_RED, Color("f5cf3c"), CLOTH_BLUE, Color("6cc24a")][i], s * 0.5)
+		6, 7:
+			_line(ci, c + Vector2(0, -s * 0.4), c + Vector2(0, s * 0.3), Color("8a5a3a"), s * 0.05)
+			var sp := PackedVector2Array([c + Vector2(s * 0.03, -s * 0.36), c + Vector2(s * 0.34, s * 0.16), c + Vector2(s * 0.03, s * 0.16)])
+			_shape(ci, sp, Color("f4efe6") if l == 6 else CLOTH_RED, s)
+			if l == 7:
+				for k in 2:
+					_line(ci, c + Vector2(s * 0.05, -s * 0.16 + k * s * 0.16), c + Vector2(s * 0.12 + k * s * 0.1, -s * 0.16 + k * s * 0.16), Color("f4efe6"), s * 0.04)
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.3, s * 0.2), c + Vector2(s * 0.3, s * 0.2), c + Vector2(s * 0.22, s * 0.36), c + Vector2(-s * 0.22, s * 0.36)]), Color("8a5a3a"), s)
+		8:
+			_shape(ci, PackedVector2Array([c + Vector2(0, -s * 0.4), c + Vector2(s * 0.3, 0), c + Vector2(0, s * 0.3), c + Vector2(-s * 0.3, 0)]), CLOTH_BLUE, s)
+			_line(ci, c + Vector2(0, -s * 0.4), c + Vector2(0, s * 0.3), Color(1, 1, 1, 0.6), s * 0.02)
+			_line(ci, c + Vector2(-s * 0.3, 0), c + Vector2(s * 0.3, 0), Color(1, 1, 1, 0.6), s * 0.02)
+			var tail := PackedVector2Array()
+			for i in 6:
+				tail.append(c + Vector2(sin(i * 1.2) * s * 0.06, s * 0.3 + i * s * 0.03))
+			ci.draw_polyline(tail, ROPE_DARK, s * 0.02, true)
+		_:
+			_line(ci, c + Vector2(-s * 0.06, -s * 0.44), c + Vector2(-s * 0.06, s * 0.3), Color("8a5a3a"), s * 0.05)
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.04, -s * 0.4), c + Vector2(s * 0.38, s * 0.14), c + Vector2(-s * 0.04, s * 0.14)]), Color("f4efe6") if l == 9 else Color("ffcf3a"), s)
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.08, -s * 0.3), c + Vector2(-s * 0.34, s * 0.14), c + Vector2(-s * 0.08, s * 0.14)]), CLOTH_RED, s)
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.4, s * 0.18), c + Vector2(s * 0.4, s * 0.18), c + Vector2(s * 0.28, s * 0.36), c + Vector2(-s * 0.28, s * 0.36)]), Color("8a5a3a"), s)
+			if l == 10:
+				_stars(ci, c + Vector2(0, s * 0.44), s, 3)
+
+
+static func _market_generator(ci: CanvasItem, c: Vector2, s: float, chain: String, l: int) -> void:
+	_shape(ci, _circle_pts(c + Vector2(0, s * 0.36), s * 0.36, 24, 0.18), Color(0, 0, 0, 0.18), s, Color(0, 0, 0, 0))
+	match chain:
+		"gen_fruit":
+			_line(ci, c + Vector2(0, s * 0.36), c + Vector2(0, -s * 0.04), Color("8a5a3a"), s * 0.09)
+			_shape(ci, _circle_pts(c + Vector2(0, -s * 0.14), s * 0.3, 24, 0.75), Color("4f9a3a"), s)
+			for k in 4:
+				_berry(ci, c + Vector2(-s * 0.16 + k * s * 0.11, -s * 0.16 + (k % 2) * s * 0.1), s * 0.06, s * 0.7, [Color("c0396b"), Color("f5a524")][k % 2])
+		"gen_rope":
+			_coil(ci, c + Vector2(0, s * 0.06), s * 0.34, s)
+			_coil(ci, c + Vector2(0, -s * 0.06), s * 0.24, s * 0.8, ROPE_TAN.lightened(0.1))
+		"gen_woven":
+			_shape(ci, _circle_pts(c + Vector2(0, s * 0.24), s * 0.36, 24, 0.3), Color("57b8d6"), s)
+			for k in 7:
+				var x := -s * 0.27 + k * s * 0.09
+				_line(ci, c + Vector2(x, s * 0.24), c + Vector2(x + sin(k) * s * 0.04, -s * 0.3 + (k % 3) * s * 0.06), REED.darkened(0.1), s * 0.035)
+				_shape(ci, _circle_pts(c + Vector2(x + sin(k) * s * 0.04, -s * 0.3 + (k % 3) * s * 0.06), s * 0.03, 8, 2.0), Color("8a5a3a"), s * 0.3)
+		"gen_sail":
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.34, -s * 0.1), Vector2(s * 0.68, s * 0.42)), s * 0.04), Color("a77b4f"), s)
+			_shape(ci, PackedVector2Array([c + Vector2(-s * 0.4, -s * 0.08), c + Vector2(0, -s * 0.38), c + Vector2(s * 0.4, -s * 0.08)]), CLOTH_RED, s)
+			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.1, s * 0.08), Vector2(s * 0.2, s * 0.24)), s * 0.03), Color("f4efe6"), s * 0.5)
 	_stars(ci, c + Vector2(0, s * 0.4), s, l)

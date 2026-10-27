@@ -1,0 +1,75 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "##....##",
+    "#..#oB.#",
+    "#oBBo..#",
+    "#@.#..##",
+    "#.B#..o#",
+    "#......#",
+    "#..#...#",
+    "########"
+  ],
+  "h": 9,
+  "id": "ss_l30",
+  "island": "stone_steps",
+  "name": "Heart of the Steps",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 48
+      }
+    ]
+  },
+  "par": 40,
+  "pushes": 15,
+  "rewards": {
+    "cafe_coins": 67,
+    "essence": 44
+  },
+  "solution": [
+    "E",
+    "N",
+    "S",
+    "S",
+    "W",
+    "S",
+    "E",
+    "E",
+    "E",
+    "E",
+    "S",
+    "E",
+    "N",
+    "W",
+    "N",
+    "N",
+    "N",
+    "W",
+    "W",
+    "W",
+    "E",
+    "E",
+    "E",
+    "E",
+    "N",
+    "W",
+    "N",
+    "W",
+    "W",
+    "W",
+    "S",
+    "W",
+    "S",
+    "E",
+    "E",
+    "W",
+    "S",
+    "S",
+    "W",
+    "N"
+  ],
+  "w": 8
+}
