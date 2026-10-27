@@ -8,6 +8,24 @@ const OUT := Color("4a2f24")          ## outline ink
 const OUT_W := 0.035                  ## outline width (fraction of icon size)
 
 
+## The glossy baked version (IconBaker) when it is ready, the flat drawing until then.
+static func draw_3d(ci: CanvasItem, id: String, r: Rect2) -> void:
+	var t := IconBaker.texture(id)
+	if t:
+		ci.draw_texture_rect(t, r.grow(r.size.x * 0.125), false)   # the bake keeps a 10 % margin
+	else:
+		draw(ci, id, r)
+
+
+## A character portrait, baked like the items.
+static func draw_portrait(ci: CanvasItem, who: String, r: Rect2) -> void:
+	var t := IconBaker.texture("portrait:" + who)
+	if t:
+		ci.draw_texture_rect(t, r.grow(r.size.x * 0.0435), false)
+	else:
+		PortraitArt.draw(ci, who, r)
+
+
 static func draw(ci: CanvasItem, id: String, r: Rect2) -> void:
 	var s := minf(r.size.x, r.size.y)
 	if s < 6.0:
@@ -86,6 +104,8 @@ static func draw(ci: CanvasItem, id: String, r: Rect2) -> void:
 			_chest(ci, c, s, l)
 		"scissors":
 			_scissors(ci, c, s)
+		"crate":
+			_crate_box(ci, c, s)
 		_:
 			_shape(ci, _circle_pts(c, s * 0.3), Color("cccccc"), s)
 
@@ -119,7 +139,11 @@ static func _shape(ci: CanvasItem, pts: PackedVector2Array, fill: Color, s: floa
 	ci.draw_colored_polygon(pts, fill)
 	var closed := pts.duplicate()
 	closed.append(pts[0])
-	ci.draw_polyline(closed, outline, maxf(1.5, s * OUT_W), true)
+	if outline == OUT:
+		# soft edge in the fill's own darker shade: reads as a rendered object, not ink
+		ci.draw_polyline(closed, Color(fill.darkened(0.42), 0.85 * fill.a), maxf(1.2, s * OUT_W * 0.6), true)
+	else:
+		ci.draw_polyline(closed, outline, maxf(1.5, s * OUT_W), true)
 
 
 static func _hl(ci: CanvasItem, c: Vector2, r: float, a := 0.45) -> void:
@@ -1775,3 +1799,18 @@ static func _bakery_generator(ci: CanvasItem, c: Vector2, s: float, chain: Strin
 			_shape(ci, _rect_pts(Rect2(c + Vector2(-s * 0.26, -s * 0.24), Vector2(s * 0.52, s * 0.26)), s * 0.02), Color("fbfaf4"), s * 0.6)
 			_line(ci, c + Vector2(-s * 0.3, -s * 0.28), c + Vector2(s * 0.3, -s * 0.28), Color("4a4f6a"), s * 0.06)
 	_stars(ci, c + Vector2(0, s * 0.4), s, l)
+
+
+## The wooden crate over boxed board items (drawn as "crate:1").
+static func _crate_box(ci: CanvasItem, c: Vector2, s: float) -> void:
+	var wood := Color("c48a52")
+	var r := Rect2(c - Vector2(s * 0.44, s * 0.4), Vector2(s * 0.88, s * 0.84))
+	_shape(ci, _rect_pts(r, s * 0.08), wood, s)
+	for k in 3:
+		var y := r.position.y + r.size.y * (0.22 + 0.29 * k)
+		ci.draw_rect(Rect2(Vector2(r.position.x + s * 0.05, y), Vector2(r.size.x - s * 0.1, s * 0.035)), Color(0.45, 0.28, 0.14, 0.55))
+	_shape(ci, _rect_pts(Rect2(r.position + Vector2(0, -s * 0.02), Vector2(r.size.x, s * 0.14)), s * 0.05), wood.lightened(0.12), s * 0.7)
+	_line(ci, r.position + Vector2(s * 0.1, s * 0.16), r.end - Vector2(s * 0.1, s * 0.08), Color(0.45, 0.28, 0.14, 0.6), s * 0.06)
+	for p in [r.position + Vector2(s * 0.09, s * 0.07), Vector2(r.end.x - s * 0.09, r.position.y + s * 0.07),
+			Vector2(r.position.x + s * 0.09, r.end.y - s * 0.09), r.end - Vector2(s * 0.09, s * 0.09)]:
+		ci.draw_circle(p, s * 0.03, Color("8c949c"), true, -1, true)

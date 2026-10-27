@@ -7,10 +7,11 @@ extends Control
 signal cell_tapped(cell: Vector2i)
 signal cell_dropped(from: Vector2i, to: Vector2i)
 
-const TILE_A := Color("fbefd6")
-const TILE_B := Color("f4e2bf")
-const FRAME := Color("c99a5b")
-const FRAME_DARK := Color("9c6d36")
+const TILE_A := Color("fff8ea")
+const TILE_B := Color("f6ead2")
+const TILE_EDGE := Color("e6d3b0")
+const FRAME := Color("f3dcb2")
+const FRAME_DARK := Color("b9874f")
 const DRAG_START := 12.0
 
 var game: MergeGame
@@ -128,13 +129,16 @@ func _draw() -> void:
 		return
 	var now := int(Time.get_unix_time_from_system())
 	var board := Rect2(origin, Vector2(game.db.cols, game.db.rows) * cell)
-	# wooden frame and checkered tiles
-	draw_style_box(_box(FRAME_DARK, cell * 0.22), board.grow(cell * 0.14).grow_side(SIDE_BOTTOM, cell * 0.06))
-	draw_style_box(_box(FRAME, cell * 0.2), board.grow(cell * 0.12))
+	# soft shadow, wooden rim, cream tray, rounded tiles with a lip
+	draw_style_box(_box(Color(0.1, 0.06, 0.02, 0.22), cell * 0.3), board.grow(cell * 0.2).grow_side(SIDE_BOTTOM, cell * 0.14))
+	draw_style_box(_box(FRAME_DARK, cell * 0.28), board.grow(cell * 0.17).grow_side(SIDE_BOTTOM, cell * 0.07))
+	draw_style_box(_box(FRAME, cell * 0.24), board.grow(cell * 0.12))
 	for y in game.db.rows:
 		for x in game.db.cols:
 			var c := Vector2i(x, y)
-			draw_rect(cell_rect(c), TILE_A if (x + y) % 2 == 0 else TILE_B)
+			var tr := cell_rect(c).grow(-cell * 0.035)
+			draw_style_box(_box(TILE_EDGE, cell * 0.16), tr.grow_side(SIDE_BOTTOM, cell * 0.03))
+			draw_style_box(_box(TILE_A if (x + y) % 2 == 0 else TILE_B, cell * 0.16), tr)
 	if selected != Vector2i(-1, -1) and game.at(selected) != null:
 		var pulse := 0.5 + 0.5 * sin(_t * 6.0)
 		draw_style_box(_box(Color(0, 0, 0, 0), cell * 0.16, Color(1.0, 0.72, 0.2, 0.7 + 0.3 * pulse), maxf(3.0, cell * 0.05)), cell_rect(selected).grow(-cell * 0.02))
@@ -164,7 +168,7 @@ func _draw() -> void:
 		if v != null:
 			var r := Rect2(_drag_pos - Vector2(cell, cell) * 0.6, Vector2(cell, cell) * 1.2)
 			draw_circle(_drag_pos + Vector2(0, cell * 0.35), cell * 0.35, Color(0, 0, 0, 0.12), true, -1, true)
-			ItemArt.draw(self, v["id"], r.grow(-cell * 0.06))
+			ItemArt.draw_3d(self, v["id"], r.grow(-cell * 0.06))
 			var target := cell_at(_drag_pos)
 			if target != Vector2i(-1, -1) and target != _press_cell:
 				var tv = game.at(target)
@@ -185,10 +189,9 @@ func _draw_item(c: Vector2i, v: Dictionary, r: Rect2, now: int) -> void:
 	var boxed: bool = v.get("boxed", false)
 	var bubble := float(v.get("bubble_until", 0)) > 0.0
 	if boxed:
-		ItemArt.draw(self, id, ir.grow(-cell * 0.14))
-		_draw_crate(r)
+		_draw_crate(r, id)
 		return
-	ItemArt.draw(self, id, ir)
+	ItemArt.draw_3d(self, id, ir)
 	if bubble:
 		var left := maxi(0, int(v["bubble_until"]) - now)
 		draw_circle(r.get_center(), cell * 0.46, Color(0.7, 0.9, 1.0, 0.28), true, -1, true)
@@ -226,14 +229,12 @@ func _draw_item(c: Vector2i, v: Dictionary, r: Rect2, now: int) -> void:
 		draw_polyline(PackedVector2Array([p + Vector2(-cell * 0.05, 0), p + Vector2(-cell * 0.01, cell * 0.04), p + Vector2(cell * 0.06, -cell * 0.04)]), Color.WHITE, maxf(2.0, cell * 0.03), true)
 
 
-func _draw_crate(r: Rect2) -> void:
-	var g := r.grow(-cell * 0.06)
-	draw_rect(g, Color(0.73, 0.52, 0.3, 0.55))
-	for k in 3:
-		var y := g.position.y + g.size.y * (0.2 + 0.3 * k)
-		draw_line(Vector2(g.position.x, y), Vector2(g.end.x, y), Color("8a5a2b"), maxf(2.0, cell * 0.04), true)
-	draw_rect(g, Color("6b4423"), false, maxf(2.0, cell * 0.05))
-	draw_line(g.position, g.end, Color(0.42, 0.27, 0.14, 0.6), maxf(2.0, cell * 0.035), true)
+## A wooden crate with a paper label showing what is inside.
+func _draw_crate(r: Rect2, id: String) -> void:
+	ItemArt.draw_3d(self, "crate:1", r.grow(-cell * 0.04))
+	var label := Rect2(r.get_center() - Vector2(cell * 0.22, cell * 0.19), Vector2(cell * 0.44, cell * 0.44))
+	draw_style_box(_box(Color(1, 0.98, 0.92, 0.92), cell * 0.08), label)
+	ItemArt.draw_3d(self, id, label.grow(-cell * 0.04))
 
 
 func _energy_badge(r: Rect2) -> void:

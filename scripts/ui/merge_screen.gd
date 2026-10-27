@@ -50,7 +50,10 @@ func _now() -> int:
 # ------------------------------------------------------------------ layout
 
 func _build() -> void:
-	add_child(Backdrop.new())
+	var bg := HarborBackdrop.new()
+	bg.loc = loc
+	add_child(bg)
+	IconBaker.instance()   # starts baking the glossy icons as soon as the screen exists
 	var margin := UI.safe_margin(self, 14)
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 10)
@@ -79,17 +82,19 @@ func _build() -> void:
 
 func _pill(icon_id: String, plus: bool, on_plus: Callable) -> Array:
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", ThemeBuilder.box(Palette.PAPER, 28, 6, Color.TRANSPARENT, 0, 10, 4))
+	p.add_theme_stylebox_override("panel", _face(Color.WHITE, 30, Color(0.1, 0.25, 0.35, 0.22), 6, 2, 4))
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	p.custom_minimum_size = Vector2(0, 62)
 	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", 4)
+	row.add_theme_constant_override("separation", 2)
 	p.add_child(row)
 	var ic := ItemIcon.new()
 	ic.id = icon_id
-	ic.custom_minimum_size = Vector2(48, 48)
+	ic.custom_minimum_size = Vector2(58, 58)
 	row.add_child(ic)
-	var l := UI.label("0", "", 28)
+	var l := UI.label("0", "", 30)
 	l.add_theme_font_override("font", ThemeBuilder.font_display())
+	l.add_theme_color_override("font_color", Color("2b3a45"))
 	l.autowrap_mode = TextServer.AUTOWRAP_OFF
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -97,22 +102,45 @@ func _pill(icon_id: String, plus: bool, on_plus: Callable) -> Array:
 	if plus:
 		var b := Button.new()
 		b.text = "+"
-		b.theme_type_variation = "PrimaryButton"
-		b.custom_minimum_size = Vector2(44, 44)
-		b.add_theme_font_size_override("font_size", 26)
+		b.custom_minimum_size = Vector2(46, 46)
+		b.add_theme_font_size_override("font_size", 30)
+		b.add_theme_font_override("font", ThemeBuilder.font_display())
 		for st in ["normal", "hover", "pressed", "hover_pressed"]:
-			b.add_theme_stylebox_override(st, ThemeBuilder.box(Color("5fc46e"), 22, 0, Color.TRANSPARENT, 0, 6, 0))
+			b.add_theme_stylebox_override(st, _face(Color("4fc35f") if st != "pressed" else Color("3fa94f"), 23, Color("2f8a3c"), 0, 0, 0, 4))
 		b.add_theme_color_override("font_color", Color.WHITE)
+		b.add_theme_color_override("font_hover_color", Color.WHITE)
+		b.add_theme_color_override("font_pressed_color", Color.WHITE)
 		b.pressed.connect(on_plus)
 		row.add_child(b)
 	return [p, l]
 
 
+## A rounded face with an optional darker bottom lip (`lip` px) and soft shadow.
+static func _face(bg: Color, radius: int, edge: Color, shadow := 0, pad_l := 12, pad_v := 8, lip := 0) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = bg
+	sb.set_corner_radius_all(radius)
+	sb.corner_detail = 12
+	sb.anti_aliasing = true
+	if lip > 0:
+		sb.border_color = edge
+		sb.border_width_bottom = lip
+	if shadow > 0:
+		sb.shadow_color = Color(edge, 0.25)
+		sb.shadow_size = shadow
+		sb.shadow_offset = Vector2(0, shadow * 0.5)
+	sb.content_margin_left = pad_l
+	sb.content_margin_right = 10
+	sb.content_margin_top = pad_v
+	sb.content_margin_bottom = pad_v
+	return sb
+
+
 func _build_top() -> Control:
 	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", 8)
+	row.add_theme_constant_override("separation", 12)
 	_level_badge = LevelBadge.new()
-	_level_badge.custom_minimum_size = Vector2(76, 76)
+	_level_badge.custom_minimum_size = Vector2(80, 80)
 	row.add_child(_level_badge)
 	var e := _pill("energy:2", true, _show_energy)
 	e[0].name = "EnergyPill"
@@ -129,10 +157,10 @@ func _build_top() -> Control:
 
 func _build_orders() -> Control:
 	var sc := ScrollContainer.new()
-	sc.custom_minimum_size = Vector2(0, 218)
+	sc.custom_minimum_size = Vector2(0, 262)
 	sc.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_orders_row = HBoxContainer.new()
-	_orders_row.add_theme_constant_override("separation", 10)
+	_orders_row.add_theme_constant_override("separation", 12)
 	sc.add_child(_orders_row)
 	return sc
 
@@ -140,24 +168,29 @@ func _build_orders() -> Control:
 func _build_info() -> Control:
 	var p := PanelContainer.new()
 	p.name = "InfoBar"
-	p.add_theme_stylebox_override("panel", ThemeBuilder.box(Palette.PAPER, 26, 8, Color.TRANSPARENT, 0, 14, 8))
-	p.custom_minimum_size = Vector2(0, 104)
+	p.add_theme_stylebox_override("panel", _face(Color(1, 1, 1, 0.96), 28, Color(0.1, 0.25, 0.35, 0.5), 8, 16, 8))
+	p.custom_minimum_size = Vector2(0, 108)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
 	p.add_child(row)
+	var well := PanelContainer.new()
+	well.add_theme_stylebox_override("panel", _face(Color("fff3dc"), 22, Color.TRANSPARENT, 0, 4, 4))
+	row.add_child(well)
 	_info_icon = ItemIcon.new()
 	_info_icon.custom_minimum_size = Vector2(84, 84)
-	row.add_child(_info_icon)
+	well.add_child(_info_icon)
 	var v := VBoxContainer.new()
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	v.add_theme_constant_override("separation", 0)
 	row.add_child(v)
 	_info_name = UI.label("", "HeadingLabel", 28)
+	_info_name.add_theme_color_override("font_color", Color("2b3a45"))
 	_info_name.autowrap_mode = TextServer.AUTOWRAP_OFF
 	_info_name.clip_text = true
 	v.add_child(_info_name)
 	_info_sub = UI.label("", "CaptionLabel", 20)
+	_info_sub.add_theme_color_override("font_color", Color("6b7c86"))
 	v.add_child(_info_sub)
 	_info_actions = HBoxContainer.new()
 	_info_actions.add_theme_constant_override("separation", 8)
@@ -167,9 +200,11 @@ func _build_info() -> Control:
 
 func _build_nav() -> Control:
 	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", 10)
-	var home := UI.round_button("home", UI.t("BACK"))
+	row.add_theme_constant_override("separation", 12)
+	var home := _nav_button("", "home", Color.WHITE, Color("c9d6dc"), Color("2b3a45"))
 	home.name = "HomeButton"
+	home.custom_minimum_size = Vector2(96, 96)
+	home.tooltip_text = UI.t("BACK")
 	home.pressed.connect(func():
 		_save_now()
 		if loc != "":
@@ -177,23 +212,46 @@ func _build_nav() -> Control:
 		else:
 			Router.go("menu"))
 	row.add_child(home)
-	_inv_btn = UI.button(UI.t("INVENTORY"), "collection", "SecondaryButton", Vector2(0, 88))
+	_inv_btn = _nav_button(UI.t("INVENTORY"), "collection", Color.WHITE, Color("c9d6dc"), Color("2b3a45"))
 	_inv_btn.name = "InventoryButton"
 	_inv_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_inv_btn.pressed.connect(_show_inventory)
 	row.add_child(_inv_btn)
-	_tasks_btn = UI.button(UI.t("TASKS"), "check", "PrimaryButton", Vector2(0, 88))
+	_tasks_btn = _nav_button(UI.t("TASKS"), "check", Color("ffb938"), Color("d9861a"), Color("5a3200"))
 	_tasks_btn.name = "TasksButton"
 	_tasks_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tasks_btn.pressed.connect(_show_tasks)
 	row.add_child(_tasks_btn)
 	_tasks_dot = Panel.new()
-	_tasks_dot.add_theme_stylebox_override("panel", ThemeBuilder.box(Color("e2554f"), 12, 0, Color.WHITE, 3, 0, 0))
-	_tasks_dot.size = Vector2(24, 24)
-	_tasks_dot.position = Vector2(8, 4)
+	_tasks_dot.add_theme_stylebox_override("panel", ThemeBuilder.box(Color("e2453f"), 14, 0, Color.WHITE, 4, 0, 0))
+	_tasks_dot.size = Vector2(28, 28)
+	_tasks_dot.position = Vector2(-4, -6)
 	_tasks_dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_tasks_btn.add_child(_tasks_dot)
 	return row
+
+
+## Chunky bottom-bar button: coloured face with a darker lip, icon and bold label.
+func _nav_button(text: String, icon: String, face: Color, lip: Color, ink: Color) -> Button:
+	var b := Button.new()
+	b.text = text
+	b.custom_minimum_size = Vector2(0, 96)
+	b.add_theme_font_override("font", ThemeBuilder.font_display())
+	b.add_theme_font_size_override("font_size", 30)
+	for st in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+		b.add_theme_color_override(st, ink)
+	for st in ["normal", "hover", "focus", "hover_pressed"]:
+		b.add_theme_stylebox_override(st, _face(face, 32, lip, 4, 20, 10, 7))
+	b.add_theme_stylebox_override("pressed", _face(face.darkened(0.06), 32, lip, 2, 20, 12, 3))
+	var ic := UI.icon(icon, ink, 40)
+	ic.size = Vector2(40, 40)
+	ic.position = Vector2(26 if text != "" else 28, 24)
+	b.add_child(ic)
+	if text != "":
+		for st in ["normal", "hover", "focus", "hover_pressed", "pressed"]:
+			var sb: StyleBoxFlat = b.get_theme_stylebox(st)
+			sb.content_margin_left = 76
+	return b
 
 
 # ------------------------------------------------------------------ refresh
@@ -246,42 +304,59 @@ func _rebuild_orders() -> void:
 
 
 func _order_card(o: Dictionary, i: int) -> Control:
+	var ready := game.can_serve(i)
 	var p := PanelContainer.new()
 	p.name = "Order%d" % i
-	p.add_theme_stylebox_override("panel", ThemeBuilder.box(Palette.PAPER, 26, 8, Color.TRANSPARENT, 0, 12, 10))
+	p.custom_minimum_size = Vector2(212, 0)
+	p.add_theme_stylebox_override("panel", _face(Color("fffdf8") if not ready else Color("f2fff0"), 30,
+		Color(0.1, 0.25, 0.35, 0.5) if not ready else Color("4fc35f"), 8, 12, 10))
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 6)
 	p.add_child(v)
+	var who: Dictionary = game.db.cast.get(o["who"], {})
 	var head := HBoxContainer.new()
 	head.add_theme_constant_override("separation", 8)
 	v.add_child(head)
-	var who: Dictionary = game.db.cast.get(o["who"], {})
-	var av := Avatar.new()
-	av.letter = str(who.get("name", "?")).left(1)
-	av.color = Color(str(who.get("color", "888888")))
-	av.custom_minimum_size = Vector2(44, 44)
+	var av := Portrait.new()
+	av.who = str(o["who"])
+	av.ring = Color(str(who.get("color", "888888")))
+	av.custom_minimum_size = Vector2(84, 84)
 	head.add_child(av)
 	var nm := UI.label(tr(str(who.get("name", ""))), "", 22)
-	nm.autowrap_mode = TextServer.AUTOWRAP_OFF
+	nm.add_theme_font_override("font", ThemeBuilder.font_display())
+	nm.add_theme_color_override("font_color", Color("2b3a45"))
+	nm.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	nm.custom_minimum_size = Vector2(100, 0)
 	nm.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	head.add_child(nm)
+	var bubble := PanelContainer.new()
+	bubble.add_theme_stylebox_override("panel", _face(Color("fff3dc"), 22, Color.TRANSPARENT, 0, 6, 6))
+	v.add_child(bubble)
 	var items := HBoxContainer.new()
-	items.add_theme_constant_override("separation", 4)
-	v.add_child(items)
+	items.alignment = BoxContainer.ALIGNMENT_CENTER
+	items.add_theme_constant_override("separation", 2)
+	bubble.add_child(items)
 	var have := {}
 	for id in o["items"]:
 		var ic := ItemIcon.new()
 		ic.id = id
-		ic.custom_minimum_size = Vector2(70, 70)
+		ic.custom_minimum_size = Vector2(80, 80)
 		var n := int(have.get(id, 0)) + 1
 		have[id] = n
 		ic.check = game.count_on_board(id) >= n
-		ic.framed = true
 		items.add_child(ic)
-	if game.can_serve(i):
-		var serve := UI.button(UI.t("SERVE"), "", "PrimaryButton", Vector2(0, 52))
+	if ready:
+		var serve := Button.new()
 		serve.name = "Serve%d" % i
-		serve.add_theme_font_size_override("font_size", 24)
+		serve.text = UI.t("SERVE")
+		serve.custom_minimum_size = Vector2(0, 58)
+		serve.add_theme_font_override("font", ThemeBuilder.font_display())
+		serve.add_theme_font_size_override("font_size", 26)
+		for st in ["font_color", "font_hover_color", "font_pressed_color"]:
+			serve.add_theme_color_override(st, Color.WHITE)
+		for st in ["normal", "hover", "focus", "hover_pressed"]:
+			serve.add_theme_stylebox_override(st, _face(Color("4fc35f"), 26, Color("2f8a3c"), 0, 10, 4, 6))
+		serve.add_theme_stylebox_override("pressed", _face(Color("45b455"), 26, Color("2f8a3c"), 0, 10, 6, 2))
 		serve.pressed.connect(func(): _serve(i))
 		v.add_child(serve)
 	else:
@@ -290,9 +365,13 @@ func _order_card(o: Dictionary, i: int) -> Control:
 		rw.add_theme_constant_override("separation", 2)
 		var ci := ItemIcon.new()
 		ci.id = "coins:2"
-		ci.custom_minimum_size = Vector2(40, 40)
+		ci.custom_minimum_size = Vector2(44, 44)
 		rw.add_child(ci)
-		rw.add_child(UI.label("%d" % int(o["coins"]), "", 22))
+		var amt := UI.label("+%d" % int(o["coins"]), "", 24)
+		amt.autowrap_mode = TextServer.AUTOWRAP_OFF
+		amt.add_theme_font_override("font", ThemeBuilder.font_display())
+		amt.add_theme_color_override("font_color", Color("b07a12"))
+		rw.add_child(amt)
 		v.add_child(rw)
 	return p
 
@@ -762,16 +841,18 @@ class ItemIcon extends Control:
 
 	func _ready() -> void:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		if id != "" and DisplayServer.get_name() != "headless":
+			IconBaker.instance().baked.connect(queue_redraw)
 
 	func _draw() -> void:
 		var r := Rect2(Vector2.ZERO, size)
 		if framed:
 			var sb := StyleBoxFlat.new()
-			sb.bg_color = Color("f8ecd4")
-			sb.set_corner_radius_all(int(size.x * 0.2))
+			sb.bg_color = Color("fff3dc")
+			sb.set_corner_radius_all(int(size.x * 0.22))
 			draw_style_box(sb, r)
 		if id != "":
-			ItemArt.draw(self, id, r.grow(-size.x * 0.06))
+			ItemArt.draw_3d(self, id, r.grow(-size.x * 0.06))
 		if check:
 			var p := Vector2(size.x * 0.8, size.y * 0.2)
 			draw_circle(p, size.x * 0.16, Color.WHITE, true, -1, true)
@@ -779,7 +860,7 @@ class ItemIcon extends Control:
 			draw_polyline(PackedVector2Array([p + Vector2(-size.x * 0.06, 0), p + Vector2(-size.x * 0.01, size.x * 0.05), p + Vector2(size.x * 0.07, -size.x * 0.05)]), Color.WHITE, maxf(2.0, size.x * 0.04), true)
 
 
-## Star badge with the player level and an XP progress ring.
+## Level badge: a blue gem-like disc with a gold star, the level and an XP ring.
 class LevelBadge extends Control:
 	var level := 1
 	var progress := 0.0
@@ -790,40 +871,105 @@ class LevelBadge extends Control:
 	func _draw() -> void:
 		var c := size * 0.5
 		var r := minf(size.x, size.y) * 0.5
+		draw_circle(c + Vector2(0, r * 0.08), r, Color(0.05, 0.2, 0.35, 0.25), true, -1, true)
 		draw_circle(c, r, Color.WHITE, true, -1, true)
-		draw_arc(c, r * 0.86, -PI * 0.5, -PI * 0.5 + TAU, 48, Color("e8e2d2"), r * 0.16, true)
+		draw_arc(c, r * 0.87, -PI * 0.5, -PI * 0.5 + TAU, 48, Color("dfe8ee"), r * 0.15, true)
 		if progress > 0.0:
-			draw_arc(c, r * 0.86, -PI * 0.5, -PI * 0.5 + TAU * clampf(progress, 0.0, 1.0), 48, Color("5fc46e"), r * 0.16, true)
+			draw_arc(c, r * 0.87, -PI * 0.5, -PI * 0.5 + TAU * clampf(progress, 0.0, 1.0), 48, Color("ffbf2e"), r * 0.15, true)
+		draw_circle(c, r * 0.72, Color("2f7fd6"), true, -1, true)
+		draw_circle(c + Vector2(-r * 0.1, -r * 0.12), r * 0.56, Color("4d9bf0"), true, -1, true)
 		var p := PackedVector2Array()
 		for k in 10:
 			var a := -PI * 0.5 + TAU * k / 10.0
-			p.append(c + Vector2(cos(a), sin(a)) * r * (0.66 if k % 2 == 0 else 0.32))
+			p.append(c + Vector2(cos(a), sin(a)) * r * (0.6 if k % 2 == 0 else 0.3))
 		draw_colored_polygon(p, Color("ffc93a"))
 		var f := ThemeBuilder.font_display()
-		var fs := int(r * 0.62)
+		var fs := int(r * 0.6)
 		var t := str(level)
 		var w := f.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
-		draw_string_outline(f, c + Vector2(-w * 0.5, fs * 0.36), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, int(r * 0.12), Color("8a5a12"))
+		draw_string_outline(f, c + Vector2(-w * 0.5, fs * 0.36), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, int(r * 0.14), Color("9a5a00"))
 		draw_string(f, c + Vector2(-w * 0.5, fs * 0.36), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color.WHITE)
 
 
-## Round portrait with the character's initial.
-class Avatar extends Control:
-	var letter := "?"
-	var color := Color.GRAY
+## A character's painted portrait (PortraitArt, baked to look 3D) in a coloured ring.
+class Portrait extends Control:
+	var who := "":
+		set(v):
+			who = v
+			queue_redraw()
+	var ring := Color.WHITE
 
 	func _ready() -> void:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		if DisplayServer.get_name() != "headless":
+			IconBaker.instance().baked.connect(queue_redraw)
 
 	func _draw() -> void:
 		var c := size * 0.5
 		var r := minf(size.x, size.y) * 0.5
-		draw_circle(c, r, Color.WHITE, true, -1, true)
-		draw_circle(c, r * 0.88, color, true, -1, true)
-		var f := ThemeBuilder.font_display()
-		var fs := int(r * 1.0)
-		var w := f.get_string_size(letter, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
-		draw_string(f, c + Vector2(-w * 0.5, fs * 0.36), letter, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color.WHITE)
+		draw_circle(c + Vector2(0, r * 0.07), r, Color(0.05, 0.15, 0.2, 0.22), true, -1, true)
+		draw_circle(c, r, ring, true, -1, true)
+		draw_circle(c, r * 0.9, Color.WHITE, true, -1, true)
+		if who != "":
+			ItemArt.draw_portrait(self, who, Rect2(c - Vector2(r, r) * 0.84, Vector2(r, r) * 1.68))
+
+
+## Sky, sea and a distant shore behind a merge location, tinted per place.
+class HarborBackdrop extends Control:
+	var loc := ""
+	var _t := 0.0
+	const LOOKS := {
+		"": ["9fd9f2", "ffe3bd", "47b1d4", "2a87b0", "7cc17a"],
+		"reef_grill": ["ffc9a0", "ffe7c4", "3fb8c9", "1f8aa8", "e8935a"],
+		"lighthouse_workshop": ["7f9fd8", "f6d7a8", "3b7fb5", "245d8f", "8fa37a"],
+		"terrace_tea_house": ["bfe3d0", "f4ecd0", "62b3b4", "3b8f93", "8fb86a"],
+		"rope_market": ["8fd8f5", "fff0c8", "2fb5d8", "168cb8", "f0c070"],
+		"moonlight_bakery": ["3b3478", "c79bd8", "3a4f9a", "26306e", "6a5aa8"],
+	}
+
+	func _ready() -> void:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+	func _process(delta: float) -> void:
+		if not Game.reduced_motion():
+			_t += delta
+			queue_redraw()
+
+	func _draw() -> void:
+		var look: Array = LOOKS.get(loc, LOOKS[""])
+		var sky_top := Color(look[0])
+		var sky_low := Color(look[1])
+		var sea_top := Color(look[2])
+		var sea_low := Color(look[3])
+		if Palette.dark:
+			sky_top = sky_top.darkened(0.55)
+			sky_low = sky_low.darkened(0.5)
+			sea_top = sea_top.darkened(0.45)
+			sea_low = sea_low.darkened(0.5)
+		var w := size.x
+		var h := size.y
+		var horizon := h * 0.24
+		draw_polygon(PackedVector2Array([Vector2.ZERO, Vector2(w, 0), Vector2(w, horizon), Vector2(0, horizon)]),
+			PackedColorArray([sky_top, sky_top, sky_low, sky_low]))
+		draw_circle(Vector2(w * 0.78, horizon * 0.45), h * 0.05, Color(1, 1, 0.9, 0.55), true, -1, true)
+		for k in 3:
+			var cx := fmod(w * (0.15 + k * 0.35) + _t * (6 + k * 3), w * 1.3) - w * 0.15
+			for b in 4:
+				draw_circle(Vector2(cx + b * h * 0.03, horizon * (0.3 + 0.12 * k) - (b % 2) * h * 0.012), h * 0.025, Color(1, 1, 1, 0.55), true, -1, true)
+		var hills := PackedVector2Array([Vector2(0, horizon)])
+		for i in 13:
+			var x := w * i / 12.0
+			hills.append(Vector2(x, horizon - h * (0.02 + 0.025 * (0.5 + 0.5 * sin(i * 1.7)))))
+		hills.append(Vector2(w, horizon))
+		draw_colored_polygon(hills, Color(look[4]).darkened(0.1 if not Palette.dark else 0.55))
+		draw_polygon(PackedVector2Array([Vector2(0, horizon), Vector2(w, horizon), Vector2(w, h), Vector2(0, h)]),
+			PackedColorArray([sea_top, sea_top, sea_low, sea_low]))
+		for i in 14:
+			var y := horizon + (h - horizon) * fmod(Painter.hash01(i * 7) + _t * 0.004 * (1 + i % 3), 1.0)
+			var x := w * Painter.hash01(i * 13)
+			var len := w * 0.08
+			draw_line(Vector2(x, y), Vector2(x + len, y), Color(1, 1, 1, 0.16), 3.0, true)
 
 
 ## Story scene: speaker portrait, name and line; tap to continue.
@@ -834,7 +980,7 @@ class DialogueOverlay extends Control:
 	var _i := 0
 	var _name: Label
 	var _text: Label
-	var _avatar: Avatar
+	var _avatar: Portrait
 
 	func _ready() -> void:
 		set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -859,8 +1005,8 @@ class DialogueOverlay extends Control:
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 18)
 		panel.add_child(row)
-		_avatar = Avatar.new()
-		_avatar.custom_minimum_size = Vector2(120, 120)
+		_avatar = Portrait.new()
+		_avatar.custom_minimum_size = Vector2(140, 140)
 		_avatar.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		row.add_child(_avatar)
 		var v := VBoxContainer.new()
@@ -880,9 +1026,8 @@ class DialogueOverlay extends Control:
 		_name.text = tr(str(who.get("name", line[0])))
 		_name.add_theme_color_override("font_color", Color(str(who.get("color", "333333"))).darkened(0.2))
 		_text.text = tr(str(line[1]))
-		_avatar.letter = str(who.get("name", "?")).left(1)
-		_avatar.color = Color(str(who.get("color", "888888")))
-		_avatar.queue_redraw()
+		_avatar.ring = Color(str(who.get("color", "888888")))
+		_avatar.who = str(line[0])
 
 	func _gui_input(e: InputEvent) -> void:
 		if e.device == InputEvent.DEVICE_ID_EMULATION:
