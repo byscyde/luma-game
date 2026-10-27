@@ -1,0 +1,65 @@
+{
+  "format_version": 1,
+  "grid": [
+    "I0 L3 I1 .",
+    ". I1 L3 L1",
+    "L0 I0 . .",
+    ". # L2 ."
+  ],
+  "h": 4,
+  "id": "er_l14",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [
+    3
+  ],
+  "name": "Fire Coral",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 6
+      }
+    ]
+  },
+  "par": 4,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 33,
+    "essence": 24
+  },
+  "solution": [
+    [
+      "r",
+      0,
+      -1
+    ],
+    [
+      "c",
+      3,
+      -1
+    ],
+    [
+      "r",
+      0,
+      -1
+    ],
+    [
+      "c",
+      0,
+      1
+    ]
+  ],
+  "source": {
+    "index": 1,
+    "side": "W"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 3,
+      "side": "N"
+    }
+  ],
+  "w": 4
+}

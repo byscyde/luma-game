@@ -15,6 +15,11 @@ Old run links redirect. iOS builds now also emit `LUMA-unsigned.ipa` (owner re-s
 Each successful iOS build run is now also published as a pre-release `ios-build-<run>` under
 GitHub Releases with the unsigned IPA (D-016).
 
+## Session 7
+Archipelago started (D-020): islands map, Ember Reef (sliding rows/columns) with 30 generated,
+verified levels, unlocked by the café task "Open the doors"; café chapter 2 needs Ember Reef;
+island levels pay café coins. Next: Reef Grill merge location, then islands 3–6.
+
 ## Session 6
 Merge-2 mode "LUMA Harbour" (Lantern Café) unlocks after level 30 (D-019,
 `docs/MERGE_DESIGN.md` phase 1): 7×9 board, 4 dish chains + generators, free planter with

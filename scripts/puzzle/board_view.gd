@@ -25,6 +25,9 @@ var origin := Vector2.ZERO     ## top-left of cell (0, 0)
 var _wet_since: Dictionary = {}
 var _bridges: Array = []       ## [Vector2 a, Vector2 b] water across the gaps between tiles
 var _edges: Array = []         ## last simulation's water edges
+var frame_ring := false        ## Ember Reef: the outer ring is a fixed frame (no slots)
+var locked_rows: Array = []    ## frame-relative inner indices drawn with a lock bar
+var locked_cols: Array = []
 var _pointer: Node2D
 var _pointer_cell := Vector2i(-1, -1)
 var _tiles: Node2D
@@ -139,13 +142,50 @@ func _draw() -> void:
 	var inset := c * 0.045
 	for y in board.height:
 		for x in board.width:
+			if frame_ring and (x == 0 or y == 0 or x == board.width - 1 or y == board.height - 1):
+				continue
 			var cell := Rect2(origin + Vector2(x, y) * c, Vector2(c, c)).grow(-inset)
 			_round_rect(cell, c * 0.2, SLOT)
 			_round_rect(Rect2(cell.position + Vector2(0, cell.size.y - c * 0.05), Vector2(cell.size.x, c * 0.05)).grow_individual(-c * 0.12, 0, -c * 0.12, 0), c * 0.025, SLOT_LIGHT)
+	if frame_ring:
+		# the movable area, and a lock bar on lines that cannot slide
+		var inner := Rect2(origin + Vector2(c, c), Vector2(board.width - 2, board.height - 2) * c)
+		draw_polyline(_closed(_round_rect_points(inner.grow(c * 0.02), c * 0.22)), Color(1, 0.8, 0.45, 0.35), maxf(2.0, c * 0.025), true)
+		for lr in locked_rows:
+			var y := origin.y + (int(lr) + 1.5) * c
+			_lock_icon(Vector2(origin.x + c * 0.5, y), c)
+			_lock_icon(Vector2(origin.x + (board.width - 0.5) * c, y), c)
+		for k in locked_cols:
+			var x := origin.x + (int(k) + 1.5) * c
+			_lock_icon(Vector2(x, origin.y + c * 0.5), c)
+			_lock_icon(Vector2(x, origin.y + (board.height - 0.5) * c), c)
 	# water bridging the gaps between connected tiles
 	for b in _bridges:
 		draw_line(b[0], b[1], TileView.WATER_DEEP_COL, TileView.WATER * c, true)
 		draw_line(b[0], b[1], TileView.WATER_COL, TileView.WATER * c * 0.72, true)
+
+
+func _lock_icon(p: Vector2, c: float) -> void:
+	draw_arc(p + Vector2(0, -c * 0.06), c * 0.09, PI, TAU, 12, Color("e9d8b4"), c * 0.04, true)
+	_round_rect(Rect2(p + Vector2(-c * 0.13, -c * 0.06), Vector2(c * 0.26, c * 0.2)), c * 0.04, Color("e9d8b4"))
+	draw_circle(p + Vector2(0, c * 0.03), c * 0.03, Color("6b4a31"), true, -1, true)
+
+
+## Slides the views of one line from where they were to their new cells after
+## a SlideBoard move (the board must already hold the new tiles).
+func slide_line(kind: String, index: int, dir: int, inner_w: int, inner_h: int) -> void:
+	var reduced := Game.reduced_motion()
+	for p in views:
+		var on_line: bool = (kind == "r" and p.y == index + 1 and p.x >= 1 and p.x <= inner_w) \
+			or (kind == "c" and p.x == index + 1 and p.y >= 1 and p.y <= inner_h)
+		if not on_line:
+			continue
+		var v: TileView = views[p]
+		var target := cell_center(p)
+		var step := Vector2(dir, 0) if kind == "r" else Vector2(0, dir)
+		v.position = target - step * cell_size
+		var tw := v.create_tween()
+		tw.tween_property(v, "position", target, 0.05 if reduced else 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 
 func _closed(pts: PackedVector2Array) -> PackedVector2Array:

@@ -1,0 +1,71 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L2 Y0 L1 L3 L0",
+    "L0 Y3 L3 . #",
+    "I0 I0 . Y2 #",
+    "L1 L0 . L1 Y3",
+    "L3 I0 I1 I1 L3"
+  ],
+  "h": 5,
+  "id": "er_l21",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [
+    4
+  ],
+  "name": "Deep Ember",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 6
+      }
+    ]
+  },
+  "par": 4,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 47,
+    "essence": 31
+  },
+  "solution": [
+    [
+      "r",
+      3,
+      1
+    ],
+    [
+      "c",
+      1,
+      -1
+    ],
+    [
+      "r",
+      0,
+      -1
+    ],
+    [
+      "r",
+      2,
+      1
+    ]
+  ],
+  "source": {
+    "index": 3,
+    "side": "E"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 1,
+      "side": "S"
+    },
+    {
+      "id": "T2",
+      "index": 2,
+      "side": "N"
+    }
+  ],
+  "w": 5
+}

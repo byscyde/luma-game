@@ -74,6 +74,8 @@ var celebrate := 0.0:
 		celebrate = v
 		queue_redraw()
 
+var block := false             ## Ember Reef sliding block: slab without rivets
+var quiet := false             ## frame cell: draw nothing for empty tiles
 var _t := 0.0
 var _seed := 0
 var _gate_open := 0.0          ## 0 closed .. 1 open (eased toward the board state)
@@ -122,7 +124,8 @@ func _draw() -> void:
 	draw_set_transform(Vector2(0, hop), 0.0, Vector2(press, press))
 	match tile.type:
 		TileTypes.EMPTY:
-			_draw_moss()
+			if not quiet:
+				_draw_moss()
 		TileTypes.ROCK:
 			_draw_rock()
 		TileTypes.TARGET:
@@ -198,6 +201,11 @@ func _draw_slab() -> void:
 	_round_rect(Rect2(Vector2(-half, -half + u * LIFT), Vector2(half, half) * 2.0), rad, SLAB_SIDE)
 	_round_rect(Rect2(Vector2(-half, -half), Vector2(half, half) * 2.0), rad, SLAB_FACE_LOW)
 	_round_rect(Rect2(Vector2(-half + u * 0.02, -half + u * 0.01), Vector2(half - u * 0.02, half - u * 0.05) * 2.0), rad * 0.9, SLAB_FACE)
+	if block:
+		# sliding block: grip ridges instead of rivets (it moves with its row/column)
+		for k in [-1.0, 1.0]:
+			draw_line(Vector2(-half * 0.55, k * half * 0.78), Vector2(half * 0.55, k * half * 0.78), Color(0, 0, 0, 0.12), u * 0.025, true)
+		return
 	for v in [Vector2(-1, -1), Vector2(1, -1), Vector2(-1, 1), Vector2(1, 1)]:
 		var p: Vector2 = v * half * 0.72
 		draw_circle(p + Vector2(0, u * 0.01), u * 0.04, RIVET.darkened(0.3), true, -1, true)

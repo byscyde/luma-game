@@ -1,0 +1,47 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L3 . .",
+    ". . .",
+    "I0 . ."
+  ],
+  "h": 3,
+  "id": "er_l01",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [],
+  "name": "First Current",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 2
+      }
+    ]
+  },
+  "par": 1,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 7,
+    "essence": 11
+  },
+  "solution": [
+    [
+      "c",
+      0,
+      1
+    ]
+  ],
+  "source": {
+    "index": 1,
+    "side": "W"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 0,
+      "side": "N"
+    }
+  ],
+  "w": 3
+}

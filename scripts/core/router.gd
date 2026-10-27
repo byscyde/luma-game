@@ -9,6 +9,8 @@ const SCENES := {
 	"collection": "res://scenes/menus/collection.tscn",
 	"settings": "res://scenes/menus/settings.tscn",
 	"merge": "res://scenes/merge/merge.tscn",
+	"islands": "res://scenes/menus/islands.tscn",
+	"slide": "res://scenes/islands/slide.tscn",
 }
 
 var params: Dictionary = {}

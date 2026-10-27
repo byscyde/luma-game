@@ -55,13 +55,15 @@ regression test. Not yet in an IPA → **trigger a new iOS build** and ask the o
 re-test on the phone.
 
 ## 4. Next tasks (in order)
-1. Merge mode phase 2 (`docs/MERGE_DESIGN.md`): illustrated Lantern Café scene that changes
-   with each renovation task and shows the chosen design; character portraits; daily reward
-   calendar; generator boost; order-quest chains. Then phase 3 offline live-ops.
-2. Owner decision needed: real-money purchases / ads (currently excluded, D-019).
-3. iOS builds: GitHub often fails to assign a macOS runner within 15 min (no step runs);
-   re-run later or use a self-hosted Mac / paid plan.
-4. Later: Unity port (owner's plan) and World 2 for the puzzle mode.
+Follow `docs/ISLANDS_PLAN.md`: each island = puzzle game (30 solver-checked levels) + merge
+location; café hub unlocks islands.
+1. Reef Grill merge location for Ember Reef (new chains, cast, chapters; generalise MergeGame
+   to several locations: `save["merge_loc"][id]`).
+2. Lantern Bay (mirrors & light) puzzle + Lighthouse Workshop; then Stone Steps, Rope Isles,
+   Moon Grove.
+3. Lantern Café phase 2 (café scene art) — `docs/MERGE_DESIGN.md`.
+4. Owner decisions pending: real-money purchases/ads; Unity port timing.
+5. iOS CI: GitHub often fails to assign a macOS runner within 15 min; re-run later.
 
 ## 5. Working rules that matter
 - Never claim a build/test passed without seeing it; report failures with output.

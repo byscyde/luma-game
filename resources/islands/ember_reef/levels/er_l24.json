@@ -1,0 +1,76 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L2 L3 L0 # L3",
+    "L1 Y1 L1 I1 I0",
+    "Y2 I0 I3 # L0",
+    "I1 I0 I1 I2 .",
+    ". L3 . L1 ."
+  ],
+  "h": 5,
+  "id": "er_l24",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [
+    3
+  ],
+  "name": "Magma Bay",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 7
+      }
+    ]
+  },
+  "par": 5,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 53,
+    "essence": 34
+  },
+  "solution": [
+    [
+      "c",
+      1,
+      1
+    ],
+    [
+      "r",
+      2,
+      1
+    ],
+    [
+      "c",
+      2,
+      -1
+    ],
+    [
+      "r",
+      1,
+      1
+    ],
+    [
+      "c",
+      3,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 1,
+    "side": "S"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 4,
+      "side": "N"
+    },
+    {
+      "id": "T2",
+      "index": 0,
+      "side": "W"
+    }
+  ],
+  "w": 5
+}

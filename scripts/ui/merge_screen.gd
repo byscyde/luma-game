@@ -615,6 +615,16 @@ func _show_tasks() -> void:
 		bar.value = done
 		v.add_child(bar)
 		v.add_child(UI.label(UI.t("TASKS_DONE") % [done, (ch["tasks"] as Array).size()], "CaptionLabel", 22, HORIZONTAL_ALIGNMENT_CENTER))
+		var blocked := game.chapter_blocked_by()
+		if blocked != "":
+			var isl := Game.island(blocked)
+			v.add_child(UI.label(UI.t("CHAPTER_NEEDS_ISLAND") % tr(str(isl.get("name", blocked))), "", 26, HORIZONTAL_ALIGNMENT_CENTER))
+			var go := UI.button(UI.t("GO_THERE"), "play", "PrimaryButton", Vector2(0, 90))
+			go.name = "GoIsland"
+			go.pressed.connect(func():
+				_save_now()
+				Router.go("islands", {"island": blocked}))
+			v.add_child(go)
 		for t in game.open_tasks():
 			v.add_child(_task_row(t))
 	var close := UI.button(UI.t("CLOSE"), "", "SecondaryButton", Vector2(0, 80))
@@ -671,7 +681,9 @@ func _do_task(t: Dictionary, design: int) -> void:
 	Audio.play("complete")
 	Analytics.log_event("merge_task_done", {"task_id": str(t["id"])})
 	_show_dialogue(r["dialogue"], func():
-		if r.get("chapter_done", false):
+		if str(r.get("unlocks_island", "")) != "":
+			_show_island_unlocked(str(r["unlocks_island"]))
+		elif r.get("chapter_done", false):
 			_show_chapter_done(r.get("reward", {})))
 
 
@@ -688,6 +700,22 @@ func _show_dialogue(lines: Array, done: Callable) -> void:
 		_close_overlay()
 		done.call())
 	add_child(_overlay)
+
+
+func _show_island_unlocked(id: String) -> void:
+	var isl := Game.island(id)
+	var v := _open_overlay()
+	v.name = "IslandUnlocked"
+	v.add_child(UI.label(UI.t("ISLAND_UNLOCKED") % tr(str(isl.get("name", id))), "HeadingLabel", 38, HORIZONTAL_ALIGNMENT_CENTER))
+	v.add_child(UI.label(tr(str(isl.get("game_name", ""))), "CaptionLabel", 26, HORIZONTAL_ALIGNMENT_CENTER))
+	var go := UI.button(UI.t("GO_THERE"), "play", "PrimaryButton", Vector2(0, 96))
+	go.pressed.connect(func():
+		_save_now()
+		Router.go("islands", {"island": id}))
+	v.add_child(go)
+	var later := UI.button(UI.t("CLOSE"), "", "SecondaryButton", Vector2(0, 80))
+	later.pressed.connect(_close_overlay)
+	v.add_child(later)
 
 
 func _show_chapter_done(reward: Dictionary) -> void:

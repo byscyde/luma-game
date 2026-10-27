@@ -99,7 +99,105 @@ func merge_game() -> MergeGame:
 		if not data.has("merge") or typeof(data["merge"]) != TYPE_DICTIONARY:
 			data["merge"] = {}
 		_merge = MergeGame.new(merge_db(), data["merge"])
+		_merge.island_done = island_done
 	return _merge
+
+
+# ---------------------------------------------------------------- islands 2-6
+
+const ISLANDS_PATH := "res://resources/islands/islands.json"
+var _islands: Array = []
+var _island_levels: Dictionary = {}   ## island id -> Array of level dicts
+
+
+func islands() -> Array:
+	if _islands.is_empty():
+		var d = ContentDB.read_json(ISLANDS_PATH)
+		_islands = d.get("islands", []) if d is Dictionary else []
+	return _islands
+
+
+func island(id: String) -> Dictionary:
+	for i in islands():
+		if i["id"] == id:
+			return i
+	return {}
+
+
+## Level dicts of an island with its own game (not Verdant), sorted by id.
+func island_levels(id: String) -> Array:
+	if _island_levels.has(id):
+		return _island_levels[id]
+	var out: Array = []
+	var dir := str(island(id).get("levels", ""))
+	if dir.begins_with("res://"):
+		var files: Array = []
+		for f in DirAccess.get_files_at(dir):
+			if f.ends_with(".json"):
+				files.append(f)
+		files.sort()
+		for f in files:
+			var lv = ContentDB.read_json(dir.path_join(f))
+			if lv is Dictionary:
+				out.append(lv)
+	_island_levels[id] = out
+	return out
+
+
+func island_progress(id: String) -> Dictionary:
+	if not data.has("islands") or typeof(data["islands"]) != TYPE_DICTIONARY:
+		data["islands"] = {}
+	if not data["islands"].has(id):
+		data["islands"][id] = {"completed": {}}
+	return data["islands"][id]
+
+
+func island_unlocked(id: String) -> bool:
+	var i := island(id)
+	if i.is_empty() or i.get("coming_soon", false):
+		return false
+	var u: Dictionary = i.get("unlock", {})
+	if u.get("start", false):
+		return true
+	var task := str(u.get("cafe_task", ""))
+	return task != "" and merge_unlocked() and (merge_game().s["tasks_done"] as Array).has(task)
+
+
+func island_done(id: String) -> bool:
+	if id == "verdant":
+		return merge_unlocked()
+	var n := island_levels(id).size()
+	return n > 0 and (island_progress(id)["completed"] as Dictionary).size() >= n
+
+
+func island_level_unlocked(id: String, index: int) -> bool:
+	if not island_unlocked(id):
+		return false
+	if index == 0:
+		return true
+	var levels := island_levels(id)
+	return index < levels.size() and (island_progress(id)["completed"] as Dictionary).has(levels[index - 1]["id"])
+
+
+## Records a solved island level the moment it is solved. First completions pay
+## coins into the Lantern Café, linking the islands with the hub.
+func complete_island_level(id: String, level: Dictionary, moves: int) -> Dictionary:
+	var done: Dictionary = island_progress(id)["completed"]
+	var first := not done.has(level["id"])
+	var target := 0
+	for o in level.get("objectives", {}).get("optional", []):
+		if o.get("type", "") == "moves_at_most":
+			target = int(o["value"])
+	var stars := 1 + (1 if target > 0 and moves <= target else 0) + (1 if moves <= int(level.get("par", 0)) else 0)
+	var prev: Dictionary = done.get(level["id"], {})
+	done[level["id"]] = {"best_moves": mini(moves, int(prev.get("best_moves", moves))), "stars": maxi(stars, int(prev.get("stars", 0)))}
+	var coins := 0
+	if first:
+		coins = int(level.get("rewards", {}).get("cafe_coins", 0))
+		if merge_unlocked() and coins > 0:
+			merge_game().s["coins"] = int(merge_game().s["coins"]) + coins
+	save()
+	return {"first": first, "stars": stars, "cafe_coins": coins, "island_done": island_done(id)}
 
 
 func save() -> bool:

@@ -1,0 +1,47 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". L1 L3",
+    "I0 L1 L2",
+    "L0 L3 L0"
+  ],
+  "h": 3,
+  "id": "er_l03",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [],
+  "name": "Coral Turn",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 2
+      }
+    ]
+  },
+  "par": 1,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 11,
+    "essence": 13
+  },
+  "solution": [
+    [
+      "r",
+      0,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 2,
+    "side": "E"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 1,
+      "side": "N"
+    }
+  ],
+  "w": 3
+}

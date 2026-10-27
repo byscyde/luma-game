@@ -2,6 +2,16 @@
 
 Newest first. Each entry: context → decision → consequences.
 
+### D-020 · Archipelago: five more islands, each a puzzle game + a merge location (2026-10-27)
+Owner chose: every island has its own puzzle game **and** its own merge location, with the
+Lantern Café as hub (café tasks unlock islands; finishing an island opens the next café
+chapter). Order: Ember Reef (sliding rows/columns), Lantern Bay (mirrors & light), Stone Steps
+(Sokoban), Rope Isles (bridges), Moon Grove (match-3). Registry `resources/islands/islands.json`;
+progress `save["islands"]`. Ember Reef reuses the shared `WaterSimulation` on a framed board so
+there is still one connectivity model. Its hint follows a solution plan (inverse of off-plan
+moves + stored solution) instead of a search, so it is instant on phones. Plan:
+`docs/ISLANDS_PLAN.md`.
+
 ### D-019 · Merge-2 mode "LUMA Harbour" after level 30 (2026-10-27)
 Owner asked for Gossip Harbor's mechanics, progression and look after the 30 puzzle levels.
 Mechanics/genre conventions are followed closely (energy, generators, merging, crates,

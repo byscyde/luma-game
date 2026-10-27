@@ -1,0 +1,60 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". L2 L3 L0",
+    "I2 I1 . L0",
+    "# L1 . I1",
+    ". L2 L1 L2"
+  ],
+  "h": 4,
+  "id": "er_l15",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [
+    3
+  ],
+  "name": "Ash Beach",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 5
+      }
+    ]
+  },
+  "par": 3,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 35,
+    "essence": 25
+  },
+  "solution": [
+    [
+      "c",
+      1,
+      1
+    ],
+    [
+      "c",
+      2,
+      -1
+    ],
+    [
+      "c",
+      3,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 3,
+    "side": "E"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 1,
+      "side": "S"
+    }
+  ],
+  "w": 4
+}

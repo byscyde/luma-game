@@ -1,0 +1,70 @@
+{
+ "islands": [
+  {
+   "id": "verdant",
+   "name": "Verdant Isle",
+   "game": "rotate",
+   "game_name": "Turn the channels",
+   "levels": "world_01",
+   "color": "5fb648",
+   "unlock": {
+    "start": true
+   }
+  },
+  {
+   "id": "ember_reef",
+   "name": "Ember Reef",
+   "game": "slide",
+   "game_name": "Slide the rows",
+   "levels": "res://resources/islands/ember_reef/levels",
+   "color": "e8744f",
+   "unlock": {
+    "cafe_task": "c1_open"
+   }
+  },
+  {
+   "id": "lantern_bay",
+   "name": "Lantern Bay",
+   "game": "light",
+   "game_name": "Mirrors & light",
+   "color": "f2c14e",
+   "unlock": {
+    "cafe_task": "c2_fountain"
+   },
+   "coming_soon": true
+  },
+  {
+   "id": "stone_steps",
+   "name": "Stone Steps",
+   "game": "push",
+   "game_name": "Push the boulders",
+   "color": "9c8460",
+   "unlock": {
+    "cafe_task": "c3_festival"
+   },
+   "coming_soon": true
+  },
+  {
+   "id": "rope_isles",
+   "name": "Rope Isles",
+   "game": "bridges",
+   "game_name": "Build the bridges",
+   "color": "5b86b5",
+   "unlock": {
+    "cafe_task": ""
+   },
+   "coming_soon": true
+  },
+  {
+   "id": "moon_grove",
+   "name": "Moon Grove",
+   "game": "match3",
+   "game_name": "Match the moonflowers",
+   "color": "7d5ba6",
+   "unlock": {
+    "cafe_task": ""
+   },
+   "coming_soon": true
+  }
+ ]
+}

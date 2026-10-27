@@ -182,7 +182,8 @@
       "Hand-painted sign",
       "Brass letters",
       "Rope & shells"
-     ]
+     ],
+     "unlocks_island": "ember_reef"
     }
    ]
   },
@@ -346,7 +347,8 @@
       "Mosaic star"
      ]
     }
-   ]
+   ],
+   "requires_island": "ember_reef"
   },
   {
    "id": "ch3",

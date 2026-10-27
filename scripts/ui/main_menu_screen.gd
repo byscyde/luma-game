@@ -50,7 +50,7 @@ func _ready() -> void:
 	v.add_child(row)
 	var islands := UI.button(UI.t("ISLANDS"), "leaf", "SecondaryButton", Vector2(0, 98))
 	islands.name = "IslandsButton"
-	islands.pressed.connect(func(): Router.go("island"))
+	islands.pressed.connect(func(): Router.go("islands"))
 	var coll := UI.button(UI.t("COLLECTION"), "collection", "SecondaryButton", Vector2(0, 98))
 	coll.name = "CollectionButton"
 	coll.pressed.connect(func(): Router.go("collection"))

@@ -1,0 +1,70 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". # . Y0 L3",
+    "I1 . I0 . L2",
+    "I1 L1 L3 I3 L2",
+    "L3 L3 . Y3 I1"
+  ],
+  "h": 4,
+  "id": "er_l20",
+  "island": "ember_reef",
+  "locked_cols": [
+    2
+  ],
+  "locked_rows": [],
+  "name": "Glow Pools",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 6
+      }
+    ]
+  },
+  "par": 4,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 45,
+    "essence": 30
+  },
+  "solution": [
+    [
+      "r",
+      0,
+      -1
+    ],
+    [
+      "c",
+      0,
+      1
+    ],
+    [
+      "c",
+      3,
+      1
+    ],
+    [
+      "c",
+      4,
+      1
+    ]
+  ],
+  "source": {
+    "index": 2,
+    "side": "N"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 3,
+      "side": "W"
+    },
+    {
+      "id": "T2",
+      "index": 0,
+      "side": "E"
+    }
+  ],
+  "w": 5
+}

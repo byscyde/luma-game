@@ -1,0 +1,70 @@
+{
+  "format_version": 1,
+  "grid": [
+    "# I1 L2 L2 L3",
+    "L1 I0 L0 I1 .",
+    "I1 L2 L0 I2 L3",
+    "I1 I1 L0 L2 Y2"
+  ],
+  "h": 4,
+  "id": "er_l17",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [
+    3
+  ],
+  "name": "Crab Crossing",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 6
+      }
+    ]
+  },
+  "par": 4,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 39,
+    "essence": 27
+  },
+  "solution": [
+    [
+      "c",
+      3,
+      1
+    ],
+    [
+      "c",
+      3,
+      1
+    ],
+    [
+      "r",
+      2,
+      1
+    ],
+    [
+      "c",
+      0,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 1,
+    "side": "W"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 4,
+      "side": "S"
+    },
+    {
+      "id": "T2",
+      "index": 2,
+      "side": "W"
+    }
+  ],
+  "w": 5
+}

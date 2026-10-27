@@ -1,0 +1,58 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L1 L3 L2 L1",
+    "I0 L2 . .",
+    ". I0 . .",
+    ". . I0 L1"
+  ],
+  "h": 4,
+  "id": "er_l07",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [],
+  "name": "Twin Shoals",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 4
+      }
+    ]
+  },
+  "par": 3,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 19,
+    "essence": 17
+  },
+  "solution": [
+    [
+      "r",
+      2,
+      -1
+    ],
+    [
+      "r",
+      3,
+      1
+    ],
+    [
+      "r",
+      3,
+      1
+    ]
+  ],
+  "source": {
+    "index": 0,
+    "side": "S"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 1,
+      "side": "N"
+    }
+  ],
+  "w": 4
+}

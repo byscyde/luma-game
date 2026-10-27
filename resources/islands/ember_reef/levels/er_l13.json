@@ -1,0 +1,60 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". I1 L0 L2",
+    "L3 I1 L3 L1",
+    "I0 L3 L2 L1",
+    "# L1 . Y1"
+  ],
+  "h": 4,
+  "id": "er_l13",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [
+    0
+  ],
+  "name": "Sunken Arch",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 5
+      }
+    ]
+  },
+  "par": 3,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 31,
+    "essence": 23
+  },
+  "solution": [
+    [
+      "r",
+      1,
+      1
+    ],
+    [
+      "c",
+      1,
+      1
+    ],
+    [
+      "r",
+      3,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 3,
+    "side": "W"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 2,
+      "side": "N"
+    }
+  ],
+  "w": 4
+}

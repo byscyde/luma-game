@@ -1,0 +1,53 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L3 . L2 .",
+    ". I1 L1 .",
+    "I1 . L3 I1",
+    ". L3 L2 ."
+  ],
+  "h": 4,
+  "id": "er_l08",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [],
+  "name": "Kelp Maze",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 3
+      }
+    ]
+  },
+  "par": 2,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 21,
+    "essence": 18
+  },
+  "solution": [
+    [
+      "c",
+      1,
+      1
+    ],
+    [
+      "c",
+      3,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 2,
+    "side": "W"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 1,
+      "side": "E"
+    }
+  ],
+  "w": 4
+}

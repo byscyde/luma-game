@@ -20,6 +20,8 @@ var db: MergeDB
 var s: Dictionary
 var rng := RandomNumberGenerator.new()
 var last_sale: Dictionary = {}    ## {"cell", "item", "coins", "until"} for undo; not saved
+## Whether an island's puzzle levels are finished (chapters can require one).
+var island_done: Callable = func(_id: String) -> bool: return true
 
 
 func _init(p_db: MergeDB, state: Dictionary) -> void:
@@ -633,10 +635,19 @@ func chapter_index() -> int:
 	return db.chapters.size()
 
 
+## Island the current chapter waits for, or "" when it is open.
+func chapter_blocked_by() -> String:
+	var ci := chapter_index()
+	if ci >= db.chapters.size():
+		return ""
+	var req := str(db.chapters[ci].get("requires_island", ""))
+	return req if req != "" and not bool(island_done.call(req)) else ""
+
+
 ## The next tasks the player can do (in order within the current chapter).
 func open_tasks() -> Array:
 	var ci := chapter_index()
-	if ci >= db.chapters.size():
+	if ci >= db.chapters.size() or chapter_blocked_by() != "":
 		return []
 	var out: Array = []
 	for t in db.chapters[ci]["tasks"]:
@@ -669,7 +680,8 @@ func do_task(task_id: String, design := 0) -> Dictionary:
 	if t.has("designs"):
 		s["designs"][task_id] = clampi(design, 0, (t["designs"] as Array).size() - 1)
 	var lv := add_xp(maxi(2, int(t["cost"]) / 10))
-	var res := {"ok": true, "dialogue": t.get("dialogue", []), "chapter_done": false, "leveled": lv}
+	var res := {"ok": true, "dialogue": t.get("dialogue", []), "chapter_done": false, "leveled": lv,
+		"unlocks_island": str(t.get("unlocks_island", ""))}
 	if chapter_index() > ci and not (s["chapter_rewards"] as Array).has(db.chapters[ci]["id"]):
 		var r: Dictionary = db.chapters[ci].get("reward", {})
 		s["gems"] = int(s["gems"]) + int(r.get("gems", 0))

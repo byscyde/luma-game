@@ -148,3 +148,14 @@ STORY_TBC,New chapters coming soon
 LEVEL_UP,Level up!
 LEVEL_UP_BODY,Energy refilled and gems added. New items unlocked.
 TAP_TO_CONTINUE,Tap to continue
+ARCHIPELAGO,Islands
+COMING_SOON,Coming soon
+ISLAND_LOCKED_CAFE,Unlock with a Lantern Café task
+LEVELS_DONE,%d of %d levels
+SLIDE_TUTORIAL,Swipe a row or column to slide its blocks. Guide the water to every sapling.
+NEXT_LEVEL,Next level
+CAFE_COINS_EARNED,+%d coins for the Lantern Café
+ISLAND_DONE,Island complete! A new café chapter is open.
+ISLAND_UNLOCKED,New island unlocked: %s!
+CHAPTER_NEEDS_ISLAND,Finish %s to open the next chapter.
+GO_THERE,Go there

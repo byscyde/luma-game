@@ -41,6 +41,7 @@ static func default_data() -> Dictionary:
 		"tutorial": {"done": [], "complete": false},
 		"in_progress": {},
 		"merge": {},
+		"islands": {},
 		"settings": {
 			"music_volume": 0.7,
 			"sfx_volume": 0.9,
