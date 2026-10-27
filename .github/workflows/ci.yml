@@ -37,6 +37,31 @@ jobs:
           done
           grep -q 'run/main_scene="res://scenes/boot/boot.tscn"' project.godot
 
+  cloud-server:
+    name: Cloud save server (Node + MariaDB)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      mariadb:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MARIADB_USER: luma_test
+          MARIADB_PASSWORD: test
+        ports: ["3306:3306"]
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Allow the test user to create its database
+        run: mysql -h 127.0.0.1 -uroot -proot -e "GRANT ALL ON luma_test.* TO 'luma_test'@'%'; FLUSH PRIVILEGES;"
+      - name: Install and test
+        working-directory: server/luma-cloud
+        run: |
+          npm ci --no-audit --no-fund
+          npm test
+
   godot-tests:
     name: Godot tests + solver validation
     runs-on: ubuntu-24.04

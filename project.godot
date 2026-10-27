@@ -28,6 +28,7 @@ Analytics="*res://scripts/analytics/analytics_manager.gd"
 Audio="*res://scripts/audio/audio_manager.gd"
 Game="*res://scripts/core/game.gd"
 Router="*res://scripts/core/router.gd"
+Cloud="*res://scripts/cloud/cloud.gd"
 
 [display]
 

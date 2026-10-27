@@ -6,6 +6,8 @@ extends Node
 signal essence_changed(value: int)
 signal settings_changed
 signal progress_reset
+## After every successful save (the Cloud autoload uploads a copy a moment later).
+signal saved
 
 var content: ContentDB
 var store: SaveStore
@@ -234,7 +236,22 @@ func complete_island_level(id: String, level: Dictionary, moves: int) -> Diction
 
 
 func save() -> bool:
-	return store.save_data(data)
+	var ok := store.save_data(data)
+	if ok:
+		saved.emit()
+	return ok
+
+
+## Replaces the whole save with another copy (a cloud save); this device's settings stay.
+func replace_data(other: Dictionary) -> void:
+	var settings: Dictionary = data["settings"].duplicate(true)
+	data = SaveStore.normalize(other.duplicate(true))
+	data["settings"] = settings
+	_bind()
+	pending_receipt = {}
+	save()
+	essence_changed.emit(progression.essence())
+	progress_reset.emit()
 
 
 func _notification(what: int) -> void:

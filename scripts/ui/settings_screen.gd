@@ -1,17 +1,25 @@
 extends Control
 ## Settings: audio, haptics, reduced motion, theme, FPS counter, analytics
-## opt-out, reset progress.
+## opt-out, cloud save and sign-in, reset progress.
+
+const PROVIDER_NAMES := {"apple": "Apple", "google": "Google", "facebook": "Facebook"}
 
 var _confirm: Control
+var _cloud_box: VBoxContainer
 
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(Backdrop.new())
 	var margin := UI.safe_margin(self, 22)
+	var page := ScrollContainer.new()
+	page.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	margin.add_child(page)
 	var col := VBoxContainer.new()
+	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	col.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	col.add_theme_constant_override("separation", 16)
-	margin.add_child(col)
+	page.add_child(col)
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 16)
 	col.add_child(top)
@@ -39,6 +47,17 @@ func _ready() -> void:
 	v.add_child(_toggle(UI.t("ANALYTICS"), "analytics"))
 	v.add_child(UI.label(UI.t("ANALYTICS_NOTE"), "CaptionLabel", 22))
 
+	var cloud_card := PanelContainer.new()
+	cloud_card.name = "CloudCard"
+	cloud_card.theme_type_variation = "Card"
+	col.add_child(cloud_card)
+	_cloud_box = VBoxContainer.new()
+	_cloud_box.add_theme_constant_override("separation", 12)
+	cloud_card.add_child(_cloud_box)
+	_build_cloud()
+	Cloud.status_changed.connect(_build_cloud)
+	Cloud.providers_changed.connect(_build_cloud)
+
 	col.add_child(UI.spacer(0, true))
 	var reset := UI.button(UI.t("RESET_PROGRESS"), "reset", "GhostButton", Vector2(0, 88))
 	reset.name = "ResetProgressButton"
@@ -49,6 +68,80 @@ func _ready() -> void:
 	lic.pressed.connect(_show_licences)
 	col.add_child(lic)
 	col.add_child(UI.label(UI.t("CREDITS"), "LightCaption", 20, HORIZONTAL_ALIGNMENT_CENTER))
+
+
+func _build_cloud() -> void:
+	if not is_instance_valid(_cloud_box):
+		return
+	for c in _cloud_box.get_children():
+		c.queue_free()
+	_cloud_box.add_child(UI.label(UI.t("CLOUD_SAVE"), "", 30))
+	var status_key := "CLOUD_STATUS_" + (Cloud.status if Cloud.enabled else Cloud.OFF).to_upper()
+	var status := UI.label(Cloud.last_error if Cloud.last_error != "" else UI.t(status_key), "CaptionLabel", 22)
+	status.name = "CloudStatus"
+	_cloud_box.add_child(status)
+	if not Cloud.enabled:
+		return
+	var linked: Array = Cloud.state["providers"]
+	if linked.is_empty():
+		_cloud_box.add_child(UI.label(UI.t("CLOUD_GUEST_NOTE"), "CaptionLabel", 22))
+	for prov in linked:
+		var row := HBoxContainer.new()
+		row.add_child(UI.label(UI.t("CLOUD_SIGNED_IN_AS") % PROVIDER_NAMES.get(prov, prov), "", 24))
+		row.get_child(0).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var un := UI.button(UI.t("CLOUD_UNLINK") % PROVIDER_NAMES.get(prov, prov), "", "GhostButton", Vector2(0, 64))
+		un.pressed.connect(func(): Cloud.unlink(prov))
+		row.add_child(un)
+		_cloud_box.add_child(row)
+	for prov in NativeAuth.providers():
+		if linked.has(prov):
+			continue
+		var b := UI.button(UI.t("CLOUD_SIGN_IN_" + str(prov).to_upper()), "", "PrimaryButton" if prov == "apple" else "SecondaryButton", Vector2(0, 88))
+		b.name = "SignIn_" + prov
+		b.pressed.connect(func(): Cloud.sign_in(prov))
+		_cloud_box.add_child(b)
+	var sync := UI.button(UI.t("CLOUD_SYNC_NOW"), "", "GhostButton", Vector2(0, 72))
+	sync.name = "CloudSyncNow"
+	sync.disabled = Cloud.status == Cloud.SYNCING or Cloud.status == Cloud.WAITING
+	sync.pressed.connect(func(): Cloud.check_cloud())
+	_cloud_box.add_child(sync)
+	if str(Cloud.state["token"]) != "":
+		var del := UI.button(UI.t("CLOUD_DELETE_ACCOUNT"), "", "GhostButton", Vector2(0, 72))
+		del.name = "CloudDeleteAccount"
+		del.pressed.connect(_ask_delete_account)
+		_cloud_box.add_child(del)
+
+
+func _ask_delete_account() -> void:
+	_confirm = Control.new()
+	_confirm.name = "ConfirmDeleteAccount"
+	_confirm.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(_confirm)
+	var dim := ColorRect.new()
+	dim.color = Color(0, 0, 0, 0.5)
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_confirm.add_child(dim)
+	var cc := CenterContainer.new()
+	cc.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_confirm.add_child(cc)
+	var card := PanelContainer.new()
+	card.theme_type_variation = "Card"
+	card.custom_minimum_size = Vector2(600, 0)
+	cc.add_child(card)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 16)
+	card.add_child(v)
+	v.add_child(UI.label(UI.t("CLOUD_DELETE_TITLE"), "HeadingLabel", 38, HORIZONTAL_ALIGNMENT_CENTER))
+	v.add_child(UI.label(UI.t("CLOUD_DELETE_BODY"), "CaptionLabel", 26, HORIZONTAL_ALIGNMENT_CENTER))
+	var yes := UI.button(UI.t("CLOUD_DELETE_YES"), "", "PrimaryButton", Vector2(0, 96))
+	yes.pressed.connect(func():
+		await Cloud.delete_account()
+		if is_instance_valid(_confirm):
+			_confirm.queue_free())
+	v.add_child(yes)
+	var no := UI.button(UI.t("CANCEL"), "", "SecondaryButton", Vector2(0, 88))
+	no.pressed.connect(func(): _confirm.queue_free())
+	v.add_child(no)
 
 
 func _slider(text: String, key: String) -> VBoxContainer:

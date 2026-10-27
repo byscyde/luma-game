@@ -18,7 +18,7 @@ exits non-zero on any failure or engine error, and the smoke test greps for an e
 | Every script compiles; every scene loads | `tests/unit/test_scripts_compile.gd` |
 | Real scenes through real input: tutorial L1 → result → island; non-interactive taps; undo/reset; hints; objectives; locked level redirect; interrupted level resumes after app pause + cold reload; restart persistence; island restoration sequence; area unlock; every screen opens/closes; boot routing; settings persist; reset requires confirmation; analytics whitelist/opt-out | `tests/integration/test_gameplay_flow.gd` |
 | Exported package contains and loads all content | CI `export-smoke` (`--smoke-test`) |
-| APK: signature, package id, version code, no test/tool files, no INTERNET permission | `android-build.yml` |
+| APK: signature, package id, version code, no test/tool files, only VIBRATE + INTERNET permissions | `android-build.yml` |
 | iOS: Xcode project, bundle id, simulator build, device archive | `ios-build.yml` |
 | Visual: real renders of every screen at 720×1280, 640×1136, 1536×2048 | `nightly-tests.yml` (screenshot tour) |
 

@@ -183,3 +183,29 @@ OUT_OF_MOVES,Out of moves
 OUT_OF_MOVES_BODY,The grove is still dark. Try again: the flowers will fall the same way.
 TRY_AGAIN,Try again
 MATCH_RESULT,The grove is blooming!
+CLOUD_SAVE,Cloud save
+CLOUD_STATUS_OFF,Cloud save is off on this device.
+CLOUD_STATUS_IDLE,Connecting to the cloud…
+CLOUD_STATUS_SYNCING,Saving to the cloud…
+CLOUD_STATUS_SYNCED,Progress saved to the cloud.
+CLOUD_STATUS_OFFLINE,"Offline: your progress is safe on this phone and will upload later."
+CLOUD_STATUS_WAITING,Two different saves found: choose which one to keep.
+CLOUD_GUEST_NOTE,Sign in to keep your progress when you change or lose your phone.
+CLOUD_SIGNED_IN_AS,Signed in with %s
+CLOUD_SIGN_IN_APPLE,Sign in with Apple
+CLOUD_SIGN_IN_GOOGLE,Sign in with Google
+CLOUD_SIGN_IN_FACEBOOK,Continue with Facebook
+CLOUD_SIGNIN_UNAVAILABLE,Sign-in is not available on this device.
+CLOUD_SIGNIN_FAILED,"Sign-in did not work. Check your connection and try again."
+CLOUD_DELETE_FAILED,Could not delete the account. Try again when online.
+CLOUD_SYNC_NOW,Save to cloud now
+CLOUD_UNLINK,Disconnect %s
+CLOUD_DELETE_ACCOUNT,Delete cloud account
+CLOUD_DELETE_TITLE,Delete cloud account?
+CLOUD_DELETE_BODY,"This deletes your player, sign-ins and every cloud copy of your save from our server. The game on this phone keeps its progress."
+CLOUD_DELETE_YES,Delete account
+CLOUD_CONFLICT_TITLE,Which progress to keep?
+CLOUD_CONFLICT_BODY,This phone and the cloud have different saves. The other one will be replaced.
+CLOUD_KEEP_DEVICE,Keep this phone's progress
+CLOUD_USE_CLOUD,Use the cloud save
+CLOUD_PROGRESS,"Verdant %d levels · islands %d levels · café %d tasks"

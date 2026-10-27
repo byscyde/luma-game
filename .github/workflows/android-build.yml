@@ -123,7 +123,16 @@ jobs:
             "$BT/aapt" dump badging "$apk" | grep -q "versionCode='${{ github.run_number }}'"
             unzip -l "$apk" | grep -q "assets/resources/levels/world_01/w1_l30.json"
             if unzip -l "$apk" | grep -E "assets/(tests|tools)/"; then echo "test/tool files leaked into $apk"; exit 1; fi
-            if "$BT/aapt" dump permissions "$apk" | grep -q "android.permission.INTERNET"; then echo "unexpected INTERNET permission"; exit 1; fi
+            # Only VIBRATE and INTERNET (cloud save, D-021); anything else fails the build.
+            PERMS=$("$BT/aapt" dump permissions "$apk" | sed -n "s/^uses-permission: name='\(.*\)'.*/\1/p" | sort -u)
+            echo "$PERMS"
+            for p in $PERMS; do
+              case "$p" in
+                android.permission.VIBRATE|android.permission.INTERNET) ;;
+                *) echo "unexpected permission: $p"; exit 1 ;;
+              esac
+            done
+            echo "$PERMS" | grep -qx "android.permission.INTERNET" || { echo "INTERNET permission missing (cloud save)"; exit 1; }
           done
           if [ -f build/android/luma-release.aab ]; then
             unzip -l build/android/luma-release.aab | grep -q "base/manifest/AndroidManifest.xml"

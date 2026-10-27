@@ -2,6 +2,16 @@
 
 Newest first. Each entry: context → decision → consequences.
 
+### D-021 · Cloud save on our own server, sign-in with Apple / Google / Facebook (2026-10-27)
+Owner request: save progress on the SCYDE Linux server like FOUNDERS, with Facebook and Google
+sign-in. Decisions (owner's answers): same server as FOUNDERS but a separate service
+(`server/luma-cloud`, port 8788, database `luma`, own domain); native sign-in; Sign in with Apple
+added (App Store rule 4.8 requires it once Google/Facebook sign-in is offered); automatic upload
+like FOUNDERS (every device is a guest player, sign-in binds it). Supersedes D-011: Android now
+requests `INTERNET` + `VIBRATE` (CI allows exactly these two). The server stores only provider
+user ids (no e-mail or name). Players can delete their cloud account in Settings (rule 5.1.1(v)).
+A web admin dashboard (`/admin`) like FOUNDERS manages players and save copies.
+
 ### D-020 · Archipelago: five more islands, each a puzzle game + a merge location (2026-10-27)
 Owner chose: every island has its own puzzle game **and** its own merge location, with the
 Lantern Café as hub (café tasks unlock islands; finishing an island opens the next café

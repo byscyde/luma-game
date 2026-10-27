@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LUMA Admin</title>
+<style>
+  :root {
+    --bg: #eef6f3; --panel: #ffffff; --ink: #23423a; --muted: #5f7b71; --line: #d6e6e0;
+    --accent: #2c97a3; --accent-ink: #fff; --ok: #2f7a3d; --bad: #b3261e; --soft: #e4f1ec; --sun: #f2b632;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #11201d; --panel: #182b27; --ink: #e6f2ee; --muted: #94b3a9; --line: #29403a;
+            --accent: #5cc6cf; --accent-ink: #11201d; --ok: #7cc48a; --bad: #f2867e; --soft: #1f3631; --sun: #f2c14e; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel); position: sticky; top: 0; z-index: 2; }
+  header h1 { font-size: 17px; margin: 0; flex: 1; letter-spacing: .04em; }
+  header h1 small { color: var(--muted); font-weight: 400; letter-spacing: 0; }
+  button, .btn { font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 8px; padding: 7px 12px; cursor: pointer; text-decoration: none; display: inline-block; }
+  button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+  button.danger { color: var(--bad); border-color: var(--bad); }
+  input, textarea { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; width: 100%; }
+  textarea { font: 13px/1.4 ui-monospace, Menlo, Consolas, monospace; min-height: 460px; resize: vertical; }
+  label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .overview { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; padding: 16px 16px 0; max-width: 1400px; margin: 0 auto; }
+  .wrap { display: grid; grid-template-columns: minmax(320px, 440px) 1fr; gap: 16px; padding: 16px; max-width: 1400px; margin: 0 auto; }
+  @media (max-width: 860px) { .wrap { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; min-width: 0; }
+  .login { max-width: 360px; margin: 12vh auto; }
+  .list { padding: 0; overflow: hidden; }
+  .list .search { padding: 12px; border-bottom: 1px solid var(--line); display: flex; gap: 8px; }
+  .rows { max-height: calc(100vh - 260px); overflow: auto; }
+  .row { padding: 10px 12px; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .row:hover { background: var(--soft); }
+  .row.sel { background: var(--soft); box-shadow: inset 3px 0 0 var(--accent); }
+  .row b { display: block; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .tag { display: inline-block; font-size: 12px; padding: 1px 7px; border-radius: 99px; background: var(--soft); color: var(--muted); margin-right: 4px; }
+  .tag.apple { background: #2b2b2b; color: #fff; } .tag.google { background: #e8f0fe; color: #1a56c4; } .tag.facebook { background: #e7f0ff; color: #1659c7; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0 16px; }
+  .tabs button.on { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .section { margin-top: 20px; }
+  .section h3 { font-size: 14px; margin: 0 0 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+  .stat { background: var(--soft); border-radius: 8px; padding: 8px 10px; }
+  .stat span { display: block; font-size: 12px; color: var(--muted); }
+  .stat b { font-size: 17px; }
+  .bar { height: 6px; border-radius: 3px; background: var(--line); margin-top: 6px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--accent); }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; align-items: center; }
+  .msg { padding: 10px 12px; border-radius: 8px; margin-top: 12px; white-space: pre-line; }
+  .msg.ok { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); }
+  .msg.bad { background: color-mix(in srgb, var(--bad) 15%, transparent); color: var(--bad); }
+  .note { color: var(--muted); font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; }
+  td, th { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .empty { color: var(--muted); padding: 40px 16px; text-align: center; }
+  .hidden { display: none !important; }
+  .mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; }
+</style>
+</head>
+<body>
+<div id="login" class="card login hidden">
+  <h2 style="margin-top:0">LUMA Admin</h2>
+  <form id="loginForm">
+    <label for="pw">Lozinka</label>
+    <input id="pw" type="password" autocomplete="current-password" autofocus>
+    <div class="actions"><button class="primary" type="submit">Prijava</button></div>
+    <div id="loginMsg"></div>
+  </form>
+</div>
+
+<div id="app" class="hidden">
+  <header>
+    <h1>LUMA Admin <small>· Restore the Wild</small></h1>
+    <span id="count" class="meta"></span>
+    <button id="logout">Odjava</button>
+  </header>
+  <div id="overview" class="overview"></div>
+  <div class="wrap">
+    <div class="card list">
+      <div class="search">
+        <input id="q" placeholder="Traži: ID, uređaj, apple / google / facebook">
+        <button id="reload" title="Osvježi">↻</button>
+      </div>
+      <div id="rows" class="rows"></div>
+    </div>
+    <div class="card" id="detail"><div class="empty">Odaberi igrača s popisa.</div></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+const ISLANDS = { ember_reef: 'Ember Reef', lantern_bay: 'Lantern Bay', stone_steps: 'Stone Steps', rope_isles: 'Rope Isles', moon_grove: 'Moon Grove' };
+const PROVIDERS = { apple: 'Apple', google: 'Google', facebook: 'Facebook' };
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const when = (d) => d ? new Date(typeof d === 'number' ? d * 1000 : d).toLocaleString('hr-HR', { dateStyle: 'short', timeStyle: 'short' }) : '-';
+const ago = (d) => {
+  if (!d) return '-';
+  const m = Math.round((Date.now() - new Date(d)) / 60000);
+  if (m < 2) return 'upravo';
+  if (m < 60) return `prije ${m} min`;
+  if (m < 48 * 60) return `prije ${Math.round(m / 60)} h`;
+  return `prije ${Math.round(m / 1440)} dana`;
+};
+const num = (n) => n == null ? '-' : Number(n).toLocaleString('hr-HR');
+const tags = (list) => list.length ? list.map((p) => `<span class="tag ${p}">${esc(PROVIDERS[p] || p)}</span>`).join('') : '<span class="tag">gost</span>';
+
+let players = [], current = null, tab = 'game';
+
+async function api(path, opts = {}) {
+  const r = await fetch('/admin/api' + path, {
+    ...opts,
+    headers: { 'X-Luma-Admin': '1', ...(opts.body ? { 'Content-Type': 'application/json' } : {}) },
+    credentials: 'same-origin',
+  });
+  const data = await r.json().catch(() => ({}));
+  if (r.status === 401 && path !== '/login') { show(false); throw new Error('Prijavi se ponovno.'); }
+  if (!r.ok) { const e = new Error(data.error || 'Greška ' + r.status); e.problems = data.problems; throw e; }
+  return data;
+}
+
+function show(signedIn) {
+  $('login').classList.toggle('hidden', signedIn);
+  $('app').classList.toggle('hidden', !signedIn);
+  if (!signedIn) $('pw').focus();
+}
+
+$('loginForm').onsubmit = async (e) => {
+  e.preventDefault();
+  try {
+    await api('/login', { method: 'POST', body: JSON.stringify({ password: $('pw').value }) });
+    $('pw').value = '';
+    $('loginMsg').innerHTML = '';
+    show(true);
+    loadAll();
+  } catch (err) { $('loginMsg').innerHTML = `<div class="msg bad">${esc(err.message)}</div>`; }
+};
+$('logout').onclick = async () => { await api('/logout', { method: 'POST' }).catch(() => {}); show(false); };
+$('reload').onclick = () => loadAll();
+let timer;
+$('q').oninput = () => { clearTimeout(timer); timer = setTimeout(renderList, 150); };
+
+async function loadAll() {
+  try {
+    const [s, p] = await Promise.all([api('/stats'), api('/players')]);
+    players = p.players;
+    $('overview').innerHTML = [
+      ['Igrači', s.players], ['Aktivni danas', s.active1d], ['Aktivni 7 dana', s.active7d], ['Saveovi', s.saves],
+      ['Apple', s.providers.apple || 0], ['Google', s.providers.google || 0], ['Facebook', s.providers.facebook || 0],
+    ].map(([k, v]) => `<div class="card stat"><span>${k}</span><b>${num(v)}</b></div>`).join('');
+    renderList();
+  } catch (e) { $('rows').innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+}
+
+function renderList() {
+  const q = $('q').value.trim().toLowerCase();
+  const list = players.filter((p) => !q || p.id.includes(q) || p.providers.some((v) => v.includes(q)) || (p.save?.device || '').toLowerCase().includes(q));
+  $('count').textContent = `${players.length} igrača`;
+  $('rows').innerHTML = list.length ? list.map((p) => `
+    <div class="row ${current?.player.id === p.id ? 'sel' : ''}" data-id="${p.id}">
+      <b>${p.save && !p.save.broken ? `Verdant ${p.save.verdantLevels}/30 · otoci ${p.save.islandLevels}/150 · Café razina ${num(p.save.cafeLevel)}` : 'Bez savea'}</b>
+      <div class="meta">${tags(p.providers)} ${p.save?.broken ? '<span class="tag">save oštećen</span>' : ''}
+        ${esc(p.save?.device || '')} · ${ago(p.lastSeen)} · <span class="mono">${p.id.slice(0, 8)}</span></div>
+    </div>`).join('') : '<div class="empty">Nema igrača.</div>';
+  for (const row of $('rows').querySelectorAll('.row')) row.onclick = () => open(row.dataset.id);
+}
+
+async function open(id) {
+  $('detail').innerHTML = '<div class="empty">Učitavam…</div>';
+  try {
+    current = await api('/players/' + id);
+    renderList();
+    renderDetail();
+  } catch (e) { $('detail').innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+}
+
+function message(text, ok, problems) {
+  const box = $('result');
+  if (!box) return;
+  box.innerHTML = `<div class="msg ${ok ? 'ok' : 'bad'}">${esc(text)}${problems?.length ? '\n• ' + problems.map(esc).join('\n• ') : ''}</div>`;
+}
+
+function renderDetail() {
+  const p = current.player;
+  $('detail').innerHTML = `
+    <h2 style="margin:0">Igrač <span class="mono" style="font-size:15px">${esc(p.id)}</span></h2>
+    <div class="meta">${tags(current.identities.map((i) => i.provider))}</div>
+    <div class="meta">Napravljen ${when(p.created_at)} · zadnje viđen ${ago(p.last_seen)} · save spremljen ${when(current.savedAt)}
+      ${current.snapshot?.device ? ' s uređaja ' + esc(current.snapshot.device) : ''}</div>
+    ${current.error ? `<div class="msg bad">${esc(current.error)}</div>` : ''}
+    <div class="tabs">
+      ${[['game', 'Napredak'], ['account', 'Račun'], ['json', 'Napredno'], ['backups', `Kopije (${current.backups.length})`]]
+        .map(([k, n]) => `<button data-tab="${k}" class="${tab === k ? 'on' : ''}">${n}</button>`).join('')}
+    </div>
+    <div id="pane"></div>
+    <div id="result"></div>`;
+  for (const b of $('detail').querySelectorAll('[data-tab]')) b.onclick = () => { tab = b.dataset.tab; renderDetail(); };
+  ({ game: paneGame, account: paneAccount, json: paneJson, backups: paneBackups })[tab]();
+}
+
+function paneGame() {
+  const s = current.summary, d = current.snapshot?.data;
+  if (!s || !d) { $('pane').innerHTML = '<div class="empty">Ovaj igrač još nema save u oblaku.</div>'; return; }
+  const bar = (v, max) => `<div class="bar"><i style="width:${Math.min(100, Math.round(100 * v / max))}%"></i></div>`;
+  $('pane').innerHTML = `
+    <div class="section" style="margin-top:0"><h3>Otoci</h3>
+      <div class="stats">
+        <div class="stat"><span>Verdant Isle</span><b>${s.verdantLevels} / 30</b>${bar(s.verdantLevels, 30)}</div>
+        ${Object.entries(ISLANDS).map(([k, n]) => `<div class="stat"><span>${n}</span><b>${s.islands[k] || 0} / 30</b>${bar(s.islands[k] || 0, 30)}</div>`).join('')}
+      </div>
+    </div>
+    <div class="section"><h3>Lantern Café</h3>
+      <div class="stats">
+        <div class="stat"><span>Razina</span><b>${num(s.cafeLevel)}</b></div>
+        <div class="stat"><span>Zadaci</span><b>${num(s.cafeTasks)} / 36</b>${bar(s.cafeTasks, 36)}</div>
+        <div class="stat"><span>Lokacije otoka</span><b>${num(s.locations)} / 5</b></div>
+      </div>
+    </div>
+    <div class="section"><h3>Valute</h3>
+      <div class="grid">
+        <div><label>Novčići (Café)</label><input id="f_coins" type="number" min="0" step="1" value="${d.merge?.coins ?? ''}"></div>
+        <div><label>Dragulji (Café)</label><input id="f_gems" type="number" min="0" step="1" value="${d.merge?.gems ?? ''}"></div>
+        <div><label>Energija (Café)</label><input id="f_energy" type="number" min="0" step="1" value="${d.merge?.energy ?? ''}"></div>
+        <div><label>Esencija</label><input id="f_essence" type="number" min="0" step="1" value="${d.progress?.essence ?? 0}"></div>
+      </div>
+      <div class="actions">
+        <button class="primary" id="saveQuick">Spremi promjene</button>
+        <span class="note">Prije spremanja se automatski napravi kopija. Igrač na mobitelu dobije pitanje koji napredak zadržati.</span>
+      </div>
+    </div>`;
+  $('saveQuick').onclick = async () => {
+    try {
+      await api(`/players/${current.player.id}/quick`, { method: 'PUT', body: JSON.stringify({
+        coins: $('f_coins').value, gems: $('f_gems').value, energy: $('f_energy').value, essence: $('f_essence').value }) });
+      await open(current.player.id); loadAll();
+      message('Spremljeno.', true);
+    } catch (e) { message(e.message, false, e.problems); }
+  };
+}
+
+function paneAccount() {
+  const p = current.player;
+  $('pane').innerHTML = `
+    <div class="section" style="margin-top:0"><h3>Prijave</h3>
+      ${current.identities.length ? `<table><tr><th>Račun</th><th>Povezan</th><th></th></tr>${current.identities.map((i) => `
+        <tr><td>${esc(PROVIDERS[i.provider] || i.provider)}</td><td>${when(i.created_at)}</td>
+        <td style="text-align:right"><button class="danger" data-unlink="${esc(i.provider)}">Odveži</button></td></tr>`).join('')}</table>`
+        : '<p class="note">Igrač je gost (nije povezao Apple, Google ni Facebook račun).</p>'}
+    </div>
+    <div class="section"><h3>Uređaji (${current.devices.length})</h3>
+      ${current.devices.length ? `<table><tr><th>Prijavljen</th><th>Zadnje korišten</th></tr>${current.devices.map((d) => `<tr><td>${when(d.created_at)}</td><td>${when(d.last_used)}</td></tr>`).join('')}</table>` : '<p class="note">Nije prijavljen ni na jednom uređaju.</p>'}
+      <div class="actions"><button id="a_signout">Odjavi sa svih uređaja</button></div>
+    </div>
+    <div class="section"><h3>Opasno</h3>
+      <div class="actions"><button class="danger" id="a_delete">Obriši igrača</button></div>
+      <p class="note">Brisanje briše igrača, njegove prijave i save. Zadnja kopija savea ostaje u tablici kopija.</p>
+    </div>`;
+  const act = async (body, confirmText, done) => {
+    if (confirmText && !confirm(confirmText)) return;
+    try {
+      await api(`/players/${p.id}/account`, { method: 'POST', body: JSON.stringify(body) });
+      await open(p.id); loadAll(); message(done, true);
+    } catch (e) { message(e.message, false); }
+  };
+  for (const b of $('pane').querySelectorAll('[data-unlink]'))
+    b.onclick = () => act({ action: 'unlink', provider: b.dataset.unlink }, `Odvezati ${PROVIDERS[b.dataset.unlink]} račun?`, 'Račun odvezan.');
+  $('a_signout').onclick = () => act({ action: 'signout' }, 'Odjaviti igrača sa svih uređaja? Gost bez povezanog računa time gubi pristup svom saveu.', 'Odjavljen sa svih uređaja.');
+  $('a_delete').onclick = async () => {
+    if (prompt(`Za brisanje upiši: OBRIŠI\n\nIgrač: ${p.id}`) !== 'OBRIŠI') return;
+    try {
+      await api(`/players/${p.id}`, { method: 'DELETE' });
+      current = null;
+      $('detail').innerHTML = '<div class="empty">Igrač obrisan.</div>';
+      loadAll();
+    } catch (e) { message(e.message, false); }
+  };
+}
+
+function paneJson() {
+  const s = current.snapshot;
+  if (!s) { $('pane').innerHTML = '<div class="empty">Ovaj igrač još nema save u oblaku.</div>'; return; }
+  $('pane').innerHTML = `
+    <p class="note">Cijeli save igre. Mijenjaj pažljivo: prije spremanja provjerim je li ispravan, a stara verzija ide u kopije.</p>
+    <textarea id="j" spellcheck="false">${esc(JSON.stringify(s.data, null, 2))}</textarea>
+    <div class="actions">
+      <button class="primary" id="j_save">Spremi</button>
+      <a class="btn" href="/admin/api/players/${current.player.id}/raw" id="j_raw">Preuzmi save (datoteka)</a>
+    </div>`;
+  // The download needs the page's header too, so fetch it instead of following the link.
+  $('j_raw').onclick = async (e) => {
+    e.preventDefault();
+    const r = await fetch(e.currentTarget.href, { headers: { 'X-Luma-Admin': '1' } });
+    if (!r.ok) return message('Preuzimanje nije uspjelo.', false);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(await r.blob());
+    a.download = (r.headers.get('Content-Disposition') || '').match(/filename="(.+)"/)?.[1] || 'luma_save.txt';
+    a.click();
+  };
+  $('j_save').onclick = async () => {
+    let data;
+    try { data = JSON.parse($('j').value); }
+    catch (e) { return message('Tekst nije ispravan JSON (najčešće fali ili višak zarez): ' + e.message, false); }
+    try {
+      await api(`/players/${current.player.id}/save`, { method: 'PUT', body: JSON.stringify({ data }) });
+      await open(current.player.id); loadAll();
+      message('Spremljeno.', true);
+    } catch (e) { message(e.message, false, e.problems); }
+  };
+}
+
+function paneBackups() {
+  const list = current.backups;
+  $('pane').innerHTML = list.length ? `
+    <p class="note">Server sprema kopiju najviše jednom na sat dok igrač igra (zadnjih 20) i prije svake tvoje promjene. Vraćanje kopije također prvo spremi trenutni save.</p>
+    <table><tr><th>Kada</th><th></th></tr>
+    ${list.map((b) => `<tr><td>${when(b.created_at)}</td><td style="text-align:right"><button data-b="${b.id}">Vrati</button></td></tr>`).join('')}
+    </table>` : '<div class="empty">Još nema kopija.</div>';
+  for (const b of $('pane').querySelectorAll('[data-b]')) b.onclick = async () => {
+    if (!confirm('Vratiti ovu kopiju? Igrač na mobitelu dobije pitanje koji napredak zadržati.')) return;
+    try {
+      await api(`/players/${current.player.id}/restore`, { method: 'POST', body: JSON.stringify({ backupId: Number(b.dataset.b) }) });
+      await open(current.player.id); loadAll(); message('Kopija vraćena.', true);
+    } catch (e) { message(e.message, false); }
+  };
+}
+
+// Signed in already? (The cookie is HttpOnly, so ask the server.)
+api('/stats').then(() => { show(true); loadAll(); }).catch(() => show(false));
+</script>
+</body>
+</html>

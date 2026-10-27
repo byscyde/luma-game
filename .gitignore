@@ -27,3 +27,5 @@ __pycache__/
 .vscode/
 .idea/
 android/
+# Node (server/luma-cloud)
+node_modules/
