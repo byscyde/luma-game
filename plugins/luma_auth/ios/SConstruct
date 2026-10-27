@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+# Builds the LUMA sign-in GDExtension for iOS on top of godot-cpp (cloned into ./godot-cpp by
+# tools/ci/build_auth_plugin_ios.sh). Usage: scons platform=ios arch=arm64|x86_64 ios_simulator=no|yes
+import os
+
+env = SConscript("godot-cpp/SConstruct")
+env.Append(CPPPATH=["src/"])
+env.Append(CCFLAGS=["-fobjc-arc"])
+# -fmodules on the Objective-C++ file makes clang record AuthenticationServices & co. as
+# link options, so the app links them without changes to the exported Xcode project.
+objc = [env.Object(f, CCFLAGS=env["CCFLAGS"] + ["-fmodules", "-fcxx-modules"]) for f in Glob("src/*.mm")]
+sources = objc
+target = "bin/libluma_auth{}{}".format(env["suffix"], env["LIBSUFFIX"])
+library = env.StaticLibrary(target, source=sources)
+Default(library)

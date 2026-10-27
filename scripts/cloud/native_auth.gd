@@ -6,16 +6,26 @@ extends RefCounted
 ## desktop, tests) nothing is available and the buttons are hidden.
 ##
 ## Plugin contract:
+##   configure(config_json: String)     client ids from resources/cloud/cloud_config.json
 ##   is_available(provider: String) -> bool
 ##   sign_in(provider: String, nonce: String) -> void
 ##   sign_out(provider: String) -> void
 ##   signal sign_in_completed(provider: String, token: String, error: String)
 
 const SINGLETON := "LumaAuth"
+const CONFIG_PATH := "res://resources/cloud/cloud_config.json"
+
+static var _configured := false
 
 
 static func plugin() -> Object:
-	return Engine.get_singleton(SINGLETON) if Engine.has_singleton(SINGLETON) else null
+	if not Engine.has_singleton(SINGLETON):
+		return null
+	var p := Engine.get_singleton(SINGLETON)
+	if not _configured:
+		_configured = true
+		p.call("configure", FileAccess.get_file_as_string(CONFIG_PATH))
+	return p
 
 
 static func available(provider: String) -> bool:

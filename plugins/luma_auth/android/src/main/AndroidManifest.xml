@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- Godot finds the plugin through this entry (v2 plugin API). -->
+        <meta-data
+            android:name="org.godotengine.plugin.v2.LumaAuth"
+            android:value="com.scyde.lumaauth.LumaAuthPlugin" />
+        <!-- The Facebook redirect activity (fb<app id>://authorize) is added at export time by
+             addons/luma_auth/luma_auth_plugin.gd, because the app id is only known then. -->
+    </application>
+</manifest>

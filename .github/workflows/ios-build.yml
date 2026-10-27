@@ -74,6 +74,9 @@ jobs:
           xcrun --sdk iphoneos --show-sdk-version
           sw_vers
 
+      - name: Build the sign-in plugin (iOS GDExtension)
+        run: tools/ci/build_auth_plugin_ios.sh
+
       - name: Validate project
         run: |
           python3 tools/validate_levels.py
@@ -105,6 +108,7 @@ jobs:
           grep -q "PRODUCT_BUNDLE_IDENTIFIER = com.scyde.luma;" "$PBX" || grep -q 'PRODUCT_BUNDLE_IDENTIFIER = "com.scyde.luma";' "$PBX"
           grep -E "IPHONEOS_DEPLOYMENT_TARGET" "$PBX" | sort -u
           xcodebuild -list -project build/ios/LUMA.xcodeproj
+          grep -q "libluma_auth" "$PBX" || { echo "sign-in GDExtension is not linked"; exit 1; }
 
       - name: Build for iOS Simulator (no signing)
         # Godot's simulator library ships x86_64 objects only, so the simulator
@@ -116,7 +120,7 @@ jobs:
           xcodebuild -project build/ios/LUMA.xcodeproj -scheme "$SCHEME" -configuration Debug \
             -sdk iphonesimulator -destination "generic/platform=iOS Simulator" \
             -derivedDataPath build/ios/derived ARCHS=x86_64 ONLY_ACTIVE_ARCH=NO \
-            CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build/ios/simulator-build.log | tail -n 30
+            CODE_SIGNING_ALLOWED=NO OTHER_LDFLAGS='$(inherited) -Wl,-u,_luma_auth_init' build 2>&1 | tee build/ios/simulator-build.log | tail -n 30
           APP=$(find build/ios/derived/Build/Products -name "*.app" -maxdepth 3 | head -n 1)
           test -n "$APP" && echo "simulator app: $APP"
           /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APP/Info.plist"
@@ -126,7 +130,7 @@ jobs:
           set -euo pipefail
           xcodebuild -project build/ios/LUMA.xcodeproj -scheme "$SCHEME" -configuration Release \
             -sdk iphoneos -destination "generic/platform=iOS" -archivePath build/ios/LUMA-unsigned.xcarchive \
-            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" archive 2>&1 | tee build/ios/archive-unsigned.log | tail -n 30
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" OTHER_LDFLAGS='$(inherited) -Wl,-u,_luma_auth_init' archive 2>&1 | tee build/ios/archive-unsigned.log | tail -n 30
           test -d build/ios/LUMA-unsigned.xcarchive/Products/Applications
           (cd build/ios && ditto -c -k --keepParent LUMA-unsigned.xcarchive LUMA-unsigned-xcarchive.zip)
 
@@ -170,7 +174,8 @@ jobs:
           xcodebuild -project build/ios/LUMA.xcodeproj -scheme "$SCHEME" -configuration Release \
             -sdk iphoneos -destination "generic/platform=iOS" -archivePath build/ios/LUMA.xcarchive \
             DEVELOPMENT_TEAM="$TEAM" CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="Apple Distribution" \
-            PROVISIONING_PROFILE_SPECIFIER="$NAME" archive 2>&1 | tee build/ios/archive-signed.log | tail -n 30
+            CODE_SIGN_ENTITLEMENTS="$GITHUB_WORKSPACE/plugins/luma_auth/ios/LUMA.entitlements" \
+            PROVISIONING_PROFILE_SPECIFIER="$NAME" OTHER_LDFLAGS='$(inherited) -Wl,-u,_luma_auth_init' archive 2>&1 | tee build/ios/archive-signed.log | tail -n 30
           cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">

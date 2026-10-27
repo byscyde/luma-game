@@ -26,6 +26,15 @@ __pycache__/
 .DS_Store
 .vscode/
 .idea/
-android/
+/android/
 # Node (server/luma-cloud)
 node_modules/
+# Sign-in plugin build outputs (built in CI)
+plugins/luma_auth/android/build/
+plugins/luma_auth/android/.gradle/
+plugins/luma_auth/android/local.properties
+plugins/luma_auth/ios/godot-cpp/
+plugins/luma_auth/ios/bin/
+plugins/luma_auth/ios/.sconsign*.dblite
+addons/luma_auth/bin/
+addons/luma_auth/luma_auth.gdextension

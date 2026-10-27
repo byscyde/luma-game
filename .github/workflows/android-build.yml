@@ -10,7 +10,7 @@ on:
     branches: [main, develop, "release/**", "ci/**"]
     tags: ["v*"]
   pull_request:
-    paths: ["export_presets.cfg", "project.godot", ".github/workflows/android-build.yml", "tools/ci/**"]
+    paths: ["export_presets.cfg", "project.godot", ".github/workflows/android-build.yml", "tools/ci/**", "plugins/**", "addons/**"]
   workflow_dispatch:
   workflow_call:
     secrets:
@@ -70,6 +70,9 @@ jobs:
               "$ANDROID_HOME" "$JAVA_HOME" > ~/.config/godot/editor_settings-$v.tres
           done
 
+      - name: Build the sign-in plugin (Android AAR)
+        run: tools/ci/build_auth_plugin_android.sh
+
       - name: Validate project before export
         run: |
           python3 tools/validate_levels.py
@@ -90,7 +93,7 @@ jobs:
             -keyalg RSA -keysize 2048 -validity 3650 -dname "CN=Android Debug,O=Android,C=US" >/dev/null 2>&1
           GODOT_ANDROID_KEYSTORE_DEBUG_PATH="$KS" GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey \
           GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android \
-            "$GODOT" --headless --path . --export-debug "Android" build/android/luma-debug.apk
+            "$GODOT" --headless --path . --install-android-build-template --export-debug "Android" build/android/luma-debug.apk
           rm -f "$KS"
           test -s build/android/luma-debug.apk
 
@@ -105,8 +108,7 @@ jobs:
           export GODOT_ANDROID_KEYSTORE_RELEASE_PATH="$RUNNER_TEMP/release.keystore"
           echo "$KEYSTORE_B64" | base64 --decode > "$GODOT_ANDROID_KEYSTORE_RELEASE_PATH"
           "$GODOT" --headless --path . --export-release "Android" build/android/luma-release.apk
-          # The template install flag only works together with an export flag.
-          "$GODOT" --headless --path . --install-android-build-template --export-release "Android AAB" build/android/luma-release.aab
+          "$GODOT" --headless --path . --export-release "Android AAB" build/android/luma-release.aab
           rm -f "$GODOT_ANDROID_KEYSTORE_RELEASE_PATH"
           test -s build/android/luma-release.apk
           test -s build/android/luma-release.aab
@@ -122,6 +124,7 @@ jobs:
             "$BT/aapt" dump badging "$apk" | grep -q "name='com.scyde.luma'"
             "$BT/aapt" dump badging "$apk" | grep -q "versionCode='${{ github.run_number }}'"
             unzip -l "$apk" | grep -q "assets/resources/levels/world_01/w1_l30.json"
+            "$BT/aapt" dump xmltree "$apk" AndroidManifest.xml | grep -q "org.godotengine.plugin.v2.LumaAuth" || { echo "sign-in plugin missing from $apk"; exit 1; }
             if unzip -l "$apk" | grep -E "assets/(tests|tools)/"; then echo "test/tool files leaked into $apk"; exit 1; fi
             # Only VIBRATE and INTERNET (cloud save, D-021); anything else fails the build.
             PERMS=$("$BT/aapt" dump permissions "$apk" | sed -n "s/^uses-permission: name='\(.*\)'.*/\1/p" | sort -u)
@@ -129,6 +132,7 @@ jobs:
             for p in $PERMS; do
               case "$p" in
                 android.permission.VIBRATE|android.permission.INTERNET) ;;
+                com.scyde.luma.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION) ;;  # the app's own (androidx), not user-facing
                 *) echo "unexpected permission: $p"; exit 1 ;;
               esac
             done
