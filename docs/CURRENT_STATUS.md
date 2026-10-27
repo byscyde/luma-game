@@ -15,6 +15,14 @@ Old run links redirect. iOS builds now also emit `LUMA-unsigned.ipa` (owner re-s
 Each successful iOS build run is now also published as a pre-release `ios-build-<run>` under
 GitHub Releases with the unsigned IPA (D-016).
 
+## Session 6
+Merge-2 mode "LUMA Harbour" (Lantern Café) unlocks after level 30 (D-019,
+`docs/MERGE_DESIGN.md` phase 1): 7×9 board, 4 dish chains + generators, free planter with
+cooldown, crates, bubbles, scissors, chests, storage, sell/undo, energy (100, 1/2 min,
+offline regen, gem refills), 3 orders from characters, XP levels with unlocks, 3 story
+chapters (18 tasks, dialogues, designs). Verified: 102/102 tests (19 rules + 6 merge
+integration), screenshots light/dark. Not done yet: café scene art (phase 2), live-ops (3).
+
 ## Session 5
 Board redrawn as a crisp 2D tray (owner rejected the 3D board) and a new loading screen in
 the style of the owner's iosgame project, with key art rendered from the real island

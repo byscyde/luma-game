@@ -426,7 +426,14 @@ func _show_result(evaluation: Dictionary) -> void:
 	v.add_child(UI.spacer(8))
 	var cont := UI.button(UI.t("CONTINUE"), "play", "PrimaryButton", Vector2(0, 104))
 	cont.name = "ContinueButton"
-	cont.pressed.connect(func(): Router.go("island", {"from_level": level.id}))
+	var opens_harbour: bool = level.id == Game.content.level_order.back() and bool(last_receipt.get("first_completion", false))
+	if opens_harbour:
+		cont.text = UI.t("HARBOUR_OPEN")
+	cont.pressed.connect(func():
+		if opens_harbour:
+			Router.go("merge", {"intro": true})
+		else:
+			Router.go("island", {"from_level": level.id}))
 	v.add_child(cont)
 	var replay := UI.button(UI.t("REPLAY"), "reset", "SecondaryButton", Vector2(0, 88))
 	replay.name = "ReplayButton"

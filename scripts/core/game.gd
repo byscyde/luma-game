@@ -14,6 +14,9 @@ var progression: ProgressionModel
 var tutorial: TutorialModel
 var load_status := ""
 
+var _merge_db: MergeDB
+var _merge: MergeGame
+
 ## Set when a level is completed; the island scene consumes it to animate.
 var pending_receipt: Dictionary = {}
 
@@ -72,6 +75,31 @@ func _load() -> void:
 func _bind() -> void:
 	progression = ProgressionModel.new(content, data["progress"])
 	tutorial = TutorialModel.new(data["tutorial"])
+	_merge = null
+
+
+# ---------------------------------------------------------------- merge mode
+
+## LUMA Harbour (merge mode) opens once the last puzzle level is solved.
+func merge_unlocked() -> bool:
+	return not content.level_order.is_empty() and progression.is_completed(content.level_order.back())
+
+
+func merge_db() -> MergeDB:
+	if _merge_db == null:
+		_merge_db = MergeDB.load_default()
+		for e in _merge_db.errors:
+			push_error("Merge content: " + e)
+	return _merge_db
+
+
+## The merge rules bound to save["merge"] (created on first use).
+func merge_game() -> MergeGame:
+	if _merge == null:
+		if not data.has("merge") or typeof(data["merge"]) != TYPE_DICTIONARY:
+			data["merge"] = {}
+		_merge = MergeGame.new(merge_db(), data["merge"])
+	return _merge
 
 
 func save() -> bool:

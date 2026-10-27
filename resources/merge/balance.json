@@ -1,0 +1,197 @@
+{
+ "energy_cap": 100,
+ "energy_regen_s": 120,
+ "start_energy": 100,
+ "start_coins": 20,
+ "start_gems": 25,
+ "inventory_start": 4,
+ "inventory_max": 16,
+ "inventory_slot_gems": [
+  10,
+  20,
+  30,
+  40,
+  60,
+  80,
+  100,
+  120,
+  150,
+  180,
+  210,
+  250
+ ],
+ "bubble_chance": 0.08,
+ "bubble_min_level": 4,
+ "bubble_seconds": 60,
+ "bubble_gems_per_level": 3,
+ "sell_coins": [
+  0,
+  1,
+  1,
+  2,
+  3,
+  5,
+  8,
+  12,
+  18,
+  26,
+  40
+ ],
+ "sell_undo_s": 5,
+ "order_slots": 3,
+ "order_coins_per_level": [
+  0,
+  2,
+  4,
+  7,
+  11,
+  17,
+  26,
+  38,
+  55,
+  78,
+  110
+ ],
+ "order_xp_per_level": [
+  0,
+  1,
+  1,
+  2,
+  2,
+  3,
+  4,
+  5,
+  6,
+  8,
+  10
+ ],
+ "xp_to_next": "round(12 * level^1.45)",
+ "level_up_gems": [
+  5,
+  5,
+  6,
+  6,
+  7,
+  8,
+  9,
+  10,
+  12,
+  15
+ ],
+ "energy_refill_gems": [
+  10,
+  20,
+  40,
+  80
+ ],
+ "start_board": [
+  {
+   "cell": [
+    3,
+    4
+   ],
+   "id": "gen_coffee:1"
+  },
+  {
+   "cell": [
+    1,
+    4
+   ],
+   "id": "gen_bakery:1"
+  },
+  {
+   "cell": [
+    2,
+    6
+   ],
+   "id": "coffee:1"
+  },
+  {
+   "cell": [
+    4,
+    6
+   ],
+   "id": "bakery:1"
+  },
+  {
+   "cell": [
+    5,
+    4
+   ],
+   "id": "energy:1"
+  },
+  {
+   "cell": [
+    0,
+    0
+   ],
+   "id": "coffee:2",
+   "boxed": true
+  },
+  {
+   "cell": [
+    6,
+    0
+   ],
+   "id": "bakery:2",
+   "boxed": true
+  },
+  {
+   "cell": [
+    0,
+    8
+   ],
+   "id": "coffee:3",
+   "boxed": true
+  },
+  {
+   "cell": [
+    6,
+    8
+   ],
+   "id": "bakery:3",
+   "boxed": true
+  },
+  {
+   "cell": [
+    3,
+    0
+   ],
+   "id": "chest:1",
+   "boxed": true
+  },
+  {
+   "cell": [
+    0,
+    4
+   ],
+   "id": "coffee:2",
+   "boxed": true
+  },
+  {
+   "cell": [
+    6,
+    4
+   ],
+   "id": "bakery:2",
+   "boxed": true
+  }
+ ],
+ "level_unlock_items": {
+  "3": [
+   "gen_catch:1"
+  ],
+  "4": [
+   "gen_planter:1"
+  ],
+  "5": [
+   "gen_garden:1"
+  ],
+  "6": [
+   "scissors:1"
+  ],
+  "8": [
+   "chest:2"
+  ]
+ }
+}

@@ -1,0 +1,523 @@
+{
+ "cast": {
+  "nell": {
+   "name": "Nell",
+   "role": "Café owner",
+   "color": "e8875f"
+  },
+  "tobias": {
+   "name": "Tobias",
+   "role": "Old fisherman",
+   "color": "5b86b5"
+  },
+  "ada": {
+   "name": "Ada",
+   "role": "Baker",
+   "color": "d7a33f"
+  },
+  "rafe": {
+   "name": "Mayor Rafe",
+   "role": "Mayor",
+   "color": "7d5ba6"
+  },
+  "juno": {
+   "name": "Juno",
+   "role": "Botanist",
+   "color": "4fa37a"
+  },
+  "pip": {
+   "name": "Pip",
+   "role": "Café otter",
+   "color": "a0785a"
+  }
+ },
+ "chapters": [
+  {
+   "id": "ch1",
+   "title": "Ashes and Lanterns",
+   "reward": {
+    "gems": 15,
+    "energy": 50
+   },
+   "tasks": [
+    {
+     "id": "c1_debris",
+     "title": "Clear the burnt debris",
+     "cost": 15,
+     "area": "debris",
+     "dialogue": [
+      [
+       "nell",
+       "Grandpa's café... there's nothing left but ash."
+      ],
+      [
+       "tobias",
+       "Nell Marlowe? Didn't think you'd ever come back."
+      ],
+      [
+       "nell",
+       "Neither did I. But the Lantern Café deserves better than this."
+      ]
+     ]
+    },
+    {
+     "id": "c1_floor",
+     "title": "Lay a new floor",
+     "cost": 30,
+     "area": "floor",
+     "dialogue": [
+      [
+       "tobias",
+       "The fire started in the back. Odd, the stove was never used at night."
+      ],
+      [
+       "nell",
+       "You think someone started it?"
+      ],
+      [
+       "tobias",
+       "I think I've said too much."
+      ]
+     ],
+     "designs": [
+      "Oak planks",
+      "Sea-blue tiles",
+      "Terracotta"
+     ]
+    },
+    {
+     "id": "c1_counter",
+     "title": "Build a coffee counter",
+     "cost": 45,
+     "area": "counter",
+     "dialogue": [
+      [
+       "ada",
+       "Nell! I brought croissants. Old habit."
+      ],
+      [
+       "nell",
+       "Ada! You still bake for the whole island?"
+      ],
+      [
+       "ada",
+       "Someone has to. Now, about that counter..."
+      ]
+     ],
+     "designs": [
+      "Driftwood",
+      "White marble",
+      "Painted teal"
+     ]
+    },
+    {
+     "id": "c1_tables",
+     "title": "Set out two tables",
+     "cost": 60,
+     "area": "tables",
+     "dialogue": [
+      [
+       "pip",
+       "*squeak*"
+      ],
+      [
+       "nell",
+       "An otter? In my café?"
+      ],
+      [
+       "ada",
+       "That's Pip. Your grandpa fed him every morning. He's yours now."
+      ]
+     ],
+     "designs": [
+      "Round bistro",
+      "Picnic benches",
+      "Rattan"
+     ]
+    },
+    {
+     "id": "c1_lantern",
+     "title": "Hang the old lantern",
+     "cost": 80,
+     "area": "lantern",
+     "dialogue": [
+      [
+       "nell",
+       "The lantern survived. Grandpa said it lit the way home for sailors."
+      ],
+      [
+       "rafe",
+       "Charming. Though the harbour is due for... redevelopment."
+      ],
+      [
+       "nell",
+       "Redevelopment?"
+      ],
+      [
+       "rafe",
+       "We'll talk. Welcome home, Miss Marlowe."
+      ]
+     ]
+    },
+    {
+     "id": "c1_open",
+     "title": "Open the doors",
+     "cost": 100,
+     "area": "sign",
+     "dialogue": [
+      [
+       "tobias",
+       "First coffee in three years. Tastes like the old days."
+      ],
+      [
+       "nell",
+       "The Lantern Café is open again!"
+      ],
+      [
+       "pip",
+       "*happy squeak*"
+      ]
+     ],
+     "designs": [
+      "Hand-painted sign",
+      "Brass letters",
+      "Rope & shells"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ch2",
+   "title": "The Dry Spring",
+   "reward": {
+    "gems": 20,
+    "energy": 80
+   },
+   "tasks": [
+    {
+     "id": "c2_pipes",
+     "title": "Fix the water pipes",
+     "cost": 120,
+     "area": "kitchen",
+     "dialogue": [
+      [
+       "nell",
+       "No water. The pipes are fine, so where did it go?"
+      ],
+      [
+       "juno",
+       "The island springs dried up the night of the fire. That's no coincidence."
+      ],
+      [
+       "nell",
+       "Who are you?"
+      ],
+      [
+       "juno",
+       "Juno. I study the island's plants. And its secrets."
+      ]
+     ]
+    },
+    {
+     "id": "c2_terrace",
+     "title": "Clear the terrace",
+     "cost": 150,
+     "area": "terrace",
+     "dialogue": [
+      [
+       "ada",
+       "The terrace used to be packed on summer nights."
+      ],
+      [
+       "ada",
+       "Your grandpa and the mayor argued out here the week before the fire."
+      ],
+      [
+       "nell",
+       "About what?"
+      ],
+      [
+       "ada",
+       "Nobody heard. Or nobody says."
+      ]
+     ],
+     "designs": [
+      "Stone pavers",
+      "Wooden deck",
+      "Pebble mosaic"
+     ]
+    },
+    {
+     "id": "c2_planters",
+     "title": "Plant herb boxes",
+     "cost": 180,
+     "area": "planters",
+     "dialogue": [
+      [
+       "juno",
+       "Herbs only grow where water returns. Look: sprouts already."
+      ],
+      [
+       "nell",
+       "The puzzle springs... someone restored them."
+      ],
+      [
+       "juno",
+       "Someone did. You, I think."
+      ]
+     ],
+     "designs": [
+      "Lavender",
+      "Mint & basil",
+      "Wildflowers"
+     ]
+    },
+    {
+     "id": "c2_awning",
+     "title": "Put up an awning",
+     "cost": 220,
+     "area": "awning",
+     "dialogue": [
+      [
+       "rafe",
+       "An awning? You're settling in, I see."
+      ],
+      [
+       "nell",
+       "I'm staying, Mayor."
+      ],
+      [
+       "rafe",
+       "Then you'll want to read this letter. Your grandfather's debts didn't burn with the café."
+      ]
+     ],
+     "designs": [
+      "Striped red",
+      "Sail canvas",
+      "Leafy pergola"
+     ]
+    },
+    {
+     "id": "c2_ledger",
+     "title": "Find grandpa's ledger",
+     "cost": 260,
+     "area": "office",
+     "dialogue": [
+      [
+       "tobias",
+       "He kept a ledger hidden under the counter. Always did."
+      ],
+      [
+       "nell",
+       "Every debt is paid... in full. The mayor lied."
+      ],
+      [
+       "tobias",
+       "Then ask yourself why he wants this harbour so badly."
+      ]
+     ]
+    },
+    {
+     "id": "c2_fountain",
+     "title": "Restore the fountain",
+     "cost": 300,
+     "area": "fountain",
+     "dialogue": [
+      [
+       "juno",
+       "Listen. Water."
+      ],
+      [
+       "nell",
+       "The fountain's running again!"
+      ],
+      [
+       "pip",
+       "*splash*"
+      ],
+      [
+       "juno",
+       "The spring under the café is the island's oldest. Whoever owns the café owns the water."
+      ]
+     ],
+     "designs": [
+      "Shell basin",
+      "Lion head",
+      "Mosaic star"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ch3",
+   "title": "Who Lit the Fire?",
+   "reward": {
+    "gems": 30,
+    "energy": 100
+   },
+   "tasks": [
+    {
+     "id": "c3_kitchen",
+     "title": "Rebuild the kitchen",
+     "cost": 360,
+     "area": "kitchen2",
+     "dialogue": [
+      [
+       "ada",
+       "A real kitchen! Now I can teach you my berry pie."
+      ],
+      [
+       "nell",
+       "Ada, the night of the fire, you were here late. Why?"
+      ],
+      [
+       "ada",
+       "...I was meeting someone. I can't say who. Not yet."
+      ]
+     ],
+     "designs": [
+      "Copper pots",
+      "White enamel",
+      "Rustic brick"
+     ]
+    },
+    {
+     "id": "c3_dock",
+     "title": "Repair the dock",
+     "cost": 420,
+     "area": "dock",
+     "dialogue": [
+      [
+       "tobias",
+       "Boats can moor here again. Customers by sea!"
+      ],
+      [
+       "tobias",
+       "I saw a lantern on the water that night. Moving toward the café."
+      ],
+      [
+       "nell",
+       "A boat? Whose?"
+      ],
+      [
+       "tobias",
+       "Couldn't tell. But it had the town hall's flag."
+      ]
+     ]
+    },
+    {
+     "id": "c3_lights",
+     "title": "String festival lights",
+     "cost": 480,
+     "area": "lights",
+     "dialogue": [
+      [
+       "juno",
+       "The whole harbour is glowing. The island feels alive."
+      ],
+      [
+       "rafe",
+       "Impressive. The council will want to... inspect."
+      ],
+      [
+       "nell",
+       "Let them. I've got nothing to hide. Have you?"
+      ]
+     ],
+     "designs": [
+      "Warm bulbs",
+      "Paper lanterns",
+      "Seashell lights"
+     ]
+    },
+    {
+     "id": "c3_letter",
+     "title": "Read the burnt letter",
+     "cost": 540,
+     "area": "office2",
+     "dialogue": [
+      [
+       "nell",
+       "Half a letter, from Grandpa to Ada: 'If anything happens, protect the spring.'"
+      ],
+      [
+       "ada",
+       "He knew someone wanted it. I promised him. I just didn't know who."
+      ],
+      [
+       "nell",
+       "We're going to find out. Together."
+      ]
+     ]
+    },
+    {
+     "id": "c3_stage",
+     "title": "Build a music stage",
+     "cost": 620,
+     "area": "stage",
+     "dialogue": [
+      [
+       "pip",
+       "*drums on a pot*"
+      ],
+      [
+       "nell",
+       "A harbour festival. Everyone will come."
+      ],
+      [
+       "juno",
+       "Even the person who lit the fire."
+      ]
+     ],
+     "designs": [
+      "Driftwood stage",
+      "Painted bandstand",
+      "Boat stage"
+     ]
+    },
+    {
+     "id": "c3_festival",
+     "title": "Host the Lantern Festival",
+     "cost": 720,
+     "area": "festival",
+     "dialogue": [
+      [
+       "rafe",
+       "...Fine. I took the boat that night. I wanted the deed, not a fire."
+      ],
+      [
+       "rafe",
+       "When I got there, the café was already burning. Someone else was there."
+      ],
+      [
+       "nell",
+       "Then who?"
+      ],
+      [
+       "tobias",
+       "To be continued, lass. Some secrets take more than one night."
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "intro": [
+  [
+   "nell",
+   "Thirty springs flowing again... and the old harbour is still in ruins."
+  ],
+  [
+   "tobias",
+   "The Lantern Café. Your grandfather's pride, before the fire."
+  ],
+  [
+   "nell",
+   "Then I'll bring it back. Coffee, bread, fresh catch. One order at a time."
+  ],
+  [
+   "tobias",
+   "Drag two of the same thing together and you'll make something better. Folks here are hungry, lass."
+  ]
+ ]
+}

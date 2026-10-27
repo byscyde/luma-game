@@ -8,6 +8,7 @@ const SCENES := {
 	"island": "res://scenes/island/island.tscn",
 	"collection": "res://scenes/menus/collection.tscn",
 	"settings": "res://scenes/menus/settings.tscn",
+	"merge": "res://scenes/merge/merge.tscn",
 }
 
 var params: Dictionary = {}

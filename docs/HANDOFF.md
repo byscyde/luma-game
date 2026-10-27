@@ -55,14 +55,13 @@ regression test. Not yet in an IPA → **trigger a new iOS build** and ask the o
 re-test on the phone.
 
 ## 4. Next tasks (in order)
-Session 4 finished the board / level-screen redesign, dark mode, splash + loading screen,
-app icon and 120 Hz work (D-017). Next:
-1. Owner tests the new IPA on the phone (FPS counter in Settings) and reports issues.
-2. Planned: port to **Unity** (owner's decision, after this Godot pass). Start with a written
-   port plan; Unity needs the owner's Unity licence as a GitHub secret before CI can build.
-3. Open questions for the owner: iOS build on every push to `feature/mvp-core`? Public vs
-   draft IPA releases (D-016)?
-4. Then `docs/MASTER_PLAN.md` (World 2, store-readiness checklist).
+1. Merge mode phase 2 (`docs/MERGE_DESIGN.md`): illustrated Lantern Café scene that changes
+   with each renovation task and shows the chosen design; character portraits; daily reward
+   calendar; generator boost; order-quest chains. Then phase 3 offline live-ops.
+2. Owner decision needed: real-money purchases / ads (currently excluded, D-019).
+3. iOS builds: GitHub often fails to assign a macOS runner within 15 min (no step runs);
+   re-run later or use a self-hosted Mac / paid plan.
+4. Later: Unity port (owner's plan) and World 2 for the puzzle mode.
 
 ## 5. Working rules that matter
 - Never claim a build/test passed without seeing it; report failures with output.

@@ -39,6 +39,8 @@ func _ready() -> void:
 	var play_text := UI.t("PLAY")
 	if next != "" and Game.progression.completed_count() > 0:
 		play_text = UI.t("CONTINUE_LEVEL") % Game.content.level_number(next)
+	if Game.merge_unlocked():
+		play_text = UI.t("HARBOUR")
 	var play := UI.button(play_text, "play", "PrimaryButton", Vector2(0, 116))
 	play.name = "PlayButton"
 	play.pressed.connect(_on_play)
@@ -70,6 +72,9 @@ func _ready() -> void:
 
 
 func _on_play() -> void:
+	if Game.merge_unlocked():
+		Router.go("merge")
+		return
 	var next := Game.progression.next_level_id()
 	if next == "" or not Game.progression.is_level_unlocked(next):
 		Router.go("island")  # all done, or the next area must be awakened first

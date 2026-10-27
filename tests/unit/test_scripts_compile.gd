@@ -28,7 +28,8 @@ func test_all_game_and_tool_scripts_compile() -> void:
 
 func test_all_scenes_load() -> void:
 	for f in ["res://scenes/boot/boot.tscn", "res://scenes/menus/main_menu.tscn", "res://scenes/gameplay/gameplay.tscn",
-			"res://scenes/island/island.tscn", "res://scenes/menus/collection.tscn", "res://scenes/menus/settings.tscn"]:
+			"res://scenes/island/island.tscn", "res://scenes/menus/collection.tscn", "res://scenes/menus/settings.tscn",
+			"res://scenes/merge/merge.tscn"]:
 		var ps: PackedScene = load(f)
 		assert_not_null(ps, f)
 		if ps:

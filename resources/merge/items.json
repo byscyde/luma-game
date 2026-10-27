@@ -1,0 +1,689 @@
+{
+ "board": {
+  "cols": 7,
+  "rows": 9
+ },
+ "chains": {
+  "coffee": {
+   "kind": "food",
+   "names": [
+    "Coffee Beans",
+    "Bean Scoop",
+    "Ground Coffee",
+    "Espresso",
+    "Cappuccino",
+    "Latte",
+    "Iced Latte",
+    "Mocha",
+    "Coffee Cake",
+    "Lantern Layer Cake"
+   ],
+   "unlock_level": 1
+  },
+  "bakery": {
+   "kind": "food",
+   "names": [
+    "Flour",
+    "Dough",
+    "Bread Roll",
+    "Croissant",
+    "Baguette",
+    "Sandwich",
+    "Club Sandwich",
+    "Fruit Tart",
+    "Berry Pie",
+    "Celebration Pie"
+   ],
+   "unlock_level": 1
+  },
+  "catch": {
+   "kind": "food",
+   "names": [
+    "Seashell",
+    "Clam",
+    "Small Fish",
+    "Fresh Fish",
+    "Grilled Fish",
+    "Fish & Chips",
+    "Fish Tacos",
+    "Seafood Soup",
+    "Lobster",
+    "Seafood Platter"
+   ],
+   "unlock_level": 3
+  },
+  "garden": {
+   "kind": "food",
+   "names": [
+    "Seed",
+    "Sprout",
+    "Herb Pot",
+    "Tea Leaves",
+    "Herbal Tea",
+    "Flower Pot",
+    "Sunflower",
+    "Rose",
+    "Flower Basket",
+    "Wedding Bouquet"
+   ],
+   "unlock_level": 5
+  },
+  "gen_coffee": {
+   "kind": "generator",
+   "produces": "coffee",
+   "unlock_level": 1,
+   "names": [
+    "Coffee Grinder I",
+    "Coffee Grinder II",
+    "Coffee Grinder III",
+    "Coffee Grinder IV",
+    "Coffee Grinder V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "coffee",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "coffee",
+      1,
+      85
+     ],
+     [
+      "coffee",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "coffee",
+      1,
+      70
+     ],
+     [
+      "coffee",
+      2,
+      25
+     ],
+     [
+      "coffee",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "coffee",
+      1,
+      55
+     ],
+     [
+      "coffee",
+      2,
+      32
+     ],
+     [
+      "coffee",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "coffee",
+      1,
+      40
+     ],
+     [
+      "coffee",
+      2,
+      38
+     ],
+     [
+      "coffee",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_bakery": {
+   "kind": "generator",
+   "produces": "bakery",
+   "unlock_level": 1,
+   "names": [
+    "Flour Sack I",
+    "Flour Sack II",
+    "Flour Sack III",
+    "Flour Sack IV",
+    "Flour Sack V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "bakery",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "bakery",
+      1,
+      85
+     ],
+     [
+      "bakery",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "bakery",
+      1,
+      70
+     ],
+     [
+      "bakery",
+      2,
+      25
+     ],
+     [
+      "bakery",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "bakery",
+      1,
+      55
+     ],
+     [
+      "bakery",
+      2,
+      32
+     ],
+     [
+      "bakery",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "bakery",
+      1,
+      40
+     ],
+     [
+      "bakery",
+      2,
+      38
+     ],
+     [
+      "bakery",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_catch": {
+   "kind": "generator",
+   "produces": "catch",
+   "unlock_level": 3,
+   "names": [
+    "Fishing Net I",
+    "Fishing Net II",
+    "Fishing Net III",
+    "Fishing Net IV",
+    "Fishing Net V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "catch",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "catch",
+      1,
+      85
+     ],
+     [
+      "catch",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "catch",
+      1,
+      70
+     ],
+     [
+      "catch",
+      2,
+      25
+     ],
+     [
+      "catch",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "catch",
+      1,
+      55
+     ],
+     [
+      "catch",
+      2,
+      32
+     ],
+     [
+      "catch",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "catch",
+      1,
+      40
+     ],
+     [
+      "catch",
+      2,
+      38
+     ],
+     [
+      "catch",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_garden": {
+   "kind": "generator",
+   "produces": "garden",
+   "unlock_level": 5,
+   "names": [
+    "Seed Tin I",
+    "Seed Tin II",
+    "Seed Tin III",
+    "Seed Tin IV",
+    "Seed Tin V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "garden",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "garden",
+      1,
+      85
+     ],
+     [
+      "garden",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "garden",
+      1,
+      70
+     ],
+     [
+      "garden",
+      2,
+      25
+     ],
+     [
+      "garden",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "garden",
+      1,
+      55
+     ],
+     [
+      "garden",
+      2,
+      32
+     ],
+     [
+      "garden",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "garden",
+      1,
+      40
+     ],
+     [
+      "garden",
+      2,
+      38
+     ],
+     [
+      "garden",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_planter": {
+   "kind": "generator",
+   "produces": "garden",
+   "unlock_level": 4,
+   "names": [
+    "Herb Planter I",
+    "Herb Planter II",
+    "Herb Planter III"
+   ],
+   "energy": 0,
+   "charges": [
+    5,
+    6,
+    8
+   ],
+   "cooldown": [
+    1800,
+    1500,
+    1200
+   ],
+   "drops": [
+    [
+     [
+      "garden",
+      1,
+      80
+     ],
+     [
+      "garden",
+      2,
+      20
+     ]
+    ],
+    [
+     [
+      "garden",
+      1,
+      65
+     ],
+     [
+      "garden",
+      2,
+      30
+     ],
+     [
+      "energy",
+      1,
+      5
+     ]
+    ],
+    [
+     [
+      "garden",
+      1,
+      50
+     ],
+     [
+      "garden",
+      2,
+      38
+     ],
+     [
+      "energy",
+      1,
+      12
+     ]
+    ]
+   ]
+  },
+  "coins": {
+   "kind": "resource",
+   "resource": "coins",
+   "names": [
+    "Coin",
+    "Coin Stack",
+    "Coin Pouch",
+    "Coin Chest",
+    "Treasure"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20,
+    50
+   ]
+  },
+  "gems": {
+   "kind": "resource",
+   "resource": "gems",
+   "names": [
+    "Gem",
+    "Gem Pair",
+    "Gem Cluster",
+    "Gem Crown"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20
+   ]
+  },
+  "energy": {
+   "kind": "resource",
+   "resource": "energy",
+   "names": [
+    "Energy Drop",
+    "Energy Bottle",
+    "Energy Jug",
+    "Energy Barrel",
+    "Energy Fountain"
+   ],
+   "values": [
+    5,
+    12,
+    25,
+    60,
+    150
+   ]
+  },
+  "chest": {
+   "kind": "chest",
+   "names": [
+    "Wooden Chest",
+    "Silver Chest",
+    "Golden Chest"
+   ],
+   "timer": [
+    900,
+    3600,
+    14400
+   ],
+   "rush_gems": [
+    4,
+    10,
+    25
+   ],
+   "contents": [
+    [
+     [
+      "coffee",
+      1
+     ],
+     [
+      "bakery",
+      1
+     ],
+     [
+      "coins",
+      1
+     ]
+    ],
+    [
+     [
+      "coffee",
+      2
+     ],
+     [
+      "bakery",
+      2
+     ],
+     [
+      "catch",
+      2
+     ],
+     [
+      "energy",
+      1
+     ],
+     [
+      "coins",
+      2
+     ]
+    ],
+    [
+     [
+      "coffee",
+      3
+     ],
+     [
+      "bakery",
+      3
+     ],
+     [
+      "catch",
+      3
+     ],
+     [
+      "garden",
+      3
+     ],
+     [
+      "energy",
+      2
+     ],
+     [
+      "gems",
+      1
+     ],
+     [
+      "coins",
+      3
+     ],
+     [
+      "scissors",
+      1
+     ]
+    ]
+   ]
+  },
+  "scissors": {
+   "kind": "tool",
+   "names": [
+    "Scissors"
+   ]
+  }
+ }
+}

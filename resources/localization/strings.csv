@@ -103,3 +103,48 @@ LOAD_TIP_3,"Undo as often as you like, there is no penalty."
 LOAD_TIP_4,A lever opens every gate with the same colour and shape.
 LOAD_TIP_5,"Hints are free. Ask whenever you are stuck."
 LOAD_TIP_6,Close every open channel for the No spills bonus.
+HARBOUR,Lantern Café
+HARBOUR_OPEN,Open the Lantern Café
+INVENTORY,Storage
+TASKS,Tasks
+SERVE,Serve
+SELL,Sell
+STORE,Store
+POP,Pop
+RUSH,Open
+SOLD,Sold
+ENERGY,Energy
+GEMS,Gems
+ENERGY_FULL,Energy is full.
+ENERGY_NEXT,Next energy in %s
+BUY_REFILL,+%d energy for %d gems
+BUY_SLOT,One more slot for %d gems
+NOT_ENOUGH_GEMS,Not enough gems
+NOT_ENOUGH_COINS,Not enough coins
+BOARD_FULL,"The board is full. Merge, sell or store something."
+INVENTORY_FULL,Storage is full
+INVENTORY_HINT,Tap an item to put it back on the board.
+COOLDOWN,Recharging… come back soon.
+CHEST_OPENING,The chest is opening…
+CHEST_STARTED,The chest started opening.
+CHEST_READY,Ready! Tap to open.
+CHEST_HINT,Tap to start opening.
+CRATE_HINT,In a crate. Merge a matching item onto it to free it.
+BUBBLE_HINT,Bonus bubble! Pop it before it disappears.
+RESOURCE_HINT,Tap to collect. Merge first for more.
+SCISSORS_HINT,Drag onto an item to split it into two smaller ones.
+GEN_HINT_ENERGY,Tap to make items (1 energy)
+GEN_HINT_FREE,"Free to tap, recharges over time"
+ITEM_LEVEL,Level %d/%d
+MAX_LEVEL,Highest level
+MERGE_NEXT,Merge two to make %s
+MERGE_HINT_TITLE,Merge to serve
+MERGE_HINT_BODY,"Tap a generator, then drag two matching items together."
+CHAPTER_N,Chapter %d
+TASKS_DONE,%d of %d done
+CHOOSE_DESIGN,Choose a design. You can change it later for free.
+CHAPTER_DONE,Chapter complete!
+STORY_TBC,New chapters coming soon
+LEVEL_UP,Level up!
+LEVEL_UP_BODY,Energy refilled and gems added. New items unlocked.
+TAP_TO_CONTINUE,Tap to continue

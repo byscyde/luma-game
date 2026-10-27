@@ -2,6 +2,16 @@
 
 Newest first. Each entry: context → decision → consequences.
 
+### D-019 · Merge-2 mode "LUMA Harbour" after level 30 (2026-10-27)
+Owner asked for Gossip Harbor's mechanics, progression and look after the 30 puzzle levels.
+Mechanics/genre conventions are followed closely (energy, generators, merging, crates,
+bubbles, scissors, chests, orders, XP levels, coins/gems, storage, sell with undo, renovation
+tasks with story scenes and free-switchable designs); Microfun's characters, story, setting,
+names and artwork are **not** copied — original cast/mystery and procedural icons
+(`ItemArt`). Rules are a pure `MergeGame` on `save["merge"]` with wall-clock energy; content
+in `resources/merge/*.json`. Real-money purchases, ads and online live-ops are excluded until
+the owner decides (offline app, no INTERNET permission). Full plan: `docs/MERGE_DESIGN.md`.
+
 ### D-018 · 2D puzzle board; iosgame-style loading screen (2026-10-26)
 Owner rejected the 3D low-poly board ("worst look ever"). The board is now drawn crisp and
 top-down in 2D (`BoardView` tray + `TileView` per tile): dark teal tray with recessed slots,

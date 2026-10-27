@@ -13,11 +13,12 @@ const EVENTS := [
 	"level_completed", "level_failed", "level_restarted", "hint_used",
 	"island_restoration_completed", "area_unlocked", "decoration_unlocked",
 	"session_ended", "save_recovered", "achievement_unlocked",
+	"merge_order_served", "merge_task_done",
 ]
 const ALLOWED_PARAMS := [
 	"level_id", "area_id", "moves", "par", "optional_met", "duration_s",
 	"hint_count", "undo_count", "decoration_id", "achievement_id", "status",
-	"session_s", "levels_completed", "build",
+	"session_s", "levels_completed", "build", "items", "task_id",
 ]
 
 var enabled := true
