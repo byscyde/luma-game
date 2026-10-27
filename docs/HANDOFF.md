@@ -57,8 +57,9 @@ re-test on the phone.
 ## 4. Next tasks (in order)
 Follow `docs/ISLANDS_PLAN.md`: each island = puzzle game (30 solver-checked levels) + merge
 location; café hub unlocks islands.
-1. All six islands are done (see `docs/ISLANDS_PLAN.md`). Next: playtest balancing of the
-   island levels and merge economies.
+1. Cloud save: once the owner has set up the server and sent the ids, fill in
+   `resources/cloud/cloud_config.json` and test sign-in on real phones (see D-021).
+2. Playtest balancing of the island levels and merge economies.
 3. Lantern Café phase 2 (café scene art) — `docs/MERGE_DESIGN.md`.
 4. Owner decisions pending: real-money purchases/ads; Unity port timing.
 5. iOS CI: GitHub often fails to assign a macOS runner within 15 min; re-run later.

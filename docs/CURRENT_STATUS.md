@@ -15,6 +15,15 @@ Old run links redirect. iOS builds now also emit `LUMA-unsigned.ipa` (owner re-s
 Each successful iOS build run is now also published as a pre-release `ios-build-<run>` under
 GitHub Releases with the unsigned IPA (D-016).
 
+## Session 8 (cloud save)
+Cloud save like FOUNDERS (D-021): `server/luma-cloud` (Node + MariaDB, separate service on the
+FOUNDERS server, web admin `/admin`), `Cloud` autoload (guest player, automatic upload, conflict
+choice, account deletion), Settings → Cloud save, native sign-in plugins (`plugins/luma_auth`:
+Apple/Google/Facebook on iOS, Google/Facebook on Android). Loading screen now tours all six
+islands. **Waiting on the owner**: server setup (`server/luma-cloud/README.md`), the domain
+(config assumes `https://luma.scyde.dev`), Google client ids, Facebook app id/secret, Sign in with
+Apple capability. Sign-in has not been tried on a device yet (needs those ids).
+
 ## Session 7
 Archipelago started (D-020): islands map, Ember Reef (sliding rows/columns) with 30 generated,
 verified levels, unlocked by the café task "Open the doors"; café chapter 2 needs Ember Reef;

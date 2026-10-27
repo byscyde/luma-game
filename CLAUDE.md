@@ -33,6 +33,9 @@ godot --headless --path . res://tools/generate_light_levels.tscn   # Lantern Bay
 godot --headless --path . res://tools/generate_push_levels.tscn    # Stone Steps levels (slow: ~1 h, deterministic)
 godot --headless --path . res://tools/generate_bridge_levels.tscn  # Rope Isles levels (~2 min, deterministic)
 godot --headless --path . res://tools/generate_match_levels.tscn   # Moon Grove levels (~15 s, deterministic)
+(cd server/luma-cloud && npm test)          # cloud save server + admin (needs a local MariaDB, see test file)
+tools/ci/build_auth_plugin_android.sh     # sign-in AAR (JDK 17+, ANDROID_HOME) -> addons/luma_auth/bin/
+tools/ci/build_auth_plugin_ios.sh         # sign-in GDExtension xcframework (macOS + Xcode)
 # visual QA (needs a display; Xvfb works):
 xvfb-run -a -s "-screen 0 1280x1400x24" godot --path . --resolution 720x1280 --rendering-driver opengl3 \
   --audio-driver Dummy res://tools/screenshot_tour.tscn -- --save-path=user://tour.json
@@ -60,6 +63,9 @@ referencing it fail to compile — `test_scripts_compile.gd` catches this.
   `scripts/cloud/`; off in headless runs). Tests set `Router.dry_run`; cloud tests use `Cloud.use_for_tests`.
 - Cloud save (D-021): server `server/luma-cloud` (Node + MariaDB, admin dashboard at `/admin`,
   `npm test` with a local MariaDB); never overwrite a cloud save silently — a conflict asks the player.
+- Sign-in (`plugins/luma_auth`): one "LumaAuth" singleton contract (`scripts/cloud/native_auth.gd`) for
+  the Android v2 plugin (Kotlin) and the iOS GDExtension (Obj-C++); client ids only in
+  `resources/cloud/cloud_config.json`; the Android preset uses the Gradle build.
 - Merge mode (after level 30): rules in `scripts/merge/merge_game.gd` (pure, clock passed in as
   `now`), content in `resources/merge/*.json`, state in `save["merge"]`; see `docs/MERGE_DESIGN.md`.
 - Islands 2–6 (`docs/ISLANDS_PLAN.md`): registry `resources/islands/islands.json`, progress in
