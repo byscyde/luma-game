@@ -920,7 +920,11 @@ class LevelBadge extends Control:
 		sb.border_color = Color.WHITE
 		sb.set_border_width_all(4)
 		draw_style_box(sb, r)
-		ItemArt.draw_bust(self, "nell", r.grow(-6))
+		var face := MergeArt.texture("face:nell")
+		if face:
+			draw_texture_rect(face, r.grow(-5), false)
+		else:
+			ItemArt.draw_bust(self, "nell", r.grow(-6))
 		var bar := Rect2(r.position + Vector2(10, r.size.y - 12), Vector2(r.size.x - 20, 8))
 		draw_rect(bar, Color(0, 0, 0, 0.35))
 		draw_rect(Rect2(bar.position, Vector2(bar.size.x * clampf(progress, 0, 1), bar.size.y)), Color("ffcf2e"))

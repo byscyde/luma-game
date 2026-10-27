@@ -1,14 +1,16 @@
 extends RefCounted
-## Customer and host busts (bust_<who>.png).
+## The pets' busts (bust_<who>.png, face_<who>.png); people come from tools/art/render_people.py.
 
 const Character3D := preload("res://tools/art/character_3d.gd")
 
 
 static func keys() -> Array:
 	var out := []
+	# people are rendered realistically by tools/art/render_people.py; the pets stay here
 	for who in PortraitArt.LOOKS:
-		out.append("bust:" + who)
-		out.append("face:" + who)
+		if PortraitArt.LOOKS[who].has("animal"):
+			out.append("bust:" + who)
+			out.append("face:" + who)
 	return out
 
 

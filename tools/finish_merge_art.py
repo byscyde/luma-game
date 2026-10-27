@@ -14,6 +14,9 @@ from PIL import Image, ImageDraw, ImageFilter
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ART = os.path.join(ROOT, "assets", "merge", "art")
 SOURCE = "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)"
+PEOPLE_SOURCE = ("Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, "
+                 "makehuman_system_assets (CC0) and faceunits01 (CC0)")
+PEOPLE_LICENSE = "Proprietary - SCYDE (render); MakeHuman assets CC0"
 LICENSE = "Proprietary - SCYDE (original work)"
 
 
@@ -35,11 +38,17 @@ def sync_manifest():
     with open(mpath) as f:
         man = json.load(f)
     files = sorted(os.path.relpath(p, ROOT).replace(os.sep, "/") for p in glob.glob(os.path.join(ART, "*.png")))
-    keep = [e for e in man["assets"] if not e["path"].startswith("assets/merge/art/") or e["path"] in files]
-    listed = {e["path"] for e in keep}
+    import re
+    people = set()
+    rp = os.path.join(ROOT, "tools", "art", "render_people.py")
+    if os.path.exists(rp):
+        people = set(re.findall(r'^    "([a-z]+)": dict\(', open(rp).read(), re.M))
+    keep = [e for e in man["assets"] if not e["path"].startswith("assets/merge/art/")]
     for p in files:
-        if p not in listed:
-            keep.append({"path": p, "source": SOURCE, "license": LICENSE})
+        who = os.path.basename(p)[:-4].split("_", 1)[-1]
+        realistic = os.path.basename(p).startswith(("bust_", "face_")) and who in people
+        keep.append({"path": p, "source": PEOPLE_SOURCE if realistic else SOURCE,
+                     "license": PEOPLE_LICENSE if realistic else LICENSE})
     man["assets"] = keep
     with open(mpath, "w") as f:
         json.dump(man, f, indent=2)

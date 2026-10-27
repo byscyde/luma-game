@@ -308,13 +308,13 @@
     },
     {
       "path": "assets/merge/art/bust_ada.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_bram.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_dusk.png",
@@ -323,28 +323,28 @@
     },
     {
       "path": "assets/merge/art/bust_hana.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_ines.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_isolde.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_juno.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_kai.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_kiki.png",
@@ -353,23 +353,23 @@
     },
     {
       "path": "assets/merge/art/bust_luna.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_marek.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_marisol.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_nell.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_pebble.png",
@@ -383,13 +383,13 @@
     },
     {
       "path": "assets/merge/art/bust_rafe.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_silas.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_sparky.png",
@@ -398,23 +398,23 @@
     },
     {
       "path": "assets/merge/art/bust_tobias.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_toma.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_ula.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_vesna.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/bust_wick.png",
@@ -598,13 +598,13 @@
     },
     {
       "path": "assets/merge/art/face_ada.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_bram.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_dusk.png",
@@ -613,28 +613,28 @@
     },
     {
       "path": "assets/merge/art/face_hana.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_ines.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_isolde.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_juno.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_kai.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_kiki.png",
@@ -643,23 +643,23 @@
     },
     {
       "path": "assets/merge/art/face_luna.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_marek.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_marisol.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_nell.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_pebble.png",
@@ -673,13 +673,13 @@
     },
     {
       "path": "assets/merge/art/face_rafe.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_silas.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_sparky.png",
@@ -688,23 +688,23 @@
     },
     {
       "path": "assets/merge/art/face_tobias.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_toma.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_ula.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_vesna.png",
-      "source": "Rendered by tools/bake_merge_art.tscn (SDF models in tools/art/, original work, SCYDE)",
-      "license": "Proprietary - SCYDE (original work)"
+      "source": "Rendered by tools/art/render_people.py in Blender from MakeHuman models: MPFB 2, makehuman_system_assets (CC0) and faceunits01 (CC0)",
+      "license": "Proprietary - SCYDE (render); MakeHuman assets CC0"
     },
     {
       "path": "assets/merge/art/face_wick.png",
