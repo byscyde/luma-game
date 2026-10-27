@@ -1,0 +1,48 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". . / . . .",
+    ". \\ . . / .",
+    ". . f\\ # . .",
+    "\\ C . . C .",
+    ". \\ C . . LW",
+    "X \\ D f/ D #",
+    "\\ . / . # ."
+  ],
+  "h": 7,
+  "id": "lb_l22",
+  "island": "lantern_bay",
+  "name": "Crystal Cove",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 6
+      }
+    ]
+  },
+  "par": 4,
+  "rewards": {
+    "cafe_coins": 50,
+    "essence": 34
+  },
+  "solution": [
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      0,
+      6
+    ]
+  ],
+  "w": 6
+}

@@ -160,3 +160,9 @@ ISLAND_UNLOCKED,New island unlocked: %s!
 CHAPTER_NEEDS_ISLAND,Finish %s to open the next chapter.
 GO_THERE,Go there
 LOCATION_LOCKED,%s: finish all levels to open
+LIGHT_TUTORIAL,Tap a round mirror to turn it. Guide the lantern light to every crystal.
+LIGHT_TUTORIAL_BLOOM,Night blooms must stay dark: keep every beam away from them.
+LIGHT_TUTORIAL_PRISM,A prism splits a beam in two: one half turns left and one turns right.
+CRYSTALS_LIT,Crystals %d/%d
+BLOOMS_BURNT,%d bloom lit
+LIGHT_RESULT,The bay is glowing!

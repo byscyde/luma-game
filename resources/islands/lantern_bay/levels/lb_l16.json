@@ -1,0 +1,43 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". . LS f/ . .",
+    ". . . . C C",
+    "\\ D f\\ . . X",
+    ". . / \\ \\ .",
+    "D # . / . /",
+    "# . . . # ."
+  ],
+  "h": 6,
+  "id": "lb_l16",
+  "island": "lantern_bay",
+  "name": "First Prism",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 5
+      }
+    ]
+  },
+  "par": 3,
+  "rewards": {
+    "cafe_coins": 38,
+    "essence": 28
+  },
+  "solution": [
+    [
+      3,
+      3
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      3,
+      4
+    ]
+  ],
+  "w": 6
+}

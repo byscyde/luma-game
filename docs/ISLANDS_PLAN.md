@@ -35,5 +35,10 @@ coins and gems stay per location in phase 1 (shared wallet is a later option).
 - [x] Island 2 Reef Grill merge location: `resources/merge/reef_grill`, 4 chains (grill,
       seaweed, smoothie, pearl), free Coconut Palm, 2 chapters / 12 tasks, own state in
       `save["merge_loc"]["reef_grill"]`, opens when Ember Reef is complete
-- [ ] Island 3 Lantern Bay (mirrors & light) + Lighthouse Workshop (next)
+- [x] Island 3 Lantern Bay — puzzle: `LightBoard`/`LightSolver` (`scripts/light/`), tap round
+      mirrors (/ ↔ \\), fixed square mirrors, rocks, prisms (split left/right), crystals (must be
+      lit) and night blooms (must stay dark); 30 generated levels
+      (`tools/generate_light_levels.tscn`), par = fewest taps proven by the exhaustive solver;
+      unlocked by café task `c2_fountain`
+- [ ] Island 3 Lighthouse Workshop merge location (next)
 - [ ] Islands 3–6

@@ -150,5 +150,5 @@ func _show_levels(id: String) -> void:
 			var sb: StyleBox = ThemeBuilder.build().get_stylebox("normal", "SecondaryButton").duplicate()
 			sb.content_margin_bottom = 40
 			b.add_theme_stylebox_override("normal", sb)
-		b.pressed.connect(func(): Router.go("slide", {"level_id": lv["id"]}))
+		b.pressed.connect(func(): Router.go(str(isl.get("scene", "slide")), {"level_id": lv["id"]}))
 		grid.add_child(b)

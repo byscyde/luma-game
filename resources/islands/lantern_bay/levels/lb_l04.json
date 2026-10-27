@@ -1,0 +1,38 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". . \\ C",
+    ". . . .",
+    ". f/ . .",
+    ". \\ / .",
+    ". LN # ."
+  ],
+  "h": 5,
+  "id": "lb_l04",
+  "island": "lantern_bay",
+  "name": "Night Ferry",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 3
+      }
+    ]
+  },
+  "par": 2,
+  "rewards": {
+    "cafe_coins": 14,
+    "essence": 16
+  },
+  "solution": [
+    [
+      2,
+      0
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "w": 4
+}

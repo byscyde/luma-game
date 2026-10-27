@@ -1,0 +1,38 @@
+{
+  "format_version": 1,
+  "grid": [
+    "\\ . C / .",
+    "C . . . #",
+    "\\ / . . .",
+    ". . . f/ .",
+    ". LN # . ."
+  ],
+  "h": 5,
+  "id": "lb_l07",
+  "island": "lantern_bay",
+  "name": "Two Crystals",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 3
+      }
+    ]
+  },
+  "par": 2,
+  "rewards": {
+    "cafe_coins": 20,
+    "essence": 19
+  },
+  "solution": [
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "w": 5
+}

@@ -25,7 +25,8 @@
     "id": "reef_grill",
     "name": "Reef Grill",
     "dir": "res://resources/merge/reef_grill"
-   }
+   },
+   "scene": "slide"
   },
   {
    "id": "lantern_bay",
@@ -36,7 +37,8 @@
    "unlock": {
     "cafe_task": "c2_fountain"
    },
-   "coming_soon": true
+   "levels": "res://resources/islands/lantern_bay/levels",
+   "scene": "light"
   },
   {
    "id": "stone_steps",

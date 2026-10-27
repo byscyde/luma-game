@@ -19,7 +19,9 @@ GitHub Releases with the unsigned IPA (D-016).
 Archipelago started (D-020): islands map, Ember Reef (sliding rows/columns) with 30 generated,
 verified levels, unlocked by the café task "Open the doors"; café chapter 2 needs Ember Reef;
 island levels pay café coins. Reef Grill (Ember Reef's merge location) added: own board, chains,
-cast and two chapters; opens when Ember Reef is complete. Next: Lantern Bay (island 3).
+cast and two chapters; opens when Ember Reef is complete. Lantern Bay (island 3, mirrors &
+light) added: `scripts/light/`, 30 generated levels with solver-proven par, unlocked by café task
+"c2_fountain"; 123/123 tests. Next: Lighthouse Workshop (Lantern Bay's merge location).
 
 ## Session 6
 Merge-2 mode "LUMA Harbour" (Lantern Café) unlocks after level 30 (D-019,

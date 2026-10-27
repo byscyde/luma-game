@@ -1,0 +1,43 @@
+{
+  "format_version": 1,
+  "grid": [
+    "/ / . . f\\ #",
+    ". . D D \\ .",
+    "/ . / . . #",
+    ". C . . . .",
+    ". . C f\\ . \\",
+    ". LN # . X ."
+  ],
+  "h": 6,
+  "id": "lb_l18",
+  "island": "lantern_bay",
+  "name": "Fog Bank",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 5
+      }
+    ]
+  },
+  "par": 3,
+  "rewards": {
+    "cafe_coins": 42,
+    "essence": 30
+  },
+  "solution": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      2
+    ]
+  ],
+  "w": 6
+}

@@ -1,0 +1,53 @@
+{
+  "format_version": 1,
+  "grid": [
+    "LE . C / . . .",
+    ". f\\ . . # . .",
+    ". . . . \\ . LW",
+    "C . / . / f\\ X",
+    ". \\ C D . . f/",
+    ". # / . C \\ .",
+    "# \\ \\ X D D .",
+    ". # . . . / ."
+  ],
+  "h": 8,
+  "id": "lb_l28",
+  "island": "lantern_bay",
+  "name": "Aurora Cliffs",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 7
+      }
+    ]
+  },
+  "par": 5,
+  "rewards": {
+    "cafe_coins": 62,
+    "essence": 40
+  },
+  "solution": [
+    [
+      4,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      5,
+      5
+    ]
+  ],
+  "w": 7
+}

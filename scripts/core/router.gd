@@ -11,6 +11,7 @@ const SCENES := {
 	"merge": "res://scenes/merge/merge.tscn",
 	"islands": "res://scenes/menus/islands.tscn",
 	"slide": "res://scenes/islands/slide.tscn",
+	"light": "res://scenes/islands/light.tscn",
 }
 
 var params: Dictionary = {}

@@ -1,0 +1,43 @@
+{
+  "format_version": 1,
+  "grid": [
+    "LS \\ . # f/ .",
+    "/ . X D . #",
+    ". D / \\ / .",
+    ". . . . . .",
+    ". C C \\ . f\\",
+    ". . . # . ."
+  ],
+  "h": 6,
+  "id": "lb_l19",
+  "island": "lantern_bay",
+  "name": "Signal Rock",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 5
+      }
+    ]
+  },
+  "par": 3,
+  "rewards": {
+    "cafe_coins": 44,
+    "essence": 31
+  },
+  "solution": [
+    [
+      0,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      3,
+      4
+    ]
+  ],
+  "w": 6
+}

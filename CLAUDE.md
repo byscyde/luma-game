@@ -28,6 +28,7 @@ python3 tools/generate_audio.py          # regenerate all sound (deterministic)
 python3 tools/build_brand_assets.py      # app icon, splash, logo from art/source masters
 xvfb-run -a godot --path . --rendering-driver opengl3 res://tools/render_key_art.tscn && python3 tools/paint_key_art.py  # loading art
 godot --headless --path . res://tools/generate_slide_levels.tscn   # Ember Reef levels (slow: ~1 h, deterministic)
+godot --headless --path . res://tools/generate_light_levels.tscn   # Lantern Bay levels (~3 min, deterministic)
 # visual QA (needs a display; Xvfb works):
 xvfb-run -a -s "-screen 0 1280x1400x24" godot --path . --resolution 720x1280 --rendering-driver opengl3 \
   --audio-driver Dummy res://tools/screenshot_tour.tscn -- --save-path=user://tour.json
@@ -55,7 +56,8 @@ referencing it fail to compile — `test_scripts_compile.gd` catches this.
 - Merge mode (after level 30): rules in `scripts/merge/merge_game.gd` (pure, clock passed in as
   `now`), content in `resources/merge/*.json`, state in `save["merge"]`; see `docs/MERGE_DESIGN.md`.
 - Islands 2–6 (`docs/ISLANDS_PLAN.md`): registry `resources/islands/islands.json`, progress in
-  `save["islands"]`, unlocked by café tasks. Ember Reef rules in `scripts/slide/`.
+  `save["islands"]`, unlocked by café tasks. Ember Reef rules in `scripts/slide/`, Lantern Bay in `scripts/light/`;
+  an island's level screen is its `scene` in `islands.json`.
 
 ## Git workflow
 - Branches: `main` (stable), `feature/*`, `fix/*`, `release/*`. Small descriptive commits.

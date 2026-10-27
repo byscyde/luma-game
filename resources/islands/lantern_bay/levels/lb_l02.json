@@ -1,0 +1,33 @@
+{
+  "format_version": 1,
+  "grid": [
+    "LE / . .",
+    ". \\ C .",
+    ". . . .",
+    ". . . ."
+  ],
+  "h": 4,
+  "id": "lb_l02",
+  "island": "lantern_bay",
+  "name": "Harbour Glow",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 2
+      }
+    ]
+  },
+  "par": 1,
+  "rewards": {
+    "cafe_coins": 10,
+    "essence": 14
+  },
+  "solution": [
+    [
+      1,
+      0
+    ]
+  ],
+  "w": 4
+}
