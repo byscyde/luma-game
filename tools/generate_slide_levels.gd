@@ -3,7 +3,7 @@ extends Node
 ## build a solved grid from random channel paths, add decoys, scramble with
 ## legal moves, then measure the shortest solution with SlideSolver (falls back
 ## to the scramble length when the search budget is exceeded). Deterministic.
-##   godot --headless --path . res://tools/generate_slide_levels.tscn
+##   godot --headless --path . res://tools/generate_slide_levels.tscn [-- --from=N --to=M]
 ## Output: resources/islands/ember_reef/levels/er_lNN.json
 
 const OUT := "res://resources/islands/ember_reef/levels"
@@ -35,7 +35,14 @@ var rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT))
-	for i in range(1, 31):
+	var first := 1
+	var last := 30
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--from="):
+			first = int(a.substr(7))
+		elif a.begins_with("--to="):
+			last = int(a.substr(5))
+	for i in range(first, last + 1):
 		var lvl := {}
 		var attempt := 0
 		while lvl.is_empty():
@@ -167,7 +174,8 @@ func _make(i: int, sp: Dictionary) -> Dictionary:
 	if b.solved():
 		return {}
 	d["grid"] = b.to_grid()
-	var sol := SlideSolver.solve(b, 120000, int(sp["scramble"]))
+	# big boards: a smaller search budget; when it runs out, the (replayed) scramble is the par
+	var sol := SlideSolver.solve(b, 120000 if i <= 26 else 25000, int(sp["scramble"]))
 	var proven: bool = sol["status"] == SlideSolver.SOLVED
 	var solution: Array = sol["moves"] if proven else _inverse_all(scramble)
 	if solution.size() < int(sp["min_par"]):
