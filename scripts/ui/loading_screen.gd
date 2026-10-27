@@ -1,9 +1,10 @@
 class_name LoadingScreen
 extends Control
-## The loading screen: paintings of the restored island (assets/branding/
-## loading_1..4, rendered from the real 3D island by tools/render_key_art.gd and
-## graded by tools/paint_key_art.py) drift slowly in a Ken Burns move and
-## dissolve into one another, each with its own chapter caption, while
+## The loading screen: a tour of the archipelago. One painting per island
+## (assets/branding/loading_1..6: Verdant Isle from the real 3D island, the other
+## five from their real game boards, rendered by tools/render_key_art.gd and graded
+## by tools/paint_key_art.py) drift slowly in a Ken Burns move and dissolve into one
+## another, each with its island's name and line, while
 ## fireflies rise from the bottom. The title sits at the top; the progress bar,
 ## a tip and the version along the bottom. Paintings fill any screen shape.
 ##
@@ -28,9 +29,14 @@ const SCENES := [
 		"s0": 1.06, "s1": 1.15, "from": Vector2(-0.02, 0.0), "to": Vector2(0.01, -0.01)},
 	{"img": "res://assets/branding/loading_4.jpg", "title": "LOAD_CH4_TITLE", "line": "LOAD_CH4_LINE",
 		"s0": 1.13, "s1": 1.05, "from": Vector2(-0.015, -0.01), "to": Vector2(0.015, 0.005)},
+	{"img": "res://assets/branding/loading_5.jpg", "title": "LOAD_CH5_TITLE", "line": "LOAD_CH5_LINE",
+		"s0": 1.05, "s1": 1.13, "from": Vector2(0.015, 0.01), "to": Vector2(-0.01, -0.01)},
+	{"img": "res://assets/branding/loading_6.jpg", "title": "LOAD_CH6_TITLE", "line": "LOAD_CH6_LINE",
+		"s0": 1.12, "s1": 1.05, "from": Vector2(-0.01, 0.0), "to": Vector2(0.02, 0.01)},
 ]
-const NUMERALS := ["I", "II", "III", "IV"]
-const TIPS := ["LOAD_TIP_1", "LOAD_TIP_2", "LOAD_TIP_3", "LOAD_TIP_4", "LOAD_TIP_5", "LOAD_TIP_6"]
+const NUMERALS := ["I", "II", "III", "IV", "V", "VI"]
+const TIPS := ["LOAD_TIP_1", "LOAD_TIP_2", "LOAD_TIP_3", "LOAD_TIP_4", "LOAD_TIP_5", "LOAD_TIP_6",
+	"LOAD_TIP_7", "LOAD_TIP_8", "LOAD_TIP_9", "LOAD_TIP_10", "LOAD_TIP_11", "LOAD_TIP_12"]
 const STATUS := ["LOAD_STATUS_1", "LOAD_STATUS_2", "LOAD_STATUS_3", "LOAD_STATUS_4"]
 
 var progress := 0.0            ## set by the owner, 0..1

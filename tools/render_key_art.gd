@@ -1,7 +1,8 @@
 extends Node
-## Renders the loading-screen key art from the real 3D island, fully restored,
-## in several moods. Output: build/key_art/<shot>.png (1080x1920), which
-## tools/paint_key_art.py grades into assets/branding/loading_<n>.jpg.
+## Renders the loading-screen key art: Verdant Isle from the real 3D island, fully
+## restored, then one painting per archipelago island made from that island's real
+## game board, solved, on its own sky. Output: build/key_art/<shot>.png (1080x1920),
+## which tools/paint_key_art.py grades into assets/branding/loading_<n>.jpg.
 ##   xvfb-run -a godot --path . --rendering-driver opengl3 res://tools/render_key_art.tscn
 
 const SIZE := Vector2i(1080, 1920)
@@ -70,4 +71,131 @@ func _ready() -> void:
 		var path := ProjectSettings.globalize_path(OUT.path_join(String(s["name"]) + ".png"))
 		vp.get_texture().get_image().save_png(path)
 		print("saved ", path)
+	vp.queue_free()
+	for shot in ISLAND_SHOTS:
+		await _render_island(shot)
 	get_tree().quit()
+
+
+## Archipelago islands: sky gradient (top, bottom), glow colour, board tilt (degrees), level.
+const ISLAND_SHOTS := [
+	{"name": "ember", "top": Color("3b1d2e"), "bottom": Color("e0703f"), "glow": Color(1.0, 0.6, 0.3), "tilt": -7.0, "level": 26},
+	{"name": "lantern", "top": Color("0c1430"), "bottom": Color("2a3f72"), "glow": Color(1.0, 0.85, 0.45), "tilt": 6.0, "level": 29},
+	{"name": "steps", "top": Color("a9c7b0"), "bottom": Color("6f8a5a"), "glow": Color(1.0, 0.95, 0.8), "tilt": -5.0, "level": 20},
+	{"name": "rope", "top": Color("9fd8ec"), "bottom": Color("2c7fa8"), "glow": Color(1.0, 1.0, 0.9), "tilt": 5.0, "level": 21},
+	{"name": "grove", "top": Color("120f2e"), "bottom": Color("3b2f6e"), "glow": Color(0.8, 0.75, 1.0), "tilt": -6.0, "level": 25},
+]
+
+
+func _render_island(shot: Dictionary) -> void:
+	var vp := SubViewport.new()
+	vp.size = SIZE
+	vp.transparent_bg = false
+	vp.msaa_2d = Viewport.MSAA_8X
+	vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	add_child(vp)
+	var sky := KeyArtSky.new()
+	sky.top = shot["top"]
+	sky.bottom = shot["bottom"]
+	sky.glow = shot["glow"]
+	sky.size = Vector2(SIZE)
+	vp.add_child(sky)
+	var board := _island_board(str(shot["name"]), int(shot["level"]))
+	board.size = Vector2(SIZE.x * 1.08, SIZE.y * 0.72)
+	board.position = Vector2(SIZE.x * -0.04, SIZE.y * 0.17)
+	board.pivot_offset = board.size * 0.5
+	board.rotation_degrees = float(shot["tilt"])
+	vp.add_child(board)
+	await get_tree().create_timer(1.2).timeout
+	await RenderingServer.frame_post_draw
+	var path := ProjectSettings.globalize_path(OUT.path_join(String(shot["name"]) + ".png"))
+	vp.get_texture().get_image().save_png(path)
+	print("saved ", path)
+	vp.queue_free()
+
+
+## A late level of the island's game, solved, in its real board view.
+func _island_board(name: String, index: int) -> Control:
+	match name:
+		"ember":
+			var lv: Dictionary = Game.island_levels("ember_reef")[index]
+			var sb := SlideBoard.from_dict(lv)
+			for m in lv["solution"]:
+				sb.apply(m)
+			var v := SlideBoardView.new()
+			v.frame_ring = true
+			v.inner_w = sb.w
+			v.inner_h = sb.h
+			v.input_enabled = false
+			v.ready.connect(func():
+				v.setup(sb.puzzle_board())
+				for p in v.views:
+					var inner: bool = p.x >= 1 and p.y >= 1 and p.x <= sb.w and p.y <= sb.h
+					v.views[p].block = inner
+					v.views[p].quiet = not inner
+				v.apply_water(sb.simulate(), false))
+			return v
+		"lantern":
+			var lv: Dictionary = Game.island_levels("lantern_bay")[index]
+			var lb := LightBoard.from_dict(lv)
+			for c in lv["solution"]:
+				lb.toggle(Vector2i(int(c[0]), int(c[1])))
+			var v := LightBoardView.new()
+			v.input_enabled = false
+			v.ready.connect(func():
+				v.setup(lb)
+				v.show_trace(lb.trace(), false))
+			return v
+		"steps":
+			var lv: Dictionary = Game.island_levels("stone_steps")[index]
+			var pb := PushBoard.from_dict(lv)
+			var sol: Array = lv["solution"]
+			for i in sol.size() - 3:
+				pb.step(sol[i])
+			var v := PushBoardView.new()
+			v.input_enabled = false
+			v.ready.connect(func(): v.setup(pb))
+			return v
+		"rope":
+			var lv: Dictionary = Game.island_levels("rope_isles")[index]
+			var bb := BridgeBoard.from_dict(lv)
+			for e in lv["solution"]:
+				var k := bb.link_between(bb.island_at(Vector2i(int(e[0]), int(e[1]))), bb.island_at(Vector2i(int(e[2]), int(e[3]))))
+				for n in int(e[4]):
+					bb.tap(k)
+			var v := BridgeBoardView.new()
+			v.input_enabled = false
+			v.ready.connect(func(): v.setup(bb))
+			return v
+		_:
+			var lv: Dictionary = Game.island_levels("moon_grove")[index]
+			var mb := MatchBoard.from_dict(lv)
+			var sol: Array = lv["solution"]
+			for i in mini(6, sol.size()):
+				var m: Array = sol[i]
+				mb.swap(Vector2i(int(m[0]), int(m[1])), Vector2i(int(m[2]), int(m[3])))
+			var v := MatchBoardView.new()
+			v.input_enabled = false
+			v.ready.connect(func(): v.setup(mb))
+			return v
+
+
+## Sky behind an island board: a vertical gradient, a soft glow and a few stars.
+class KeyArtSky:
+	extends Control
+	var top := Color.BLACK
+	var bottom := Color.BLACK
+	var glow := Color.WHITE
+
+	func _draw() -> void:
+		var n := 48
+		for k in n:
+			var r := Rect2(0, size.y * k / n, size.x, size.y / n + 1)
+			draw_rect(r, top.lerp(bottom, float(k) / (n - 1)))
+		for k in 10:
+			draw_circle(Vector2(size.x * 0.72, size.y * 0.12), size.x * (0.05 + k * 0.05), Color(glow, 0.05))
+		var rng := RandomNumberGenerator.new()
+		rng.seed = 7
+		for k in 60:
+			var p := Vector2(rng.randf() * size.x, rng.randf() * size.y * 0.2)
+			draw_circle(p, rng.randf_range(1.0, 3.0), Color(1, 1, 1, rng.randf_range(0.15, 0.6)))

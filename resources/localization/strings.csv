@@ -86,23 +86,33 @@ THEME_DARK,Dark
 SHOW_FPS,Show FPS counter
 LOADING,Loading…
 LOAD_CH1_TITLE,Verdant Isle
-LOAD_CH1_LINE,"A forgotten island, waiting for the water to return."
-LOAD_CH2_TITLE,Spring Glade
-LOAD_CH2_LINE,Where the first spring wakes beneath the palms.
-LOAD_CH3_TITLE,Heart Falls
-LOAD_CH3_LINE,"High above, the old falls are ready to run again."
-LOAD_CH4_TITLE,Lily Ponds
-LOAD_CH4_LINE,"Still water, blossoms, and the koi coming home."
-LOAD_STATUS_1,Waking the spring…
-LOAD_STATUS_2,Carving the channels…
-LOAD_STATUS_3,Calling the rain…
+LOAD_CH1_LINE,"Where it began: turn the old channels, bring the water home."
+LOAD_CH2_TITLE,Ember Reef
+LOAD_CH2_LINE,"Warm coral and sliding stone: shift the rows, steer the tide."
+LOAD_CH3_TITLE,Lantern Bay
+LOAD_CH3_LINE,"Night harbour: turn the mirrors, light every crystal."
+LOAD_CH4_TITLE,Stone Steps
+LOAD_CH4_LINE,"Tea terraces in the mist: push the boulders, turn the water."
+LOAD_STATUS_1,Waking the islands…
+LOAD_STATUS_2,Raising the bridges…
+LOAD_STATUS_3,Lighting the lanterns…
 LOAD_STATUS_4,Ready
-LOAD_TIP_1,Round stones turn when you tap them. Square stones stay put.
+LOAD_TIP_1,"Verdant Isle: round stones turn when you tap them, square stones stay put."
 LOAD_TIP_2,Water must reach every sapling to finish a level.
 LOAD_TIP_3,"Undo as often as you like, there is no penalty."
-LOAD_TIP_4,A lever opens every gate with the same colour and shape.
+LOAD_TIP_4,"Verdant Isle: a lever opens every gate with the same colour and shape."
 LOAD_TIP_5,"Hints are free. Ask whenever you are stuck."
 LOAD_TIP_6,Close every open channel for the No spills bonus.
+LOAD_CH5_TITLE,Rope Isles
+LOAD_CH5_LINE,"A market on a hundred islets: tie them together with rope."
+LOAD_CH6_TITLE,Moon Grove
+LOAD_CH6_LINE,"The grove that blooms at night: match the moonflowers, lift the moss."
+LOAD_TIP_7,"Ember Reef: blocks slide off one edge and come back on the other."
+LOAD_TIP_8,"Lantern Bay: a prism splits a beam in two. Keep the night blooms dark."
+LOAD_TIP_9,"Stone Steps: a boulder pushed into a corner is stuck. Undo and try another way."
+LOAD_TIP_10,"Rope Isles: the number on an islet is how many bridges it needs."
+LOAD_TIP_11,"Moon Grove: four in a row makes a lantern, five makes a moon orb."
+LOAD_TIP_12,"Sign in under Settings → Cloud save to keep your progress on a new phone."
 HARBOUR,Lantern Café
 HARBOUR_OPEN,Open the Lantern Café
 INVENTORY,Storage

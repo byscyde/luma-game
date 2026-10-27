@@ -16,14 +16,19 @@ from PIL import Image, ImageFilter
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "assets", "branding")
 
-# Order on the loading screen (loading_1 ... loading_4).
-SHOTS = ["dawn", "glade", "falls", "ponds"]
+# Order on the loading screen (loading_1 ... loading_6): Verdant Isle, then the five islands.
+SHOTS = ["dawn", "ember", "lantern", "steps", "rope", "grove"]
 LOOK = {
     #          warm   bloom  sat   vignette  lift (shadow tint)
     "dawn":  (0.16, 0.38, 1.06, 0.38, (0.10, 0.05, 0.08)),
     "glade": (0.06, 0.28, 1.08, 0.32, (0.02, 0.05, 0.08)),
     "falls": (0.08, 0.30, 1.06, 0.34, (0.03, 0.05, 0.08)),
     "ponds": (0.10, 0.32, 1.07, 0.34, (0.04, 0.05, 0.08)),
+    "ember": (0.18, 0.40, 1.08, 0.40, (0.10, 0.03, 0.05)),
+    "lantern": (0.04, 0.46, 1.04, 0.42, (0.02, 0.03, 0.10)),
+    "steps": (0.08, 0.26, 1.05, 0.32, (0.04, 0.06, 0.04)),
+    "rope": (0.06, 0.30, 1.08, 0.32, (0.02, 0.05, 0.08)),
+    "grove": (0.02, 0.44, 1.06, 0.42, (0.06, 0.03, 0.10)),
 }
 
 

@@ -309,8 +309,9 @@ func _http(method: int, url: String, headers: PackedStringArray, body: String) -
 	req.queue_free()
 	if int(res[0]) != HTTPRequest.RESULT_SUCCESS:
 		return {"status": 0, "json": {}}
-	var j = JSON.parse_string((res[3] as PackedByteArray).get_string_from_utf8())
-	return {"status": int(res[1]), "json": j if j is Dictionary else {}}
+	var json := JSON.new()   # a proxy error page is not JSON: no engine error for that
+	var ok := json.parse((res[3] as PackedByteArray).get_string_from_utf8()) == OK
+	return {"status": int(res[1]), "json": json.data if ok and json.data is Dictionary else {}}
 
 
 # ------------------------------------------------------------------ conflict dialog

@@ -73,17 +73,27 @@
     },
     {
       "path": "assets/branding/loading_2.jpg",
-      "source": "Rendered from the game's own 3D island (shot \"glade\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
+      "source": "Rendered from the game's own Ember Reef board (shot \"ember\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
       "license": "Proprietary - SCYDE (original work)"
     },
     {
       "path": "assets/branding/loading_3.jpg",
-      "source": "Rendered from the game's own 3D island (shot \"falls\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
+      "source": "Rendered from the game's own Lantern Bay board (shot \"lantern\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
       "license": "Proprietary - SCYDE (original work)"
     },
     {
       "path": "assets/branding/loading_4.jpg",
-      "source": "Rendered from the game's own 3D island (shot \"ponds\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
+      "source": "Rendered from the game's own Stone Steps board (shot \"steps\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/branding/loading_5.jpg",
+      "source": "Rendered from the game's own Rope Isles board (shot \"rope\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
+      "license": "Proprietary - SCYDE (original work)"
+    },
+    {
+      "path": "assets/branding/loading_6.jpg",
+      "source": "Rendered from the game's own Moon Grove board (shot \"grove\") by tools/render_key_art.gd and graded by tools/paint_key_art.py (original work)",
       "license": "Proprietary - SCYDE (original work)"
     },
     {
