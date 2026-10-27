@@ -1,0 +1,88 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". I0 . L1 L3",
+    "# I3 L0 # I0",
+    "L1 L2 Y2 L1 I1",
+    "L0 I1 L0 Y3 I1",
+    "Y3 I0 L2 L1 I1"
+  ],
+  "h": 5,
+  "id": "er_l28",
+  "island": "ember_reef",
+  "locked_cols": [
+    4
+  ],
+  "locked_rows": [
+    0
+  ],
+  "name": "Lantern Shoal",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 8
+      }
+    ]
+  },
+  "par": 6,
+  "par_proven": false,
+  "rewards": {
+    "cafe_coins": 61,
+    "essence": 38
+  },
+  "solution": [
+    [
+      "r",
+      1,
+      -1
+    ],
+    [
+      "r",
+      2,
+      1
+    ],
+    [
+      "r",
+      3,
+      1
+    ],
+    [
+      "c",
+      2,
+      -1
+    ],
+    [
+      "r",
+      3,
+      -1
+    ],
+    [
+      "r",
+      2,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 3,
+    "side": "E"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 2,
+      "side": "E"
+    },
+    {
+      "id": "T2",
+      "index": 1,
+      "side": "N"
+    },
+    {
+      "id": "T3",
+      "index": 1,
+      "side": "S"
+    }
+  ],
+  "w": 5
+}

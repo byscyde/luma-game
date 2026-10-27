@@ -1,0 +1,83 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L2 L1 L3 L0 L1",
+    "Y0 L2 I1 L1 L2",
+    "L2 L2 Y2 . L0",
+    "L0 I1 L3 I0 L0",
+    ". L3 # I0 ."
+  ],
+  "h": 5,
+  "id": "er_l27",
+  "island": "ember_reef",
+  "locked_cols": [
+    2
+  ],
+  "locked_rows": [
+    3
+  ],
+  "name": "Smoke Reef",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 8
+      }
+    ]
+  },
+  "par": 6,
+  "par_proven": false,
+  "rewards": {
+    "cafe_coins": 59,
+    "essence": 37
+  },
+  "solution": [
+    [
+      "c",
+      3,
+      -1
+    ],
+    [
+      "r",
+      1,
+      1
+    ],
+    [
+      "r",
+      0,
+      1
+    ],
+    [
+      "r",
+      1,
+      1
+    ],
+    [
+      "r",
+      2,
+      -1
+    ],
+    [
+      "c",
+      4,
+      1
+    ]
+  ],
+  "source": {
+    "index": 2,
+    "side": "W"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 3,
+      "side": "N"
+    },
+    {
+      "id": "T2",
+      "index": 2,
+      "side": "E"
+    }
+  ],
+  "w": 5
+}

@@ -1,0 +1,87 @@
+{
+  "format_version": 1,
+  "grid": [
+    "Y1 I0 # I1 I1",
+    "Y2 L0 L0 I1 I1",
+    "I0 I1 L1 I0 #",
+    "I1 L3 L2 L3 I1",
+    "L1 L3 L1 L2 I2"
+  ],
+  "h": 5,
+  "id": "er_l30",
+  "island": "ember_reef",
+  "locked_cols": [
+    0,
+    3
+  ],
+  "locked_rows": [],
+  "name": "Heart of Embers",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 8
+      }
+    ]
+  },
+  "par": 6,
+  "par_proven": false,
+  "rewards": {
+    "cafe_coins": 65,
+    "essence": 40
+  },
+  "solution": [
+    [
+      "r",
+      3,
+      -1
+    ],
+    [
+      "c",
+      2,
+      -1
+    ],
+    [
+      "r",
+      1,
+      -1
+    ],
+    [
+      "r",
+      2,
+      -1
+    ],
+    [
+      "r",
+      3,
+      -1
+    ],
+    [
+      "r",
+      0,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 0,
+    "side": "E"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 2,
+      "side": "W"
+    },
+    {
+      "id": "T2",
+      "index": 0,
+      "side": "S"
+    },
+    {
+      "id": "T3",
+      "index": 1,
+      "side": "N"
+    }
+  ],
+  "w": 5
+}
