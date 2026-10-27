@@ -56,6 +56,12 @@ coins and gems stay per location in phase 1 (shared wallet is a later option).
       `tools/generate_bridge_levels.tscn`, each proven to have exactly one solution
 - [x] Island 5 Rope Market merge location: fruit, rope, woven, sail chains; free Reed Bed; cast
       Ines, Marek, Kiki; the oil ledger points to Silas in Moon Grove
-- [ ] Café chapter 5 (requires Rope Isles; unlocks Moon Grove) + Island 6 Moon Grove (match-3)
-      + Moonlight Bakery (next)
-- [ ] Islands 3–6
+- [x] Café chapter 5 "Lamp Oil" (requires Rope Isles; `c5_grove` unlocks Moon Grove) and finale
+      chapter 6 "Lights of the Archipelago" (requires Moon Grove)
+- [x] Island 6 Moon Grove — match-3: `MatchBoard`/`MatchBot` (`scripts/match/`), lanterns (4 in a
+      row), seed bombs (L/T), moon orbs (5); dark moss (1-2 layers) and collect goals; refills come
+      from a per-level seed so a game replays exactly; 30 levels from
+      `tools/generate_match_levels.tscn`, each won by the stored bot game within its move limit
+- [x] Island 6 Moonlight Bakery merge location: sweets, moonflowers, honey, paper lanterns; cast
+      Luna, Silas, Dusk; Silas's confession closes the café-fire mystery
+- [ ] Later: Lantern Café phase 2 art, balancing from playtests, shared wallet between locations

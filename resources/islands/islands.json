@@ -86,9 +86,15 @@
    "game_name": "Match the moonflowers",
    "color": "7d5ba6",
    "unlock": {
-    "cafe_task": ""
+    "cafe_task": "c5_grove"
    },
-   "coming_soon": true
+   "levels": "res://resources/islands/moon_grove/levels",
+   "scene": "match",
+   "merge_location": {
+    "id": "moonlight_bakery",
+    "name": "Moonlight Bakery",
+    "dir": "res://resources/merge/moonlight_bakery"
+   }
   }
  ]
 }

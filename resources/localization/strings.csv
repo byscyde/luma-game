@@ -175,3 +175,11 @@ BRIDGE_TUTORIAL,Drag from an islet toward a neighbour to lay a rope bridge. Each
 BRIDGE_TUTORIAL_2,Tap a bridge again to double it, a third time to remove it. Bridges cannot cross and every islet must be joined.
 ISLETS_DONE,Islets %d/%d
 BRIDGE_RESULT,The isles are joined!
+MATCH_TUTORIAL,Swipe a flower onto its neighbour to line up three or more of a kind. Gather the flowers the grove asks for.
+MATCH_TUTORIAL_MOSS,Match flowers on the dark moss to clear it. Thick moss needs two matches.
+MOVES_LEFT,%d moves
+MOSS_LEFT,%d moss
+OUT_OF_MOVES,Out of moves
+OUT_OF_MOVES_BODY,The grove is still dark. Try again: the flowers will fall the same way.
+TRY_AGAIN,Try again
+MATCH_RESULT,The grove is blooming!

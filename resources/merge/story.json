@@ -617,6 +617,225 @@
      "unlocks_island": "rope_isles"
     }
    ]
+  },
+  {
+   "id": "ch5",
+   "title": "Lamp Oil",
+   "reward": {
+    "gems": 40,
+    "energy": 140
+   },
+   "requires_island": "rope_isles",
+   "tasks": [
+    {
+     "id": "c5_cellar",
+     "title": "Clear out the old cellar",
+     "cost": 1180,
+     "area": "kitchen",
+     "dialogue": [
+      [
+       "ada",
+       "Twenty barrels of lamp oil, bought by Silas. I knew that smell."
+      ],
+      [
+       "juno",
+       "Silas sold moonflower lamps. He knew every garden on the islands."
+      ]
+     ]
+    },
+    {
+     "id": "c5_lamps",
+     "title": "Hang moonflower lamps",
+     "cost": 1260,
+     "area": "lights",
+     "dialogue": [
+      [
+       "juno",
+       "These lamps glow without oil. Moon Grove flowers, dried and sealed."
+      ],
+      [
+       "nell",
+       "Then why would Silas need twenty barrels of oil?"
+      ]
+     ]
+    },
+    {
+     "id": "c5_letter",
+     "title": "Read Grandpa's last letter",
+     "cost": 1340,
+     "area": "office",
+     "dialogue": [
+      [
+       "nell",
+       "'Silas wants the spring for his grove. If I say no, he says the café will pay.'"
+      ],
+      [
+       "tobias",
+       "He warned us. Nobody listened."
+      ]
+     ]
+    },
+    {
+     "id": "c5_council",
+     "title": "Seat the six-island council",
+     "cost": 1420,
+     "area": "tables",
+     "dialogue": [
+      [
+       "rafe",
+       "I'll stand in front of all six islands and say what I saw."
+      ],
+      [
+       "ada",
+       "Even the mayor's grown a spine. Pass the bread."
+      ]
+     ]
+    },
+    {
+     "id": "c5_boat",
+     "title": "Fit the night boat",
+     "cost": 1500,
+     "area": "dock",
+     "dialogue": [
+      [
+       "tobias",
+       "Moon Grove only opens at night. The flowers close by day."
+      ],
+      [
+       "pip",
+       "*squeak squeak*"
+      ]
+     ]
+    },
+    {
+     "id": "c5_grove",
+     "title": "Sail for Moon Grove",
+     "cost": 1600,
+     "area": "sign",
+     "dialogue": [
+      [
+       "nell",
+       "Last island. Last secret."
+      ],
+      [
+       "juno",
+       "Bring a lantern. The grove is dark where the moss has spread."
+      ]
+     ],
+     "unlocks_island": "moon_grove"
+    }
+   ]
+  },
+  {
+   "id": "ch6",
+   "title": "Lights of the Archipelago",
+   "reward": {
+    "gems": 60,
+    "energy": 200
+   },
+   "requires_island": "moon_grove",
+   "tasks": [
+    {
+     "id": "c6_return",
+     "title": "Welcome Nell home",
+     "cost": 1700,
+     "area": "floor",
+     "dialogue": [
+      [
+       "ada",
+       "She's back! And the grove is glowing again."
+      ],
+      [
+       "nell",
+       "Silas confessed to the council. He's rebuilding what he burned, stone by stone."
+      ]
+     ]
+    },
+    {
+     "id": "c6_deed",
+     "title": "Frame the harbour deed",
+     "cost": 1800,
+     "area": "office2",
+     "dialogue": [
+      [
+       "tobias",
+       "The spring belongs to everyone. Your grandfather made sure of it."
+      ],
+      [
+       "nell",
+       "And now everyone knows."
+      ]
+     ]
+    },
+    {
+     "id": "c6_menu",
+     "title": "Write the six-island menu",
+     "cost": 1900,
+     "area": "counter",
+     "dialogue": [
+      [
+       "ada",
+       "Reef skewers, lighthouse candles, terrace tea, rope-market fruit and moon cakes."
+      ],
+      [
+       "juno",
+       "A café that tastes like the whole archipelago."
+      ]
+     ]
+    },
+    {
+     "id": "c6_stage",
+     "title": "Raise the festival stage",
+     "cost": 2000,
+     "area": "stage",
+     "dialogue": [
+      [
+       "rafe",
+       "I'll carry the planks. It's the least I can do."
+      ],
+      [
+       "pip",
+       "*proud squeak*"
+      ]
+     ]
+    },
+    {
+     "id": "c6_lanterns",
+     "title": "Light a lantern for every island",
+     "cost": 2150,
+     "area": "lantern",
+     "dialogue": [
+      [
+       "nell",
+       "Verdant, Ember Reef, Lantern Bay, Stone Steps, Rope Isles, Moon Grove."
+      ],
+      [
+       "tobias",
+       "Six lights. Just like the old days."
+      ]
+     ]
+    },
+    {
+     "id": "c6_festival",
+     "title": "Hold the Festival of Six Isles",
+     "cost": 2400,
+     "area": "festival",
+     "dialogue": [
+      [
+       "nell",
+       "Grandpa, the café is open. The water runs. The islands are one again."
+      ],
+      [
+       "ada",
+       "And tomorrow we'll need twice as many cakes."
+      ],
+      [
+       "nell",
+       "Then let's get merging."
+      ]
+     ]
+    }
+   ]
   }
  ],
  "intro": [

@@ -376,3 +376,32 @@ func test_cafe_chapter_four_needs_stone_steps_and_launches_the_ferry() -> void:
 	assert_eq(str(ch4["requires_island"]), "stone_steps")
 	assert_eq(str(ch4["tasks"][-1]["unlocks_island"]), "rope_isles")
 	assert_eq(str(Game.island("rope_isles")["unlock"]["cafe_task"]), str(ch4["tasks"][-1]["id"]))
+
+
+func test_moonlight_bakery_location_content() -> void:
+	var mbk := MergeDB.load_location("res://resources/merge/moonlight_bakery")
+	assert_true(mbk.errors.is_empty(), "bakery content errors: %s" % str(mbk.errors))
+	var g := MergeGame.new(mbk, {})
+	for o in g.orders():
+		assert_false(mbk.hosts.has(o["who"]), "hosts never order")
+		for id in o["items"]:
+			assert_true(MergeDB.chain_of(id) in ["sweet", "moonflower"], "level 1 orders use the two starting chains")
+	assert_eq(mbk.chapters.size(), 2)
+
+
+func test_cafe_story_links_all_six_islands() -> void:
+	assert_eq(db.chapters.size(), 6)
+	var needs := []
+	var opens := []
+	for ch in db.chapters:
+		needs.append(str(ch.get("requires_island", "")))
+		for t in ch["tasks"]:
+			if str(t.get("unlocks_island", "")) != "":
+				opens.append(str(t["unlocks_island"]))
+	assert_eq(needs, ["", "ember_reef", "lantern_bay", "stone_steps", "rope_isles", "moon_grove"])
+	assert_eq(opens, ["ember_reef", "lantern_bay", "stone_steps", "rope_isles", "moon_grove"])
+	for isl in Game.islands():
+		assert_false(isl.get("coming_soon", false), "%s is playable" % isl["id"])
+		if isl["id"] != "verdant":
+			assert_eq(Game.island_levels(isl["id"]).size(), 30, "%s has 30 levels" % isl["id"])
+			assert_true(isl.has("merge_location"), "%s has a merge location" % isl["id"])

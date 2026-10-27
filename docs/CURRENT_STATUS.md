@@ -26,7 +26,9 @@ Isolde, Bram, Wick) opens when Lantern Bay is complete; café chapter 3 now need
 Stone Steps (island 4, Sokoban, `scripts/push/`, 30 levels, unlocked by café task
 "c3_festival") and its Terrace Tea House added. Café chapter 4 (needs Stone Steps) launches the
 ferry to Rope Isles (island 5, Hashi bridges, `scripts/bridges/`, 30 unique-solution levels) and
-its Rope Market. Next: café chapter 5 + Moon Grove (match-3) + Moonlight Bakery.
+its Rope Market. Café chapter 5 opens Moon Grove (island 6, match-3 with moss and collect goals,
+`scripts/match/`, 30 levels replayed by CI) and its Moonlight Bakery; café chapter 6 is the finale.
+All six islands are playable (180 island levels). Next: playtest balancing, café phase 2 art.
 
 ## Session 6
 Merge-2 mode "LUMA Harbour" (Lantern Café) unlocks after level 30 (D-019,

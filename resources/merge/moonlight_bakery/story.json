@@ -1,0 +1,328 @@
+{
+ "cast": {
+  "luna": {
+   "name": "Luna",
+   "role": "Night baker",
+   "color": "7d5ba6"
+  },
+  "silas": {
+   "name": "Silas",
+   "role": "Lamp trader",
+   "color": "5a5f7a"
+  },
+  "dusk": {
+   "name": "Dusk",
+   "role": "Moon moth",
+   "color": "b8b0e8"
+  },
+  "nell": {
+   "name": "Nell",
+   "role": "Lantern Café",
+   "color": "e8875f"
+  },
+  "rafe": {
+   "name": "Mayor Rafe",
+   "role": "Former mayor",
+   "color": "7d5ba6"
+  },
+  "ines": {
+   "name": "Ines",
+   "role": "Rope Market",
+   "color": "5b86b5"
+  }
+ },
+ "hosts": [
+  "luna",
+  "dusk",
+  "nell"
+ ],
+ "intro": [
+  [
+   "luna",
+   "Shh. The grove sleeps by day and bakes by night. Welcome to the Moonlight Bakery."
+  ],
+  [
+   "luna",
+   "Sugar, moonflowers, honey and paper lanterns. Merge two of a kind for the night folk."
+  ],
+  [
+   "nell",
+   "I'm looking for Silas."
+  ],
+  [
+   "luna",
+   "Everyone in the grove knows where Silas is. Nobody has asked him anything in years."
+  ]
+ ],
+ "chapters": [
+  {
+   "id": "mb1",
+   "title": "Bread by Moonlight",
+   "reward": {
+    "gems": 25,
+    "energy": 80
+   },
+   "tasks": [
+    {
+     "id": "b1_oven",
+     "title": "Light the moon oven",
+     "cost": 40,
+     "dialogue": [
+      [
+       "luna",
+       "The oven only lights when the moonflowers open. Lucky for you, tonight they did."
+      ],
+      [
+       "dusk",
+       "..."
+      ],
+      [
+       "luna",
+       "Dusk, my moth. She guards the flour."
+      ]
+     ]
+    },
+    {
+     "id": "b1_shelves",
+     "title": "Fill the bread shelves",
+     "cost": 60,
+     "dialogue": [
+      [
+       "luna",
+       "Moon cakes sell out before midnight. Every night."
+      ],
+      [
+       "nell",
+       "My café could use your recipe."
+      ]
+     ],
+     "designs": [
+      "Birch shelves",
+      "Woven racks",
+      "Stone niches"
+     ]
+    },
+    {
+     "id": "b1_hives",
+     "title": "Set up the bee boxes",
+     "cost": 85,
+     "dialogue": [
+      [
+       "luna",
+       "Night bees. Their honey glows a little."
+      ],
+      [
+       "nell",
+       "Everything here glows a little."
+      ]
+     ],
+     "designs": [
+      "Wooden boxes",
+      "Clay hives",
+      "Woven skeps"
+     ]
+    },
+    {
+     "id": "b1_path",
+     "title": "Light the lantern path",
+     "cost": 115,
+     "dialogue": [
+      [
+       "silas",
+       "...You came all this way for an old lamp trader."
+      ],
+      [
+       "nell",
+       "I came for the truth about the café."
+      ],
+      [
+       "silas",
+       "Then sit. I owe you more than a lamp."
+      ]
+     ],
+     "designs": [
+      "Paper lanterns",
+      "Glass jars",
+      "Moonstones"
+     ]
+    },
+    {
+     "id": "b1_tables",
+     "title": "Set the midnight tables",
+     "cost": 145,
+     "dialogue": [
+      [
+       "silas",
+       "I bought the oil. I meant to scare your grandfather into selling the spring for my grove."
+      ],
+      [
+       "silas",
+       "The fire got away from me. I've lived with it every night since."
+      ]
+     ],
+     "designs": [
+      "Moon tables",
+      "Flower tables",
+      "Stone tables"
+     ]
+    },
+    {
+     "id": "b1_open",
+     "title": "Open the Moonlight Bakery",
+     "cost": 180,
+     "dialogue": [
+      [
+       "luna",
+       "The bakery is open! The whole grove came."
+      ],
+      [
+       "nell",
+       "Silas, will you tell the council what you told me?"
+      ],
+      [
+       "silas",
+       "I will. And I'll help rebuild what I burned."
+      ]
+     ],
+     "designs": [
+      "Silver sign",
+      "Moth banner",
+      "Flower arch"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mb2",
+   "title": "The Grove Remembers",
+   "reward": {
+    "gems": 30,
+    "energy": 120
+   },
+   "tasks": [
+    {
+     "id": "b2_garden",
+     "title": "Replant the moonflower garden",
+     "cost": 220,
+     "dialogue": [
+      [
+       "silas",
+       "The moss spread when I left. The grove went dark with guilt."
+      ],
+      [
+       "luna",
+       "And it's bright again now. That's your doing too, Nell."
+      ]
+     ],
+     "designs": [
+      "Circle beds",
+      "Spiral beds",
+      "Wild meadow"
+     ]
+    },
+    {
+     "id": "b2_well",
+     "title": "Restore the moon well",
+     "cost": 270,
+     "dialogue": [
+      [
+       "luna",
+       "The well feeds the whole grove. It was dry for years."
+      ],
+      [
+       "nell",
+       "Grandpa's spring reaches all the way here. Of course it does."
+      ]
+     ]
+    },
+    {
+     "id": "b2_council",
+     "title": "Host the council at midnight",
+     "cost": 320,
+     "dialogue": [
+      [
+       "rafe",
+       "Six islands. One table. I'll say my part first."
+      ],
+      [
+       "ines",
+       "And the Rope Isles will say theirs."
+      ],
+      [
+       "silas",
+       "And I'll say mine. All of it."
+      ]
+     ]
+    },
+    {
+     "id": "b2_cakes",
+     "title": "Bake the six-island cake",
+     "cost": 380,
+     "dialogue": [
+      [
+       "luna",
+       "Six layers. Reef salt, lighthouse honey, terrace tea, market fruit, verdant mint and moon sugar."
+      ],
+      [
+       "dusk",
+       "..."
+      ],
+      [
+       "luna",
+       "She approves. That's rare."
+      ]
+     ],
+     "designs": [
+      "Tall cake",
+      "Round cake",
+      "Star cake"
+     ]
+    },
+    {
+     "id": "b2_amends",
+     "title": "Build Silas's workshop",
+     "cost": 440,
+     "dialogue": [
+      [
+       "silas",
+       "I'll make lamps that need no oil. For every island. For free."
+      ],
+      [
+       "nell",
+       "Grandpa would have liked that ending better than any other."
+      ]
+     ],
+     "designs": [
+      "Moon workshop",
+      "Glass studio",
+      "Garden shed"
+     ]
+    },
+    {
+     "id": "b2_festival",
+     "title": "Hold the Moonlight Festival",
+     "cost": 520,
+     "dialogue": [
+      [
+       "luna",
+       "Every lantern in the grove, lit at once."
+      ],
+      [
+       "nell",
+       "Six islands, six lights. Time to go home to the café."
+      ],
+      [
+       "silas",
+       "Go on. The archipelago is waiting for its festival."
+      ]
+     ],
+     "designs": [
+      "Lantern sky",
+      "Firefly field",
+      "Moon mirrors"
+     ]
+    }
+   ]
+  }
+ ]
+}
