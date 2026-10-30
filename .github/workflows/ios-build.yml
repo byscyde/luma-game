@@ -1,0 +1,270 @@
+name: iOS build
+
+# Capabilities are separated and reported honestly:
+#  1. Xcode project export + simulator build      -> no credentials needed
+#  2. Unsigned device archive + unsigned IPA       -> no credentials; NOT installable as-is
+#  3. Signed IPA                                   -> needs IOS_* signing secrets + APPLE_TEAM_ID
+#  4. TestFlight upload                            -> release.yml only, needs App Store Connect API key
+# Every direct run (push / workflow_dispatch) that succeeds also publishes the
+# unsigned IPA as a GitHub pre-release tagged ios-build-<run number> (D-016),
+# so the owner can fetch it from Releases and re-sign it (e.g. with Feather).
+# See docs/RELEASE_RUNBOOK.md for secret names and formats.
+
+on:
+  push:
+    branches: [main, "release/**", "ci/**"]
+    tags: ["v*"]
+  workflow_dispatch:
+  workflow_call:
+    outputs:
+      signed:
+        description: "true when a signed IPA was produced"
+        value: ${{ jobs.ios.outputs.signed }}
+    secrets:
+      IOS_CERTIFICATE_P12_BASE64:
+        required: false
+      IOS_CERTIFICATE_PASSWORD:
+        required: false
+      IOS_PROVISIONING_PROFILE_BASE64:
+        required: false
+      APPLE_TEAM_ID:
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ios:
+    runs-on: macos-26
+    timeout-minutes: 75
+    outputs:
+      signed: ${{ steps.sign.outputs.signed }}
+    env:
+      HAS_SIGNING: ${{ secrets.IOS_CERTIFICATE_P12_BASE64 != '' && secrets.IOS_CERTIFICATE_PASSWORD != '' && secrets.IOS_PROVISIONING_PROFILE_BASE64 != '' && secrets.APPLE_TEAM_ID != '' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Cache Godot + export templates
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/luma-godot
+          key: godot-4.7.2-macos-templates
+
+      - name: Install pinned Godot + templates
+        run: tools/ci/install_godot.sh macos --templates
+
+      - name: Select Xcode 26+ (Godot 4.7 iOS templates need the iOS 26 SDK)
+        run: |
+          set -euo pipefail
+          ls -d /Applications/Xcode*.app
+          XC=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -n 1 || true)
+          if [ -z "$XC" ]; then
+            echo "::error::No Xcode 26 on this runner image; Godot 4.7.2 device builds require the iOS 26 SDK."
+            exit 1
+          fi
+          sudo xcode-select -s "$XC/Contents/Developer"
+
+      - name: Toolchain versions
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+          sw_vers
+
+      - name: Build the sign-in plugin (iOS GDExtension)
+        run: tools/ci/build_auth_plugin_ios.sh
+
+      - name: Validate project
+        run: |
+          python3 tools/validate_levels.py
+          "$GODOT" --headless --path . --import >/dev/null 2>&1 || true
+          "$GODOT" --headless --path . --import
+          "$GODOT" --headless --path . --script res://tools/validate_levels.gd
+
+      - name: Stamp version + build metadata
+        run: python3 tools/build_metadata.py --platform ios --build-number "${{ github.run_number }}" --apply
+
+      - name: Set team ID for signed builds
+        if: env.HAS_SIGNING == 'true'
+        env:
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+        run: sed -i '' "s/^application\/app_store_team_id=.*/application\/app_store_team_id=\"$TEAM\"/" export_presets.cfg
+
+      - name: Export Xcode project
+        run: |
+          set -euo pipefail
+          mkdir -p build/ios
+          "$GODOT" --headless --path . --export-release "iOS" build/ios/LUMA.ipa
+          ls -la build/ios
+          test -d build/ios/LUMA.xcodeproj
+
+      - name: Verify bundle identifier and deployment target
+        run: |
+          set -euo pipefail
+          PBX=build/ios/LUMA.xcodeproj/project.pbxproj
+          grep -q "PRODUCT_BUNDLE_IDENTIFIER = com.scyde.luma;" "$PBX" || grep -q 'PRODUCT_BUNDLE_IDENTIFIER = "com.scyde.luma";' "$PBX"
+          grep -E "IPHONEOS_DEPLOYMENT_TARGET" "$PBX" | sort -u
+          xcodebuild -list -project build/ios/LUMA.xcodeproj
+          grep -q "libluma_auth" "$PBX" || { echo "sign-in GDExtension is not linked"; exit 1; }
+
+      - name: Build for iOS Simulator (no signing)
+        # Godot's simulator library ships x86_64 objects only, so the simulator
+        # app is built for x86_64 (runs under Rosetta on Apple-silicon Macs).
+        run: |
+          set -euo pipefail
+          SCHEME=$(xcodebuild -list -json -project build/ios/LUMA.xcodeproj | python3 -c "import json,sys; print(json.load(sys.stdin)['project']['schemes'][0])")
+          echo "SCHEME=$SCHEME" >> "$GITHUB_ENV"
+          xcodebuild -project build/ios/LUMA.xcodeproj -scheme "$SCHEME" -configuration Debug \
+            -sdk iphonesimulator -destination "generic/platform=iOS Simulator" \
+            -derivedDataPath build/ios/derived ARCHS=x86_64 ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGNING_ALLOWED=NO OTHER_LDFLAGS='$(inherited) -Wl,-u,_luma_auth_init' build 2>&1 | tee build/ios/simulator-build.log | tail -n 30
+          APP=$(find build/ios/derived/Build/Products -name "*.app" -maxdepth 3 | head -n 1)
+          test -n "$APP" && echo "simulator app: $APP"
+          /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APP/Info.plist"
+
+      - name: Archive device build (unsigned)
+        run: |
+          set -euo pipefail
+          xcodebuild -project build/ios/LUMA.xcodeproj -scheme "$SCHEME" -configuration Release \
+            -sdk iphoneos -destination "generic/platform=iOS" -archivePath build/ios/LUMA-unsigned.xcarchive \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" OTHER_LDFLAGS='$(inherited) -Wl,-u,_luma_auth_init' archive 2>&1 | tee build/ios/archive-unsigned.log | tail -n 30
+          test -d build/ios/LUMA-unsigned.xcarchive/Products/Applications
+          (cd build/ios && ditto -c -k --keepParent LUMA-unsigned.xcarchive LUMA-unsigned-xcarchive.zip)
+
+      - name: Package unsigned IPA (must be re-signed before it installs)
+        run: |
+          set -euo pipefail
+          rm -rf build/ios/unsigned-ipa && mkdir -p build/ios/unsigned-ipa/Payload
+          cp -R build/ios/LUMA-unsigned.xcarchive/Products/Applications/*.app build/ios/unsigned-ipa/Payload/
+          (cd build/ios/unsigned-ipa && zip -qry ../LUMA-unsigned.ipa Payload)
+          unzip -l build/ios/LUMA-unsigned.ipa | grep -q "Payload/.*\.app/Info.plist"
+          ls -la build/ios/LUMA-unsigned.ipa
+
+      - name: Signed archive + IPA export
+        id: sign
+        if: env.HAS_SIGNING == 'true'
+        env:
+          P12_B64: ${{ secrets.IOS_CERTIFICATE_P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+          PROFILE_B64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          KC="$RUNNER_TEMP/luma-signing.keychain-db"
+          KC_PW="$(uuidgen)"
+          echo "$P12_B64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          echo "$PROFILE_B64" | base64 --decode > "$RUNNER_TEMP/profile.mobileprovision"
+          security create-keychain -p "$KC_PW" "$KC"
+          security set-keychain-settings -lut 3600 "$KC"
+          security unlock-keychain -p "$KC_PW" "$KC"
+          security import "$RUNNER_TEMP/cert.p12" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KC"
+          security set-key-partition-list -S apple-tool:,apple: -k "$KC_PW" "$KC" >/dev/null
+          security list-keychains -d user -s "$KC" $(security list-keychains -d user | tr -d '"')
+          PROFILE_PLIST="$RUNNER_TEMP/profile.plist"
+          security cms -D -i "$RUNNER_TEMP/profile.mobileprovision" > "$PROFILE_PLIST"
+          UUID=$(/usr/libexec/PlistBuddy -c "Print :UUID" "$PROFILE_PLIST")
+          NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" "$PROFILE_PLIST")
+          METHOD=app-store-connect
+          if /usr/libexec/PlistBuddy -c "Print :ProvisionedDevices" "$PROFILE_PLIST" >/dev/null 2>&1; then METHOD=release-testing; fi
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp "$RUNNER_TEMP/profile.mobileprovision" ~/Library/MobileDevice/Provisioning\ Profiles/"$UUID".mobileprovision
+          xcodebuild -project build/ios/LUMA.xcodeproj -scheme "$SCHEME" -configuration Release \
+            -sdk iphoneos -destination "generic/platform=iOS" -archivePath build/ios/LUMA.xcarchive \
+            DEVELOPMENT_TEAM="$TEAM" CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="Apple Distribution" \
+            CODE_SIGN_ENTITLEMENTS="$GITHUB_WORKSPACE/plugins/luma_auth/ios/LUMA.entitlements" \
+            PROVISIONING_PROFILE_SPECIFIER="$NAME" OTHER_LDFLAGS='$(inherited) -Wl,-u,_luma_auth_init' archive 2>&1 | tee build/ios/archive-signed.log | tail -n 30
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>method</key><string>$METHOD</string>
+            <key>teamID</key><string>$TEAM</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>provisioningProfiles</key><dict><key>com.scyde.luma</key><string>$NAME</string></dict>
+          </dict></plist>
+          PLIST
+          xcodebuild -exportArchive -archivePath build/ios/LUMA.xcarchive -exportPath build/ios/ipa \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" 2>&1 | tee build/ios/export-ipa.log | tail -n 20
+          IPA=$(ls build/ios/ipa/*.ipa | head -n 1)
+          unzip -l "$IPA" | grep -q "Payload/.*\.app/Info.plist"
+          rm -rf "$RUNNER_TEMP/ipa-check" && mkdir "$RUNNER_TEMP/ipa-check" && unzip -q "$IPA" -d "$RUNNER_TEMP/ipa-check"
+          codesign --verify --deep --strict "$RUNNER_TEMP"/ipa-check/Payload/*.app
+          security delete-keychain "$KC"
+          rm -f "$RUNNER_TEMP/cert.p12" "$RUNNER_TEMP/profile.mobileprovision" "$PROFILE_PLIST"
+          echo "signed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## iOS build ${{ github.run_number }}"
+            echo ""
+            echo "- Xcode project export: $([ -d build/ios/LUMA.xcodeproj ] && echo yes || echo no)"
+            echo "- Simulator build: $([ -d build/ios/derived/Build/Products ] && echo yes || echo no)"
+            echo "- Unsigned device archive: $([ -d build/ios/LUMA-unsigned.xcarchive ] && echo yes || echo no) (not installable; for diagnostics)"
+            echo "- Unsigned IPA: $([ -f build/ios/LUMA-unsigned.ipa ] && echo yes || echo no) (must be re-signed, e.g. by a sideloading tool, before it installs)"
+            if [ "$HAS_SIGNING" = "true" ]; then
+              echo "- Signed IPA: $(ls build/ios/ipa/*.ipa >/dev/null 2>&1 && echo yes || echo no)"
+            else
+              echo "- Signed IPA: **not produced** — signing secrets are not configured"
+              echo "  (IOS_CERTIFICATE_P12_BASE64, IOS_CERTIFICATE_PASSWORD, IOS_PROVISIONING_PROFILE_BASE64, APPLE_TEAM_ID)."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload artefacts
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: luma-ios-${{ github.run_number }}-${{ github.sha }}
+          path: |
+            build/ios/ipa/*.ipa
+            build/ios/LUMA-unsigned.ipa
+            build/ios/LUMA-unsigned-xcarchive.zip
+            build/ios/*.log
+            build/metadata.json
+          retention-days: 30
+          if-no-files-found: warn
+
+  publish-release:
+    # Direct runs only: under workflow_call github.workflow_ref names the caller
+    # (release.yml), which attaches the IPA to its own draft release instead.
+    needs: ios
+    if: contains(github.workflow_ref, '/.github/workflows/ios-build.yml@')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: luma-ios-${{ github.run_number }}-${{ github.sha }}
+          path: dist
+
+      - name: Publish unsigned IPA as a GitHub pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          VERSION=$(python3 -c "import json; print(json.load(open('dist/metadata.json'))['version'])")
+          TAG="ios-build-${{ github.run_number }}"
+          IPA="dist/LUMA-${VERSION}-ios-build${{ github.run_number }}-unsigned.ipa"
+          cp dist/ios/LUMA-unsigned.ipa "$IPA"
+          unzip -l "$IPA" | grep -q "Payload/.*\.app/Info.plist"
+          (cd dist && sha256sum "$(basename "$IPA")" > SHA256SUMS.txt)
+          {
+            echo "Unsigned iOS build ${{ github.run_number }} of LUMA ${VERSION}."
+            echo ""
+            echo "- Commit: ${GITHUB_SHA} (\`${GITHUB_REF_NAME}\`)"
+            echo "- Workflow run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo ""
+            echo "The IPA is **not signed**: re-sign it (e.g. with Feather) before installing."
+          } > notes.md
+          gh release create "$TAG" "$IPA" dist/SHA256SUMS.txt --target "$GITHUB_SHA" \
+            --title "LUMA ${VERSION} · iOS build ${{ github.run_number }} (unsigned)" \
+            --notes-file notes.md --prerelease --latest=false
+          URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${TAG}"
+          echo "## Release" >> "$GITHUB_STEP_SUMMARY"
+          echo "Unsigned IPA published: ${URL}" >> "$GITHUB_STEP_SUMMARY"

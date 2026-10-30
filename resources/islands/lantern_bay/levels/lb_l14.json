@@ -1,0 +1,43 @@
+{
+  "format_version": 1,
+  "grid": [
+    "# LS \\ D .",
+    ". / . f\\ \\",
+    ". . . C C",
+    "# . . . .",
+    ". . f\\ \\ \\",
+    ". . . . ."
+  ],
+  "h": 6,
+  "id": "lb_l14",
+  "island": "lantern_bay",
+  "name": "Moonlit Dock",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 5
+      }
+    ]
+  },
+  "par": 3,
+  "rewards": {
+    "cafe_coins": 34,
+    "essence": 26
+  },
+  "solution": [
+    [
+      1,
+      1
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      4
+    ]
+  ],
+  "w": 5
+}

@@ -1,0 +1,46 @@
+{
+  "format_version": 1,
+  "id": "w1_l10",
+  "name": "Brook Song",
+  "world": "world_01",
+  "area": "willow_brook",
+  "mechanic": "long_route",
+  "difficulty": 4,
+  "grid": [
+    "# L3 I0 I0 L1 #",
+    "L0 L1 L2! # I1 L3",
+    "I1 . I1 # I0! I0",
+    "L3 I0 L1 # I1 L1",
+    "I1 # L0 . L2 L0",
+    "S0 # . L2 . T1"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 24
+      }
+    ]
+  },
+  "par_moves": 21,
+  "restores": [
+    {
+      "object": "brook_deer",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

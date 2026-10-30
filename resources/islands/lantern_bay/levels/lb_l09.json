@@ -1,0 +1,38 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". . . LS #",
+    "C . . \\ /",
+    "f\\ . C . \\",
+    ". # . / .",
+    ". . . . ."
+  ],
+  "h": 5,
+  "id": "lb_l09",
+  "island": "lantern_bay",
+  "name": "Lamplighter",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 3
+      }
+    ]
+  },
+  "par": 2,
+  "rewards": {
+    "cafe_coins": 24,
+    "essence": 21
+  },
+  "solution": [
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      2
+    ]
+  ],
+  "w": 5
+}

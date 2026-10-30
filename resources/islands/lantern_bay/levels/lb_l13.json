@@ -1,0 +1,43 @@
+{
+  "format_version": 1,
+  "grid": [
+    "D . f\\ . .",
+    ". \\ . . .",
+    ". . . # .",
+    "\\ C . \\ .",
+    "/ . f\\ / C",
+    ". . LN # ."
+  ],
+  "h": 6,
+  "id": "lb_l13",
+  "island": "lantern_bay",
+  "name": "Keeper's Path",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 5
+      }
+    ]
+  },
+  "par": 3,
+  "rewards": {
+    "cafe_coins": 32,
+    "essence": 25
+  },
+  "solution": [
+    [
+      0,
+      3
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      3,
+      4
+    ]
+  ],
+  "w": 5
+}

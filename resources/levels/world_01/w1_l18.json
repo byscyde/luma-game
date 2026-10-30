@@ -1,0 +1,53 @@
+{
+  "format_version": 1,
+  "id": "w1_l18",
+  "name": "Still Water",
+  "world": "world_01",
+  "area": "lily_ponds",
+  "mechanic": "no_leaks",
+  "difficulty": 4,
+  "grid": [
+    "# . . L1 . #",
+    "L0 . # L3 I0 T1",
+    ". I1 . I1 L1 .",
+    "S1 I0 I0 Y0 I1 .",
+    "# L2 . I1 # .",
+    ". # L2 L1 T2 ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "T2": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 15
+      },
+      {
+        "type": "no_leaks"
+      }
+    ]
+  },
+  "par_moves": 12,
+  "restores": [
+    {
+      "object": "pond_main",
+      "stage": 2
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  },
+  "tutorial": "intro_no_leaks"
+}

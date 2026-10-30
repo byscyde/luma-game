@@ -1,0 +1,33 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". LS . .",
+    ". / C .",
+    ". . . .",
+    ". . . ."
+  ],
+  "h": 4,
+  "id": "lb_l01",
+  "island": "lantern_bay",
+  "name": "First Light",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 2
+      }
+    ]
+  },
+  "par": 1,
+  "rewards": {
+    "cafe_coins": 8,
+    "essence": 13
+  },
+  "solution": [
+    [
+      1,
+      1
+    ]
+  ],
+  "w": 4
+}

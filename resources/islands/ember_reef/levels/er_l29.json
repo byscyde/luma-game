@@ -1,0 +1,88 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L3 I0 I1 L1 .",
+    "# I0 L3 L1 I1",
+    "Y0 I1 # L1 L0",
+    "L2 Y3 L0 L2 I0",
+    ". I1 L0 L3 L0"
+  ],
+  "h": 5,
+  "id": "er_l29",
+  "island": "ember_reef",
+  "locked_cols": [
+    3
+  ],
+  "locked_rows": [
+    1
+  ],
+  "name": "Cinder Tide",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 8
+      }
+    ]
+  },
+  "par": 6,
+  "par_proven": false,
+  "rewards": {
+    "cafe_coins": 63,
+    "essence": 39
+  },
+  "solution": [
+    [
+      "c",
+      2,
+      1
+    ],
+    [
+      "r",
+      2,
+      1
+    ],
+    [
+      "c",
+      0,
+      -1
+    ],
+    [
+      "r",
+      4,
+      -1
+    ],
+    [
+      "c",
+      0,
+      -1
+    ],
+    [
+      "c",
+      2,
+      1
+    ]
+  ],
+  "source": {
+    "index": 3,
+    "side": "W"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 1,
+      "side": "N"
+    },
+    {
+      "id": "T2",
+      "index": 1,
+      "side": "E"
+    },
+    {
+      "id": "T3",
+      "index": 2,
+      "side": "E"
+    }
+  ],
+  "w": 5
+}

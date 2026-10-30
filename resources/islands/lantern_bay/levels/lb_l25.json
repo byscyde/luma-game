@@ -1,0 +1,48 @@
+{
+  "format_version": 1,
+  "grid": [
+    "# . LS . . .",
+    "# f\\ . . \\ /",
+    ". . C \\ C .",
+    "/ . \\ \\ / #",
+    ". D \\ X . .",
+    "D . . . . .",
+    ". . LN f/ C ."
+  ],
+  "h": 7,
+  "id": "lb_l25",
+  "island": "lantern_bay",
+  "name": "Bloom Garden",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 6
+      }
+    ]
+  },
+  "par": 4,
+  "rewards": {
+    "cafe_coins": 56,
+    "essence": 37
+  },
+  "solution": [
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "w": 6
+}

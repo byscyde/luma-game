@@ -1,0 +1,69 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#o.##..#",
+    "#.o....#",
+    "#.Bo@..#",
+    "#.#.#..#",
+    "#.#o.B.#",
+    "#B#..B.#",
+    "#....#.#",
+    "########"
+  ],
+  "h": 9,
+  "id": "ss_l27",
+  "island": "stone_steps",
+  "name": "Temple Steps",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 41
+      }
+    ]
+  },
+  "par": 34,
+  "pushes": 15,
+  "rewards": {
+    "cafe_coins": 61,
+    "essence": 41
+  },
+  "solution": [
+    "E",
+    "E",
+    "S",
+    "S",
+    "S",
+    "W",
+    "N",
+    "N",
+    "N",
+    "E",
+    "N",
+    "W",
+    "W",
+    "W",
+    "E",
+    "E",
+    "S",
+    "S",
+    "S",
+    "S",
+    "W",
+    "S",
+    "W",
+    "N",
+    "S",
+    "W",
+    "W",
+    "N",
+    "N",
+    "N",
+    "N",
+    "N",
+    "S",
+    "E"
+  ],
+  "w": 8
+}

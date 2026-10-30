@@ -1,0 +1,76 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L2 I0 I1 I3 .",
+    ". L0 . L2 #",
+    "I1 L1 L2 I0 #",
+    "L2 L3 L0 L2 .",
+    "I1 Y0 . I1 I0"
+  ],
+  "h": 5,
+  "id": "er_l23",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [
+    0
+  ],
+  "name": "Coral Crown",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 7
+      }
+    ]
+  },
+  "par": 5,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 51,
+    "essence": 33
+  },
+  "solution": [
+    [
+      "r",
+      3,
+      1
+    ],
+    [
+      "c",
+      0,
+      1
+    ],
+    [
+      "c",
+      1,
+      1
+    ],
+    [
+      "c",
+      1,
+      1
+    ],
+    [
+      "c",
+      2,
+      1
+    ]
+  ],
+  "source": {
+    "index": 0,
+    "side": "W"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 4,
+      "side": "S"
+    },
+    {
+      "id": "T2",
+      "index": 1,
+      "side": "S"
+    }
+  ],
+  "w": 5
+}

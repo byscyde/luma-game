@@ -1,0 +1,76 @@
+{
+  "format_version": 1,
+  "grid": [
+    "I1 L2 . L0 L2",
+    "L1 Y2 L1 . I1",
+    "I1 L3 I0 L0 I0",
+    "L0 # L3 I0 #",
+    "L1 L0 . . I0"
+  ],
+  "h": 5,
+  "id": "er_l25",
+  "island": "ember_reef",
+  "locked_cols": [
+    2
+  ],
+  "locked_rows": [],
+  "name": "Twin Vents",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 7
+      }
+    ]
+  },
+  "par": 5,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 55,
+    "essence": 35
+  },
+  "solution": [
+    [
+      "c",
+      4,
+      1
+    ],
+    [
+      "r",
+      2,
+      -1
+    ],
+    [
+      "r",
+      2,
+      -1
+    ],
+    [
+      "c",
+      4,
+      1
+    ],
+    [
+      "r",
+      3,
+      1
+    ]
+  ],
+  "source": {
+    "index": 4,
+    "side": "S"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 0,
+      "side": "W"
+    },
+    {
+      "id": "T2",
+      "index": 3,
+      "side": "W"
+    }
+  ],
+  "w": 5
+}

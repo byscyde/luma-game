@@ -1,0 +1,39 @@
+{
+  "format_version": 1,
+  "id": "w1_l01",
+  "name": "First Flow",
+  "world": "world_01",
+  "area": "spring_glade",
+  "mechanic": "rotate_straight",
+  "difficulty": 1,
+  "grid": [
+    ". # .",
+    "S1 I0 T1",
+    "# . ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": []
+  },
+  "par_moves": 1,
+  "restores": [
+    {
+      "object": "glade_spring",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  },
+  "tutorial": "tap_to_rotate"
+}

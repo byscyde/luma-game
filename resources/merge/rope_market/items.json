@@ -1,0 +1,589 @@
+{
+ "board": {
+  "cols": 7,
+  "rows": 9
+ },
+ "chains": {
+  "fruit": {
+   "kind": "food",
+   "names": [
+    "Berry",
+    "Berry Pair",
+    "Banana",
+    "Papaya",
+    "Fruit Bowl",
+    "Fruit Skewer",
+    "Fruit Crate",
+    "Fruit Cart",
+    "Fruit Pyramid",
+    "Harvest Boat"
+   ],
+   "unlock_level": 1
+  },
+  "rope": {
+   "kind": "food",
+   "names": [
+    "Twine",
+    "Thread Spool",
+    "Rope Coil",
+    "Knotted Rope",
+    "Rope Ladder",
+    "Fishing Net",
+    "Hammock",
+    "Rope Bridge",
+    "Ship Rigging",
+    "Golden Knot"
+   ],
+   "unlock_level": 1
+  },
+  "woven": {
+   "kind": "food",
+   "names": [
+    "Reed",
+    "Reed Bundle",
+    "Woven Mat",
+    "Small Basket",
+    "Woven Hat",
+    "Market Basket",
+    "Woven Lantern",
+    "Woven Chair",
+    "Reed Boat",
+    "Weaver's Crown"
+   ],
+   "unlock_level": 3
+  },
+  "sail": {
+   "kind": "food",
+   "names": [
+    "Cloth Scrap",
+    "Cloth Roll",
+    "Patch Quilt",
+    "Flag",
+    "Bunting",
+    "Small Sail",
+    "Striped Sail",
+    "Kite",
+    "Grand Sail",
+    "Sky Sail"
+   ],
+   "unlock_level": 5
+  },
+  "gen_fruit": {
+   "kind": "generator",
+   "produces": "fruit",
+   "unlock_level": 1,
+   "names": [
+    "Fruit Tree I",
+    "Fruit Tree II",
+    "Fruit Tree III",
+    "Fruit Tree IV",
+    "Fruit Tree V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "fruit",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "fruit",
+      1,
+      85
+     ],
+     [
+      "fruit",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "fruit",
+      1,
+      70
+     ],
+     [
+      "fruit",
+      2,
+      25
+     ],
+     [
+      "fruit",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "fruit",
+      1,
+      55
+     ],
+     [
+      "fruit",
+      2,
+      32
+     ],
+     [
+      "fruit",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "fruit",
+      1,
+      40
+     ],
+     [
+      "fruit",
+      2,
+      38
+     ],
+     [
+      "fruit",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_rope": {
+   "kind": "generator",
+   "produces": "rope",
+   "unlock_level": 1,
+   "names": [
+    "Rope Coil I",
+    "Rope Coil II",
+    "Rope Coil III",
+    "Rope Coil IV",
+    "Rope Coil V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "rope",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "rope",
+      1,
+      85
+     ],
+     [
+      "rope",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "rope",
+      1,
+      70
+     ],
+     [
+      "rope",
+      2,
+      25
+     ],
+     [
+      "rope",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "rope",
+      1,
+      55
+     ],
+     [
+      "rope",
+      2,
+      32
+     ],
+     [
+      "rope",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "rope",
+      1,
+      40
+     ],
+     [
+      "rope",
+      2,
+      38
+     ],
+     [
+      "rope",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_sail": {
+   "kind": "generator",
+   "produces": "sail",
+   "unlock_level": 5,
+   "names": [
+    "Sail Loft I",
+    "Sail Loft II",
+    "Sail Loft III",
+    "Sail Loft IV",
+    "Sail Loft V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "sail",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "sail",
+      1,
+      85
+     ],
+     [
+      "sail",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "sail",
+      1,
+      70
+     ],
+     [
+      "sail",
+      2,
+      25
+     ],
+     [
+      "sail",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "sail",
+      1,
+      55
+     ],
+     [
+      "sail",
+      2,
+      32
+     ],
+     [
+      "sail",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "sail",
+      1,
+      40
+     ],
+     [
+      "sail",
+      2,
+      38
+     ],
+     [
+      "sail",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_woven": {
+   "kind": "generator",
+   "produces": "woven",
+   "unlock_level": 3,
+   "names": [
+    "Reed Bed I",
+    "Reed Bed II",
+    "Reed Bed III"
+   ],
+   "energy": 0,
+   "charges": [
+    6,
+    8,
+    10
+   ],
+   "cooldown": [
+    1800,
+    1500,
+    1200
+   ],
+   "drops": [
+    [
+     [
+      "woven",
+      1,
+      80
+     ],
+     [
+      "woven",
+      2,
+      20
+     ]
+    ],
+    [
+     [
+      "woven",
+      1,
+      65
+     ],
+     [
+      "woven",
+      2,
+      30
+     ],
+     [
+      "energy",
+      1,
+      5
+     ]
+    ],
+    [
+     [
+      "woven",
+      1,
+      50
+     ],
+     [
+      "woven",
+      2,
+      38
+     ],
+     [
+      "energy",
+      1,
+      12
+     ]
+    ]
+   ]
+  },
+  "coins": {
+   "kind": "resource",
+   "resource": "coins",
+   "names": [
+    "Coin",
+    "Coin Stack",
+    "Coin Pouch",
+    "Coin Chest",
+    "Treasure"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20,
+    50
+   ]
+  },
+  "gems": {
+   "kind": "resource",
+   "resource": "gems",
+   "names": [
+    "Gem",
+    "Gem Pair",
+    "Gem Cluster",
+    "Gem Crown"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20
+   ]
+  },
+  "energy": {
+   "kind": "resource",
+   "resource": "energy",
+   "names": [
+    "Energy Drop",
+    "Energy Bottle",
+    "Energy Jug",
+    "Energy Barrel",
+    "Energy Fountain"
+   ],
+   "values": [
+    5,
+    12,
+    25,
+    60,
+    150
+   ]
+  },
+  "scissors": {
+   "kind": "tool",
+   "names": [
+    "Scissors"
+   ]
+  },
+  "chest": {
+   "kind": "chest",
+   "names": [
+    "Wooden Chest",
+    "Silver Chest",
+    "Golden Chest"
+   ],
+   "timer": [
+    900,
+    3600,
+    14400
+   ],
+   "rush_gems": [
+    4,
+    10,
+    25
+   ],
+   "contents": [
+    [
+     [
+      "fruit",
+      1
+     ],
+     [
+      "rope",
+      1
+     ],
+     [
+      "coins",
+      1
+     ]
+    ],
+    [
+     [
+      "fruit",
+      2
+     ],
+     [
+      "rope",
+      2
+     ],
+     [
+      "woven",
+      2
+     ],
+     [
+      "energy",
+      1
+     ],
+     [
+      "coins",
+      2
+     ]
+    ],
+    [
+     [
+      "fruit",
+      3
+     ],
+     [
+      "rope",
+      3
+     ],
+     [
+      "woven",
+      3
+     ],
+     [
+      "sail",
+      3
+     ],
+     [
+      "energy",
+      2
+     ],
+     [
+      "gems",
+      1
+     ],
+     [
+      "coins",
+      3
+     ],
+     [
+      "scissors",
+      1
+     ]
+    ]
+   ]
+  }
+ }
+}

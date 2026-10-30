@@ -1,0 +1,14 @@
+Copyright (c) 2026 SCYDE. All rights reserved.
+
+This repository, including its source code, game design, levels, artwork, audio
+and documentation, is proprietary. No licence is granted to copy, modify,
+distribute or use it, in whole or in part, without prior written permission
+from SCYDE, except as permitted by applicable law. Viewing the public
+repository on GitHub does not grant any additional rights.
+
+Third-party components keep their own licences:
+
+- Nunito font, Copyright 2014 The Nunito Project Authors, SIL Open Font
+  License 1.1 — see assets/fonts/OFL-Nunito.txt.
+- Godot Engine (used to build the game, not included in this repository),
+  MIT licence — https://godotengine.org/license

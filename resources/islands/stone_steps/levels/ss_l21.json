@@ -1,0 +1,64 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "##.....#",
+    "#oB#.B.#",
+    "#.o..#.#",
+    "#......#",
+    "#.B#@#.#",
+    "#.....o#",
+    "########"
+  ],
+  "h": 8,
+  "id": "ss_l21",
+  "island": "stone_steps",
+  "name": "Long Terrace",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 37
+      }
+    ]
+  },
+  "par": 30,
+  "pushes": 10,
+  "rewards": {
+    "cafe_coins": 49,
+    "essence": 35
+  },
+  "solution": [
+    "S",
+    "W",
+    "W",
+    "N",
+    "N",
+    "E",
+    "N",
+    "W",
+    "S",
+    "W",
+    "N",
+    "E",
+    "E",
+    "E",
+    "N",
+    "N",
+    "W",
+    "W",
+    "S",
+    "N",
+    "E",
+    "E",
+    "S",
+    "E",
+    "N",
+    "E",
+    "S",
+    "S",
+    "S",
+    "S"
+  ],
+  "w": 8
+}

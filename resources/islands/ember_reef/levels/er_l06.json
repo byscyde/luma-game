@@ -1,0 +1,52 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L0 . L3",
+    ". . L2",
+    "I1 L1 I0"
+  ],
+  "h": 3,
+  "id": "er_l06",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [],
+  "name": "Driftway",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 3
+      }
+    ]
+  },
+  "par": 2,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 17,
+    "essence": 16
+  },
+  "solution": [
+    [
+      "r",
+      0,
+      -1
+    ],
+    [
+      "c",
+      1,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 2,
+    "side": "W"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 2,
+      "side": "S"
+    }
+  ],
+  "w": 3
+}

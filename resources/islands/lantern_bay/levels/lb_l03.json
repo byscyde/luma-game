@@ -1,0 +1,33 @@
+{
+  "format_version": 1,
+  "grid": [
+    "LS . . .",
+    ". C . .",
+    "\\ \\ . .",
+    ". . . ."
+  ],
+  "h": 4,
+  "id": "lb_l03",
+  "island": "lantern_bay",
+  "name": "Turning Glass",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 2
+      }
+    ]
+  },
+  "par": 1,
+  "rewards": {
+    "cafe_coins": 12,
+    "essence": 15
+  },
+  "solution": [
+    [
+      1,
+      2
+    ]
+  ],
+  "w": 4
+}

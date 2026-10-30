@@ -1,0 +1,57 @@
+{
+  "format_version": 1,
+  "id": "w1_l24",
+  "name": "Orchard Path",
+  "world": "world_01",
+  "area": "old_mill",
+  "mechanic": "gates_bonus",
+  "difficulty": 5,
+  "grid": [
+    "# B1 L3 L3 . S2",
+    "L1 . I1 # . G0b",
+    "Ka g1b Y1 G1a I0 L0",
+    "I0 . I1 L2 # .",
+    "L0 # I1 I1 Kb .",
+    "T1 I0 L0 L1 . #"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    },
+    "B1": {
+      "kind": "flowers"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 15
+      },
+      {
+        "type": "reach_bonus",
+        "target": "B1"
+      }
+    ]
+  },
+  "par_moves": 12,
+  "restores": [
+    {
+      "object": "mill_orchard_1",
+      "stage": 2
+    },
+    {
+      "object": "mill_orchard_2",
+      "stage": 2
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

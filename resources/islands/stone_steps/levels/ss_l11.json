@@ -1,0 +1,53 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "#.@##.#",
+    "#.B...#",
+    "#.....#",
+    "#.B...#",
+    "#.#.o.#",
+    "#.#..o#",
+    "#######"
+  ],
+  "h": 8,
+  "id": "ss_l11",
+  "island": "stone_steps",
+  "name": "Stone Lantern",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 24
+      }
+    ]
+  },
+  "par": 19,
+  "pushes": 10,
+  "rewards": {
+    "cafe_coins": 29,
+    "essence": 25
+  },
+  "solution": [
+    "S",
+    "W",
+    "S",
+    "E",
+    "E",
+    "W",
+    "W",
+    "S",
+    "E",
+    "E",
+    "N",
+    "E",
+    "S",
+    "N",
+    "N",
+    "E",
+    "S",
+    "S",
+    "S"
+  ],
+  "w": 7
+}

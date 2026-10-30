@@ -1,0 +1,42 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". C . f\\ .",
+    ". / / . .",
+    "\\ . C . #",
+    ". . / . LW",
+    "# . . . ."
+  ],
+  "h": 5,
+  "id": "lb_l08",
+  "island": "lantern_bay",
+  "name": "Moth Lane",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 4
+      }
+    ]
+  },
+  "par": 3,
+  "rewards": {
+    "cafe_coins": 22,
+    "essence": 20
+  },
+  "solution": [
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      3
+    ]
+  ],
+  "w": 5
+}

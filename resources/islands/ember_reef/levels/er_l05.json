@@ -1,0 +1,52 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L2 . .",
+    ". I0 L2",
+    "L0 . ."
+  ],
+  "h": 3,
+  "id": "er_l05",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [],
+  "name": "Sea Glass",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 3
+      }
+    ]
+  },
+  "par": 2,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 15,
+    "essence": 15
+  },
+  "solution": [
+    [
+      "r",
+      1,
+      -1
+    ],
+    [
+      "c",
+      1,
+      1
+    ]
+  ],
+  "source": {
+    "index": 0,
+    "side": "W"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 1,
+      "side": "S"
+    }
+  ],
+  "w": 3
+}

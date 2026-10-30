@@ -1,0 +1,48 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "#....o#",
+    "#....##",
+    "##...##",
+    "#.B.B.#",
+    "#..o.@#",
+    "#######"
+  ],
+  "h": 7,
+  "id": "ss_l04",
+  "island": "stone_steps",
+  "name": "Two Boulders",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 19
+      }
+    ]
+  },
+  "par": 15,
+  "pushes": 6,
+  "rewards": {
+    "cafe_coins": 15,
+    "essence": 18
+  },
+  "solution": [
+    "W",
+    "N",
+    "N",
+    "N",
+    "W",
+    "N",
+    "E",
+    "S",
+    "S",
+    "W",
+    "W",
+    "S",
+    "W",
+    "S",
+    "E"
+  ],
+  "w": 7
+}

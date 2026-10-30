@@ -1,0 +1,20 @@
+# systemd service: sudo cp luma-cloud.service /etc/systemd/system/ && sudo systemctl enable --now luma-cloud
+[Unit]
+Description=LUMA cloud save API
+After=network.target mariadb.service mysql.service
+
+[Service]
+Type=simple
+User=luma
+WorkingDirectory=/opt/luma-cloud
+EnvironmentFile=/etc/luma-cloud.env
+ExecStart=/usr/bin/node /opt/luma-cloud/server.js
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

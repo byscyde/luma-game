@@ -1,0 +1,51 @@
+{
+  "format_version": 1,
+  "id": "w1_l08",
+  "name": "Willow Bend",
+  "world": "world_01",
+  "area": "willow_brook",
+  "mechanic": "long_route",
+  "difficulty": 3,
+  "grid": [
+    "# . . L1 . #",
+    ". I1 . . # .",
+    "S1 L1 # L0 I0 L3",
+    "L0 I1 L1 I0! # I1",
+    "# L3 I0 L1 I0 I1",
+    ". L3 # . . T1"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 16
+      }
+    ]
+  },
+  "par_moves": 13,
+  "restores": [
+    {
+      "object": "brook_willow_1",
+      "stage": 2
+    },
+    {
+      "object": "brook_reeds",
+      "stage": 2
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5,
+    "discovery": "deco_bridge"
+  }
+}

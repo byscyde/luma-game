@@ -1,0 +1,589 @@
+{
+ "board": {
+  "cols": 7,
+  "rows": 9
+ },
+ "chains": {
+  "glass": {
+   "kind": "food",
+   "names": [
+    "Sea Glass",
+    "Glass Shard",
+    "Glass Bead",
+    "Bottle",
+    "Lantern Pane",
+    "Glass Float",
+    "Stained Pane",
+    "Rose Window",
+    "Crystal Dome",
+    "Lens of Dawn"
+   ],
+   "unlock_level": 1
+  },
+  "candle": {
+   "kind": "food",
+   "names": [
+    "Wax Drop",
+    "Tea Light",
+    "Taper",
+    "Twin Tapers",
+    "Pillar Candle",
+    "Candle Jar",
+    "Candelabra",
+    "Chandelier",
+    "Altar of Lights",
+    "Eternal Flame"
+   ],
+   "unlock_level": 1
+  },
+  "lamp": {
+   "kind": "food",
+   "names": [
+    "Oil Drop",
+    "Wick",
+    "Oil Can",
+    "Hand Lamp",
+    "Storm Lantern",
+    "Brass Lantern",
+    "Signal Lamp",
+    "Ship's Lamp",
+    "Beacon",
+    "Lighthouse Lamp"
+   ],
+   "unlock_level": 3
+  },
+  "chart": {
+   "kind": "food",
+   "names": [
+    "Paper Scrap",
+    "Sketch",
+    "Tide Table",
+    "Coast Map",
+    "Sea Chart",
+    "Compass",
+    "Spyglass",
+    "Captain's Log",
+    "Star Atlas",
+    "Keeper's Chart"
+   ],
+   "unlock_level": 5
+  },
+  "gen_glass": {
+   "kind": "generator",
+   "produces": "glass",
+   "unlock_level": 1,
+   "names": [
+    "Glass Kiln I",
+    "Glass Kiln II",
+    "Glass Kiln III",
+    "Glass Kiln IV",
+    "Glass Kiln V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "glass",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "glass",
+      1,
+      85
+     ],
+     [
+      "glass",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "glass",
+      1,
+      70
+     ],
+     [
+      "glass",
+      2,
+      25
+     ],
+     [
+      "glass",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "glass",
+      1,
+      55
+     ],
+     [
+      "glass",
+      2,
+      32
+     ],
+     [
+      "glass",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "glass",
+      1,
+      40
+     ],
+     [
+      "glass",
+      2,
+      38
+     ],
+     [
+      "glass",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_candle": {
+   "kind": "generator",
+   "produces": "candle",
+   "unlock_level": 1,
+   "names": [
+    "Candle Mould I",
+    "Candle Mould II",
+    "Candle Mould III",
+    "Candle Mould IV",
+    "Candle Mould V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "candle",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "candle",
+      1,
+      85
+     ],
+     [
+      "candle",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "candle",
+      1,
+      70
+     ],
+     [
+      "candle",
+      2,
+      25
+     ],
+     [
+      "candle",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "candle",
+      1,
+      55
+     ],
+     [
+      "candle",
+      2,
+      32
+     ],
+     [
+      "candle",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "candle",
+      1,
+      40
+     ],
+     [
+      "candle",
+      2,
+      38
+     ],
+     [
+      "candle",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_chart": {
+   "kind": "generator",
+   "produces": "chart",
+   "unlock_level": 5,
+   "names": [
+    "Chart Desk I",
+    "Chart Desk II",
+    "Chart Desk III",
+    "Chart Desk IV",
+    "Chart Desk V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "chart",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "chart",
+      1,
+      85
+     ],
+     [
+      "chart",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "chart",
+      1,
+      70
+     ],
+     [
+      "chart",
+      2,
+      25
+     ],
+     [
+      "chart",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "chart",
+      1,
+      55
+     ],
+     [
+      "chart",
+      2,
+      32
+     ],
+     [
+      "chart",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "chart",
+      1,
+      40
+     ],
+     [
+      "chart",
+      2,
+      38
+     ],
+     [
+      "chart",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_lamp": {
+   "kind": "generator",
+   "produces": "lamp",
+   "unlock_level": 3,
+   "names": [
+    "Oil Barrel I",
+    "Oil Barrel II",
+    "Oil Barrel III"
+   ],
+   "energy": 0,
+   "charges": [
+    6,
+    8,
+    10
+   ],
+   "cooldown": [
+    1800,
+    1500,
+    1200
+   ],
+   "drops": [
+    [
+     [
+      "lamp",
+      1,
+      80
+     ],
+     [
+      "lamp",
+      2,
+      20
+     ]
+    ],
+    [
+     [
+      "lamp",
+      1,
+      65
+     ],
+     [
+      "lamp",
+      2,
+      30
+     ],
+     [
+      "energy",
+      1,
+      5
+     ]
+    ],
+    [
+     [
+      "lamp",
+      1,
+      50
+     ],
+     [
+      "lamp",
+      2,
+      38
+     ],
+     [
+      "energy",
+      1,
+      12
+     ]
+    ]
+   ]
+  },
+  "coins": {
+   "kind": "resource",
+   "resource": "coins",
+   "names": [
+    "Coin",
+    "Coin Stack",
+    "Coin Pouch",
+    "Coin Chest",
+    "Treasure"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20,
+    50
+   ]
+  },
+  "gems": {
+   "kind": "resource",
+   "resource": "gems",
+   "names": [
+    "Gem",
+    "Gem Pair",
+    "Gem Cluster",
+    "Gem Crown"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20
+   ]
+  },
+  "energy": {
+   "kind": "resource",
+   "resource": "energy",
+   "names": [
+    "Energy Drop",
+    "Energy Bottle",
+    "Energy Jug",
+    "Energy Barrel",
+    "Energy Fountain"
+   ],
+   "values": [
+    5,
+    12,
+    25,
+    60,
+    150
+   ]
+  },
+  "scissors": {
+   "kind": "tool",
+   "names": [
+    "Scissors"
+   ]
+  },
+  "chest": {
+   "kind": "chest",
+   "names": [
+    "Wooden Chest",
+    "Silver Chest",
+    "Golden Chest"
+   ],
+   "timer": [
+    900,
+    3600,
+    14400
+   ],
+   "rush_gems": [
+    4,
+    10,
+    25
+   ],
+   "contents": [
+    [
+     [
+      "glass",
+      1
+     ],
+     [
+      "candle",
+      1
+     ],
+     [
+      "coins",
+      1
+     ]
+    ],
+    [
+     [
+      "glass",
+      2
+     ],
+     [
+      "candle",
+      2
+     ],
+     [
+      "lamp",
+      2
+     ],
+     [
+      "energy",
+      1
+     ],
+     [
+      "coins",
+      2
+     ]
+    ],
+    [
+     [
+      "glass",
+      3
+     ],
+     [
+      "candle",
+      3
+     ],
+     [
+      "lamp",
+      3
+     ],
+     [
+      "chart",
+      3
+     ],
+     [
+      "energy",
+      2
+     ],
+     [
+      "gems",
+      1
+     ],
+     [
+      "coins",
+      3
+     ],
+     [
+      "scissors",
+      1
+     ]
+    ]
+   ]
+  }
+ }
+}

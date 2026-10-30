@@ -1,0 +1,57 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". . # . \\ . LW",
+    "# D . / . . .",
+    "# . . . C . LW",
+    "# D f/ \\ \\ . .",
+    ". . . . . . .",
+    "f/ \\ . X \\ f/ .",
+    "\\ C / / D . .",
+    "C \\ . . . . ."
+  ],
+  "h": 8,
+  "id": "lb_l26",
+  "island": "lantern_bay",
+  "name": "Prism Reef",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 8
+      }
+    ]
+  },
+  "par": 6,
+  "rewards": {
+    "cafe_coins": 58,
+    "essence": 38
+  },
+  "solution": [
+    [
+      4,
+      0
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      1,
+      7
+    ]
+  ],
+  "w": 7
+}

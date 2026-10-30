@@ -1,0 +1,70 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#...#.##",
+    "#..o.B.#",
+    "#o#....#",
+    "##...B.#",
+    "##.....#",
+    "#.B.#..#",
+    "#.@.o#.#",
+    "########"
+  ],
+  "h": 9,
+  "id": "ss_l25",
+  "island": "stone_steps",
+  "name": "Crane Ledge",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 42
+      }
+    ]
+  },
+  "par": 35,
+  "pushes": 14,
+  "rewards": {
+    "cafe_coins": 57,
+    "essence": 39
+  },
+  "solution": [
+    "N",
+    "E",
+    "N",
+    "E",
+    "E",
+    "N",
+    "E",
+    "N",
+    "N",
+    "W",
+    "W",
+    "W",
+    "W",
+    "N",
+    "W",
+    "S",
+    "E",
+    "E",
+    "E",
+    "E",
+    "E",
+    "S",
+    "W",
+    "W",
+    "S",
+    "W",
+    "N",
+    "S",
+    "W",
+    "S",
+    "S",
+    "W",
+    "S",
+    "E",
+    "E"
+  ],
+  "w": 8
+}

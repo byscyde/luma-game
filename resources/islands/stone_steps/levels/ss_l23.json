@@ -1,0 +1,69 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#......#",
+    "#..B...#",
+    "#......#",
+    "#.#..#.#",
+    "#o.....#",
+    "#.B#*#.#",
+    "#..#@#o#",
+    "########"
+  ],
+  "h": 9,
+  "id": "ss_l23",
+  "island": "stone_steps",
+  "name": "Waterwheel",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 41
+      }
+    ]
+  },
+  "par": 34,
+  "pushes": 14,
+  "rewards": {
+    "cafe_coins": 53,
+    "essence": 37
+  },
+  "solution": [
+    "N",
+    "N",
+    "W",
+    "W",
+    "W",
+    "S",
+    "S",
+    "E",
+    "N",
+    "W",
+    "N",
+    "N",
+    "N",
+    "N",
+    "E",
+    "E",
+    "E",
+    "E",
+    "N",
+    "E",
+    "S",
+    "S",
+    "S",
+    "S",
+    "S",
+    "N",
+    "N",
+    "N",
+    "W",
+    "W",
+    "S",
+    "S",
+    "W",
+    "W"
+  ],
+  "w": 8
+}

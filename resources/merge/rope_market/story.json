@@ -1,0 +1,327 @@
+{
+ "cast": {
+  "ines": {
+   "name": "Ines",
+   "role": "Rope trader",
+   "color": "5b86b5"
+  },
+  "marek": {
+   "name": "Marek",
+   "role": "Sailmaker",
+   "color": "c0473e"
+  },
+  "kiki": {
+   "name": "Kiki",
+   "role": "Parrot",
+   "color": "4fa37a"
+  },
+  "rafe": {
+   "name": "Mayor Rafe",
+   "role": "Former mayor",
+   "color": "7d5ba6"
+  },
+  "nell": {
+   "name": "Nell",
+   "role": "Lantern Café",
+   "color": "e8875f"
+  },
+  "hana": {
+   "name": "Hana",
+   "role": "Terrace Tea House",
+   "color": "6f9a4a"
+  }
+ },
+ "hosts": [
+  "ines",
+  "kiki",
+  "nell"
+ ],
+ "intro": [
+  [
+   "ines",
+   "Welcome to the Rope Isles! Every islet is a stall and every bridge is a street."
+  ],
+  [
+   "ines",
+   "Fruit, rope, reeds and sailcloth. Merge two of a kind and the traders will pay."
+  ],
+  [
+   "kiki",
+   "Pay! Pay! Squawk!"
+  ],
+  [
+   "nell",
+   "I'm looking for a man with a cigar and a skiff."
+  ],
+  [
+   "ines",
+   "Half the market is. Help me open my stall first."
+  ]
+ ],
+ "chapters": [
+  {
+   "id": "rm1",
+   "title": "Market of Ropes",
+   "reward": {
+    "gems": 20,
+    "energy": 60
+   },
+   "tasks": [
+    {
+     "id": "m1_stall",
+     "title": "Raise the rope stall",
+     "cost": 35,
+     "dialogue": [
+      [
+       "ines",
+       "The tide took my stall. Three times this year."
+      ],
+      [
+       "kiki",
+       "Tide! Tide!"
+      ],
+      [
+       "ines",
+       "Kiki repeats everything. Don't tell her secrets."
+      ]
+     ]
+    },
+    {
+     "id": "m1_scales",
+     "title": "Hang the trading scales",
+     "cost": 55,
+     "dialogue": [
+      [
+       "marek",
+       "Marek, sailmaker. You must be the café girl everyone talks about."
+      ],
+      [
+       "nell",
+       "Nell. Everyone seems to know me before I arrive."
+      ]
+     ],
+     "designs": [
+      "Brass scales",
+      "Wooden scales",
+      "Rope scales"
+     ]
+    },
+    {
+     "id": "m1_awning",
+     "title": "Stretch a sail awning",
+     "cost": 80,
+     "dialogue": [
+      [
+       "marek",
+       "My sails keep the sun off the fruit. Fair trade for a few skewers."
+      ],
+      [
+       "ines",
+       "He means free fruit. He always means free fruit."
+      ]
+     ],
+     "designs": [
+      "Striped sail",
+      "Patchwork",
+      "Plain canvas"
+     ]
+    },
+    {
+     "id": "m1_skiff",
+     "title": "Find Rafe's skiff",
+     "cost": 105,
+     "dialogue": [
+      [
+       "kiki",
+       "Cigar! Cigar!"
+      ],
+      [
+       "ines",
+       "She smelled it near the north islet. There's a skiff tied under the mangroves."
+      ],
+      [
+       "nell",
+       "It's his. The seat still smells of smoke."
+      ]
+     ]
+    },
+    {
+     "id": "m1_hut",
+     "title": "Repair the net-mender's hut",
+     "cost": 135,
+     "dialogue": [
+      [
+       "rafe",
+       "...You followed me all the way here."
+      ],
+      [
+       "nell",
+       "You ran from the council."
+      ],
+      [
+       "rafe",
+       "I ran from whoever set that fire. They know I saw them."
+      ]
+     ],
+     "designs": [
+      "Reed hut",
+      "Plank hut",
+      "Sail tent"
+     ]
+    },
+    {
+     "id": "m1_open",
+     "title": "Open the Rope Market",
+     "cost": 165,
+     "dialogue": [
+      [
+       "ines",
+       "The market is open! Every bridge full of traders."
+      ],
+      [
+       "rafe",
+       "If I talk, I need the council to protect me."
+      ],
+      [
+       "nell",
+       "Then come back with me and talk."
+      ]
+     ],
+     "designs": [
+      "Flag lines",
+      "Lantern ropes",
+      "Shell chimes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "rm2",
+   "title": "The Oil Trader",
+   "reward": {
+    "gems": 25,
+    "energy": 100
+   },
+   "tasks": [
+    {
+     "id": "m2_dock",
+     "title": "Build the trading dock",
+     "cost": 200,
+     "dialogue": [
+      [
+       "marek",
+       "Ships from every island again. I've never sold so many sails."
+      ],
+      [
+       "ines",
+       "And oil. Somebody's buying a lot of lamp oil."
+      ]
+     ],
+     "designs": [
+      "Plank dock",
+      "Stone pier",
+      "Floating dock"
+     ]
+    },
+    {
+     "id": "m2_ledger",
+     "title": "Check the oil ledger",
+     "cost": 240,
+     "dialogue": [
+      [
+       "ines",
+       "Twenty barrels, the week before the fire. Signed 'S.'"
+      ],
+      [
+       "rafe",
+       "S... Silas. The lamp trader from Moon Grove."
+      ],
+      [
+       "nell",
+       "Ada smelled lamp oil that night."
+      ]
+     ]
+    },
+    {
+     "id": "m2_loft",
+     "title": "Open the sail loft",
+     "cost": 290,
+     "dialogue": [
+      [
+       "marek",
+       "Silas bought rope too. Rope soaked in oil burns fast."
+      ],
+      [
+       "kiki",
+       "Fire! Fire!"
+      ]
+     ],
+     "designs": [
+      "Open loft",
+      "Glass loft",
+      "Canvas loft"
+     ]
+    },
+    {
+     "id": "m2_witness",
+     "title": "Bring Rafe to the council",
+     "cost": 340,
+     "dialogue": [
+      [
+       "rafe",
+       "I'll say it in front of everyone. I saw Silas on the café pier, with a lamp."
+      ],
+      [
+       "hana",
+       "The council heard you. Silas will be called."
+      ]
+     ]
+    },
+    {
+     "id": "m2_bridges",
+     "title": "Restring every bridge",
+     "cost": 390,
+     "dialogue": [
+      [
+       "ines",
+       "Every islet joined again. Like the archipelago."
+      ],
+      [
+       "nell",
+       "Six islands. One left to bring back."
+      ]
+     ],
+     "designs": [
+      "Red ropes",
+      "Blue ropes",
+      "Golden ropes"
+     ]
+    },
+    {
+     "id": "m2_festival",
+     "title": "Hold the Kite Festival",
+     "cost": 470,
+     "dialogue": [
+      [
+       "marek",
+       "A kite for every island! Look at them over the water."
+      ],
+      [
+       "rafe",
+       "Silas went home to Moon Grove. Nobody goes there at night."
+      ],
+      [
+       "nell",
+       "Then I'll go at night. Next, Moon Grove."
+      ]
+     ],
+     "designs": [
+      "Fish kites",
+      "Bird kites",
+      "Lantern kites"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". . . X D f/",
+    "/ \\ . . \\ .",
+    ". . # . \\ LW",
+    ". . \\ C . LW",
+    "C . . / . .",
+    ". / \\ C f/ #",
+    ". D . . . #"
+  ],
+  "h": 7,
+  "id": "lb_l24",
+  "island": "lantern_bay",
+  "name": "Starlit Maze",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 6
+      }
+    ]
+  },
+  "par": 4,
+  "rewards": {
+    "cafe_coins": 54,
+    "essence": 36
+  },
+  "solution": [
+    [
+      4,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      5
+    ]
+  ],
+  "w": 6
+}

@@ -1,0 +1,50 @@
+{
+  "format_version": 1,
+  "id": "w1_l22",
+  "name": "Mill Race",
+  "world": "world_01",
+  "area": "old_mill",
+  "mechanic": "two_gates",
+  "difficulty": 4,
+  "grid": [
+    "S2 # L1 . # .",
+    "I1 Kb # L0 I0 L0",
+    "G0a L0 # G0b I1 I1",
+    "L1 I0 I0 L1 # G0a",
+    "L1 . L3 . I0 I1",
+    "# . Ka L2 . T1"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 19
+      }
+    ]
+  },
+  "par_moves": 16,
+  "restores": [
+    {
+      "object": "mill_orchard_1",
+      "stage": 1
+    },
+    {
+      "object": "mill_orchard_2",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

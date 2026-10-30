@@ -1,0 +1,51 @@
+{
+  "format_version": 1,
+  "id": "w1_l12",
+  "name": "Pine Ridge",
+  "world": "world_01",
+  "area": "stone_terraces",
+  "mechanic": "route_choice",
+  "difficulty": 3,
+  "grid": [
+    "# . . L3 . #",
+    "L2 L3 I0 I1! L0 I1",
+    ". I1 # # L2 T1",
+    "S1 L1 # # I1 #",
+    "# L3 I0 I0 L1 .",
+    ". # . . L3 ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 12
+      }
+    ]
+  },
+  "par_moves": 10,
+  "restores": [
+    {
+      "object": "terrace_pine_1",
+      "stage": 1
+    },
+    {
+      "object": "terrace_pine_2",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5,
+    "discovery": "deco_birdhouse"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": 1,
+  "grid": [
+    "LE . / C",
+    ". . / /",
+    ". . . .",
+    ". f/ # .",
+    ". . . ."
+  ],
+  "h": 5,
+  "id": "lb_l06",
+  "island": "lantern_bay",
+  "name": "Silver Wake",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 3
+      }
+    ]
+  },
+  "par": 2,
+  "rewards": {
+    "cafe_coins": 18,
+    "essence": 18
+  },
+  "solution": [
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "w": 4
+}

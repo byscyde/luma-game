@@ -1,0 +1,58 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L3 L1 L2 I3",
+    "L0 . . .",
+    ". . L3 .",
+    "I0 I0 L1 I1"
+  ],
+  "h": 4,
+  "id": "er_l09",
+  "island": "ember_reef",
+  "locked_cols": [],
+  "locked_rows": [],
+  "name": "Red Lagoon",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 4
+      }
+    ]
+  },
+  "par": 3,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 23,
+    "essence": 19
+  },
+  "solution": [
+    [
+      "r",
+      3,
+      1
+    ],
+    [
+      "r",
+      3,
+      1
+    ],
+    [
+      "c",
+      2,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 2,
+    "side": "S"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 0,
+      "side": "S"
+    }
+  ],
+  "w": 4
+}

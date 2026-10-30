@@ -1,0 +1,71 @@
+{
+  "format_version": 1,
+  "grid": [
+    "Y3 L2 I2 . #",
+    "L0 L0 L2 I0 L3",
+    "Y3 # L2 Y1 .",
+    "Y1 . L0 L3 L2",
+    "I1 L0 I1 . I0"
+  ],
+  "h": 5,
+  "id": "er_l22",
+  "island": "ember_reef",
+  "locked_cols": [
+    2
+  ],
+  "locked_rows": [],
+  "name": "Clam Garden",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 6
+      }
+    ]
+  },
+  "par": 4,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 49,
+    "essence": 32
+  },
+  "solution": [
+    [
+      "c",
+      1,
+      -1
+    ],
+    [
+      "c",
+      3,
+      1
+    ],
+    [
+      "r",
+      2,
+      -1
+    ],
+    [
+      "c",
+      1,
+      1
+    ]
+  ],
+  "source": {
+    "index": 4,
+    "side": "S"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 0,
+      "side": "N"
+    },
+    {
+      "id": "T2",
+      "index": 3,
+      "side": "W"
+    }
+  ],
+  "w": 5
+}

@@ -1,0 +1,69 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#o...###",
+    "#....B.#",
+    "#...#Bo#",
+    "#...o..#",
+    "###B.#.#",
+    "##.....#",
+    "#.....@#",
+    "########"
+  ],
+  "h": 9,
+  "id": "ss_l24",
+  "island": "stone_steps",
+  "name": "Mist Valley",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 41
+      }
+    ]
+  },
+  "par": 34,
+  "pushes": 14,
+  "rewards": {
+    "cafe_coins": 55,
+    "essence": 38
+  },
+  "solution": [
+    "N",
+    "N",
+    "N",
+    "N",
+    "N",
+    "W",
+    "S",
+    "N",
+    "W",
+    "W",
+    "W",
+    "S",
+    "W",
+    "N",
+    "E",
+    "E",
+    "S",
+    "S",
+    "S",
+    "E",
+    "S",
+    "S",
+    "W",
+    "W",
+    "N",
+    "E",
+    "E",
+    "E",
+    "S",
+    "E",
+    "N",
+    "N",
+    "N",
+    "W"
+  ],
+  "w": 8
+}

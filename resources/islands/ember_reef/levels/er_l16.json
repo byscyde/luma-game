@@ -1,0 +1,70 @@
+{
+  "format_version": 1,
+  "grid": [
+    "L2 L2 . . Y0",
+    "L0 L3 L0 I1 L2",
+    "I1 I1 L0 I1 Y3",
+    "L1 I2 I1 I0 #"
+  ],
+  "h": 4,
+  "id": "er_l16",
+  "island": "ember_reef",
+  "locked_cols": [
+    4
+  ],
+  "locked_rows": [],
+  "name": "Split Stream",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 6
+      }
+    ]
+  },
+  "par": 4,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 37,
+    "essence": 26
+  },
+  "solution": [
+    [
+      "c",
+      0,
+      1
+    ],
+    [
+      "c",
+      2,
+      -1
+    ],
+    [
+      "r",
+      0,
+      1
+    ],
+    [
+      "c",
+      0,
+      -1
+    ]
+  ],
+  "source": {
+    "index": 2,
+    "side": "E"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 2,
+      "side": "W"
+    },
+    {
+      "id": "T2",
+      "index": 0,
+      "side": "W"
+    }
+  ],
+  "w": 5
+}

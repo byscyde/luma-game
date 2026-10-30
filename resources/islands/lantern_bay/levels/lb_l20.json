@@ -1,0 +1,43 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". . . D . .",
+    "D \\ C . . C",
+    "# \\ / f/ / .",
+    "# . . . . \\",
+    ". . f\\ / . .",
+    ". . # LN X ."
+  ],
+  "h": 6,
+  "id": "lb_l20",
+  "island": "lantern_bay",
+  "name": "Tide Lamps",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 5
+      }
+    ]
+  },
+  "par": 3,
+  "rewards": {
+    "cafe_coins": 46,
+    "essence": 32
+  },
+  "solution": [
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      3,
+      4
+    ]
+  ],
+  "w": 6
+}

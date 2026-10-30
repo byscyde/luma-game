@@ -1,0 +1,45 @@
+{
+  "format_version": 1,
+  "id": "w1_l04",
+  "name": "Around the Stone",
+  "world": "world_01",
+  "area": "spring_glade",
+  "mechanic": "obstacle",
+  "difficulty": 2,
+  "grid": [
+    "S1 L1 # T1",
+    "L0 L2 I0 L1",
+    ". . # .",
+    "# . . ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 8
+      }
+    ]
+  },
+  "par_moves": 6,
+  "restores": [
+    {
+      "object": "glade_tree_2",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  },
+  "tutorial": "blocker"
+}

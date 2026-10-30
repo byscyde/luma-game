@@ -1,0 +1,46 @@
+{
+  "format_version": 1,
+  "id": "w1_l15",
+  "name": "Ridge Run",
+  "world": "world_01",
+  "area": "stone_terraces",
+  "mechanic": "route_choice",
+  "difficulty": 4,
+  "grid": [
+    "# . L1 L0 I0 T1",
+    "L1 L0 I0 L0 # I0",
+    "# I1 L1 I0 . L2",
+    "I1 I0! # L2 . I1",
+    ". I1 L2 I1 # L1",
+    "S1 L0 I1 . L2 ."
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 15
+      }
+    ]
+  },
+  "par_moves": 12,
+  "restores": [
+    {
+      "object": "terrace_pine_2",
+      "stage": 2
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

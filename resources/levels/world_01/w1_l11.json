@@ -1,0 +1,50 @@
+{
+  "format_version": 1,
+  "id": "w1_l11",
+  "name": "Terrace Steps",
+  "world": "world_01",
+  "area": "stone_terraces",
+  "mechanic": "stairs",
+  "difficulty": 3,
+  "grid": [
+    "S1 L1 L3 . #",
+    "# L2 L3 I0 .",
+    "L1 . L3 L1 #",
+    ". # . L3 L3",
+    "I0 . # L0 I1",
+    ". . L2 . T1"
+  ],
+  "targets": {
+    "T1": {
+      "kind": "tree"
+    }
+  },
+  "objectives": {
+    "required": [
+      {
+        "type": "reach_all_targets"
+      }
+    ],
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 15
+      }
+    ]
+  },
+  "par_moves": 13,
+  "restores": [
+    {
+      "object": "terrace_falls",
+      "stage": 1
+    },
+    {
+      "object": "terrace_fields",
+      "stage": 1
+    }
+  ],
+  "rewards": {
+    "essence": 10,
+    "optional_essence": 5
+  }
+}

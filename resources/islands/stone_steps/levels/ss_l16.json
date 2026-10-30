@@ -1,0 +1,60 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#...@o.#",
+    "#..B.###",
+    "#......#",
+    "#....#.#",
+    "#oB#B.##",
+    "#.o....#",
+    "########"
+  ],
+  "h": 8,
+  "id": "ss_l16",
+  "island": "stone_steps",
+  "name": "Cloud Steps",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 32
+      }
+    ]
+  },
+  "par": 26,
+  "pushes": 11,
+  "rewards": {
+    "cafe_coins": 39,
+    "essence": 30
+  },
+  "solution": [
+    "S",
+    "W",
+    "W",
+    "S",
+    "S",
+    "W",
+    "S",
+    "S",
+    "E",
+    "E",
+    "E",
+    "N",
+    "N",
+    "N",
+    "N",
+    "W",
+    "N",
+    "E",
+    "W",
+    "W",
+    "W",
+    "S",
+    "S",
+    "S",
+    "E",
+    "S"
+  ],
+  "w": 8
+}

@@ -1,0 +1,11 @@
+; Copied to res://addons/luma_auth/ by tools/ci/build_auth_plugin_ios.sh together with the
+; xcframework it builds. Not in the project otherwise, so other platforms load nothing.
+[configuration]
+
+entry_symbol = "luma_auth_init"
+compatibility_minimum = "4.5"
+
+[libraries]
+
+ios.debug = "res://addons/luma_auth/bin/libluma_auth.ios.xcframework"
+ios.release = "res://addons/luma_auth/bin/libluma_auth.ios.xcframework"

@@ -1,0 +1,56 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "#o..#.#",
+    "#@#..o#",
+    "#.B...#",
+    "#.B..##",
+    "##.B..#",
+    "#o....#",
+    "#######"
+  ],
+  "h": 8,
+  "id": "ss_l15",
+  "island": "stone_steps",
+  "name": "Hidden Spring",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 27
+      }
+    ]
+  },
+  "par": 22,
+  "pushes": 13,
+  "rewards": {
+    "cafe_coins": 37,
+    "essence": 29
+  },
+  "solution": [
+    "S",
+    "E",
+    "S",
+    "S",
+    "E",
+    "S",
+    "W",
+    "E",
+    "E",
+    "N",
+    "N",
+    "N",
+    "W",
+    "N",
+    "E",
+    "S",
+    "W",
+    "W",
+    "S",
+    "W",
+    "N",
+    "N"
+  ],
+  "w": 7
+}

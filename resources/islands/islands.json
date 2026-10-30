@@ -1,0 +1,100 @@
+{
+ "islands": [
+  {
+   "id": "verdant",
+   "name": "Verdant Isle",
+   "game": "rotate",
+   "game_name": "Turn the channels",
+   "levels": "world_01",
+   "color": "5fb648",
+   "unlock": {
+    "start": true
+   }
+  },
+  {
+   "id": "ember_reef",
+   "name": "Ember Reef",
+   "game": "slide",
+   "game_name": "Slide the rows",
+   "levels": "res://resources/islands/ember_reef/levels",
+   "color": "e8744f",
+   "unlock": {
+    "cafe_task": "c1_open"
+   },
+   "merge_location": {
+    "id": "reef_grill",
+    "name": "Reef Grill",
+    "dir": "res://resources/merge/reef_grill"
+   },
+   "scene": "slide"
+  },
+  {
+   "id": "lantern_bay",
+   "name": "Lantern Bay",
+   "game": "light",
+   "game_name": "Mirrors & light",
+   "color": "f2c14e",
+   "unlock": {
+    "cafe_task": "c2_fountain"
+   },
+   "levels": "res://resources/islands/lantern_bay/levels",
+   "scene": "light",
+   "merge_location": {
+    "id": "lighthouse_workshop",
+    "name": "Lighthouse Workshop",
+    "dir": "res://resources/merge/lighthouse_workshop"
+   }
+  },
+  {
+   "id": "stone_steps",
+   "name": "Stone Steps",
+   "game": "push",
+   "game_name": "Push the boulders",
+   "color": "9c8460",
+   "unlock": {
+    "cafe_task": "c3_festival"
+   },
+   "levels": "res://resources/islands/stone_steps/levels",
+   "scene": "push",
+   "merge_location": {
+    "id": "terrace_tea_house",
+    "name": "Terrace Tea House",
+    "dir": "res://resources/merge/terrace_tea_house"
+   }
+  },
+  {
+   "id": "rope_isles",
+   "name": "Rope Isles",
+   "game": "bridges",
+   "game_name": "Build the bridges",
+   "color": "5b86b5",
+   "unlock": {
+    "cafe_task": "c4_ferry"
+   },
+   "levels": "res://resources/islands/rope_isles/levels",
+   "scene": "bridges",
+   "merge_location": {
+    "id": "rope_market",
+    "name": "Rope Market",
+    "dir": "res://resources/merge/rope_market"
+   }
+  },
+  {
+   "id": "moon_grove",
+   "name": "Moon Grove",
+   "game": "match3",
+   "game_name": "Match the moonflowers",
+   "color": "7d5ba6",
+   "unlock": {
+    "cafe_task": "c5_grove"
+   },
+   "levels": "res://resources/islands/moon_grove/levels",
+   "scene": "match",
+   "merge_location": {
+    "id": "moonlight_bakery",
+    "name": "Moonlight Bakery",
+    "dir": "res://resources/merge/moonlight_bakery"
+   }
+  }
+ ]
+}

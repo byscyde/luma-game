@@ -1,0 +1,38 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". . . .",
+    "\\ \\ . .",
+    "C / . LW",
+    ". # . .",
+    ". . . f/"
+  ],
+  "h": 5,
+  "id": "lb_l05",
+  "island": "lantern_bay",
+  "name": "Beacon Steps",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 3
+      }
+    ]
+  },
+  "par": 2,
+  "rewards": {
+    "cafe_coins": 16,
+    "essence": 17
+  },
+  "solution": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "w": 4
+}

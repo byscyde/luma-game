@@ -1,0 +1,589 @@
+{
+ "board": {
+  "cols": 7,
+  "rows": 9
+ },
+ "chains": {
+  "sweet": {
+   "kind": "food",
+   "names": [
+    "Sugar Cube",
+    "Candy",
+    "Cookie",
+    "Cupcake",
+    "Moon Cake",
+    "Cake Slice",
+    "Layer Cake",
+    "Star Tart",
+    "Cake Tower",
+    "Midnight Feast"
+   ],
+   "unlock_level": 1
+  },
+  "moonflower": {
+   "kind": "food",
+   "names": [
+    "Seed",
+    "Sprout",
+    "Bud",
+    "Moonflower",
+    "Flower Pair",
+    "Bouquet",
+    "Flower Pot",
+    "Flower Arch",
+    "Moon Garden",
+    "Moonflower Crown"
+   ],
+   "unlock_level": 1
+  },
+  "honey": {
+   "kind": "food",
+   "names": [
+    "Honey Drop",
+    "Honey Jar",
+    "Honey Dipper",
+    "Honeycomb",
+    "Honey Cake",
+    "Honey Pot",
+    "Beehive",
+    "Honey Barrel",
+    "Golden Hive",
+    "Honey Palace"
+   ],
+   "unlock_level": 3
+  },
+  "paperlantern": {
+   "kind": "food",
+   "names": [
+    "Paper",
+    "Folded Paper",
+    "Paper Star",
+    "Paper Lantern",
+    "Lantern Pair",
+    "Lantern String",
+    "Moon Lantern",
+    "Lantern Tree",
+    "Sky Lantern",
+    "Lantern Moon"
+   ],
+   "unlock_level": 5
+  },
+  "gen_sweet": {
+   "kind": "generator",
+   "produces": "sweet",
+   "unlock_level": 1,
+   "names": [
+    "Moon Oven I",
+    "Moon Oven II",
+    "Moon Oven III",
+    "Moon Oven IV",
+    "Moon Oven V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "sweet",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "sweet",
+      1,
+      85
+     ],
+     [
+      "sweet",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "sweet",
+      1,
+      70
+     ],
+     [
+      "sweet",
+      2,
+      25
+     ],
+     [
+      "sweet",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "sweet",
+      1,
+      55
+     ],
+     [
+      "sweet",
+      2,
+      32
+     ],
+     [
+      "sweet",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "sweet",
+      1,
+      40
+     ],
+     [
+      "sweet",
+      2,
+      38
+     ],
+     [
+      "sweet",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_moonflower": {
+   "kind": "generator",
+   "produces": "moonflower",
+   "unlock_level": 1,
+   "names": [
+    "Flower Bed I",
+    "Flower Bed II",
+    "Flower Bed III",
+    "Flower Bed IV",
+    "Flower Bed V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "moonflower",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "moonflower",
+      1,
+      85
+     ],
+     [
+      "moonflower",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "moonflower",
+      1,
+      70
+     ],
+     [
+      "moonflower",
+      2,
+      25
+     ],
+     [
+      "moonflower",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "moonflower",
+      1,
+      55
+     ],
+     [
+      "moonflower",
+      2,
+      32
+     ],
+     [
+      "moonflower",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "moonflower",
+      1,
+      40
+     ],
+     [
+      "moonflower",
+      2,
+      38
+     ],
+     [
+      "moonflower",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_paperlantern": {
+   "kind": "generator",
+   "produces": "paperlantern",
+   "unlock_level": 5,
+   "names": [
+    "Paper Press I",
+    "Paper Press II",
+    "Paper Press III",
+    "Paper Press IV",
+    "Paper Press V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "paperlantern",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "paperlantern",
+      1,
+      85
+     ],
+     [
+      "paperlantern",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "paperlantern",
+      1,
+      70
+     ],
+     [
+      "paperlantern",
+      2,
+      25
+     ],
+     [
+      "paperlantern",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "paperlantern",
+      1,
+      55
+     ],
+     [
+      "paperlantern",
+      2,
+      32
+     ],
+     [
+      "paperlantern",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "paperlantern",
+      1,
+      40
+     ],
+     [
+      "paperlantern",
+      2,
+      38
+     ],
+     [
+      "paperlantern",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_honey": {
+   "kind": "generator",
+   "produces": "honey",
+   "unlock_level": 3,
+   "names": [
+    "Bee Box I",
+    "Bee Box II",
+    "Bee Box III"
+   ],
+   "energy": 0,
+   "charges": [
+    6,
+    8,
+    10
+   ],
+   "cooldown": [
+    1800,
+    1500,
+    1200
+   ],
+   "drops": [
+    [
+     [
+      "honey",
+      1,
+      80
+     ],
+     [
+      "honey",
+      2,
+      20
+     ]
+    ],
+    [
+     [
+      "honey",
+      1,
+      65
+     ],
+     [
+      "honey",
+      2,
+      30
+     ],
+     [
+      "energy",
+      1,
+      5
+     ]
+    ],
+    [
+     [
+      "honey",
+      1,
+      50
+     ],
+     [
+      "honey",
+      2,
+      38
+     ],
+     [
+      "energy",
+      1,
+      12
+     ]
+    ]
+   ]
+  },
+  "coins": {
+   "kind": "resource",
+   "resource": "coins",
+   "names": [
+    "Coin",
+    "Coin Stack",
+    "Coin Pouch",
+    "Coin Chest",
+    "Treasure"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20,
+    50
+   ]
+  },
+  "gems": {
+   "kind": "resource",
+   "resource": "gems",
+   "names": [
+    "Gem",
+    "Gem Pair",
+    "Gem Cluster",
+    "Gem Crown"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20
+   ]
+  },
+  "energy": {
+   "kind": "resource",
+   "resource": "energy",
+   "names": [
+    "Energy Drop",
+    "Energy Bottle",
+    "Energy Jug",
+    "Energy Barrel",
+    "Energy Fountain"
+   ],
+   "values": [
+    5,
+    12,
+    25,
+    60,
+    150
+   ]
+  },
+  "scissors": {
+   "kind": "tool",
+   "names": [
+    "Scissors"
+   ]
+  },
+  "chest": {
+   "kind": "chest",
+   "names": [
+    "Wooden Chest",
+    "Silver Chest",
+    "Golden Chest"
+   ],
+   "timer": [
+    900,
+    3600,
+    14400
+   ],
+   "rush_gems": [
+    4,
+    10,
+    25
+   ],
+   "contents": [
+    [
+     [
+      "sweet",
+      1
+     ],
+     [
+      "moonflower",
+      1
+     ],
+     [
+      "coins",
+      1
+     ]
+    ],
+    [
+     [
+      "sweet",
+      2
+     ],
+     [
+      "moonflower",
+      2
+     ],
+     [
+      "honey",
+      2
+     ],
+     [
+      "energy",
+      1
+     ],
+     [
+      "coins",
+      2
+     ]
+    ],
+    [
+     [
+      "sweet",
+      3
+     ],
+     [
+      "moonflower",
+      3
+     ],
+     [
+      "honey",
+      3
+     ],
+     [
+      "paperlantern",
+      3
+     ],
+     [
+      "energy",
+      2
+     ],
+     [
+      "gems",
+      1
+     ],
+     [
+      "coins",
+      3
+     ],
+     [
+      "scissors",
+      1
+     ]
+    ]
+   ]
+  }
+ }
+}

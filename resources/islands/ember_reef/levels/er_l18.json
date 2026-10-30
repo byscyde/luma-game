@@ -1,0 +1,70 @@
+{
+  "format_version": 1,
+  "grid": [
+    "Y2 L1 L3 L2 L1",
+    "I0 I0 I2 L0 L3",
+    "I0 I2 L3 . I0",
+    ". I1 # L0 L3"
+  ],
+  "h": 4,
+  "id": "er_l18",
+  "island": "ember_reef",
+  "locked_cols": [
+    3
+  ],
+  "locked_rows": [],
+  "name": "Reef Knot",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 6
+      }
+    ]
+  },
+  "par": 4,
+  "par_proven": true,
+  "rewards": {
+    "cafe_coins": 41,
+    "essence": 28
+  },
+  "solution": [
+    [
+      "r",
+      0,
+      -1
+    ],
+    [
+      "r",
+      1,
+      -1
+    ],
+    [
+      "c",
+      1,
+      1
+    ],
+    [
+      "r",
+      3,
+      1
+    ]
+  ],
+  "source": {
+    "index": 4,
+    "side": "N"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "index": 3,
+      "side": "E"
+    },
+    {
+      "id": "T2",
+      "index": 3,
+      "side": "W"
+    }
+  ],
+  "w": 5
+}

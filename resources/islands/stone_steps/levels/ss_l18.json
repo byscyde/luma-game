@@ -1,0 +1,60 @@
+{
+  "format_version": 1,
+  "grid": [
+    "########",
+    "#o.....#",
+    "#......#",
+    "#.##.B.#",
+    "#+...B.#",
+    "#.#B...#",
+    "#...##o#",
+    "########"
+  ],
+  "h": 8,
+  "id": "ss_l18",
+  "island": "stone_steps",
+  "name": "Monk's Stair",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 32
+      }
+    ]
+  },
+  "par": 26,
+  "pushes": 12,
+  "rewards": {
+    "cafe_coins": 43,
+    "essence": 32
+  },
+  "solution": [
+    "S",
+    "S",
+    "E",
+    "E",
+    "N",
+    "E",
+    "N",
+    "W",
+    "W",
+    "E",
+    "E",
+    "E",
+    "N",
+    "N",
+    "E",
+    "S",
+    "S",
+    "S",
+    "N",
+    "N",
+    "N",
+    "N",
+    "W",
+    "W",
+    "W",
+    "W"
+  ],
+  "w": 8
+}

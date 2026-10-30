@@ -1,0 +1,9 @@
+# LUMA site block for Caddy. Founders already has its own block in /etc/caddy/Caddyfile:
+# append this one below it (see README.md), with your domain instead of luma.example.duckdns.org.
+luma.example.duckdns.org {
+	encode gzip
+	request_body {
+		max_size 8MB
+	}
+	reverse_proxy 127.0.0.1:8788
+}

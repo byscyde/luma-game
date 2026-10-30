@@ -1,0 +1,52 @@
+{
+  "format_version": 1,
+  "grid": [
+    ". LS . . # .",
+    ". . f/ # . f\\",
+    "D / / . . .",
+    ". . C D . .",
+    "\\ . . C . X",
+    ". / . . C \\",
+    "# \\ \\ \\ . ."
+  ],
+  "h": 7,
+  "id": "lb_l21",
+  "island": "lantern_bay",
+  "name": "Lantern Row",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 7
+      }
+    ]
+  },
+  "par": 5,
+  "rewards": {
+    "cafe_coins": 48,
+    "essence": 33
+  },
+  "solution": [
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      5,
+      5
+    ],
+    [
+      2,
+      6
+    ]
+  ],
+  "w": 6
+}

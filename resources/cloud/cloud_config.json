@@ -1,0 +1,8 @@
+{
+  "server_url": "https://luma.scyde.dev",
+  "save_key": "luma_save",
+  "push_delay_s": 4,
+  "google_ios_client_id": "",
+  "google_web_client_id": "",
+  "facebook_app_id": ""
+}

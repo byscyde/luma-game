@@ -1,0 +1,51 @@
+{
+  "format_version": 1,
+  "grid": [
+    "#######",
+    "#o....#",
+    "#...@.#",
+    "#.#.B.#",
+    "#.#B..#",
+    "#....o#",
+    "#..#.##",
+    "#######"
+  ],
+  "h": 8,
+  "id": "ss_l10",
+  "island": "stone_steps",
+  "name": "Dragon Steps",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 21
+      }
+    ]
+  },
+  "par": 17,
+  "pushes": 10,
+  "rewards": {
+    "cafe_coins": 27,
+    "essence": 24
+  },
+  "solution": [
+    "S",
+    "W",
+    "S",
+    "E",
+    "N",
+    "E",
+    "S",
+    "W",
+    "S",
+    "W",
+    "W",
+    "S",
+    "W",
+    "N",
+    "N",
+    "N",
+    "N"
+  ],
+  "w": 7
+}

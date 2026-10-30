@@ -1,0 +1,589 @@
+{
+ "board": {
+  "cols": 7,
+  "rows": 9
+ },
+ "chains": {
+  "grill": {
+   "kind": "food",
+   "names": [
+    "Corn Cob",
+    "Grilled Corn",
+    "Veggie Skewer",
+    "Shrimp Skewer",
+    "Kebab Plate",
+    "Grilled Prawns",
+    "Surf & Turf",
+    "Mixed Grill",
+    "BBQ Feast",
+    "Ember Platter"
+   ],
+   "unlock_level": 1
+  },
+  "seaweed": {
+   "kind": "food",
+   "names": [
+    "Seaweed",
+    "Kelp Bundle",
+    "Nori Sheet",
+    "Rice Ball",
+    "Sushi Roll",
+    "Nigiri",
+    "Sushi Set",
+    "Poke Bowl",
+    "Bento Box",
+    "Reef Banquet"
+   ],
+   "unlock_level": 1
+  },
+  "smoothie": {
+   "kind": "food",
+   "names": [
+    "Coconut",
+    "Coconut Half",
+    "Mango",
+    "Fruit Cup",
+    "Fresh Juice",
+    "Smoothie",
+    "Smoothie Bowl",
+    "Tropical Punch",
+    "Fruit Tower",
+    "Sunset Cooler"
+   ],
+   "unlock_level": 3
+  },
+  "pearl": {
+   "kind": "food",
+   "names": [
+    "Sand Dollar",
+    "Pearl",
+    "Pearl Pair",
+    "Pearl Ring",
+    "Shell Bracelet",
+    "Pearl Necklace",
+    "Coral Brooch",
+    "Treasure Box",
+    "Mermaid Crown",
+    "Ember Pearl"
+   ],
+   "unlock_level": 5
+  },
+  "gen_grill": {
+   "kind": "generator",
+   "produces": "grill",
+   "unlock_level": 1,
+   "names": [
+    "Ember Grill I",
+    "Ember Grill II",
+    "Ember Grill III",
+    "Ember Grill IV",
+    "Ember Grill V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "grill",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "grill",
+      1,
+      85
+     ],
+     [
+      "grill",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "grill",
+      1,
+      70
+     ],
+     [
+      "grill",
+      2,
+      25
+     ],
+     [
+      "grill",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "grill",
+      1,
+      55
+     ],
+     [
+      "grill",
+      2,
+      32
+     ],
+     [
+      "grill",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "grill",
+      1,
+      40
+     ],
+     [
+      "grill",
+      2,
+      38
+     ],
+     [
+      "grill",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_seaweed": {
+   "kind": "generator",
+   "produces": "seaweed",
+   "unlock_level": 1,
+   "names": [
+    "Kelp Basket I",
+    "Kelp Basket II",
+    "Kelp Basket III",
+    "Kelp Basket IV",
+    "Kelp Basket V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "seaweed",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "seaweed",
+      1,
+      85
+     ],
+     [
+      "seaweed",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "seaweed",
+      1,
+      70
+     ],
+     [
+      "seaweed",
+      2,
+      25
+     ],
+     [
+      "seaweed",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "seaweed",
+      1,
+      55
+     ],
+     [
+      "seaweed",
+      2,
+      32
+     ],
+     [
+      "seaweed",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "seaweed",
+      1,
+      40
+     ],
+     [
+      "seaweed",
+      2,
+      38
+     ],
+     [
+      "seaweed",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_pearl": {
+   "kind": "generator",
+   "produces": "pearl",
+   "unlock_level": 5,
+   "names": [
+    "Oyster Bed I",
+    "Oyster Bed II",
+    "Oyster Bed III",
+    "Oyster Bed IV",
+    "Oyster Bed V"
+   ],
+   "energy": 1,
+   "drops": [
+    [
+     [
+      "pearl",
+      1,
+      100
+     ]
+    ],
+    [
+     [
+      "pearl",
+      1,
+      85
+     ],
+     [
+      "pearl",
+      2,
+      15
+     ]
+    ],
+    [
+     [
+      "pearl",
+      1,
+      70
+     ],
+     [
+      "pearl",
+      2,
+      25
+     ],
+     [
+      "pearl",
+      3,
+      5
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "pearl",
+      1,
+      55
+     ],
+     [
+      "pearl",
+      2,
+      32
+     ],
+     [
+      "pearl",
+      3,
+      13
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      "pearl",
+      1,
+      40
+     ],
+     [
+      "pearl",
+      2,
+      38
+     ],
+     [
+      "pearl",
+      3,
+      22
+     ],
+     [
+      "coins",
+      1,
+      4
+     ]
+    ]
+   ]
+  },
+  "gen_smoothie": {
+   "kind": "generator",
+   "produces": "smoothie",
+   "unlock_level": 3,
+   "names": [
+    "Coconut Palm I",
+    "Coconut Palm II",
+    "Coconut Palm III"
+   ],
+   "energy": 0,
+   "charges": [
+    6,
+    8,
+    10
+   ],
+   "cooldown": [
+    1800,
+    1500,
+    1200
+   ],
+   "drops": [
+    [
+     [
+      "smoothie",
+      1,
+      80
+     ],
+     [
+      "smoothie",
+      2,
+      20
+     ]
+    ],
+    [
+     [
+      "smoothie",
+      1,
+      65
+     ],
+     [
+      "smoothie",
+      2,
+      30
+     ],
+     [
+      "energy",
+      1,
+      5
+     ]
+    ],
+    [
+     [
+      "smoothie",
+      1,
+      50
+     ],
+     [
+      "smoothie",
+      2,
+      38
+     ],
+     [
+      "energy",
+      1,
+      12
+     ]
+    ]
+   ]
+  },
+  "coins": {
+   "kind": "resource",
+   "resource": "coins",
+   "names": [
+    "Coin",
+    "Coin Stack",
+    "Coin Pouch",
+    "Coin Chest",
+    "Treasure"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20,
+    50
+   ]
+  },
+  "gems": {
+   "kind": "resource",
+   "resource": "gems",
+   "names": [
+    "Gem",
+    "Gem Pair",
+    "Gem Cluster",
+    "Gem Crown"
+   ],
+   "values": [
+    1,
+    3,
+    8,
+    20
+   ]
+  },
+  "energy": {
+   "kind": "resource",
+   "resource": "energy",
+   "names": [
+    "Energy Drop",
+    "Energy Bottle",
+    "Energy Jug",
+    "Energy Barrel",
+    "Energy Fountain"
+   ],
+   "values": [
+    5,
+    12,
+    25,
+    60,
+    150
+   ]
+  },
+  "scissors": {
+   "kind": "tool",
+   "names": [
+    "Scissors"
+   ]
+  },
+  "chest": {
+   "kind": "chest",
+   "names": [
+    "Wooden Chest",
+    "Silver Chest",
+    "Golden Chest"
+   ],
+   "timer": [
+    900,
+    3600,
+    14400
+   ],
+   "rush_gems": [
+    4,
+    10,
+    25
+   ],
+   "contents": [
+    [
+     [
+      "grill",
+      1
+     ],
+     [
+      "seaweed",
+      1
+     ],
+     [
+      "coins",
+      1
+     ]
+    ],
+    [
+     [
+      "grill",
+      2
+     ],
+     [
+      "seaweed",
+      2
+     ],
+     [
+      "smoothie",
+      2
+     ],
+     [
+      "energy",
+      1
+     ],
+     [
+      "coins",
+      2
+     ]
+    ],
+    [
+     [
+      "grill",
+      3
+     ],
+     [
+      "seaweed",
+      3
+     ],
+     [
+      "smoothie",
+      3
+     ],
+     [
+      "pearl",
+      3
+     ],
+     [
+      "energy",
+      2
+     ],
+     [
+      "gems",
+      1
+     ],
+     [
+      "coins",
+      3
+     ],
+     [
+      "scissors",
+      1
+     ]
+    ]
+   ]
+  }
+ }
+}

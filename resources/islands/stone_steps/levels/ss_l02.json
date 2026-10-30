@@ -1,0 +1,45 @@
+{
+  "format_version": 1,
+  "grid": [
+    "######",
+    "#....#",
+    "#....#",
+    "#.B###",
+    "#o.@.#",
+    "######"
+  ],
+  "h": 6,
+  "id": "ss_l02",
+  "island": "stone_steps",
+  "name": "Moss Step",
+  "objectives": {
+    "optional": [
+      {
+        "type": "moves_at_most",
+        "value": 17
+      }
+    ]
+  },
+  "par": 13,
+  "pushes": 4,
+  "rewards": {
+    "cafe_coins": 11,
+    "essence": 16
+  },
+  "solution": [
+    "W",
+    "N",
+    "W",
+    "N",
+    "N",
+    "E",
+    "E",
+    "S",
+    "W",
+    "N",
+    "W",
+    "S",
+    "S"
+  ],
+  "w": 6
+}
