@@ -12,6 +12,11 @@ on:
   pull_request:
     paths: ["export_presets.cfg", "project.godot", ".github/workflows/android-build.yml", "tools/ci/**", "plugins/**", "addons/**"]
   workflow_dispatch:
+    inputs:
+      attach_to:
+        description: "Also attach the APK to this existing release tag (e.g. ios-build-22); empty = its own pre-release"
+        required: false
+        default: ""
   workflow_call:
     secrets:
       ANDROID_KEYSTORE_BASE64:
@@ -170,3 +175,56 @@ jobs:
             build/metadata.json
           retention-days: 30
           if-no-files-found: error
+
+  publish-release:
+    # Manual runs only (not every push/PR): publishes the APK on the Releases page,
+    # as its own pre-release or attached to an existing release (input attach_to).
+    needs: android
+    if: github.event_name == 'workflow_dispatch' && contains(github.workflow_ref, '/.github/workflows/android-build.yml@')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: luma-android-${{ github.run_number }}-${{ github.sha }}
+          path: dist
+
+      - name: Publish APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ATTACH_TO: ${{ inputs.attach_to }}
+        run: |
+          set -euo pipefail
+          VERSION=$(python3 -c "import json; print(json.load(open('dist/metadata.json'))['version'])")
+          FILES=()
+          for kind in release debug; do
+            src="dist/android/luma-${kind}.apk"
+            [ -f "$src" ] || continue
+            dst="dist/LUMA-${VERSION}-android-build${{ github.run_number }}-${kind}.apk"
+            cp "$src" "$dst"
+            unzip -l "$dst" | grep -q "AndroidManifest.xml"
+            FILES+=("$dst")
+          done
+          [ "${#FILES[@]}" -gt 0 ] || { echo "no APK in the artefact"; exit 1; }
+          (cd dist && sha256sum $(for f in "${FILES[@]}"; do basename "$f"; done) > SHA256SUMS-android.txt)
+          if [ -n "$ATTACH_TO" ]; then
+            gh release upload "$ATTACH_TO" "${FILES[@]}" dist/SHA256SUMS-android.txt --clobber
+            TAG="$ATTACH_TO"
+          else
+            TAG="android-build-${{ github.run_number }}"
+            {
+              echo "Android build ${{ github.run_number }} of LUMA ${VERSION}."
+              echo ""
+              echo "- Commit: ${GITHUB_SHA} (\`${GITHUB_REF_NAME}\`)"
+              echo "- Workflow run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+              echo ""
+              echo "The debug APK installs directly (enable installs from unknown sources)."
+            } > notes.md
+            gh release create "$TAG" "${FILES[@]}" dist/SHA256SUMS-android.txt --target "$GITHUB_SHA" \
+              --title "LUMA ${VERSION} · Android build ${{ github.run_number }}" \
+              --notes-file notes.md --prerelease --latest=false
+          fi
+          echo "## Release" >> "$GITHUB_STEP_SUMMARY"
+          echo "APK published: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${TAG}" >> "$GITHUB_STEP_SUMMARY"
